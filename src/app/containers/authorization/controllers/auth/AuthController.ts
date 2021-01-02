@@ -1,17 +1,16 @@
 import express from "express";
 import { Request, Response } from "express";
 
-import { CoreController } from "../../../../core/controller/CoreController";
-import { User } from "../../models/user/User";
+import { CoreController } from "../../../../ship/core/controller/CoreController";
+import { User } from "../../models/User";
 
 import { IAuthController } from "./IAuthController";
 
 export class AuthController extends CoreController implements IAuthController {
-    public router = express.Router();
-
     constructor() {
         super();
         this.prefix = "/auth";
+        this.router = express.Router();
         this.initRoutes();
     }
 

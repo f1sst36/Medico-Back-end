@@ -4,17 +4,15 @@ import "dotenv/config";
 
 import { Sequelize } from "sequelize";
 
-import { swaggerDocs } from "../swagger";
+import { swaggerDocs } from "./swagger";
 import swaggerUi from "swagger-ui-express";
-
-import { User, userSchema } from "./containers/common/models/user/User";
 
 export class App {
     public app: Application;
     public port: number;
     public sequelize: any;
 
-    constructor(appInit: { port: number; middlewares: any; controllers: any }) {
+    constructor(appInit: { port: number; middlewares: any; controllers: any; models: any }) {
         this.app = express();
         this.port = appInit.port;
 
@@ -23,7 +21,7 @@ export class App {
         this.initSwagger();
 
         this.initDataBaseConnection();
-        this.initModels();
+        this.initModels(appInit.models);
         this.sequelize.sync({ force: false });
     }
 
@@ -51,9 +49,11 @@ export class App {
         );
     }
 
-    private initModels() {
+    private initModels(models: Array<{ model: any; schema: object; tableName: string }>) {
         const sequelize = this.sequelize;
-        User.init(userSchema, { tableName: "Users", sequelize });
+        models.forEach((model) => {
+            model.model.init(model.schema, { tableName: model.tableName, sequelize });
+        });
     }
 
     private initSwagger() {

@@ -1,6 +1,8 @@
-import { Association, DataTypes, Model } from "sequelize";
+import { Association, DataTypes } from "sequelize";
 
-export class User extends Model {
+import { CoreModel } from "../../../ship/core/model/CoreModel"
+
+export class User extends CoreModel {
     public readonly id: number;
     public name: string;
     public age: number;

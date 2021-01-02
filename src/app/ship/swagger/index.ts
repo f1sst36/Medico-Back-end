@@ -21,7 +21,7 @@ const swaggerOptions = {
             },
         },
     },
-    apis: [path.resolve("./src/app//containers/*/controllers/docs.ts")],
+    apis: [path.resolve("./src/app/containers/*/controllers/docs.ts")],
 };
 
 export const swaggerDocs = swaggerJsDoc(swaggerOptions);
