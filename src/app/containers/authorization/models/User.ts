@@ -1,11 +1,20 @@
 import { Association, DataTypes } from "sequelize";
 
-import { CoreModel } from "../../../ship/core/model/CoreModel"
+import { CoreModel } from "../../../ship/core/model/CoreModel";
 
 export class User extends CoreModel {
     public readonly id: number;
     public name: string;
+    public surname: string;
+    public middleName: string;
     public age: number;
+    public sex: string;
+    public birthDate: Date;
+    public phone: string;
+    public email: string;
+    public isActivated: boolean;
+    public isFullData: boolean;
+    public password: string;
     public createdAt: Date;
     public updatedAt: Date;
 
@@ -36,9 +45,47 @@ export const userSchema = {
         allowNull: false,
         type: DataTypes.STRING,
     },
+    surname: {
+        allowNull: false,
+        type: DataTypes.STRING,
+    },
+    middleName: {
+        allowNull: false,
+        type: DataTypes.STRING,
+    },
     age: {
         allowNull: false,
         type: DataTypes.INTEGER,
+    },
+    sex: {
+        allowNull: false,
+        type: DataTypes.ENUM("male", "female"),
+    },
+    birthDate: {
+        allowNull: false,
+        type: DataTypes.DATE,
+    },
+    phone: {
+        allowNull: false,
+        type: DataTypes.STRING,
+    },
+    email: {
+        allowNull: false,
+        type: DataTypes.STRING,
+    },
+    isActivated: {
+        allowNull: false,
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+    },
+    isFullData: {
+        allowNull: false,
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+    },
+    password: {
+        allowNull: false,
+        type: DataTypes.STRING,
     },
     createdAt: {
         allowNull: false,

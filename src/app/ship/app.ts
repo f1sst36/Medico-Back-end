@@ -12,12 +12,18 @@ export class App {
     public port: number;
     public sequelize: any;
 
-    constructor(appInit: { port: number; middlewares: any; controllers: any; models: any }) {
+    constructor(appInit: {
+        port: number;
+        prefix: string;
+        middlewares: any;
+        controllers: any;
+        models: any;
+    }) {
         this.app = express();
         this.port = appInit.port;
 
         this.initMiddlewares(appInit.middlewares);
-        this.initRoutes(appInit.controllers);
+        this.initRoutes(appInit.controllers, appInit.prefix);
         this.initSwagger();
 
         this.initDataBaseConnection();
@@ -26,14 +32,15 @@ export class App {
     }
 
     private initMiddlewares(middlewares: Array<any>) {
+        this.app.use(express.json());
         middlewares.forEach((middleware) => {
             this.app.use(middleware);
         });
     }
 
-    private initRoutes(controllers: Array<any>) {
+    private initRoutes(controllers: Array<any>, prefix: string) {
         controllers.forEach((controller) => {
-            this.app.use("/", controller.router);
+            this.app.use(prefix, controller.router);
         });
     }
 
