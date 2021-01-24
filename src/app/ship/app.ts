@@ -33,6 +33,7 @@ export class App {
 
     private initMiddlewares(middlewares: Array<any>) {
         this.app.use(express.json());
+        // this.app.use(express.urlencoded({ extended: false }));
         middlewares.forEach((middleware) => {
             this.app.use(middleware);
         });

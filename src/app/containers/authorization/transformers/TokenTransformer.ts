@@ -6,7 +6,7 @@ interface IToken {
 }
 
 class TokenTransformer extends CoreTransformer {
-    public transform = (token): Object => {
+    public transform = (token: string): Object => {
         const response: IToken = {
             accessToken: token,
             tokenType: "Bearer",
