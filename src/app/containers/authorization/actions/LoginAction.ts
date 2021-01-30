@@ -13,7 +13,8 @@ class LoginAction extends CoreAction {
         const validPass = await bcrypt.compare(req.body.password, user.password);
         if (!validPass) return { error: 1, message: "Неверный логин или пароль" };
 
-        const token = jwt.sign({ _id: user.id }, process.env.TOKEN_SECRET_KEY);
+        // const token = jwt.sign({ _id: user.id }, process.env.TOKEN_SECRET_KEY);
+        const token = jwt.sign({ _user: user }, process.env.TOKEN_SECRET_KEY);
         return { error: 0, data: token };
     };
 }

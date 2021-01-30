@@ -52,6 +52,7 @@ export const userSchema = {
     middleName: {
         allowNull: false,
         type: DataTypes.STRING,
+        defaultValue: "",
     },
     age: {
         allowNull: false,

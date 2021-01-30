@@ -1,8 +1,6 @@
 import express from "express";
 import { Request, Response } from "express";
-import { validationResult } from "express-validator";
 
-import { errorFormatter } from "../../../../ship/exceptions/errorFormatter";
 import { CoreController } from "../../../../ship/core/controller/CoreController";
 import { registrationValidator, loginValidator } from "../../validators";
 import { loginAction, registrationAction } from "../../actions";
@@ -22,11 +20,7 @@ export class AuthController extends CoreController {
     }
 
     login = async (req: Request, res: Response): Promise<Response> => {
-        const errors = validationResult(req).formatWith(errorFormatter);
-        if (!errors.isEmpty())
-            return res
-                .status(400)
-                .json(tokenTransformer.getErrorResponse("Ошибка валидации", errors.array()));
+        if (this.validateRequest(req, res)) return;
 
         const result = await loginAction.run(req);
 
@@ -42,11 +36,7 @@ export class AuthController extends CoreController {
     };
 
     registration = async (req: Request, res: Response): Promise<Response> => {
-        const errors = validationResult(req).formatWith(errorFormatter);
-        if (!errors.isEmpty())
-            return res
-                .status(400)
-                .json(tokenTransformer.getErrorResponse("Ошибка валидации", errors.array()));
+        if (this.validateRequest(req, res)) return;
 
         const result = await registrationAction.run(req);
 

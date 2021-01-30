@@ -4,7 +4,7 @@ export interface IResponse {
     message?: string;
 }
 
-export abstract class CoreTransformer {
+export class CoreTransformer {
     public getSimpleSuccessResponse(data: Object) {
         const successSimpleResponse: IResponse = {
             error: 0,
@@ -22,3 +22,5 @@ export abstract class CoreTransformer {
         return errorResponse;
     }
 }
+
+export const coreTransformer = new CoreTransformer();

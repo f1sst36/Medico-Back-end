@@ -9,11 +9,15 @@ export const registrationValidator = [
         .withMessage("Имя должно быть от 3 до 120 символов"),
     Validator.body("age", "Возраст не может быть пустым")
         .isNumeric()
-        .withMessage("Поле должно быть числом"),
+        .withMessage("Возраст должен быть числом"),
     Validator.body("password", "Парль не может быть пустым")
         .isLength({
             min: 6,
             max: 40,
         })
         .withMessage("Пароль должен быть от 6 до 40 символов"),
+    Validator.body("email", "Почта не может быть пустой")
+        .exists()
+        .isEmail()
+        .withMessage("Неверный e-mail"),
 ];
