@@ -11,7 +11,7 @@ class TokenTransformer extends CoreTransformer {
             accessToken: token,
             tokenType: "Bearer",
         };
-        return this.getSimpleSuccessResponse(response);
+        return this.getSimpleSuccessResponse("", response);
     };
 }
 

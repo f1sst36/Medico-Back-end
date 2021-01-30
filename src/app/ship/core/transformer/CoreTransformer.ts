@@ -1,19 +1,20 @@
 export interface IResponse {
-    error: number;
+    error: Number;
     data: Object;
-    message?: string;
+    message?: String;
 }
 
 export class CoreTransformer {
-    public getSimpleSuccessResponse(data: Object) {
+    public getSimpleSuccessResponse(message: String, data: Object | null = null) {
         const successSimpleResponse: IResponse = {
             error: 0,
             data: data,
+            message: message,
         };
         return successSimpleResponse;
     }
 
-    public getErrorResponse(errorMessage: string, errorObject: Object | null = null) {
+    public getErrorResponse(errorMessage: String, errorObject: Object | null = null) {
         const errorResponse: IResponse = {
             error: 1,
             data: errorObject,

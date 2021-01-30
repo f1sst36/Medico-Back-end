@@ -30,6 +30,19 @@ class UserRepository extends CoreRepository {
             return null;
         }
     };
+
+    getUserByConfirmationToken = (token: String): User => {
+        try {
+            const user = this.model.findOne({
+                where: {
+                    confirmationToken: token,
+                },
+            });
+            return user;
+        } catch (error) {
+            return null;
+        }
+    };
 }
 
 export const userRepository = new UserRepository();

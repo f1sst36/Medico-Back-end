@@ -15,6 +15,7 @@ export class User extends CoreModel {
     public isActivated: boolean;
     public isFullData: boolean;
     public password: string;
+    public confirmationToken: string;
     public createdAt: Date;
     public updatedAt: Date;
 
@@ -85,6 +86,10 @@ export const userSchema = {
         defaultValue: false,
     },
     password: {
+        allowNull: false,
+        type: DataTypes.STRING,
+    },
+    confirmationToken: {
         allowNull: false,
         type: DataTypes.STRING,
     },
