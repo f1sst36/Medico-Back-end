@@ -10,6 +10,8 @@ class LoginAction extends CoreAction {
         const user = await userRepository.getUserByFields({ email: req.body.email });
         if (!user) return { error: 1, message: "Неверный логин или пароль" };
 
+        if (!user.isActivated) return { error: 1, message: "Аккаунт не подтвержден" };
+
         const validPass = await bcrypt.compare(req.body.password, user.password);
         if (!validPass) return { error: 1, message: "Неверный логин или пароль" };
 

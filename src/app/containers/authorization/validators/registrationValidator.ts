@@ -7,6 +7,12 @@ export const registrationValidator = [
             max: 120,
         })
         .withMessage("Имя должно быть от 3 до 120 символов"),
+    Validator.body("surname", "Фамилия не может быть пустой")
+        .isLength({
+            min: 3,
+            max: 120,
+        })
+        .withMessage("Фамилия должна быть от 3 до 120 символов"),
     Validator.body("age", "Возраст не может быть пустым")
         .isNumeric()
         .withMessage("Возраст должен быть числом"),
@@ -20,4 +26,11 @@ export const registrationValidator = [
         .exists()
         .isEmail()
         .withMessage("Неверный e-mail"),
+    Validator.body("phone", "Номер телефона обязателен")
+        .matches(/^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$/)
+        .withMessage("Номер телефона имеет неверный формат"),
+    Validator.body("sex", "Необходимо указать пол")
+        .matches(/\b(?:male|female)\b/)
+        .withMessage("Выберите пол"),
+    Validator.body("birthDate", "Укажите дату рождения"),
 ];

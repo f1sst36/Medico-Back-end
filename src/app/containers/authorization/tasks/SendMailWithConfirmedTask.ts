@@ -5,36 +5,40 @@ import handlebars from "handlebars";
 import fs from "fs";
 
 class SendMailWithConfirmedTask extends CoreTask {
-    private readHTMLFile = (path, callback) => {
-        fs.readFile(path, { encoding: "utf-8" }, function (err, html) {
-            if (err) throw err;
-            else callback(null, html);
-        });
-    };
+    private result: IResult;
 
     public run = async (
         recipient: String,
         userName: String,
         confirmationToken: String
     ): Promise<IResult> => {
-        this.readHTMLFile(
+        const html = fs.readFileSync(
             __dirname + "../../../../ship/mail/templates/confirmAccount.html",
-            async (_, html) => {
-                const template = handlebars.compile(html);
-                const replacements = {
-                    username: userName,
-                    link: process.env.FRONT_APP_URL + "" + confirmationToken,
-                };
-                const htmlToSend = template(replacements);
-
-                await sendMail(recipient, "Подтверждение аккаунта", htmlToSend);
-            }
+            { encoding: "utf-8" }
         );
 
-        return {
-            error: 0,
-            message: "На указанную почту было выслано письмо с подтверждением аккаунта",
-        };
+        if (html) {
+            const template = handlebars.compile(html);
+            const replacements = {
+                username: userName,
+                link: process.env.FRONT_APP_URL + "" + confirmationToken,
+            };
+            const htmlToSend = template(replacements);
+
+            await sendMail(recipient, "Подтверждение аккаунта", htmlToSend);
+
+            this.result = {
+                error: 0,
+                message: "На указанную почту было выслано письмо с подтверждением аккаунта",
+            };
+        } else {
+            this.result = {
+                error: 1,
+                message: "Ошибка при отправке письма",
+            };
+        }
+
+        return this.result;
     };
 }
 

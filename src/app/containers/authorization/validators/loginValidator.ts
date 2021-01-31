@@ -5,5 +5,10 @@ export const loginValidator = [
         .exists()
         .isEmail()
         .withMessage("Неверный e-mail"),
-    Validator.body("password", "Пароль не может быть пустым").exists(),
+    Validator.body("password", "Парль не может быть пустым")
+        .isLength({
+            min: 6,
+            max: 40,
+        })
+        .withMessage("Пароль должен быть от 6 до 40 символов"),
 ];
