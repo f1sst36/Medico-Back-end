@@ -12,6 +12,7 @@ interface IParams {
     email: String;
     hashedPassword: String;
     confirmationToken: String;
+    acceptedUserAgreement: Boolean;
 }
 
 class CreateNewUserTask extends CoreTask {
@@ -27,6 +28,7 @@ class CreateNewUserTask extends CoreTask {
             email: data.email,
             password: data.hashedPassword,
             confirmationToken: data.confirmationToken,
+            acceptedUserAgreement: data.acceptedUserAgreement,
         }).catch((_) => {
             return null;
         });

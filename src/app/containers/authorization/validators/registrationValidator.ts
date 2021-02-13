@@ -32,5 +32,16 @@ export const registrationValidator = [
     Validator.body("sex", "Необходимо указать пол")
         .matches(/\b(?:male|female)\b/)
         .withMessage("Выберите пол"),
-    Validator.body("birthDate", "Укажите дату рождения"),
+    Validator.body("birthDate", "Укажите дату рождения")
+        .isLength({
+            min: 4,
+            max: 100,
+        })
+        .withMessage("Неверный формат даты рождения"),
+    Validator.body("userType", "Укажите тип пользователя")
+        .matches(/\b(?:pacient|doctor)\b/)
+        .withMessage("Выберите тип пользователя"),
+    Validator.body("acceptedUserAgreement", "Необходимо принять пользовательское соглашение")
+        .matches(/\b(?:true|1)\b/)
+        .withMessage("Необходимо принять пользовательское соглашение"),
 ];

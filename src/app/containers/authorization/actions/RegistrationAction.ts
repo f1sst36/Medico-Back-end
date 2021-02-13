@@ -5,6 +5,8 @@ import { CoreAction, IResult } from "../../../ship/core/action/CoreAction";
 import { userRepository } from "../../user/repositories/UserRepository";
 import { sendMailWithConfirmedTask } from "../tasks/SendMailWithConfirmedTask";
 import { createNewUserTask } from "../../user/tasks/createNewUserTask";
+import { createNewPacientTask } from "../../pacient/tasks/CreateNewPacientTask";
+import { createNewDoctorTask } from "../../doctor/tasks/CreateNewDoctorTask";
 
 class RegistrationAction extends CoreAction {
     public run = async (req: Request): Promise<IResult> => {
@@ -35,29 +37,23 @@ class RegistrationAction extends CoreAction {
             email: req.body.email,
             hashedPassword: hashedPassword,
             confirmationToken: confirmationToken,
+            acceptedUserAgreement: req.body.acceptedUserAgreement,
         });
 
         if (!newUser) return { error: 1, message: "Ошибка создания пользователя" };
 
-        // await User.create({
-        //     name: req.body.name,
-        //     surname: req.body.surname,
-        //     middleName: req.body.middleName,
-        //     age: req.body.age,
-        //     sex: req.body.sex,
-        //     birthDate: req.body.birthDate,
-        //     phone: req.body.phone,
-        //     email: req.body.email,
-        //     password: hashedPassword,
-        //     confirmationToken: confirmationToken,
-        // }).catch((_) => {
-        //     return { error: 1, message: "Ошибка создания пользователя" };
-        // });
+        if (req.body.userType === "doctor") {
+            const newDoctor = await createNewDoctorTask.run(newUser.id);
+            if (!newDoctor) return { error: 1, message: "Ошибка создания доктора" };
+        } else if (req.body.userType === "pacient") {
+            const newPacient = await createNewPacientTask.run(newUser.id);
+            if (!newPacient) return { error: 1, message: "Ошибка создания пациента" };
+        }
 
         return await sendMailWithConfirmedTask.run(
-            req.body.email,
-            req.body.name,
-            confirmationToken
+            newUser.email,
+            newUser.name,
+            newUser.confirmationToken
         );
     };
 }

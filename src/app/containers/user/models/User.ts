@@ -3,25 +3,21 @@ import { Association, DataTypes } from "sequelize";
 import { CoreModel } from "../../../ship/core/model/CoreModel";
 
 export class User extends CoreModel {
-    public readonly id: number;
-    public name: string;
-    public surname: string;
-    public middleName: string;
-    public age: number;
-    public sex: string;
+    public readonly id: Number;
+    public name: String;
+    public surname: String;
+    public middleName: String;
+    public age: Number;
+    public sex: String;
     public birthDate: Date;
-    public phone: string;
-    public email: string;
-    public isActivated: boolean;
-    public isFullData: boolean;
-    public password: string;
-    public confirmationToken: string;
-    public createdAt: Date;
-    public updatedAt: Date;
-
-    getSomeData() {
-        console.log(this.name + this.age);
-    }
+    public phone: String;
+    public email: String;
+    public isActivated: Boolean;
+    public password: String;
+    public confirmationToken: String;
+    public acceptedUserAgreement: Boolean;
+    public readonly createdAt: Date;
+    public readonly updatedAt: Date;
 
     // static associate(models) {
     //     User.belongsTo(models.Post, {
@@ -80,11 +76,6 @@ export const userSchema = {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
     },
-    isFullData: {
-        allowNull: false,
-        type: DataTypes.BOOLEAN,
-        defaultValue: false,
-    },
     password: {
         allowNull: false,
         type: DataTypes.STRING,
@@ -92,6 +83,10 @@ export const userSchema = {
     confirmationToken: {
         allowNull: false,
         type: DataTypes.STRING,
+    },
+    acceptedUserAgreement: {
+        allowNull: false,
+        type: DataTypes.BOOLEAN,
     },
     createdAt: {
         allowNull: false,

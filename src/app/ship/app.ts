@@ -32,7 +32,7 @@ export class App {
 
         this.initDataBaseConnection();
         this.initModels(appInit.models);
-        this.sequelize.sync({ force: true });
+        this.sequelize.sync({ force: false });
     }
 
     private initMiddlewares(middlewares: Array<any>) {

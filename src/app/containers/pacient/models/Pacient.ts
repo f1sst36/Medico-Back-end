@@ -5,34 +5,20 @@ import { User } from "../../user/models/User";
 
 export class Pacient extends CoreModel {
     public readonly id: Number;
+    public weight: Number;
     public height: Number;
     public bloodType: String;
+    public RHFactor: String;
     public allergies: Array<String>;
     public chronicDiseases: Array<String>;
-    public operations: Array<String>;
-    public isSmoker: Boolean;
-    public isAlcoholic: Boolean;
-    public badHabits: Array<String>;
-    public bloodTransfusion: String;
+    public operations: String;
+    public isSmoker: String;
+    public isAlcoholic: String;
+    public badHabits: String;
+    public bloodTransfusion: Boolean;
 
     public user: User;
-
-    // static associate(models) {
-    //     Pacient.hasOne(models.User, {
-    //         foreignKey: "id",
-    //         as: "user",
-    //     });
-    // }
-
-    // public static associations: {
-    //     projects: Association<User, Project>;
-    // };
 }
-
-// Pacient.hasOne(User, {
-//     foreignKey: "id",
-//     as: "user",
-// });
 
 export const pacientSchema = {
     id: {
@@ -41,21 +27,17 @@ export const pacientSchema = {
         primaryKey: true,
         type: DataTypes.INTEGER,
     },
+    weight: {
+        type: DataTypes.FLOAT,
+    },
     height: {
         type: DataTypes.FLOAT,
     },
     bloodType: {
-        type: DataTypes.ENUM(
-            "abNegative",
-            "abPositive ",
-            "aNegative",
-            "aPositive",
-            "bNegative",
-            "bPositive",
-            "oNegative",
-            "oPositive",
-            "notSet"
-        ),
+        type: DataTypes.ENUM("I", "II", "III", "IV"),
+    },
+    RHFactor: {
+        type: DataTypes.ENUM("Rh+", "Rh-"),
     },
     allergies: {
         type: DataTypes.ARRAY(DataTypes.STRING),
@@ -64,16 +46,21 @@ export const pacientSchema = {
         type: DataTypes.ARRAY(DataTypes.STRING),
     },
     operations: {
-        type: DataTypes.ARRAY(DataTypes.STRING),
+        type: DataTypes.JSON,
     },
     isSmoker: {
-        type: DataTypes.BOOLEAN,
+        type: DataTypes.ENUM("Да", "Нет", "Иногда"),
     },
     isAlcoholic: {
-        type: DataTypes.BOOLEAN,
+        type: DataTypes.ENUM(
+            "1 раз в год",
+            "1 раз в месяц",
+            "1 раз в неделю",
+            "более 3 раз в неделю"
+        ),
     },
     badHabits: {
-        type: DataTypes.ARRAY(DataTypes.STRING),
+        type: DataTypes.TEXT,
     },
     bloodTransfusion: {
         type: DataTypes.DATE,

@@ -132,7 +132,6 @@
  *            password: qwe123WE
  */
 
-
 /**
  * @swagger
  * /auth/sign-up:
@@ -263,4 +262,65 @@
  *          type: date
  *          example:
  *            birthDate: "2021-05-31"
+ *      - name: userType
+ *        in: body
+ *        description: "enum: 'doctor' or 'pacient'"
+ *        required: true
+ *        schema:
+ *          type: string
+ *          example:
+ *            userType: "doctor"
+ *      - name: acceptedUserAgreement
+ *        in: body
+ *        description: "true: 1 or 'true'"
+ *        required: true
+ *        schema:
+ *          type: string
+ *          example:
+ *            acceptedUserAgreement: true
+ */
+
+ /**
+ * @swagger
+ * /auth/confirmation-account:
+ *    get:
+ *      tags:
+ *        - Authorization
+ *      description: Confirmation account. /auth/confirmation-account?token=$2a$10$c21tI4D7gtmG58Q5RQF5duP7AI9YzxdpCDHgPhLVZ75zAxF1VCT2C
+ *      responses:
+ *        '200':
+ *          description: Successfully confirmed account
+ *          schema:
+ *            type: object
+ *            properties:
+ *              error:
+ *                type: integer
+ *                example: 0
+ *              data:
+ *                type: object
+ *                example: null
+ *              message:
+ *                type: string
+ *                example: Аккаунт пользователя подтвержден
+ *                description: Reply message
+ *        '400':
+ *          description: Bad request
+ *          schema:
+ *            type: object
+ *            properties:
+ *              error:
+ *                type: integer
+ *                example: 1
+ *              data:
+ *                type: object
+ *                example: null
+ *              message:
+ *                type: string
+ *                description: Reply message
+ *    parameters:
+ *      - name: token
+ *        in: query
+ *        description: token of confirmation
+ *        required: true
+ *        type: string
  */

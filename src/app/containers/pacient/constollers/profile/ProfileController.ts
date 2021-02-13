@@ -21,9 +21,9 @@ export class ProfileController extends CoreController {
 
     private result = {};
 
-    getPacientInfo = async (req: Request, res: Response): Promise<Response> => {
+    getPacientInfo = async (req: any, res: Response): Promise<Response> => {
         // if (this.validateRequest(req, res)) return;
-
+// console.log(req.body.user);
         const newUser = await User.create({
             name: "Vasya Pool",
             age: 2456,
@@ -35,14 +35,14 @@ export class ProfileController extends CoreController {
             middleName: "123456",
             email: "f1dfgfgh6@gmail.com",
             confirmationToken: "423562h562b6g23gv",
+            acceptedUserAgreement: true,
         });
 
         const newPacient = await Pacient.create({
             id: newUser.id,
-            isSmoker: false,
         });
 
-        console.log("User-pacient", newPacient);
+        // console.log("User-pacient", newPacient);
 
         const newUser2 = await User.create({
             name: "Vasya Pool 2",
@@ -55,14 +55,14 @@ export class ProfileController extends CoreController {
             middleName: "123456",
             email: "f1d74fgh6@gmail.com",
             confirmationToken: "423562h562b6g23gv",
+            acceptedUserAgreement: true,
         });
 
         const newDoctor = await Doctor.create({
             id: newUser2.id,
-            IIN: "63462474745",
         });
 
-        console.log("User-doctor", newDoctor);
+        // console.log("User-doctor", newDoctor);
 
         Doctor.findAll({
             include: [
@@ -73,7 +73,7 @@ export class ProfileController extends CoreController {
             ],
         })
             .then((data) => {
-                console.log("Doctor", data);
+                // console.log("Doctor", data);
             })
             .catch((err) => {
                 this.result = res.status(200).json({
@@ -92,7 +92,7 @@ export class ProfileController extends CoreController {
             ],
         })
             .then((data) => {
-                console.log("Pacient", data);
+                // console.log("Pacient", data);
             })
             .catch((err) => {
                 this.result = res.status(200).json({
@@ -101,50 +101,6 @@ export class ProfileController extends CoreController {
                     message: "Ошибка выборки пациента",
                 });
             });
-
-        // .then((newPacient) => {
-        //     User.create({
-        //         id: newPacient.id,
-        //         name: "Vasya Pool",
-        //         age: 2456,
-        //         password: "123456",
-        //         phone: "+634574576570",
-        //         sex: "female",
-        //         birthDate: "2021-05-30",
-        //         surname: "123456",
-        //         middleName: "123456",
-        //         email: "f1dfgfgh6@gmail.com",
-        //         confirmationToken: "423562h562b6g23gv",
-        //     })
-        //         .then((newPacient) => {
-        //             // console.log(newPacient);
-        //             Pacient.findAll({ include: "user" })
-        //                 .then((data) => {
-        //                     console.log("USER", data);
-        //                 })
-        //                 .catch((err) => {
-        //                     this.result = res.status(200).json({
-        //                         error: 1,
-        //                         data: err,
-        //                         message: "Ошибка выборки пациента",
-        //                     });
-        //                 });
-
-        //             // newPacient.associate();
-        //         })
-        //         .catch((err) => {
-        //             this.result = res
-        //                 .status(200)
-        //                 .json({ error: 1, data: err, message: "Ошибка создания пациента" });
-        //         });
-        // })
-        // .catch((err) => {
-        //     console.log(err);
-        //     this.result = res
-        //         .status(200)
-        //         .json({ error: 1, data: err, message: "Ошибка создания пользователя" });
-        // });
-        // console.log(newUser);
 
         return res.status(200).json(this.result);
     };
