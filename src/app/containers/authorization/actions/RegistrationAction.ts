@@ -2,9 +2,9 @@ import { Request } from "express";
 import bcrypt from "bcryptjs";
 
 import { CoreAction, IResult } from "../../../ship/core/action/CoreAction";
-import { userRepository } from "../repositories/UserRepository";
-import { User } from "../models/User";
+import { userRepository } from "../../user/repositories/UserRepository";
 import { sendMailWithConfirmedTask } from "../tasks/SendMailWithConfirmedTask";
+import { createNewUserTask } from "../../user/tasks/createNewUserTask";
 
 class RegistrationAction extends CoreAction {
     public run = async (req: Request): Promise<IResult> => {
@@ -24,7 +24,7 @@ class RegistrationAction extends CoreAction {
 
         const confirmationToken = await bcrypt.hash(req.body.email, salt);
 
-        await User.create({
+        const newUser = await createNewUserTask.run({
             name: req.body.name,
             surname: req.body.surname,
             middleName: req.body.middleName,
@@ -33,13 +33,32 @@ class RegistrationAction extends CoreAction {
             birthDate: req.body.birthDate,
             phone: req.body.phone,
             email: req.body.email,
-            password: hashedPassword,
+            hashedPassword: hashedPassword,
             confirmationToken: confirmationToken,
-        }).catch((_) => {
-            return { error: 1, message: "Ошибка создания пользователя" };
         });
 
-        return await sendMailWithConfirmedTask.run(req.body.email, req.body.name, confirmationToken);
+        if (!newUser) return { error: 1, message: "Ошибка создания пользователя" };
+
+        // await User.create({
+        //     name: req.body.name,
+        //     surname: req.body.surname,
+        //     middleName: req.body.middleName,
+        //     age: req.body.age,
+        //     sex: req.body.sex,
+        //     birthDate: req.body.birthDate,
+        //     phone: req.body.phone,
+        //     email: req.body.email,
+        //     password: hashedPassword,
+        //     confirmationToken: confirmationToken,
+        // }).catch((_) => {
+        //     return { error: 1, message: "Ошибка создания пользователя" };
+        // });
+
+        return await sendMailWithConfirmedTask.run(
+            req.body.email,
+            req.body.name,
+            confirmationToken
+        );
     };
 }
 

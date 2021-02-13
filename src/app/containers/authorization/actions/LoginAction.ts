@@ -3,7 +3,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 import { CoreAction, IResult } from "../../../ship/core/action/CoreAction";
-import { userRepository } from "../repositories/UserRepository";
+import { userRepository } from "../../user/repositories/UserRepository";
 
 class LoginAction extends CoreAction {
     public run = async (req: Request): Promise<IResult> => {

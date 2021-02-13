@@ -1,5 +1,5 @@
 import { CoreAction, IResult } from "../../../ship/core/action/CoreAction";
-import { userRepository } from "../repositories/UserRepository";
+import { userRepository } from "../../user/repositories/UserRepository";
 
 class ConfirmationAccountAction extends CoreAction {
     public run = async (token: any): Promise<IResult> => {

@@ -7,6 +7,10 @@ import { Sequelize } from "sequelize";
 import { swaggerDocs } from "./swagger";
 import swaggerUi from "swagger-ui-express";
 
+import { Pacient } from "../containers/pacient/models/Pacient";
+import { Doctor } from "../containers/doctor/models/Doctor";
+import { User } from "../containers/user/models/User";
+
 export class App {
     public app: Application;
     public port: number;
@@ -28,7 +32,7 @@ export class App {
 
         this.initDataBaseConnection();
         this.initModels(appInit.models);
-        this.sequelize.sync({ force: false });
+        this.sequelize.sync({ force: true });
     }
 
     private initMiddlewares(middlewares: Array<any>) {
@@ -62,6 +66,10 @@ export class App {
         models.forEach((model) => {
             model.model.init(model.schema, { tableName: model.tableName, sequelize });
         });
+
+        // Relationships
+        Pacient.hasOne(User, { as: "user", foreignKey: "id", constraints: false });
+        Doctor.hasOne(User, { as: "user", foreignKey: "id", constraints: false });
     }
 
     private initSwagger() {
