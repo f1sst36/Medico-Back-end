@@ -4,7 +4,7 @@ import bcrypt from "bcryptjs";
 import { CoreAction, IResult } from "../../../ship/core/action/CoreAction";
 import { userRepository } from "../../user/repositories/UserRepository";
 import { sendMailWithConfirmedTask } from "../tasks/SendMailWithConfirmedTask";
-import { createNewUserTask } from "../../user/tasks/createNewUserTask";
+import { createNewUserTask } from "../../user/tasks/CreateNewUserTask";
 import { createNewPacientTask } from "../../pacient/tasks/CreateNewPacientTask";
 import { createNewDoctorTask } from "../../doctor/tasks/CreateNewDoctorTask";
 
