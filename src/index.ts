@@ -6,12 +6,15 @@ import { ProfileController } from "./app/containers/pacient/constollers/profile/
 
 import { User, userSchema } from "./app/containers/user/models/User";
 import { Pacient, pacientSchema } from "./app/containers/pacient/models/Pacient";
-import { Doctor, doctorSchema } from "./app/containers/doctor/models/Doctor";
 import {
-    jsonErrorHandler,
-    allowCrossDomain,
-    verifyJWTToken,
-} from "./app/ship/middlewares";
+    Doctor,
+    doctorSchema,
+    DoctorSpecialtiesLink,
+    doctorSpecialtiesLinkSchema,
+    Specialties,
+    specialtiesSchema,
+} from "./app/containers/doctor/models";
+import { jsonErrorHandler, allowCrossDomain, verifyJWTToken } from "./app/ship/middlewares";
 
 const app = new App({
     port: +process.env.PORT || 8080,
@@ -33,6 +36,16 @@ const app = new App({
             model: Doctor,
             schema: doctorSchema,
             tableName: "Doctors",
+        },
+        {
+            model: Specialties,
+            schema: specialtiesSchema,
+            tableName: "Specialties",
+        },
+        {
+            model: DoctorSpecialtiesLink,
+            schema: doctorSpecialtiesLinkSchema,
+            tableName: "DoctorSpecialtiesLink",
         },
     ],
 });

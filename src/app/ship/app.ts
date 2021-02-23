@@ -8,13 +8,13 @@ import { swaggerDocs } from "./swagger";
 import swaggerUi from "swagger-ui-express";
 
 import { Pacient } from "../containers/pacient/models/Pacient";
-import { Doctor } from "../containers/doctor/models/Doctor";
+import { Doctor, DoctorSpecialtiesLink, Specialties } from "../containers/doctor/models";
 import { User } from "../containers/user/models/User";
 
 export class App {
     public app: Application;
     public port: number;
-    public sequelize: any;
+    public sequelize: Sequelize;
 
     constructor(appInit: {
         port: number;
@@ -70,6 +70,15 @@ export class App {
         // Relationships
         Pacient.hasOne(User, { as: "user", foreignKey: "id", constraints: false });
         Doctor.hasOne(User, { as: "user", foreignKey: "id", constraints: false });
+
+        DoctorSpecialtiesLink.belongsTo(Doctor, {
+            as: "doctor",
+            foreignKey: "doctorId",
+        });
+        DoctorSpecialtiesLink.belongsTo(Specialties, {
+            as: "specialty",
+            foreignKey: "specialtyId",
+        });
     }
 
     private initSwagger() {

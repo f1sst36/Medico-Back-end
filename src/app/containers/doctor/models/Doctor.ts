@@ -17,7 +17,6 @@ export class Doctor extends CoreModel {
     public user: User;
 }
 
-
 export const doctorSchema = {
     id: {
         allowNull: false,
@@ -48,5 +47,5 @@ export const doctorSchema = {
     },
     education: {
         type: DataTypes.ARRAY(DataTypes.STRING),
-    }
+    },
 };
