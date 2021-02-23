@@ -10,6 +10,7 @@ import swaggerUi from "swagger-ui-express";
 import { Pacient } from "../containers/pacient/models/Pacient";
 import { Doctor, DoctorSpecialtiesLink, Specialties } from "../containers/doctor/models";
 import { User } from "../containers/user/models/User";
+import { Seeder } from "./database/seeders";
 
 export class App {
     public app: Application;
@@ -33,6 +34,9 @@ export class App {
         this.initDataBaseConnection();
         this.initModels(appInit.models);
         this.sequelize.sync({ force: false });
+
+        // seed
+        // Seeder.run();
     }
 
     private initMiddlewares(middlewares: Array<any>) {

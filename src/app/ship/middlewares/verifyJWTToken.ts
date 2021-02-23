@@ -7,10 +7,12 @@ const exceptUrls = [
     prefix + "/auth/sign-in",
     prefix + "/auth/sign-up",
     prefix + "/auth/confirmation-account",
+    prefix + "/doctor/specialties",
 ];
 
 export const verifyJWTToken = (req, res: Response, next: NextFunction) => {
-    if (exceptUrls.find(url => req.url.indexOf(url) !== 1)) return next();
+    for (let i = 0; i < exceptUrls.length; i++)
+        if (req.url.indexOf(exceptUrls[i]) !== -1) return next();
 
     const accessToken = req.header("accessToken");
     if (!accessToken) return res.status(401).send({ error: 1, message: "Access denied" });

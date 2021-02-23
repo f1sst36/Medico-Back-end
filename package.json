@@ -6,7 +6,8 @@
     "scripts": {
         "start": "nodemon",
         "dev": "tsc && node dist/index.js",
-        "build": "tsc"
+        "build": "tsc",
+        "seed": "ts-node src/app/ship/database/seeders/index.ts"
     },
     "repository": {
         "type": "git",
