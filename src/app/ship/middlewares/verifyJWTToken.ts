@@ -4,6 +4,7 @@ import { Response, NextFunction } from "express";
 
 const prefix = "/api/v1";
 const exceptUrls = [
+    "/api-docs",
     prefix + "/auth/sign-in",
     prefix + "/auth/sign-up",
     prefix + "/auth/confirmation-account",
@@ -22,6 +23,7 @@ export const verifyJWTToken = (req, res: Response, next: NextFunction) => {
         req.user = verified._user;
         // console.log(req);
 
+        // проверка на isActivated происходит во время логина (входа)
         // if (!req.user.isActivated)
         //     return {
         //         error: 1,

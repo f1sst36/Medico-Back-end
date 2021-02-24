@@ -63,6 +63,6 @@ export const pacientSchema = {
         type: DataTypes.TEXT,
     },
     bloodTransfusion: {
-        type: DataTypes.DATE,
+        type: DataTypes.BOOLEAN,
     },
 };

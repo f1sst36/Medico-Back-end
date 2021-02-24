@@ -16,6 +16,7 @@ export class User extends CoreModel {
     public password: String;
     public confirmationToken: String;
     public acceptedUserAgreement: Boolean;
+    public readonly userType: String;
     public readonly createdAt: Date;
     public readonly updatedAt: Date;
 
@@ -87,6 +88,10 @@ export const userSchema = {
     acceptedUserAgreement: {
         allowNull: false,
         type: DataTypes.BOOLEAN,
+    },
+    userType: {
+        allowNull: false,
+        type: DataTypes.ENUM("doctor", "pacient"),
     },
     createdAt: {
         allowNull: false,

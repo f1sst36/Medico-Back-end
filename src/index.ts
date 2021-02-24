@@ -2,7 +2,7 @@ import { App } from "./app/ship/app";
 import "dotenv/config";
 
 import { AuthController } from "./app/containers/authorization/controllers/auth/AuthController";
-import { ProfileController } from "./app/containers/pacient/constollers/profile/ProfileController";
+import { ProfileController } from "./app/containers/pacient/controllers/ProfileController";
 import { SpecialtiesController } from "./app/containers/doctor/controllers/SpecialtiesController";
 
 import { User, userSchema } from "./app/containers/user/models/User";

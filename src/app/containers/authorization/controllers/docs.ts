@@ -280,7 +280,7 @@
  *            acceptedUserAgreement: true
  */
 
- /**
+/**
  * @swagger
  * /auth/confirmation-account:
  *    get:

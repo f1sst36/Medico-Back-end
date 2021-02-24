@@ -38,6 +38,7 @@ class RegistrationAction extends CoreAction {
             hashedPassword: hashedPassword,
             confirmationToken: confirmationToken,
             acceptedUserAgreement: req.body.acceptedUserAgreement,
+            userType: req.body.userType,
         });
 
         if (!newUser) return { error: 1, message: "Ошибка создания пользователя" };

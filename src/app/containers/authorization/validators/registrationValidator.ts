@@ -21,7 +21,7 @@ export const registrationValidator = [
             min: 6,
             max: 40,
         })
-        .withMessage("Пароль должен быть от 6 до 40 символов"),
+        .withMessage("Пароль должен содержать от 6 до 40 символов"),
     Validator.body("email", "Почта не может быть пустой")
         .exists()
         .isEmail()
