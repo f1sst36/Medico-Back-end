@@ -13,9 +13,6 @@ export const registrationValidator = [
             max: 120,
         })
         .withMessage("Фамилия должна быть от 3 до 120 символов"),
-    Validator.body("age", "Возраст не может быть пустым")
-        .isNumeric()
-        .withMessage("Возраст должен быть числом"),
     Validator.body("password", "Парль не может быть пустым")
         .isLength({
             min: 6,
@@ -39,7 +36,7 @@ export const registrationValidator = [
         })
         .withMessage("Неверный формат даты рождения"),
     Validator.body("userType", "Укажите тип пользователя")
-        .matches(/\b(?:pacient|doctor)\b/)
+        .matches(/\b(?:patient|doctor)\b/)
         .withMessage("Выберите тип пользователя"),
     Validator.body("acceptedUserAgreement", "Необходимо принять пользовательское соглашение")
         .matches(/\b(?:true|1)\b/)

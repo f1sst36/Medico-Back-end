@@ -1,14 +1,14 @@
 import { CoreRepository } from "../../../ship/core/repository/CoreRepository";
 import { User } from "../../user/models/User";
-import { Pacient } from "../models/Pacient";
+import { Patient } from "../models/Patient";
 
-class PacientRepository extends CoreRepository {
+class PatientRepository extends CoreRepository {
     constructor() {
         super();
-        this.model = Pacient;
+        this.model = Patient;
     }
 
-    getPacientById = (id: Number): Promise<Pacient> => {
+    getPatientById = (id: Number): Promise<Patient> => {
         try {
             const result = this.model.findOne({
                 where: {
@@ -40,4 +40,4 @@ class PacientRepository extends CoreRepository {
     };
 }
 
-export const pacientRepository = new PacientRepository();
+export const patientRepository = new PatientRepository();

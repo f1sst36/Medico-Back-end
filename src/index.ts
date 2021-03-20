@@ -2,11 +2,11 @@ import { App } from "./app/ship/app";
 import "dotenv/config";
 
 import { AuthController } from "./app/containers/authorization/controllers/auth/AuthController";
-import { ProfileController } from "./app/containers/pacient/controllers/ProfileController";
+import { ProfileController } from "./app/containers/patient/controllers/ProfileController";
 import { SpecialtiesController } from "./app/containers/doctor/controllers/SpecialtiesController";
 
 import { User, userSchema } from "./app/containers/user/models/User";
-import { Pacient, pacientSchema } from "./app/containers/pacient/models/Pacient";
+import { Patient, patientSchema } from "./app/containers/patient/models/Patient";
 import {
     Doctor,
     doctorSchema,
@@ -29,9 +29,9 @@ const app = new App({
             tableName: "Users",
         },
         {
-            model: Pacient,
-            schema: pacientSchema,
-            tableName: "Pacients",
+            model: Patient,
+            schema: patientSchema,
+            tableName: "Patients",
         },
         {
             model: Doctor,

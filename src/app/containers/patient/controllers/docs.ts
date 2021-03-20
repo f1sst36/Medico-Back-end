@@ -1,9 +1,9 @@
 /**
  * @swagger
- * /pacient/profile/questionnaire:
+ * /patient/profile/questionnaire:
  *    post:
  *      tags:
- *        - Pacient
+ *        - Patient
  *      security:
  *        bearerAuth: []
  *      description: Fill the questionnaire form

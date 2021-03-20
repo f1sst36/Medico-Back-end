@@ -9,7 +9,7 @@ import { questionnaireFormValidator } from "../validators";
 export class ProfileController extends CoreController {
     constructor() {
         super();
-        this.prefix = "/pacient/profile";
+        this.prefix = "/patient/profile";
         this.router = express.Router();
         this.initRoutes();
     }
@@ -18,11 +18,11 @@ export class ProfileController extends CoreController {
         this.router.post(
             this.prefix + "/questionnaire",
             questionnaireFormValidator,
-            this.pacientQuestionnaireForm
+            this.patientQuestionnaireForm
         );
     }
 
-    pacientQuestionnaireForm = async (req: any, res: Response): Promise<Response> => {
+    patientQuestionnaireForm = async (req: any, res: Response): Promise<Response> => {
         if (this.validateRequest(req, res)) return;
 
         const result = await questionnaireFormAction.run(req.body, req.user.id);

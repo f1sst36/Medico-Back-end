@@ -7,7 +7,6 @@ export class User extends CoreModel {
     public name: String;
     public surname: String;
     public middleName: String;
-    public age: Number;
     public sex: String;
     public birthDate: Date;
     public phone: String;
@@ -52,10 +51,6 @@ export const userSchema = {
         type: DataTypes.STRING,
         defaultValue: "",
     },
-    age: {
-        allowNull: false,
-        type: DataTypes.INTEGER,
-    },
     sex: {
         allowNull: false,
         type: DataTypes.ENUM("male", "female"),
@@ -91,7 +86,7 @@ export const userSchema = {
     },
     userType: {
         allowNull: false,
-        type: DataTypes.ENUM("doctor", "pacient"),
+        type: DataTypes.ENUM("doctor", "patient"),
     },
     createdAt: {
         allowNull: false,

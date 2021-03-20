@@ -1,5 +1,5 @@
 import { CoreAction, IResult } from "../../../ship/core/action/CoreAction";
-import { pacientRepository } from "../repositories/PacientRepository";
+import { patientRepository } from "../repositories/PatientRepository";
 
 interface IParams {
     weight: Number;
@@ -16,12 +16,12 @@ interface IParams {
 }
 
 class QuestionnaireFormAction extends CoreAction {
-    public run = async (pacientData: IParams, pacientId: Number): Promise<IResult> => {
-        const pacient = await pacientRepository.getPacientById(pacientId);
+    public run = async (patientData: IParams, patientId: Number): Promise<IResult> => {
+        const patient = await patientRepository.getPatientById(patientId);
 
         try {
-            pacient.update(pacientData);
-            return { error: 0, data: pacient };
+            patient.update(patientData);
+            return { error: 0, data: patient };
         } catch (e) {
             return { error: 1, data: null, message: "Ошибка при обновлении пользователя" };
         }

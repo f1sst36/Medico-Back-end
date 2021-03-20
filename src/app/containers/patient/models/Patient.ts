@@ -3,7 +3,7 @@ import { Association, DataTypes } from "sequelize";
 import { CoreModel } from "../../../ship/core/model/CoreModel";
 import { User } from "../../user/models/User";
 
-export class Pacient extends CoreModel {
+export class Patient extends CoreModel {
     public readonly id: Number;
     public weight: Number;
     public height: Number;
@@ -20,7 +20,7 @@ export class Pacient extends CoreModel {
     public user: User;
 }
 
-export const pacientSchema = {
+export const patientSchema = {
     id: {
         allowNull: false,
         autoIncrement: true,

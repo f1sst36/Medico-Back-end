@@ -7,7 +7,7 @@ import { Sequelize } from "sequelize";
 import { swaggerDocs } from "./swagger";
 import swaggerUi from "swagger-ui-express";
 
-import { Pacient } from "../containers/pacient/models/Pacient";
+import { Patient } from "../containers/patient/models/Patient";
 import { Doctor, DoctorSpecialtiesLink, Specialties } from "../containers/doctor/models";
 import { User } from "../containers/user/models/User";
 import { Seeder } from "./database/seeders";
@@ -33,6 +33,8 @@ export class App {
 
         this.initDataBaseConnection();
         this.initModels(appInit.models);
+        
+        // force: true - удалит все таблицы и накатит заново
         this.sequelize.sync({ force: false });
 
         // seed
@@ -72,7 +74,7 @@ export class App {
         });
 
         // Relationships
-        Pacient.hasOne(User, { as: "user", foreignKey: "id", constraints: false });
+        Patient.hasOne(User, { as: "user", foreignKey: "id", constraints: false });
         Doctor.hasOne(User, { as: "user", foreignKey: "id", constraints: false });
 
         DoctorSpecialtiesLink.belongsTo(Doctor, {

@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 
 import { CoreAction, IResult } from "../../../ship/core/action/CoreAction";
 import { userRepository } from "../../user/repositories/UserRepository";
-import { pacientRepository } from "../../pacient/repositories/PacientRepository";
+import { patientRepository } from "../../patient/repositories/PatientRepository";
 import { doctorRepository } from "../../doctor/repositories/DoctorRepository";
 
 class LoginAction extends CoreAction {
@@ -18,7 +18,7 @@ class LoginAction extends CoreAction {
         if (!validPass) return { error: 1, message: "Неверный логин или пароль" };
 
         let fullUser: any = {};
-        if (user.userType === "pacient") fullUser = await pacientRepository.getPacientById(user.id);
+        if (user.userType === "patient") fullUser = await patientRepository.getPatientById(user.id);
         else if (user.userType === "doctor")
             fullUser = await doctorRepository.getDoctorById(user.id);
 

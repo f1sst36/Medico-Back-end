@@ -5,7 +5,6 @@ interface IParams {
     name: String;
     surname: String;
     middleName: String;
-    age: Number;
     sex: String;
     birthDate: String;
     phone: String;
@@ -22,7 +21,6 @@ class CreateNewUserTask extends CoreTask {
             name: data.name,
             surname: data.surname,
             middleName: data.middleName,
-            age: data.age,
             sex: data.sex,
             birthDate: data.birthDate,
             phone: data.phone,
