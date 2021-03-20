@@ -2,8 +2,9 @@ import { App } from "./app/ship/app";
 import "dotenv/config";
 
 import { AuthController } from "./app/containers/authorization/controllers/auth/AuthController";
-import { ProfileController } from "./app/containers/patient/controllers/ProfileController";
+import { ProfileController as PatientProfileController } from "./app/containers/patient/controllers/ProfileController";
 import { SpecialtiesController } from "./app/containers/doctor/controllers/SpecialtiesController";
+import { ProfileController as DoctorProfileController } from "./app/containers/doctor/controllers/ProfileController";
 
 import { User, userSchema } from "./app/containers/user/models/User";
 import { Patient, patientSchema } from "./app/containers/patient/models/Patient";
@@ -20,7 +21,12 @@ import { jsonErrorHandler, allowCrossDomain, verifyJWTToken } from "./app/ship/m
 const app = new App({
     port: +process.env.PORT || 8080,
     prefix: "/api/v1",
-    controllers: [new AuthController(), new ProfileController(), new SpecialtiesController()],
+    controllers: [
+        new AuthController(),
+        new PatientProfileController(),
+        new SpecialtiesController(),
+        new DoctorProfileController(),
+    ],
     middlewares: [allowCrossDomain, verifyJWTToken, jsonErrorHandler],
     models: [
         {

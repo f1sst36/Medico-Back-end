@@ -1,3 +1,5 @@
+import path from "path";
+
 import express from "express";
 import { Application } from "express";
 import "dotenv/config";
@@ -6,6 +8,9 @@ import { Sequelize } from "sequelize";
 
 import { swaggerDocs } from "./swagger";
 import swaggerUi from "swagger-ui-express";
+
+import fileUpload from "express-fileupload";
+import formidableMiddleware from "express-formidable";
 
 import { Patient } from "../containers/patient/models/Patient";
 import { Doctor, DoctorSpecialtiesLink, Specialties } from "../containers/doctor/models";
@@ -33,7 +38,7 @@ export class App {
 
         this.initDataBaseConnection();
         this.initModels(appInit.models);
-        
+
         // force: true - удалит все таблицы и накатит заново
         this.sequelize.sync({ force: false });
 
@@ -43,6 +48,15 @@ export class App {
 
     private initMiddlewares(middlewares: Array<any>) {
         this.app.use(express.json());
+        this.app.use(
+            fileUpload({
+                useTempFiles: false,
+                tempFileDir: `${path.dirname(__filename)}/storage/tempImages/`,
+                safeFileNames: true,
+                preserveExtension: true,
+            })
+        );
+
         // this.app.use(express.urlencoded({ extended: false }));
         middlewares.forEach((middleware) => {
             this.app.use(middleware);
@@ -53,6 +67,11 @@ export class App {
         controllers.forEach((controller) => {
             this.app.use(prefix, controller.router);
         });
+
+        // Роут для получения изображений
+        this.app.get("/storage/images/:imageName", (req, res) =>
+            res.sendFile(path.join(__dirname, `./storage/images/${req.params.imageName}`))
+        );
     }
 
     private initDataBaseConnection() {

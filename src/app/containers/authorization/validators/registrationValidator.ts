@@ -30,10 +30,7 @@ export const registrationValidator = [
         .matches(/\b(?:male|female)\b/)
         .withMessage("Выберите пол"),
     Validator.body("birthDate", "Укажите дату рождения")
-        .isLength({
-            min: 4,
-            max: 100,
-        })
+        .matches(/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/)
         .withMessage("Неверный формат даты рождения"),
     Validator.body("userType", "Укажите тип пользователя")
         .matches(/\b(?:patient|doctor)\b/)
