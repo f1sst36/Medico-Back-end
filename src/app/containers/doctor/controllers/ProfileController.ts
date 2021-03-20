@@ -23,23 +23,16 @@ export class ProfileController extends CoreController {
     }
 
     public doctorQuestionnaireForm = async (req: any, res: Response): Promise<Response> => {
-        const validateFormDataResult = doctorQuestionnaireFormValidator(req.body, req.files);
-        if (Array.isArray(validateFormDataResult))
-            return res
-                .status(400)
-                .json(coreTransformer.getErrorResponse("Ошибка валидации", validateFormDataResult));
+        if (this.validateFormDataRequest(req, res, doctorQuestionnaireFormValidator)) return;
 
         const result = await doctorQuestionnaireAction.run(req.user.id, req.body, req.files);
-        
+
         if (result.error === 0)
-            return res.status(200).json(
-                coreTransformer.getSimpleSuccessResponse(
-                    "Заявка отправлена на рассмотрение"
-                )
-            );
-        else
             return res
-                .status(400)
-                .json(coreTransformer.getErrorResponse(result.message));
+                .status(200)
+                .json(
+                    coreTransformer.getSimpleSuccessResponse("Заявка отправлена на рассмотрение")
+                );
+        else return res.status(400).json(coreTransformer.getErrorResponse(result.message));
     };
 }

@@ -16,4 +16,16 @@ export abstract class CoreController {
                 .status(400)
                 .json(coreTransformer.getErrorResponse("Ошибка валидации", errors.array()));
     };
+
+    protected validateFormDataRequest = (
+        req: any,
+        res: Response,
+        validateMethod: Function
+    ): Response | undefined => {
+        const validateFormDataResult = validateMethod(req.body, req.files);
+        if (Array.isArray(validateFormDataResult))
+            return res
+                .status(400)
+                .json(coreTransformer.getErrorResponse("Ошибка валидации", validateFormDataResult));
+    };
 }
