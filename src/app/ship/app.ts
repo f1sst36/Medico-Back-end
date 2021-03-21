@@ -10,7 +10,6 @@ import { swaggerDocs } from "./swagger";
 import swaggerUi from "swagger-ui-express";
 
 import fileUpload from "express-fileupload";
-import formidableMiddleware from "express-formidable";
 
 import { Patient } from "../containers/patient/models/Patient";
 import { Doctor, DoctorSpecialtiesLink, Specialties } from "../containers/doctor/models";
