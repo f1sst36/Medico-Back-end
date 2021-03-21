@@ -6,13 +6,15 @@ interface IParams {
     height: Number;
     bloodType: String;
     RHFactor: String;
-    allergies: Array<String>;
-    chronicDiseases: Array<String>;
+    allergies: String;
+    chronicDiseases: String;
     operations: String;
     isSmoker: String;
     isAlcoholic: String;
     badHabits: String;
     bloodTransfusion: Boolean;
+    specialDiseases: Array<any>;
+    isFullData?: Boolean;
 }
 
 class QuestionnaireFormAction extends CoreAction {
@@ -20,6 +22,7 @@ class QuestionnaireFormAction extends CoreAction {
         const patient = await patientRepository.getPatientById(patientId);
 
         try {
+            patientData.isFullData = true;
             patient.update(patientData);
             return { error: 0, data: patient };
         } catch (e) {

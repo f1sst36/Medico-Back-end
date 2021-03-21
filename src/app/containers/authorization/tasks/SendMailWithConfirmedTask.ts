@@ -21,7 +21,7 @@ class SendMailWithConfirmedTask extends CoreTask {
             const template = handlebars.compile(html);
             const replacements = {
                 username: userName,
-                link: process.env.FRONT_APP_URL + "" + confirmationToken,
+                link: process.env.BACK_APP_URL + "/api/v1/auth/confirmation-account?token=" + confirmationToken,
             };
             const htmlToSend = template(replacements);
 

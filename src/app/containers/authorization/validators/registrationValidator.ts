@@ -13,7 +13,9 @@ export const registrationValidator = [
             max: 120,
         })
         .withMessage("Фамилия должна быть от 3 до 120 символов"),
-    Validator.body("password", "Парль не может быть пустым")
+    Validator.body("password", "Пароль не может быть пустым")
+        .isString()
+        .withMessage("Пароль должен быть строкой")
         .isLength({
             min: 6,
             max: 40,
@@ -36,6 +38,6 @@ export const registrationValidator = [
         .matches(/\b(?:patient|doctor)\b/)
         .withMessage("Выберите тип пользователя"),
     Validator.body("acceptedUserAgreement", "Необходимо принять пользовательское соглашение")
-        .matches(/\b(?:true|1)\b/)
+        .matches(/\b(?:1)\b/)
         .withMessage("Необходимо принять пользовательское соглашение"),
 ];

@@ -22,7 +22,9 @@ export const doctorQuestionnaireFormValidator = (data: IParams, files: any): Arr
         errMessages.push("Ошибка получения файлов"); 
         return errMessages;
     } 
-    if(!files.photo) errMessages.push("Необходимо загрузить фотографию"); 
+    if(!files.photo) errMessages.push("Необходимо загрузить вашу фотографию"); 
+    if(!files.summary) errMessages.push("Необходимо загрузить резюме"); 
+    if(!files.diploma) errMessages.push("Необходимо загрузить диплом"); 
 
     return errMessages.length ? errMessages : false;
 };

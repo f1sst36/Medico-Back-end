@@ -91,20 +91,20 @@
  *            RHFactor: "Rh+"
  *      - name: allergies
  *        in: body
- *        description: User's allergies list
+ *        description: User's allergies
  *        required: true
  *        schema:
- *          type: array<String>
+ *          type: string
  *          example:
- *            allergies: []
+ *            allergies: "ta-tata-t-at-a-ta-taa"
  *      - name: chronicDiseases
  *        in: body
- *        description: User's chronic diseases list
+ *        description: User's chronic diseases
  *        required: true
  *        schema:
- *          type: array<String>
+ *          type: string
  *          example:
- *            chronicDiseases: ["foo", "bar"]
+ *            chronicDiseases: "foo baarr"
  *      - name: isSmoker
  *        in: body
  *        description: Is user a smoker
@@ -125,7 +125,7 @@
  *            isAlcoholic: "1 раз в месяц"
  *      - name: badHabits
  *        in: body
- *        description: Bad habits list
+ *        description: Bad habits
  *        required: false
  *        schema:
  *          type: string
@@ -133,7 +133,7 @@
  *            badHabits: "bla-balab-a-ba-bdl"
  *      - name: bloodTransfusion
  *        in: body
- *        description: "true: 1 or 'true'"
+ *        description: "true: 1; false: 0"
  *        required: true
  *        schema:
  *          type: string

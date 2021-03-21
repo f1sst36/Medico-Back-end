@@ -46,7 +46,7 @@ export class AuthController extends CoreController {
         return res.status(400).json(tokenTransformer.getErrorResponse(result.message));
     };
 
-    confirmationAccount = async (req: Request, res: Response): Promise<Response> => {
+    confirmationAccount = async (req: Request, res: Response): Promise<any> => {
         if (!req.query.token)
             return res
                 .status(404)
@@ -55,8 +55,10 @@ export class AuthController extends CoreController {
         const result = await confirmationAccountAction.run(req.query.token);
 
         if (!result.error) {
-            return res.status(200).json(tokenTransformer.getSimpleSuccessResponse(result.message));
+            return res.redirect(process.env.FRONT_APP_URL);
+            // return res.status(200).json(tokenTransformer.getSimpleSuccessResponse(result.message));
         } else {
+            // иначе редирект на фронт, но с модалкой типо "не удалось подтвердить аккаунт"
             return res.status(400).json(tokenTransformer.getErrorResponse(result.message));
         }
     };

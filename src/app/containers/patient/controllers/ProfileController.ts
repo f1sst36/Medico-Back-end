@@ -22,7 +22,7 @@ export class ProfileController extends CoreController {
         );
     }
 
-    patientQuestionnaireForm = async (req: any, res: Response): Promise<Response> => {
+    public patientQuestionnaireForm = async (req: any, res: Response): Promise<Response> => {
         if (this.validateRequest(req, res)) return;
 
         const result = await questionnaireFormAction.run(req.body, req.user.id);

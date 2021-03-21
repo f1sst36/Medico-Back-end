@@ -217,7 +217,7 @@
  *            userType: "doctor"
  *      - name: acceptedUserAgreement
  *        in: body
- *        description: "true: 1 or 'true'"
+ *        description: "true: 1; false: 0"
  *        required: true
  *        schema:
  *          type: string

@@ -6,7 +6,7 @@ import { Request, Response } from "express";
 import formidable from "formidable";
 
 import { CoreController } from "../../../ship/core/controller/CoreController";
-import { doctorQuestionnaireFormValidator } from "../validator/doctorQuestionnaireFormValidator";
+import { doctorQuestionnaireFormValidator } from "../validators/doctorQuestionnaireFormValidator";
 import { coreTransformer } from "../../../ship/core/transformer/CoreTransformer";
 import { doctorQuestionnaireAction } from "../actions/DoctorQuestionnaireAction";
 

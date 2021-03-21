@@ -9,6 +9,7 @@ export class Doctor extends CoreModel {
     public experience: Date;
     public photo: String;
     public summary: String;
+    public diploma: String;
     public about: String;
     // public mainDirections: Array<String>;
 
@@ -38,6 +39,9 @@ export const doctorSchema = {
         type: DataTypes.STRING,
     },
     summary: {
+        type: DataTypes.STRING,
+    },
+    diploma: {
         type: DataTypes.STRING,
     },
     about: {

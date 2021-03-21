@@ -9,13 +9,15 @@ export class Patient extends CoreModel {
     public height: Number;
     public bloodType: String;
     public RHFactor: String;
-    public allergies: Array<String>;
-    public chronicDiseases: Array<String>;
+    public allergies: String;
+    public chronicDiseases: String;
     public operations: String;
     public isSmoker: String;
     public isAlcoholic: String;
     public badHabits: String;
     public bloodTransfusion: Boolean;
+    public specialDiseases: Array<String>;
+    public isFullData: Boolean;
 
     public user: User;
 }
@@ -40,13 +42,13 @@ export const patientSchema = {
         type: DataTypes.ENUM("Rh+", "Rh-"),
     },
     allergies: {
-        type: DataTypes.ARRAY(DataTypes.STRING),
+        type: DataTypes.STRING,
     },
     chronicDiseases: {
-        type: DataTypes.ARRAY(DataTypes.STRING),
+        type: DataTypes.STRING,
     },
     operations: {
-        type: DataTypes.JSON,
+        type: DataTypes.STRING,
     },
     isSmoker: {
         type: DataTypes.ENUM("Да", "Нет", "Иногда"),
@@ -65,4 +67,12 @@ export const patientSchema = {
     bloodTransfusion: {
         type: DataTypes.BOOLEAN,
     },
+    specialDiseases: {
+        type: DataTypes.ARRAY(DataTypes.STRING),
+    },
+    isFullData: {
+        allowNull: false,
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+    }
 };

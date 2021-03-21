@@ -21,10 +21,17 @@ class RegistrationAction extends CoreAction {
                 message: "Пользователь с такой почтой или номером телефона уже существует",
             };
 
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(req.body.password, salt);
-
-        const confirmationToken = await bcrypt.hash(req.body.email, salt);
+        let hashedPassword: String, confirmationToken: String;
+        try {
+            const salt = await bcrypt.genSalt(10);
+            hashedPassword = await bcrypt.hash(req.body.password, salt);
+            confirmationToken = await bcrypt.hash(req.body.email, salt);
+        } catch (_) {
+            return {
+                error: 1,
+                message: "Ошибка создания хеша",
+            };
+        }
 
         const newUser = await createNewUserTask.run({
             name: req.body.name,

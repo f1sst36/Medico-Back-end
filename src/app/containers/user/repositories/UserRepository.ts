@@ -18,7 +18,7 @@ class UserRepository extends CoreRepository {
         }
     };
 
-    getUserWithSameEmailOrPhone = (email, phone): User => {
+    getUserWithSameEmailOrPhone = (email: String, phone: String): User => {
         try {
             const result = this.model.findOne({
                 where: {
