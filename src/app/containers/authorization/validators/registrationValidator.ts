@@ -32,12 +32,22 @@ export const registrationValidator = [
         .matches(/\b(?:male|female)\b/)
         .withMessage("Выберите пол"),
     Validator.body("birthDate", "Укажите дату рождения")
-        .matches(/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/)
+        // .isDate({format: 'YYYY-MM-DD'})
+        .isString()
+        // .matches(/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/)
         .withMessage("Неверный формат даты рождения"),
     Validator.body("userType", "Укажите тип пользователя")
         .matches(/\b(?:patient|doctor)\b/)
         .withMessage("Выберите тип пользователя"),
-    Validator.body("acceptedUserAgreement", "Необходимо принять пользовательское соглашение")
-        .matches(/\b(?:1)\b/)
+    Validator.body("acceptedUserAgreement", "Необходимо принять пользовательское соглашение1")
+        .isBoolean()
+        // .matches(/\b(?:1)\b/)
+        // .custom((value: Boolean) => {
+        //     console.log(value, typeof value);
+            
+        //     if (!value) throw new Error("Необходимо принять пользовательское соглашение2");
+        // })
+        // .isBoolean()
+        // .toString()
         .withMessage("Необходимо принять пользовательское соглашение"),
 ];

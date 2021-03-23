@@ -55,7 +55,7 @@ export class AuthController extends CoreController {
         const result = await confirmationAccountAction.run(req.query.token);
 
         if (!result.error) {
-            return res.redirect(process.env.FRONT_APP_URL);
+            return res.redirect(process.env.FRONT_APP_URL + "/sign-up-confirmation");
             // return res.status(200).json(tokenTransformer.getSimpleSuccessResponse(result.message));
         } else {
             // иначе редирект на фронт, но с модалкой типо "не удалось подтвердить аккаунт"
