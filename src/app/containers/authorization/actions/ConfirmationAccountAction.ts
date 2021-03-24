@@ -10,6 +10,12 @@ class ConfirmationAccountAction extends CoreAction {
                 message: "Пользователь не найден",
             };
 
+        if (user.isActivated)
+            return {
+                error: 2,
+                message: "Аккаунт уже подтвержден",
+            };
+
         user.isActivated = true;
         user.save();
 
