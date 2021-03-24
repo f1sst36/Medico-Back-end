@@ -5,6 +5,7 @@ import { AuthController } from "./app/containers/authorization/controllers/auth/
 import { ProfileController as PatientProfileController } from "./app/containers/patient/controllers/ProfileController";
 import { SpecialtiesController } from "./app/containers/doctor/controllers/SpecialtiesController";
 import { ProfileController as DoctorProfileController } from "./app/containers/doctor/controllers/ProfileController";
+import { ProfileController as UserProfileController } from "./app/containers/user/controllers/ProfileController";
 
 import { User, userSchema } from "./app/containers/user/models/User";
 import { Patient, patientSchema } from "./app/containers/patient/models/Patient";
@@ -26,6 +27,7 @@ const app = new App({
         new PatientProfileController(),
         new SpecialtiesController(),
         new DoctorProfileController(),
+        new UserProfileController(),
     ],
     middlewares: [allowCrossDomain, verifyJWTToken, jsonErrorHandler],
     models: [
