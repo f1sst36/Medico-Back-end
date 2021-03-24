@@ -4,7 +4,6 @@ import { Request, Response } from "express";
 import { CoreController } from "../../../ship/core/controller/CoreController";
 import { coreTransformer } from "../../../ship/core/transformer/CoreTransformer";
 import { getAllSpecialtiesTask } from "../tasks/getAllSpecialtiesTask";
-import { specialtiesTransformer } from "../transformers/SpecialtiesTransformer";
 
 export class SpecialtiesController extends CoreController {
     constructor() {
@@ -25,6 +24,6 @@ export class SpecialtiesController extends CoreController {
             return res
                 .status(400)
                 .json(coreTransformer.getErrorResponse("Ошибка получения специальностей"));
-        else return res.status(200).json(specialtiesTransformer.transform(specialties));
+        else return res.status(200).json(coreTransformer.getSimpleSuccessResponse("", specialties));
     };
 }

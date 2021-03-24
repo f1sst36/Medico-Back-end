@@ -1,13 +1,15 @@
 /**
  * @swagger
- * /doctor/specialties:
+ * /user/:
  *    get:
  *      tags:
- *        - Doctor
- *      description: Get all specialties list
+ *        - User
+ *      security:
+ *        bearerAuth: []
+ *      description: Get user info
  *      responses:
  *        '200':
- *          description: Successfully getted specialties list
+ *          description: User data received
  *          schema:
  *            type: object
  *            properties:
@@ -15,14 +17,16 @@
  *                type: integer
  *                example: 0
  *              data:
- *                type: Array<Object>
- *                example: [{ id: 1, name: "Хирург", slug: "surgeon" },  {id: 2, name: "Терапевт", slug: "therapist" }]
+ *                type: object
+ *                example: {
+ *                      
+ *                  }
  *              message:
  *                type: string
- *                example: ""
  *                description: Reply message
+ *                example: ""
  *        '400':
- *          description: Bad request
+ *          description: Some error
  *          schema:
  *            type: object
  *            properties:
@@ -34,6 +38,13 @@
  *                example: null
  *              message:
  *                type: string
- *                example: "Ошибка получения специальностей"
  *                description: Reply message
+ *                example: "Ошибка получения данных"
+ *    parameters:
+ *      - name: accessToken
+ *        in: header
+ *        description: User's token
+ *        required: true
+ *        schema:
+ *          type: string
  */

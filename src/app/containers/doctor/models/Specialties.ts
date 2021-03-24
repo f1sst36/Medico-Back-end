@@ -5,6 +5,7 @@ import { CoreModel } from "../../../ship/core/model/CoreModel";
 export class Specialties extends CoreModel {
     public readonly id: Number;
     public readonly name: String;
+    public readonly slug: String;
 }
 
 export const specialtiesSchema = {
@@ -18,4 +19,8 @@ export const specialtiesSchema = {
         allowNull: false,
         type: DataTypes.STRING,
     },
+    slug: {
+        allowNull: false,
+        type: DataTypes.STRING
+    }
 };

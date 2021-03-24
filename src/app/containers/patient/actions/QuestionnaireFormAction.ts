@@ -13,8 +13,7 @@ interface IParams {
     isAlcoholic: String;
     badHabits: String;
     bloodTransfusion: Boolean;
-    specialDiseases: Array<any>;
-    isFullData?: Boolean;
+    isFullData: Boolean;
 }
 
 class QuestionnaireFormAction extends CoreAction {

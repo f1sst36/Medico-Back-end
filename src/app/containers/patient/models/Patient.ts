@@ -16,7 +16,6 @@ export class Patient extends CoreModel {
     public isAlcoholic: String;
     public badHabits: String;
     public bloodTransfusion: Boolean;
-    public specialDiseases: Array<String>;
     public isFullData: Boolean;
 
     public user: User;
@@ -66,9 +65,6 @@ export const patientSchema = {
     },
     bloodTransfusion: {
         type: DataTypes.BOOLEAN,
-    },
-    specialDiseases: {
-        type: DataTypes.ARRAY(DataTypes.STRING),
     },
     isFullData: {
         allowNull: false,

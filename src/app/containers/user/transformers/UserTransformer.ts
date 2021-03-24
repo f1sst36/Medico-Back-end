@@ -1,18 +1,57 @@
-// import { CoreTransformer } from "../../../ship/core/transformer/CoreTransformer";
+import { CoreTransformer } from "../../../ship/core/transformer/CoreTransformer";
 
-// type TSpecialty = {
-//     name: String;
-// };
+interface ITransformedUser {
+    id: Number;
+    name: String;
+    surname: String;
+    middlename?: String;
+    sex: String;
+    birthDate: String;
+    phone: String;
+    email: String;
+    isActivated: true;
+    acceptedUserAgreement: true;
+    userType: String;
 
-// class UserTransformer extends CoreTransformer {
-//     public transform = (specialties: Array<Specialties>): Object => {
-//         let response: Array<String> = [];
-//         specialties.forEach((specialty: TSpecialty) => {
-//             response.push(specialty.name);
-//         });
+    additionalData: any;
+}
 
-//         return this.getSimpleSuccessResponse("", response);
-//     };
-// }
+class UserTransformer extends CoreTransformer {
+    public transform = (user: any): ITransformedUser => {
+        let transformedUser: ITransformedUser;
 
-// export const specialtiesTransformer = new SpecialtiesTransformer();
+        const mainUserData = user.dataValues.user.dataValues;
+        mainUserData.id = user.dataValues.id;
+        delete user.dataValues.user;
+        const additionalData = user.dataValues;
+
+        transformedUser = mainUserData;
+
+        // if (transformedUser.userType === "doctor") {
+        if (
+            (additionalData.IIN &&
+                additionalData.diploma &&
+                additionalData.summary &&
+                additionalData.photo &&
+                additionalData.experience) ||
+            additionalData.isFullData
+        ) {
+            transformedUser.additionalData = additionalData;
+            delete transformedUser.additionalData.id;
+        } else transformedUser.additionalData = null;
+        // }
+        // else {
+        //     if (additionalData.isFullData) {
+        //         transformedUser.additionalData = additionalData;
+        //         delete transformedUser.additionalData.id;
+        //     } else transformedUser.additionalData = null;
+        // }
+
+        // transformedUser.additionalData = additionalData;
+        // delete transformedUser.additionalData.id;
+
+        return transformedUser;
+    };
+}
+
+export const userTransformer = new UserTransformer();

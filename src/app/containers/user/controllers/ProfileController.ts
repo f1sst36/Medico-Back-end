@@ -6,6 +6,8 @@ import { Doctor } from "../../doctor/models";
 import { doctorRepository } from "../../doctor/repositories/DoctorRepository";
 import { Patient } from "../../patient/models/Patient";
 import { patientRepository } from "../../patient/repositories/PatientRepository";
+import { getUserInfoAction } from "../actions/getUserInfoAction";
+import { userTransformer } from "../transformers/UserTransformer";
 
 export class ProfileController extends CoreController {
     constructor() {
@@ -19,22 +21,14 @@ export class ProfileController extends CoreController {
         this.router.get(this.prefix + "/", this.getInfo);
     }
 
-    public async getInfo(req: any, res: Response): Promise<Response> {
-        let user: Doctor | Patient;
-        try {
-            user = await patientRepository.getPatientById(req.user.id);
-            if (!user) user = await doctorRepository.getDoctorById(req.user.id);
-        } catch (_) {
-            return res
-                .status(400)
-                .json(coreTransformer.getErrorResponse("Ошибка поиска пользователя"));
+    public getInfo = async (req: any, res: Response): Promise<Response> => {
+        const result = await getUserInfoAction.run(req.user.id);
+
+        if (result.error)
+            return res.status(400).json(coreTransformer.getErrorResponse(result.message));
+        else {
+            const transformedUser = userTransformer.transform(result.data);
+            return res.status(200).json(coreTransformer.getSimpleSuccessResponse("", transformedUser));
         }
-
-        if (!user)
-            return res.status(404).json(coreTransformer.getErrorResponse("Пользователь не найден"));
-
-        return res.json({
-            abc: user,
-        });
-    }
+    };
 }

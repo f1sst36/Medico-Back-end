@@ -92,7 +92,7 @@
  *      - name: allergies
  *        in: body
  *        description: User's allergies
- *        required: true
+ *        required: false
  *        schema:
  *          type: string
  *          example:
@@ -100,11 +100,19 @@
  *      - name: chronicDiseases
  *        in: body
  *        description: User's chronic diseases
- *        required: true
+ *        required: false
  *        schema:
  *          type: string
  *          example:
  *            chronicDiseases: "foo baarr"
+ *      - name: operations
+ *        in: body
+ *        description: User's operations
+ *        required: false
+ *        schema:
+ *          type: string
+ *          example:
+ *            operations: "fogfgdgfdo baarr1231231"
  *      - name: isSmoker
  *        in: body
  *        description: Is user a smoker
@@ -133,7 +141,7 @@
  *            badHabits: "bla-balab-a-ba-bdl"
  *      - name: bloodTransfusion
  *        in: body
- *        description: "true: 1; false: 0"
+ *        description: "true or false"
  *        required: true
  *        schema:
  *          type: string

@@ -18,22 +18,19 @@ export const questionnaireFormValidator = [
         .isIn(["Rh+", "Rh-"])
         .withMessage("Неверный тип резус фактора"),
     Validator.body("allergies")
-        .isString()
-        .withMessage("Поле 'Аллергии' обязательно")
+        .optional()
         .isLength({
             max: 3000,
         })
         .withMessage("Максимальная длина поля 'Аллергии' 3000 символов"),
     Validator.body("chronicDiseases")
-        .isString()
-        .withMessage("Поле 'Хронические заболевания' обязательно")
+        .optional()
         .isLength({
             max: 3000,
         })
         .withMessage("Максимальная длина поля 'Хронические заболевания' 3000 символов"),
     Validator.body("operations")
-        .isString()
-        .withMessage("Поле 'Операции' обязательно")
+        .optional()
         .isLength({
             max: 3000,
         })
@@ -45,6 +42,7 @@ export const questionnaireFormValidator = [
         .isIn(["1 раз в год", "1 раз в месяц", "1 раз в неделю", "более 3 раз в неделю"])
         .withMessage("Неверный тип отношения к алкоголю"),
     Validator.body("badHabits")
+        .optional()
         .isLength({
             max: 3000,
         })
@@ -53,14 +51,8 @@ export const questionnaireFormValidator = [
         "bloodTransfusion",
         "Необходимо ответить: 'Была ли у Вас процедура по переливанию крови?'"
     )
-        .matches(/\b(?:1|0)\b/)
+        .isBoolean()
         .withMessage(
             "Неверный тип ответа на вопрос: 'Была ли у Вас процедура по переливанию крови?'"
         ),
-    Validator.body("specialDiseases")
-        .isArray({
-            min: 0,
-            max: 3,
-        })
-        .withMessage("Неверный формат ответа на вопрос о доп. заболеваниях"),
 ];

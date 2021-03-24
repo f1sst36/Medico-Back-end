@@ -39,7 +39,7 @@ export const registrationValidator = [
     Validator.body("userType", "Укажите тип пользователя")
         .matches(/\b(?:patient|doctor)\b/)
         .withMessage("Выберите тип пользователя"),
-    Validator.body("acceptedUserAgreement", "Необходимо принять пользовательское соглашение1")
+    Validator.body("acceptedUserAgreement", "Необходимо принять пользовательское соглашение")
         .isBoolean()
         // .matches(/\b(?:1)\b/)
         // .custom((value: Boolean) => {

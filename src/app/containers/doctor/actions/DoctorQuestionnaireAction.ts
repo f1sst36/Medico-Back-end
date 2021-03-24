@@ -21,7 +21,7 @@ class DoctorQuestionnaireAction extends CoreAction {
         const pathToSummaryImage = "/storage/images/" + doctorImages.summary.name;
         const pathToDiplomaImage = "/storage/images/" + doctorImages.diploma.name;
 
-        try {   
+        try {
             // специальности добавить не забудь
 
             doctor.update({
