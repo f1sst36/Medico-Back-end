@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 
 import { CoreController } from "../../../ship/core/controller/CoreController";
 import { coreTransformer } from "../../../ship/core/transformer/CoreTransformer";
-import { getAllSpecialtiesTask } from "../tasks/getAllSpecialtiesTask";
+import { getAllSpecialtiesTask } from "../tasks/GetAllSpecialtiesTask";
 
 export class SpecialtiesController extends CoreController {
     constructor() {
