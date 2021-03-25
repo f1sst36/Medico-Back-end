@@ -1,6 +1,7 @@
 import path from "path";
 
 import express from "express";
+import { Response } from "express";
 import { Application } from "express";
 import "dotenv/config";
 
@@ -39,7 +40,7 @@ export class App {
         this.initModels(appInit.models);
 
         // force: true - удалит все таблицы и накатит заново
-        this.sequelize.sync({ force: false });
+        this.sequelize.sync({ force: true });
 
         // seed
         // Seeder.run();
@@ -68,9 +69,15 @@ export class App {
         });
 
         // Роут для получения изображений
-        this.app.get("/storage/images/:imageName", (req, res) =>
+        this.app.get("/storage/images/:imageName", (req, res: Response) =>
             res.sendFile(path.join(__dirname, `./storage/images/${req.params.imageName}`))
         );
+
+        // Роут для запуска сидов
+        this.app.get("/seeder/run", (_, res: Response) => {
+            Seeder.run();
+            res.redirect(process.env.BACK_APP_URL);
+        });
     }
 
     private initDataBaseConnection() {

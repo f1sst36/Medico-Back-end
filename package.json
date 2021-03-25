@@ -4,8 +4,8 @@
     "description": "",
     "main": "dist/app.js",
     "scripts": {
-        "start": "nodemon",
-        "dev": "tsc && node dist/index.js",
+        "start": "tsc && node dist/index.js",
+        "dev": "nodemon",
         "build": "tsc",
         "seed": "ts-node src/app/ship/database/seeders/index.ts"
     },
