@@ -59,4 +59,7 @@ const app = new App({
     ],
 });
 
+console.log(process.env.DB_HOST);
+
+
 app.listen();
