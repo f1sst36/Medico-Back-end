@@ -81,15 +81,17 @@ export class App {
     }
 
     private initDataBaseConnection() {
-        this.sequelize = new Sequelize(
-            process.env.DB_NAME,
-            process.env.DB_USERNAME,
-            process.env.DB_PASSWORD,
-            {
-                host: process.env.DB_HOST,
-                dialect: "postgres",
-            }
-        );
+        // this.sequelize = new Sequelize(
+        //     process.env.DB_NAME,
+        //     process.env.DB_USERNAME,
+        //     process.env.DB_PASSWORD,
+        //     {
+        //         host: process.env.DB_HOST,
+        //         dialect: "postgres",
+        //     }
+        // );
+
+        this.sequelize = new Sequelize(process.env.DATABASE_URL);
     }
 
     private initModels(models: Array<{ model: any; schema: object; tableName: string }>) {
@@ -119,6 +121,7 @@ export class App {
     public listen() {
         this.app.listen(this.port, () => {
             console.log(`App is working on the port ${this.port}`);
+            console.log("DATABASE_URL", process.env.DATABASE_URL);
         });
     }
 }
