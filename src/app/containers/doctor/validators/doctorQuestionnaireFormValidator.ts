@@ -15,8 +15,8 @@ export const doctorQuestionnaireFormValidator = (data: IParams, files: any): Arr
         errMessages.push("Необходимо указать специальность");
 
     if (!data.experience) errMessages.push("Укажите ваш стаж");
-    else if (!data.experience.match(/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/))
-        errMessages.push("Неверный формат стажа");
+    // else if (!data.experience.match(/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/))
+    //     errMessages.push("Неверный формат стажа");
     
     if(!files){
         errMessages.push("Ошибка получения файлов"); 

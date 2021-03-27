@@ -51,7 +51,7 @@ export const questionnaireFormValidator = [
         "bloodTransfusion",
         "Необходимо ответить: 'Была ли у Вас процедура по переливанию крови?'"
     )
-        .isBoolean()
+        .isIn(["Да", "Нет"])
         .withMessage(
             "Неверный тип ответа на вопрос: 'Была ли у Вас процедура по переливанию крови?'"
         ),

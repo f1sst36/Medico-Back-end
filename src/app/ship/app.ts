@@ -42,7 +42,6 @@ export class App {
         // force: true - удалит все таблицы и накатит заново
         this.sequelize.sync({ force: true });
 
-        // seed
         // Seeder.run();
     }
 
@@ -51,7 +50,7 @@ export class App {
         this.app.use(
             fileUpload({
                 useTempFiles: false,
-                tempFileDir: `${path.dirname(__filename)}/storage/tempImages/`,
+                tempFileDir: `${path.dirname(__filename)}/storage/tempFiles/`,
                 safeFileNames: true,
                 preserveExtension: true,
             })
@@ -69,8 +68,8 @@ export class App {
         });
 
         // Роут для получения изображений
-        this.app.get("/storage/images/:imageName", (req, res: Response) =>
-            res.sendFile(path.join(__dirname, `./storage/images/${req.params.imageName}`))
+        this.app.get("/storage/files/:fileName", (req, res: Response) =>
+            res.sendFile(path.join(__dirname, `./storage/files/${req.params.fileName}`))
         );
 
         // Роут для запуска сидов
@@ -95,8 +94,6 @@ export class App {
                 },
             },
         });
-
-        // this.sequelize = new Sequelize(process.env.DATABASE_URL);
     }
 
     private initModels(models: Array<{ model: any; schema: object; tableName: string }>) {
@@ -126,7 +123,6 @@ export class App {
     public listen() {
         this.app.listen(this.port, () => {
             console.log(`App is working on the port ${this.port}`);
-            console.log("DATABASE_URL", process.env.DATABASE_URL);
         });
     }
 }

@@ -1,10 +1,12 @@
+import { format } from "date-fns";
 import { CoreAction, IResult } from "../../../ship/core/action/CoreAction";
+import { DoctorSpecialtiesLink } from "../models";
 import { doctorRepository } from "../repositories/DoctorRepository";
 
 interface IParams {
     doctorId: Number;
     INN: String;
-    specialties: Array<Number>;
+    specialties: String;
     experience: Date;
 }
 
@@ -12,17 +14,30 @@ class DoctorQuestionnaireAction extends CoreAction {
     public run = async (
         doctorId: Number,
         doctorData: IParams,
-        doctorImages: any
+        doctorFiles: any
     ): Promise<IResult> => {
         const doctor = await doctorRepository.getDoctorById(doctorId);
 
-        const uploadPath = "src/app/ship/storage/images/";
-        const pathToPhotoImage = "/storage/images/" + doctorImages.photo.name;
-        const pathToSummaryImage = "/storage/images/" + doctorImages.summary.name;
-        const pathToDiplomaImage = "/storage/images/" + doctorImages.diploma.name;
+        if (doctor.sent)
+            return { error: 1, data: null, message: "Заявка ожидает проверки модератором" };
+
+        const uploadPath = "src/app/ship/storage/files/";
+        const pathToPhotoImage = "/storage/files/" + doctorFiles.photo.name;
+        const pathToSummaryImage = "/storage/files/" + doctorFiles.summary.name;
+        const pathToDiplomaImage = "/storage/files/" + doctorFiles.diploma.name;
 
         try {
-            // специальности добавить не забудь
+            let specialties = doctorData.specialties.slice(1, doctorData.specialties.length - 1);
+            let specialtiesArray = specialties.split(", ");
+
+            let doctorSpecialtiesLinkRecords: Array<Object> = [];
+            for (let i = 0; i < specialtiesArray.length; i++)
+                doctorSpecialtiesLinkRecords.push({
+                    doctorId: doctorId,
+                    specialtyId: +specialtiesArray[i],
+                });
+
+            DoctorSpecialtiesLink.bulkCreate(doctorSpecialtiesLinkRecords);
 
             doctor.update({
                 photo: pathToPhotoImage,
@@ -30,14 +45,16 @@ class DoctorQuestionnaireAction extends CoreAction {
                 diploma: pathToDiplomaImage,
                 IIN: doctorData.INN,
                 experience: doctorData.experience,
+                sent: format(new Date(), "yyyy-MM-dd"),
             });
 
-            await doctorImages.photo.mv(uploadPath + doctorImages.photo.name);
-            await doctorImages.photo.mv(uploadPath + doctorImages.summary.name);
-            await doctorImages.photo.mv(uploadPath + doctorImages.diploma.name);
+            await doctorFiles.photo.mv(uploadPath + doctorFiles.photo.name);
+            await doctorFiles.summary.mv(uploadPath + doctorFiles.summary.name);
+            await doctorFiles.diploma.mv(uploadPath + doctorFiles.diploma.name);
+
             return { error: 0 };
         } catch (_) {
-            return { error: 1, data: null, message: "Ошибка при обновлении пользователя" };
+            return { error: 1, data: null, message: "Ошибка при отправке заявки" };
         }
     };
 }

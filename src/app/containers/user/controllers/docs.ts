@@ -48,3 +48,19 @@
  *        schema:
  *          type: string
  */
+
+/**
+ * @swagger
+ * /storage/files/:fileName:
+ *    get:
+ *      tags:
+ *        - File
+ *      description: localhost:8080/storage/files/slide3.png
+ *    parameters:
+ *      - name: fileName
+ *        in: query
+ *        description: File name
+ *        required: true
+ *        schema:
+ *          type: string
+ */

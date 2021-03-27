@@ -141,10 +141,10 @@
  *            badHabits: "bla-balab-a-ba-bdl"
  *      - name: bloodTransfusion
  *        in: body
- *        description: "true or false"
+ *        description: "'Да' или 'Нет'"
  *        required: true
  *        schema:
- *          type: string
+ *          type: enum
  *          example:
- *            bloodTransfusion: true
+ *            bloodTransfusion: "Нет"
  */

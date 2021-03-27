@@ -12,13 +12,15 @@ interface IParams {
     isSmoker: String;
     isAlcoholic: String;
     badHabits: String;
-    bloodTransfusion: Boolean;
+    bloodTransfusion: String;
     isFullData: Boolean;
 }
 
 class QuestionnaireFormAction extends CoreAction {
     public run = async (patientData: IParams, patientId: Number): Promise<IResult> => {
         const patient = await patientRepository.getPatientById(patientId);
+
+        if (patient.isFullData) return { error: 1, data: null, message: "Анкета уже заполнена" };
 
         try {
             patientData.isFullData = true;

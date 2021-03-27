@@ -17,6 +17,7 @@ export class Doctor extends CoreModel {
     public workplaces: Array<String>;
     public education: Array<String>;
 
+    public sent: Date;
     public isVerified: Boolean;
 
     public user: User;
@@ -56,9 +57,12 @@ export const doctorSchema = {
     education: {
         type: DataTypes.ARRAY(DataTypes.STRING),
     },
+    sent: {
+        type: DataTypes.DATE,
+    },
     isVerified: {
         allowNull: false,
         type: DataTypes.BOOLEAN,
-        defaultValue: true,
+        defaultValue: false,
     },
 };
