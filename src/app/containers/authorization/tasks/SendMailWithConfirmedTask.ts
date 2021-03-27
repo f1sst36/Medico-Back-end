@@ -1,3 +1,4 @@
+import path from "path";
 import { CoreTask, IResult } from "../../../ship/core/task/CoreTask";
 import { sendMail } from "../../../ship/mail";
 
@@ -13,7 +14,7 @@ class SendMailWithConfirmedTask extends CoreTask {
         confirmationToken: String
     ): Promise<IResult> => {
         const html = fs.readFileSync(
-            __dirname + "/../../../../ship/mail/templates/confirmAccount.html",
+            path.join(__dirname, "../../../../app/ship/mail/templates/confirmAccount.html"),
             { encoding: "utf-8" }
         );
 
@@ -21,7 +22,10 @@ class SendMailWithConfirmedTask extends CoreTask {
             const template = handlebars.compile(html);
             const replacements = {
                 username: userName,
-                link: process.env.BACK_APP_URL + "/api/v1/auth/confirmation-account?token=" + confirmationToken,
+                link:
+                    process.env.BACK_APP_URL +
+                    "/api/v1/auth/confirmation-account?token=" +
+                    confirmationToken,
             };
             const htmlToSend = template(replacements);
 
