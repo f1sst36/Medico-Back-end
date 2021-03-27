@@ -13,7 +13,7 @@ class SendMailWithConfirmedTask extends CoreTask {
         confirmationToken: String
     ): Promise<IResult> => {
         const html = fs.readFileSync(
-            __dirname + "../../../../ship/mail/templates/confirmAccount.html",
+            __dirname + "/../../../../ship/mail/templates/confirmAccount.html",
             { encoding: "utf-8" }
         );
 
