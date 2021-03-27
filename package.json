@@ -4,10 +4,11 @@
     "description": "",
     "main": "dist/app.js",
     "scripts": {
-        "start": "tsc && node dist/index.js",
+        "start": "ts-node src/index.ts",
         "dev": "nodemon",
         "build": "tsc",
-        "seed": "ts-node src/app/ship/database/seeders/index.ts"
+        "seed": "ts-node src/app/ship/database/seeders/index.ts",
+        "prod": "tsc && node dist/index.js"
     },
     "repository": {
         "type": "git",
