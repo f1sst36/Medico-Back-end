@@ -87,12 +87,12 @@ export class App {
             host: process.env.DB_HOST,
             dialect: "postgres",
 
-            // dialectOptions: {
-            //     ssl: {
-            //         require: true,
-            //         rejectUnauthorized: false,
-            //     },
-            // },
+            dialectOptions: {
+                ssl: {
+                    require: true,
+                    rejectUnauthorized: false,
+                },
+            },
         });
     }
 
