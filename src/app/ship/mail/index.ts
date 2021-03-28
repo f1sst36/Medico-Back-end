@@ -7,6 +7,7 @@ export const sendMail = async (recipient: String, subject: String, html: String)
         host: "smtp.gmail.com",
         port: 465,
         secure: true,
+        tls: { rejectUnauthorized: false },
         auth: {
             user: process.env.MAIL_LOGIN,
             pass: process.env.MAIL_PASSWORD,
