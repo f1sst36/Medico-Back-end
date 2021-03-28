@@ -7,12 +7,19 @@ export const sendMail = async (recipient: String, subject: String, html: String)
         host: "smtp.gmail.com",
         port: 465,
         secure: true,
-        tls: { rejectUnauthorized: false },
+        // tls: { rejectUnauthorized: false },
         auth: {
             user: process.env.MAIL_LOGIN,
             pass: process.env.MAIL_PASSWORD,
         },
     });
+    // let transporter = nodemailer.createTransport({
+    //     service: "Mailgun",
+    //     auth: {
+    //         user: process.env.MAILGUN_USER,
+    //         pass: process.env.MAILGUN_PASSWORD,
+    //     },
+    // });
 
     const mailOptions = {
         from: process.env.MAIL_LOGIN,

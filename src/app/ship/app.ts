@@ -75,7 +75,7 @@ export class App {
         // Роут для запуска сидов
         this.app.get("/seeder/run", (_, res: Response) => {
             Seeder.run();
-            res.redirect(process.env.BACK_APP_URL);
+            res.redirect(process.env.BACKEND_URL);
         });
     }
 
