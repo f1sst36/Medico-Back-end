@@ -9,12 +9,14 @@ export abstract class CoreController {
     public prefix: string = "";
     public router: Router | undefined = undefined;
 
-    protected validateRequest = (req: Request, res: Response): Response | undefined => {
+    protected validateRequest = (
+        req: Request,
+        res: Response,
+        message: String = "Ошибка валидации"
+    ): Response | undefined => {
         const errors = validationResult(req).formatWith(errorFormatter);
         if (!errors.isEmpty())
-            return res
-                .status(400)
-                .json(coreTransformer.getErrorResponse("Ошибка валидации", errors.array()));
+            return res.status(400).json(coreTransformer.getErrorResponse(message, errors.array()));
     };
 
     protected validateFormDataRequest = (

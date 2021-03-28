@@ -21,7 +21,7 @@ export class AuthController extends CoreController {
     }
 
     login = async (req: Request, res: Response): Promise<Response> => {
-        if (this.validateRequest(req, res)) return;
+        if (this.validateRequest(req, res, "Неверный логин или пароль")) return;
 
         const result = await loginAction.run(req);
 

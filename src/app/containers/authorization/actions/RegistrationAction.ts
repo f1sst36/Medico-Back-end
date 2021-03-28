@@ -57,6 +57,9 @@ class RegistrationAction extends CoreAction {
             if (!newPatient) return { error: 1, message: "Ошибка создания пациента" };
         }
 
+        // Убери это когда почту на heroku настроешь
+        console.log(newUser.confirmationToken);
+
         return await sendMailWithConfirmedTask.run(
             newUser.email,
             newUser.name,
