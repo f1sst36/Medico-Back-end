@@ -23,7 +23,7 @@ class SendMailWithConfirmedTask extends CoreTask {
             const replacements = {
                 username: userName,
                 link:
-                    process.env.BACK_APP_URL +
+                    process.env.BACKEND_URL +
                     "/api/v1/auth/confirmation-account?token=" +
                     confirmationToken,
             };

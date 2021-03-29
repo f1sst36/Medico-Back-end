@@ -3,23 +3,22 @@ import nodemailer from "nodemailer";
 
 export const sendMail = async (recipient: String, subject: String, html: String) => {
     let transporter = nodemailer.createTransport({
-        service: "gmail",
-        host: "smtp.gmail.com",
-        port: 465,
-        secure: true,
+        service: "Gmail",
+        // host: "smtp.gmail.com",
+        // port: 465,
+        // secure: true,
         // tls: { rejectUnauthorized: false },
         auth: {
+            type: "OAuth2",
             user: process.env.MAIL_LOGIN,
-            pass: process.env.MAIL_PASSWORD,
+            // accessToken: process.env.MAIL_ACCESS_TOKEN,
+            // expires: Date.now() + 60000,
+            refreshToken: process.env.MAIL_REFRESH_TOKEN,
+            clientId: process.env.MAIL_CLIENT_ID,
+            clientSecret: process.env.MAIL_CLIENT_SECRET,
+            // accessUrl: "https://oauth2.googleapis.com/token"
         },
     });
-    // let transporter = nodemailer.createTransport({
-    //     service: "Mailgun",
-    //     auth: {
-    //         user: process.env.MAILGUN_USER,
-    //         pass: process.env.MAILGUN_PASSWORD,
-    //     },
-    // });
 
     const mailOptions = {
         from: process.env.MAIL_LOGIN,
