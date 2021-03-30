@@ -1,3 +1,5 @@
+import { checkPassword, emailRegExp } from "../../../ship/helper/validator";
+
 const Validator = require("express-validator");
 
 export const registrationValidator = [
@@ -14,16 +16,11 @@ export const registrationValidator = [
         })
         .withMessage("Фамилия должна быть от 3 до 120 символов"),
     Validator.body("password", "Пароль не может быть пустым")
-        .isString()
-        .withMessage("Пароль должен быть строкой")
-        .isLength({
-            min: 6,
-            max: 40,
-        })
-        .withMessage("Пароль должен содержать от 6 до 40 символов"),
+        .custom((password) => checkPassword(password))
+        .withMessage("Неверный пароль"),
     Validator.body("email", "Почта не может быть пустой")
         .exists()
-        .isEmail()
+        .matches(emailRegExp())
         .withMessage("Неверный e-mail"),
     Validator.body("phone", "Номер телефона обязателен")
         .matches(/^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$/)
@@ -44,7 +41,7 @@ export const registrationValidator = [
         // .matches(/\b(?:1)\b/)
         // .custom((value: Boolean) => {
         //     console.log(value, typeof value);
-            
+
         //     if (!value) throw new Error("Необходимо принять пользовательское соглашение2");
         // })
         // .isBoolean()

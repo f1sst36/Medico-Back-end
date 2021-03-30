@@ -9,6 +9,7 @@ const exceptUrls = [
     prefix + "/auth/sign-up",
     prefix + "/auth/confirmation-account",
     prefix + "/doctor/specialties",
+    prefix + "/auth/send-email-with-token",
 ];
 
 export const verifyJWTToken = (req, res: Response, next: NextFunction) => {
@@ -23,14 +24,8 @@ export const verifyJWTToken = (req, res: Response, next: NextFunction) => {
     try {
         const verified = jwt.verify(accessToken, process.env.TOKEN_SECRET_KEY);
         req.user = verified._user;
-        // console.log(req);
 
         // проверка на isActivated происходит во время логина (входа)
-        // if (!req.user.isActivated)
-        //     return {
-        //         error: 1,
-        //         message: "Аккаунт не активирован",
-        //     };
 
         next();
     } catch (err) {

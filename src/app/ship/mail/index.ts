@@ -28,8 +28,6 @@ export const sendMail = async (recipient: String, subject: String, html: String)
     };
 
     transporter.sendMail(mailOptions, (err, data) => {
-        console.log("sendMail", err);
-
         if (err) fs.appendFile(__dirname + "/logs/error.txt", JSON.stringify(err) + "\n", () => {});
         if (data)
             fs.appendFile(__dirname + "/logs/success.txt", JSON.stringify(data) + "\n", () => {});

@@ -269,3 +269,67 @@
  *        required: true
  *        type: string
  */
+
+
+/**
+ * @swagger
+ * /auth/send-email-with-token:
+ *    post:
+ *      tags:
+ *        - Authorization
+ *      description: Send email with activation token
+ *      responses:
+ *        '200':
+ *          description: Email is sent
+ *          schema:
+ *            type: object
+ *            properties:
+ *              error:
+ *                type: integer
+ *              data:
+ *                type: object
+ *                example: null
+ *              message:
+ *                type: string
+ *                description: Reply message
+ *        '400':
+ *          description: Bad request
+ *          schema:
+ *            type: object
+ *            properties:
+ *              error:
+ *                type: integer
+ *                example: 1
+ *              data:
+ *                type: object
+ *                example: null
+ *              message:
+ *                type: string
+ *                description: Reply message
+ *        '400*':
+ *          description: Validation errors
+ *          schema:
+ *            type: object
+ *            properties:
+ *              error:
+ *                type: integer
+ *                example: 1
+ *              data:
+ *                type: array
+ *                items:
+ *                  type: string
+ *                example: ["Неверный e-mail"]
+ *              message:
+ *                type: string
+ *                description: Reply message
+ *                example: "Ошибка валидации"
+ *    parameters:
+ *      - name: email
+ *        in: body
+ *        description: Email of user
+ *        required: true
+ *        schema:
+ *          type: string
+ *          example:
+ *            email: "example@gmail.com"
+ */

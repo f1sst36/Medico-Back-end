@@ -1,14 +1,13 @@
+import { checkPassword, emailRegExp } from "../../../ship/helper/validator";
+
 const Validator = require("express-validator");
 
 export const loginValidator = [
     Validator.body("email", "Почта не может быть пустой")
         .exists()
-        .isEmail()
+        .matches(emailRegExp())
         .withMessage("Неверный e-mail"),
-    Validator.body("password", "Парль не может быть пустым")
-        .isLength({
-            min: 6,
-            max: 40,
-        })
-        .withMessage("Пароль должен быть от 6 до 40 символов"),
+    Validator.body("password", "Пароль не может быть пустым")
+        .custom((password) => checkPassword(password))
+        .withMessage("Неверный пароль"),
 ];

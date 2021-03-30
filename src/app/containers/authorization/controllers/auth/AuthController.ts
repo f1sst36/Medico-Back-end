@@ -5,6 +5,8 @@ import { CoreController } from "../../../../ship/core/controller/CoreController"
 import { registrationValidator, loginValidator } from "../../validators";
 import { loginAction, registrationAction, confirmationAccountAction } from "../../actions";
 import { tokenTransformer } from "../../transformers/TokenTransformer";
+import { sendEmailWithActivationTokenAction } from "../../actions/SendEmailWithActivationTokenAction";
+import { sendEmailValidator } from "../../validators/sendEmailValidator";
 
 export class AuthController extends CoreController {
     constructor() {
@@ -18,9 +20,10 @@ export class AuthController extends CoreController {
         this.router.post(this.prefix + "/sign-in", loginValidator, this.login);
         this.router.post(this.prefix + "/sign-up", registrationValidator, this.registration);
         this.router.get(this.prefix + "/confirmation-account", this.confirmationAccount);
+        this.router.post(this.prefix + "/send-email-with-token", sendEmailValidator, this.sendEmailWithActivationToken);
     }
 
-    login = async (req: Request, res: Response): Promise<Response> => {
+    public login = async (req: Request, res: Response): Promise<Response> => {
         if (this.validateRequest(req, res, "Неверный логин или пароль")) return;
 
         const result = await loginAction.run(req);
@@ -36,7 +39,7 @@ export class AuthController extends CoreController {
         return res.status(statusCode).json(response);
     };
 
-    registration = async (req: Request, res: Response): Promise<Response> => {
+    public registration = async (req: Request, res: Response): Promise<Response> => {
         if (this.validateRequest(req, res)) return;
 
         const result = await registrationAction.run(req);
@@ -46,7 +49,7 @@ export class AuthController extends CoreController {
         return res.status(400).json(tokenTransformer.getErrorResponse(result.message));
     };
 
-    confirmationAccount = async (req: Request, res: Response): Promise<any> => {
+    public confirmationAccount = async (req: Request, res: Response): Promise<any> => {
         if (!req.query.token)
             return res
                 .status(404)
@@ -63,7 +66,17 @@ export class AuthController extends CoreController {
         }
     };
 
-    logout = (req: Request, res: Response): void => {
+    public sendEmailWithActivationToken = async (req: Request, res: Response) => {
+        if (this.validateRequest(req, res)) return;
+
+        const result = await sendEmailWithActivationTokenAction.run(req.body.email);
+
+        if (!result.error)
+            return res.status(200).json(tokenTransformer.getSimpleSuccessResponse(result.message));
+        return res.status(400).json(tokenTransformer.getErrorResponse(result.message));
+    };
+
+    public logout = (req: Request, res: Response): void => {
         // ...
     };
 }
