@@ -5,16 +5,58 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Document</title>
         <style>
-            .wrapper {
-                width: 500px;
-                margin: auto;
+            body {
+                color: #424242;
+                margin: 0;
+                padding: 0;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+
+            a {
+                text-decoration: none;
+            }
+
+            .mail {
                 background-color: #f6f9fc;
-                padding: 20px;
+                width: 100%;
+                min-height: 100vh;
+            }
+
+            .wrapper {
+                position: relative;
+                top: -100px;
+                max-width: 500px;
+                margin: auto;
+            }
+
+            .header {
+                height: 200px;
+                background-color: #5ea1f0;
+            }
+
+            .block {
+                background-color: #fff;
+                padding: 24px 24px 48px 24px;
+                border-radius: 4px;
+            }
+
+            .title {
+                margin: 24px 0 32px 0;
+            }
+
+            .meta-data {
+                background-color: #5ea1f0;
+                font-size: 12px;
+                color: #fff;
+                margin: 24px 0;
+                padding: 16px;
+                border-radius: 4px;
+                text-align: justify;
             }
 
             .button {
                 background: #5ea1f0;
-                padding: 10px 36px;
+                padding: 12px 36px;
                 border-radius: 8px;
                 border: none;
                 color: #fff;
@@ -27,21 +69,79 @@
             .button:hover {
                 background: #2d85ec;
             }
+
+            .confirm-button {
+                margin: 40px 0;
+            }
+
+            .text {
+                text-align: justify;
+                font-size: 14px;
+            }
+
+            @media (max-width: 500px) {
+                .header {
+                    height: 100px;
+                }
+
+                .wrapper {
+                    top: -50px;
+                }
+
+                .button {
+                    font-size: 14px;
+                }
+
+                .block {
+                    padding: 12px 12px 24px 12px;
+                }
+
+                .meta-data {
+                    margin: 0;
+                    padding: 12px;
+                    border-radius: 0px;
+                }
+            }
         </style>
     </head>
     <body>
-        <div class="wrapper">
-            <div style="text-align: center">
-                <h2>Подтверждение аккаунта</h2>
-                <h4>Здравствуйте, {{username}}</h4>
-                <a class="button" href="{{link}}" target="_blank"> Подтвердить аккаунт </a>
+        <div class="mail">
+            <div class="header"></div>
+            <div class="wrapper">
+                <div class="block">
+                    <div style="text-align: center">
+                        <h1 class="title">MEDICO</h1>
+                        <h3>Подтверждение аккаунта</h3>
+                        <div class="text">
+                            Здравствуйте, {{username}}. Мы рады что вы решили присоединиться к
+                            намему сервису. Для начала, вам нужно подтвердить аккаунт. Просто
+                            нажмите на кнопку ниже.
+                        </div>
+                        <div class="confirm-button">
+                            <a class="button" href="{{link}}" target="_blank">
+                                Подтвердить аккаунт
+                            </a>
+                        </div>
 
-                <p>
-                    Для подтверждения нажмите на кнопку или перейдите по ссылке: <br /><a
-                        href="{{link}}"
-                        >{{link}}</a
-                    >
-                </p>
+                        <div class="text">
+                            Если это не работает, скорируйте и вставьте ссылку в адресную строку
+                            вашего браузера: <br /><a href="{{link}}"><br />{{link}}</a>
+                        </div>
+                        <br />
+                        <div class="text">
+                            Если у вас остались вопросы, просто ответьте на это сообщение - мы
+                            всегда рады вам помочь.
+                        </div>
+                    </div>
+                </div>
+                <div class="meta-data">
+                    Поскольку вы являетесь клиентом MEDICO, мы время от времени отправляем вам
+                    электронные письма с обновлениями продукта, приглашениями на консультации,
+                    справкой по работе и важной информацией о вашем аккаунте. Вы можете узнать
+                    больше о том, как мы обрабатываем персональные данные, в нашей
+                    <a href="#">Политике конфиденциальности</a>. Если вы больше не хотите получать
+                    эти письма, вы можете отказаться от подписки.
+                </div>
             </div>
         </div>
     </body>
