@@ -75,7 +75,15 @@ export class App {
         // Роут для запуска сидов
         this.app.get("/seeder/run", (_, res: Response) => {
             Seeder.run();
-            res.redirect(process.env.BACKEND_URL);
+            res.send(`<span>Success</span>`);
+        });
+
+        this.app.get("/", (_, res: Response) => {
+            res.send(`
+                <a href="/api-docs">Swagger</a>
+                <a href="${process.env.FRONT_APP_URL}">Front-end application</a>
+                <a href="/seeder/run">Start seeding</a>
+            `);
         });
     }
 
@@ -87,12 +95,12 @@ export class App {
             host: process.env.DB_HOST,
             dialect: "postgres",
 
-            dialectOptions: {
-                ssl: {
-                    require: true,
-                    rejectUnauthorized: false,
-                },
-            },
+            // dialectOptions: {
+            //     ssl: {
+            //         require: true,
+            //         rejectUnauthorized: false,
+            //     },
+            // },
         });
     }
 

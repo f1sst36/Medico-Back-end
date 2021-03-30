@@ -33,4 +33,8 @@ export class ProfileController extends CoreController {
                 );
         else return res.status(400).json(coreTransformer.getErrorResponse(result.message));
     };
+
+    public getDoctorsByPaginate = async (req: Request, res: Response) => {
+        //
+    };
 }
