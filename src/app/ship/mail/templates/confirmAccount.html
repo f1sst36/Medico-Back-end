@@ -17,21 +17,15 @@
             }
 
             .mail {
-                background-color: #f6f9fc;
+                background: linear-gradient(to bottom, #5ea1f0 20%, #f6f9fc 10%);
                 width: 100%;
                 min-height: 100vh;
             }
 
             .wrapper {
-                position: relative;
-                top: -100px;
                 max-width: 500px;
                 margin: auto;
-            }
-
-            .header {
-                height: 200px;
-                background-color: #5ea1f0;
+                padding-top: 60px;
             }
 
             .block {
@@ -59,7 +53,7 @@
                 padding: 12px 36px;
                 border-radius: 8px;
                 border: none;
-                color: #fff;
+                color: #fff !important;
                 font-size: 18px;
                 cursor: pointer;
 
@@ -80,12 +74,8 @@
             }
 
             @media (max-width: 500px) {
-                .header {
-                    height: 100px;
-                }
-
-                .wrapper {
-                    top: -50px;
+                .mail {
+                    background: linear-gradient(to bottom, #5ea1f0 10%, #f6f9fc 10%);
                 }
 
                 .button {
@@ -106,7 +96,6 @@
     </head>
     <body>
         <div class="mail">
-            <div class="header"></div>
             <div class="wrapper">
                 <div class="block">
                     <div style="text-align: center">
