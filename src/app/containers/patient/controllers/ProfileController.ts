@@ -28,15 +28,14 @@ export class ProfileController extends CoreController {
         const result = await questionnaireFormAction.run(req.body, req.user.id);
 
         if (result.error === 0)
-            return res.status(200).json(
-                coreTransformer.getSimpleSuccessResponse(
-                    "Анкета успешно заполнена"
-                    // result.data
-                )
-            );
-        else
             return res
-                .status(400)
-                .json(coreTransformer.getErrorResponse(result.message));
+                .status(200)
+                .json(
+                    coreTransformer.getSimpleSuccessResponse(
+                        "Анкета успешно заполнена",
+                        result.data
+                    )
+                );
+        else return res.status(400).json(coreTransformer.getErrorResponse(result.message));
     };
 }

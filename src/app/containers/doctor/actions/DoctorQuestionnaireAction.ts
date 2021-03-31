@@ -52,7 +52,7 @@ class DoctorQuestionnaireAction extends CoreAction {
             await doctorFiles.summary.mv(uploadPath + doctorFiles.summary.name);
             await doctorFiles.diploma.mv(uploadPath + doctorFiles.diploma.name);
 
-            return { error: 0 };
+            return { error: 0, data: doctor };
         } catch (_) {
             return { error: 1, data: null, message: "Ошибка при отправке заявки" };
         }

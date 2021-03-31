@@ -29,7 +29,10 @@ export class ProfileController extends CoreController {
             return res
                 .status(200)
                 .json(
-                    coreTransformer.getSimpleSuccessResponse("Заявка отправлена на рассмотрение")
+                    coreTransformer.getSimpleSuccessResponse(
+                        "Заявка отправлена на рассмотрение",
+                        result.data
+                    )
                 );
         else return res.status(400).json(coreTransformer.getErrorResponse(result.message));
     };
