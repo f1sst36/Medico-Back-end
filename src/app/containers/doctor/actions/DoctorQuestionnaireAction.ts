@@ -2,6 +2,7 @@ import { format } from "date-fns";
 import { CoreAction, IResult } from "../../../ship/core/action/CoreAction";
 import { DoctorSpecialtiesLink } from "../models";
 import { doctorRepository } from "../repositories/DoctorRepository";
+import { specialtiesRepository } from "../repositories/SpecialtiesRepository";
 
 interface IParams {
     doctorId: Number;
@@ -28,13 +29,13 @@ class DoctorQuestionnaireAction extends CoreAction {
 
         try {
             let specialties = doctorData.specialties.slice(1, doctorData.specialties.length - 1);
-            let specialtiesArray = specialties.split(", ");
+            let specialtiesArray = specialties.split(", ").map((string) => +string);
 
             let doctorSpecialtiesLinkRecords: Array<Object> = [];
             for (let i = 0; i < specialtiesArray.length; i++)
                 doctorSpecialtiesLinkRecords.push({
                     doctorId: doctorId,
-                    specialtyId: +specialtiesArray[i],
+                    specialtyId: specialtiesArray[i],
                 });
 
             DoctorSpecialtiesLink.bulkCreate(doctorSpecialtiesLinkRecords);
@@ -52,7 +53,15 @@ class DoctorQuestionnaireAction extends CoreAction {
             await doctorFiles.summary.mv(uploadPath + doctorFiles.summary.name);
             await doctorFiles.diploma.mv(uploadPath + doctorFiles.diploma.name);
 
-            return { error: 0, data: doctor };
+            const result: any = {};
+            for (let key in doctor) result[key] = doctor[key];
+            const doctorSpecialties = await specialtiesRepository.getSpecialtiesByIds(
+                specialtiesArray
+            );
+            result.specialties = doctorSpecialties;
+            console.log(doctorSpecialties);
+
+            return { error: 0, data: result };
         } catch (_) {
             return { error: 1, data: null, message: "Ошибка при отправке заявки" };
         }

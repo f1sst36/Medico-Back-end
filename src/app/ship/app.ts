@@ -79,7 +79,7 @@ export class App {
         });
 
         this.app.get("/", (_, res: Response) => {
-            res.send(`
+            return res.send(`
                 <a href="/api-docs">Swagger</a>
                 <a href="${process.env.FRONT_APP_URL}">Front-end application</a>
                 <a href="/seeder/run">Start seeding</a>

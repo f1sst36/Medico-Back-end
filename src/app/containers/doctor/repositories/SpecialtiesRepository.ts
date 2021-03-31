@@ -9,9 +9,21 @@ class SpecialtiesRepository extends CoreRepository {
         this.model = Specialties;
     }
 
-    getSpecialties = (): Promise<Array<Specialties>> => {
+    public getSpecialties = (): Promise<Array<Specialties>> => {
         try {
             const result = this.model.findAll({ attributes: ["id", "name", "slug"] });
+            return result;
+        } catch (error) {
+            return null;
+        }
+    };
+
+    public getSpecialtiesByIds = (specialties: Array<Number>): Promise<Array<Specialties>> => {
+        try {
+            const result = this.model.findAll({
+                attributes: ["id", "name", "slug"],
+                where: { id: { [Op.in]: specialties } },
+            });
             return result;
         } catch (error) {
             return null;

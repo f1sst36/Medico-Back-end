@@ -8,7 +8,7 @@ class DoctorRepository extends CoreRepository {
         this.model = Doctor;
     }
 
-    getDoctorById = (id: Number): Promise<Doctor> => {
+    public getDoctorById = (id: Number): Promise<Doctor> => {
         try {
             const result = this.model.findOne({
                 where: {
