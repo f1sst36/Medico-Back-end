@@ -6,9 +6,9 @@ import { PatientsSeed } from "./PatientsSeed";
 
 export class Seeder {
     public static run = async () => {
-        await Doctor.sync({ force: true });
-        await Specialties.sync({ force: true });
-        await Patient.sync({ force: true });
+        // await Doctor.sync({ force: true });
+        // await Specialties.sync({ force: true });
+        // await Patient.sync({ force: true });
 
         new DoctorSpecialtiesSeed().run();
         new PatientsSeed().run();

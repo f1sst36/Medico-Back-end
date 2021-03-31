@@ -22,7 +22,13 @@ class LoginAction extends CoreAction {
         else if (user.userType === "doctor")
             fullUser = await doctorRepository.getDoctorById(user.id);
 
-        const token = jwt.sign({ _user: fullUser.dataValues }, process.env.TOKEN_SECRET_KEY);
+        let token;
+        try {
+            token = await jwt.sign({ _user: fullUser.dataValues }, process.env.TOKEN_SECRET_KEY);
+        } catch (_) {
+            return { error: 1, message: "Ошибка входа" };
+        }
+
         return { error: 0, data: token };
     };
 }
