@@ -38,6 +38,34 @@ class DoctorRepository extends CoreRepository {
             return null;
         }
     };
+
+    public getDoctorsByPaginate = (page: Number, count: Number) => {
+        // try {
+        //     const result = this.model.findAll({
+        //         include: [
+        //             {
+        //                 model: User,
+        //                 as: "user",
+        //                 attributes: {
+        //                     exclude: [
+        //                         "createdAt",
+        //                         "updatedAt",
+        //                         "password",
+        //                         "confirmationToken",
+        //                         "id",
+        //                     ],
+        //                 },
+        //             },
+        //         ],
+        //         attributes: {
+        //             exclude: ["createdAt", "updatedAt"],
+        //         },
+        //     });
+        //     return result;
+        // } catch (error) {
+        //     return null;
+        // }
+    }
 }
 
 export const doctorRepository = new DoctorRepository();
