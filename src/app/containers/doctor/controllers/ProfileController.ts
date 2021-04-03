@@ -22,6 +22,7 @@ export class ProfileController extends CoreController {
         if (this.validateFormDataRequest(req, res, doctorQuestionnaireFormValidator)) return;
 
         const result = await doctorQuestionnaireAction.run(req.user.id, req.body, req.files);
+console.log("doctorQuestionnaireForm result", result);
 
         if (result.error === 0)
             return res

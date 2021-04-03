@@ -59,7 +59,9 @@ class DoctorQuestionnaireAction extends CoreAction {
                 specialtiesArray
             );
             result.specialties = doctorSpecialties;
-            console.log(doctorSpecialties);
+            console.log("doctorSpecialties", doctorSpecialties);
+            console.log("result", result);
+            
 
             return { error: 0, data: result };
         } catch (e) {
