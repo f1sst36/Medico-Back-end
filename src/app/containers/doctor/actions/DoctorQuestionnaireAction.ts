@@ -29,7 +29,7 @@ class DoctorQuestionnaireAction extends CoreAction {
 
         try {
             let specialties = doctorData.specialties.slice(1, doctorData.specialties.length - 1);
-            let specialtiesArray = specialties.split(", ").map((string) => +string);
+            let specialtiesArray = specialties.split(",").map((string) => +string);
 
             let doctorSpecialtiesLinkRecords: Array<Object> = [];
             for (let i = 0; i < specialtiesArray.length; i++)
