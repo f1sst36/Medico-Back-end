@@ -6,7 +6,7 @@ import { specialtiesRepository } from "../repositories/SpecialtiesRepository";
 
 interface IParams {
     doctorId: Number;
-    INN: String;
+    IIN: String;
     specialties: String;
     experience: Date;
 }
@@ -44,7 +44,7 @@ class DoctorQuestionnaireAction extends CoreAction {
                 photo: pathToPhotoImage,
                 summary: pathToSummaryImage,
                 diploma: pathToDiplomaImage,
-                IIN: doctorData.INN,
+                IIN: doctorData.IIN,
                 experience: doctorData.experience,
                 sent: format(new Date(), "yyyy-MM-dd"),
             });
@@ -59,10 +59,12 @@ class DoctorQuestionnaireAction extends CoreAction {
                 specialtiesArray
             );
             result.specialties = doctorSpecialties;
+            result.experience = doctor.transformExperience();
+            delete result.user;
+
             console.log("doctorSpecialties", doctorSpecialties);
             console.log("result", result);
             
-
             return { error: 0, data: result };
         } catch (e) {
             console.log(e);
