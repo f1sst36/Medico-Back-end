@@ -58,14 +58,14 @@ class DoctorQuestionnaireAction extends CoreAction {
             const doctorSpecialties = await specialtiesRepository.getSpecialtiesByIds(
                 specialtiesArray
             );
-            result.specialties = doctorSpecialties;
-            result.experience = doctor.transformExperience();
-            delete result.user;
+            result.dataValues.specialties = doctorSpecialties;
+            result.dataValues.experience = doctor.transformExperience();
+            delete result.dataValues.user;
 
             console.log("doctorSpecialties", doctorSpecialties);
-            console.log("result", result);
+            console.log("result", result.dataValues);
             
-            return { error: 0, data: result };
+            return { error: 0, data: result.dataValues };
         } catch (e) {
             console.log(e);
             
