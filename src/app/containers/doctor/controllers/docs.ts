@@ -182,6 +182,7 @@
  *                                  "workTime":"с 10:00 до 18:00",
  *                                  "photo":"/storage/files/doctor_5.jpg",
  *                                  "specialties":[{"id":1,"name":"Терапевт","slug":"therapist"},{"id":2,"name":"Хирург","slug":"surgeon"}],
+ *                                  "id": 1,
  *                                  "name":"Влад",
  *                                  "surname":"Кличенко",
  *                                  "middleName":"Николаевич"

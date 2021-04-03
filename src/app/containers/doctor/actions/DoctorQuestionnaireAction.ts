@@ -62,7 +62,9 @@ class DoctorQuestionnaireAction extends CoreAction {
             console.log(doctorSpecialties);
 
             return { error: 0, data: result };
-        } catch (_) {
+        } catch (e) {
+            console.log(e);
+            
             return { error: 1, data: null, message: "Ошибка при отправке заявки" };
         }
     };

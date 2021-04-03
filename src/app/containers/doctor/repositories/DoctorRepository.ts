@@ -47,7 +47,7 @@ class DoctorRepository extends CoreRepository {
                     {
                         model: User,
                         as: "user",
-                        attributes: ["name", "surname", "middleName"],
+                        attributes: ["id", "name", "surname", "middleName"],
                     },
                     {
                         model: DoctorSpecialtiesLink,
