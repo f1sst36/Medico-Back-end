@@ -24,6 +24,10 @@ export class SpecialtiesController extends CoreController {
             return res
                 .status(400)
                 .json(coreTransformer.getErrorResponse("Ошибка получения специальностей"));
+        else if (!specialties.length)
+            return res
+                .status(404)
+                .json(coreTransformer.getErrorResponse("Специальности отсутствуют"));
         else return res.status(200).json(coreTransformer.getSimpleSuccessResponse("", specialties));
     };
 }

@@ -21,6 +21,21 @@
  *                type: string
  *                example: ""
  *                description: Reply message
+ *        '404':
+ *          description: Not found
+ *          schema:
+ *            type: object
+ *            properties:
+ *              error:
+ *                type: integer
+ *                example: 1
+ *              data:
+ *                type: object
+ *                example: null
+ *              message:
+ *                type: string
+ *                example: "Специальности отсутствуют"
+ *                description: Reply message
  *        '400':
  *          description: Bad request
  *          schema:
@@ -98,12 +113,12 @@
  *    parameters:
  *      - name: IIN
  *        in: formData
- *        description: IIN of user
+ *        description: IIN of user (16 chars)
  *        required: true
  *        schema:
  *          type: string
  *          example:
- *            1234 1234 1234 1234
+ *            1234123412341234
  *      - name: experience
  *        in: formData
  *        description: Experience of user
