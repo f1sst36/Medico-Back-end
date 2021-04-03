@@ -1,0 +1,867 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Medico API",
+        "description": "API Information\n[ Base URL: /api/v1 ]",
+        "contact": { "name": "F1sst" },
+        "servers": ["http://localhost:8080"]
+    },
+    "schemes": ["http", "https"],
+    "securityDefinitions": {
+        "Bearer": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
+    },
+    "paths": {
+        "/auth/sign-in": {
+            "post": {
+                "tags": ["Authorization"],
+                "description": "Login a user",
+                "responses": {
+                    "200": {
+                        "description": "Successfully logged in",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "error": { "type": "integer" },
+                                "data": {
+                                    "type": "object",
+                                    "properties": {
+                                        "accessToken": {
+                                            "type": "string",
+                                            "description": "Access token."
+                                        },
+                                        "tokenType": {
+                                            "type": "string",
+                                            "description": "Type of token."
+                                        }
+                                    }
+                                },
+                                "message": { "type": "string", "description": "Reply message" }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "error": { "type": "integer", "example": 1 },
+                                "data": { "type": "object", "example": null },
+                                "message": { "type": "string", "description": "Reply message" }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation errors",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "error": { "type": "integer", "example": 1 },
+                                "data": {
+                                    "type": "array",
+                                    "items": { "type": "string" },
+                                    "example": [
+                                        "Неверный e-mail",
+                                        "Пароль должен быть от 6 до 40 символов"
+                                    ]
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "description": "Reply message",
+                                    "example": "Ошибка валидации"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "parameters": [
+                {
+                    "name": "email",
+                    "in": "body",
+                    "description": "Email of user",
+                    "required": true,
+                    "schema": { "type": "string", "example": { "email": "example@mail.com" } }
+                },
+                {
+                    "name": "password",
+                    "in": "body",
+                    "description": "Password of user",
+                    "required": true,
+                    "schema": {
+                        "type": "string",
+                        "minimum": 6,
+                        "maximum": 40,
+                        "example": { "password": "qwe123WE" }
+                    }
+                }
+            ]
+        },
+        "/auth/sign-up": {
+            "post": {
+                "tags": ["Authorization"],
+                "description": "Registration a user",
+                "responses": {
+                    "200": {
+                        "description": "Registered successfully",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "error": { "type": "integer", "example": 0 },
+                                "data": { "type": "object", "example": null },
+                                "message": {
+                                    "type": "string",
+                                    "description": "Reply message",
+                                    "example": "На указанную почту было выслано письмо с подтверждением аккаунта"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "error": { "type": "integer", "example": 1 },
+                                "data": { "type": "object", "example": null },
+                                "message": { "type": "string", "description": "Reply message" }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation errors",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "error": { "type": "integer", "example": 1 },
+                                "data": {
+                                    "type": "array",
+                                    "items": { "type": "string" },
+                                    "example": [
+                                        "Неверный e-mail",
+                                        "Номер телефона имеет неверный формат"
+                                    ]
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "description": "Reply message",
+                                    "example": "Ошибка валидации"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "parameters": [
+                {
+                    "name": "name",
+                    "in": "body",
+                    "description": "Name of user",
+                    "required": true,
+                    "schema": { "type": "string", "example": { "name": "Ivan" } }
+                },
+                {
+                    "name": "surname",
+                    "in": "body",
+                    "description": "Surname of user",
+                    "required": true,
+                    "schema": { "type": "string", "example": { "surname": "Ivanov" } }
+                },
+                {
+                    "name": "middleName",
+                    "in": "body",
+                    "description": "Middle name of user",
+                    "required": false,
+                    "schema": { "type": "string", "example": { "middleName": "Ivanovich" } }
+                },
+                {
+                    "name": "email",
+                    "in": "body",
+                    "description": "Email of user",
+                    "required": true,
+                    "schema": { "type": "string", "example": { "email": "example@mail.com" } }
+                },
+                {
+                    "name": "age",
+                    "in": "body",
+                    "description": "Age of user",
+                    "required": true,
+                    "schema": { "type": "integer", "example": { "age": 24 } }
+                },
+                {
+                    "name": "phone",
+                    "in": "body",
+                    "description": "User's phone number",
+                    "required": true,
+                    "schema": { "type": "string", "example": { "phone": "+79783702015" } }
+                },
+                {
+                    "name": "password",
+                    "in": "body",
+                    "description": "Password of user",
+                    "required": true,
+                    "schema": {
+                        "type": "string",
+                        "minimum": 6,
+                        "maximum": 40,
+                        "example": { "password": "qwe123WE" }
+                    }
+                },
+                {
+                    "name": "sex",
+                    "in": "body",
+                    "description": "User's sex",
+                    "required": true,
+                    "schema": {
+                        "type": "string",
+                        "enum": ["male", "female"],
+                        "example": { "sex": "male" }
+                    }
+                },
+                {
+                    "name": "birthDate",
+                    "in": "body",
+                    "description": "Birth date of user",
+                    "required": true,
+                    "schema": { "type": "date", "example": { "birthDate": "2021-05-31" } }
+                },
+                {
+                    "name": "userType",
+                    "in": "body",
+                    "description": "enum: 'doctor' or 'patient'",
+                    "required": true,
+                    "schema": { "type": "string", "example": { "userType": "doctor" } }
+                },
+                {
+                    "name": "acceptedUserAgreement",
+                    "in": "body",
+                    "description": "true or false",
+                    "required": true,
+                    "schema": { "type": "string", "example": { "acceptedUserAgreement": true } }
+                }
+            ]
+        },
+        "/auth/confirmation-account": {
+            "get": {
+                "tags": ["Authorization"],
+                "description": "Confirmation account. /auth/confirmation-account?token=$2a$10$c21tI4D7gtmG58Q5RQF5duP7AI9YzxdpCDHgPhLVZ75zAxF1VCT2C",
+                "responses": {
+                    "200": {
+                        "description": "Successfully confirmed account",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "error": { "type": "integer", "example": 0 },
+                                "data": { "type": "object", "example": null },
+                                "message": {
+                                    "type": "string",
+                                    "example": "Аккаунт пользователя подтвержден",
+                                    "description": "Reply message"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "error": { "type": "integer", "example": 1 },
+                                "data": { "type": "object", "example": null },
+                                "message": { "type": "string", "description": "Reply message" }
+                            }
+                        }
+                    }
+                }
+            },
+            "parameters": [
+                {
+                    "name": "token",
+                    "in": "query",
+                    "description": "token of confirmation",
+                    "required": true,
+                    "type": "string"
+                }
+            ]
+        },
+        "/auth/send-email-with-token": {
+            "post": {
+                "tags": ["Authorization"],
+                "description": "Send email with activation token",
+                "responses": {
+                    "200": {
+                        "description": "Email is sent",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "error": { "type": "integer" },
+                                "data": { "type": "object", "example": null },
+                                "message": { "type": "string", "description": "Reply message" }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "error": { "type": "integer", "example": 1 },
+                                "data": { "type": "object", "example": null },
+                                "message": { "type": "string", "description": "Reply message" }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation errors",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "error": { "type": "integer", "example": 1 },
+                                "data": {
+                                    "type": "array",
+                                    "items": { "type": "string" },
+                                    "example": ["Неверный e-mail"]
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "description": "Reply message",
+                                    "example": "Ошибка валидации"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "parameters": [
+                {
+                    "name": "email",
+                    "in": "body",
+                    "description": "Email of user",
+                    "required": true,
+                    "schema": { "type": "string", "example": { "email": "example@gmail.com" } }
+                }
+            ]
+        },
+        "/doctor/specialties": {
+            "get": {
+                "tags": ["Doctor"],
+                "description": "Get all specialties list",
+                "responses": {
+                    "200": {
+                        "description": "Successfully getted specialties list",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "error": { "type": "integer", "example": 0 },
+                                "data": {
+                                    "type": "Array<Object>",
+                                    "example": [
+                                        { "id": 1, "name": "Хирург", "slug": "surgeon" },
+                                        { "id": 2, "name": "Терапевт", "slug": "therapist" }
+                                    ]
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "example": "",
+                                    "description": "Reply message"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "error": { "type": "integer", "example": 1 },
+                                "data": { "type": "object", "example": null },
+                                "message": {
+                                    "type": "string",
+                                    "example": "Ошибка получения специальностей",
+                                    "description": "Reply message"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "error": { "type": "integer", "example": 1 },
+                                "data": { "type": "object", "example": null },
+                                "message": {
+                                    "type": "string",
+                                    "example": "Специальности отсутствуют",
+                                    "description": "Reply message"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/doctor/profile/questionnaire": {
+            "post": {
+                "tags": ["Doctor"],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "Questionnaire form is successfully filled",
+                "responses": {
+                    "200": {
+                        "description": "Successfully getted specialties list",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "error": { "type": "integer", "example": 0 },
+                                "data": { "type": null, "example": null },
+                                "message": {
+                                    "type": "string",
+                                    "example": "Заявка отправлена на рассмотрение",
+                                    "description": "Reply message"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "error": { "type": "integer", "example": 1 },
+                                "data": { "type": "object", "example": null },
+                                "message": {
+                                    "type": "string",
+                                    "example": "Ошибка при отправке заявки",
+                                    "description": "Reply message"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation errors",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "error": { "type": "integer", "example": 1 },
+                                "data": {
+                                    "type": "array",
+                                    "items": { "type": "string" },
+                                    "example": [
+                                        "Необходимо указать ИИН",
+                                        "Необходимо загрузить диплом"
+                                    ]
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "description": "Reply message",
+                                    "example": "Ошибка валидации"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "parameters": [
+                {
+                    "name": "IIN",
+                    "in": "formData",
+                    "description": "IIN of user (16 chars)",
+                    "required": true,
+                    "schema": { "type": "string", "example": 1234123412341234 }
+                },
+                {
+                    "name": "experience",
+                    "in": "formData",
+                    "description": "Experience of user",
+                    "required": true,
+                    "schema": { "type": "date", "example": "2015-06-12" }
+                },
+                {
+                    "name": "photo",
+                    "in": "formData",
+                    "description": "Photo of user (File)",
+                    "required": true,
+                    "schema": { "type": "file" }
+                },
+                {
+                    "name": "summary",
+                    "in": "formData",
+                    "description": "Summary of user (File)",
+                    "required": true,
+                    "schema": { "type": "file" }
+                },
+                {
+                    "name": "diploma",
+                    "in": "formData",
+                    "description": "Diploma of user (File)",
+                    "required": true,
+                    "schema": { "type": "file" }
+                },
+                {
+                    "name": "specialties",
+                    "in": "formData",
+                    "description": "Doctor specialties",
+                    "required": true,
+                    "schema": { "type": "date", "example": [1, 4, 5] }
+                }
+            ]
+        },
+        "/doctor/paginate": {
+            "get": {
+                "tags": ["Doctor"],
+                "description": "Get doctors by paginate. /doctor/paginate?page=1&count=3",
+                "responses": {
+                    "200": {
+                        "description": "Successfully getted doctors",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "error": { "type": "integer", "example": 0 },
+                                "data": {
+                                    "type": "Object",
+                                    "example": {
+                                        "items": [
+                                            {
+                                                "about": "Я врач - супер головач!",
+                                                "rating": null,
+                                                "experience": "3 года",
+                                                "costOfConsultation": 1000,
+                                                "workTime": "с 10:00 до 18:00",
+                                                "photo": "/storage/files/doctor_5.jpg",
+                                                "specialties": [
+                                                    {
+                                                        "id": 1,
+                                                        "name": "Терапевт",
+                                                        "slug": "therapist"
+                                                    },
+                                                    { "id": 2, "name": "Хирург", "slug": "surgeon" }
+                                                ],
+                                                "id": 1,
+                                                "name": "Влад",
+                                                "surname": "Кличенко",
+                                                "middleName": "Николаевич"
+                                            },
+                                            {},
+                                            {}
+                                        ],
+                                        "meta": {
+                                            "totalCount": 10,
+                                            "pageCount": 4,
+                                            "currentPage": 1,
+                                            "perPage": 3
+                                        }
+                                    }
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "example": "",
+                                    "description": "Reply message"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "error": { "type": "integer", "example": 1 },
+                                "data": { "type": "object", "example": null },
+                                "message": {
+                                    "type": "string",
+                                    "example": "Ошибка получения врачей",
+                                    "description": "Reply message"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "error": { "type": "integer", "example": 1 },
+                                "data": { "type": "object", "example": null },
+                                "message": {
+                                    "type": "string",
+                                    "example": "Врачи не найдены",
+                                    "description": "Reply message"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "parameters": [
+                {
+                    "name": "page",
+                    "in": "query",
+                    "description": "Number of page",
+                    "required": true,
+                    "schema": { "type": "number", "example": "page=1" }
+                },
+                {
+                    "name": "count",
+                    "in": "query",
+                    "description": "Count of items per page",
+                    "required": true,
+                    "schema": { "type": "number", "example": "count=3" }
+                }
+            ]
+        },
+        "/patient/profile/questionnaire": {
+            "post": {
+                "tags": ["Patient"],
+                "description": "Fill the questionnaire form",
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "Questionnaire form is successfully filled",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "error": { "type": "integer", "example": 0 },
+                                "data": { "type": "object", "example": null },
+                                "message": {
+                                    "type": "string",
+                                    "description": "Reply message",
+                                    "example": "Анкета успешно заполнена"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "error": { "type": "integer", "example": 1 },
+                                "data": { "type": "object", "example": null },
+                                "message": {
+                                    "type": "string",
+                                    "description": "Ошибка при обновлении пользователя"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation errors",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "error": { "type": "integer", "example": 1 },
+                                "data": {
+                                    "type": "array",
+                                    "items": { "type": "string" },
+                                    "example": [
+                                        "Необходимо указать рост",
+                                        "Неверный формат списка хронических заболеваний"
+                                    ]
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "description": "Reply message",
+                                    "example": "Ошибка валидации"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "weight",
+                        "description": "Weight of user",
+                        "required": true,
+                        "type": "float",
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "height": 180,
+                                "weight": 60.5,
+                                "bloodType": "II",
+                                "RHFactor": "Rh+",
+                                "allergies": "ta-tata-t-at-a-ta-taa"
+                            }
+                        }
+                    },
+                    {
+                        "name": "height",
+                        "in": "body",
+                        "description": "Height of user",
+                        "required": true,
+                        "type": "float"
+                    },
+                    {
+                        "name": "bloodType",
+                        "in": "body",
+                        "description": "User's type of blood",
+                        "required": true,
+                        "type": "string",
+                        "enum": ["I", "II", "III", "IV"]
+                    },
+                    {
+                        "name": "RHFactor",
+                        "in": "body",
+                        "description": "User's RHFactor",
+                        "required": true,
+                        "type": "string",
+                        "enum": ["Rh+", "Rh-"]
+                    },
+                    {
+                        "name": "allergies",
+                        "in": "body",
+                        "description": "User's allergies",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "chronicDiseases",
+                        "in": "body",
+                        "description": "User's chronic diseases",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": { "chronicDiseases": "foo baarr" }
+                        }
+                    },
+                    {
+                        "name": "operations",
+                        "in": "body",
+                        "description": "User's operations",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": { "operations": "fogfgdgfdo baarr1231231" }
+                        }
+                    },
+                    {
+                        "name": "isSmoker",
+                        "in": "body",
+                        "description": "Is user a smoker",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": ["Да", "Нет", "Иногда"],
+                            "example": { "isSmoker": "Нет" }
+                        }
+                    },
+                    {
+                        "name": "isAlcoholic",
+                        "in": "body",
+                        "description": "Is user a alcoholic",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "1 раз в год",
+                                "1 раз в месяц",
+                                "1 раз в неделю",
+                                "более 3 раз в неделю"
+                            ],
+                            "example": { "isAlcoholic": "1 раз в месяц" }
+                        }
+                    },
+                    {
+                        "name": "badHabits",
+                        "in": "body",
+                        "description": "Bad habits",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": { "badHabits": "bla-balab-a-ba-bdl" }
+                        }
+                    },
+                    {
+                        "name": "bloodTransfusion",
+                        "in": "body",
+                        "description": "'Да' или 'Нет'",
+                        "required": true,
+                        "schema": { "type": "enum", "example": { "bloodTransfusion": "Нет" } }
+                    }
+                ]
+            }
+        },
+        "/user/": {
+            "get": {
+                "tags": ["User"],
+                "description": "Get user info",
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User data received",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "error": { "type": "integer", "example": 0 },
+                                "data": { "type": "object", "example": {} },
+                                "message": {
+                                    "type": "string",
+                                    "description": "Reply message",
+                                    "example": ""
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Some error",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "error": { "type": "integer", "example": 1 },
+                                "data": { "type": "object", "example": null },
+                                "message": {
+                                    "type": "string",
+                                    "description": "Reply message",
+                                    "example": "Ошибка получения данных"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "parameters": [
+                {
+                    "name": "accessToken",
+                    "in": "header",
+                    "description": "User's token",
+                    "required": true,
+                    "schema": { "type": "string" }
+                }
+            ]
+        },
+        "/storage/files/:fileName": {
+            "get": { "tags": ["File"], "description": "localhost:8080/storage/files/slide3.png" },
+            "parameters": [
+                {
+                    "name": "fileName",
+                    "in": "query",
+                    "description": "File name",
+                    "required": true,
+                    "schema": { "type": "string" }
+                }
+            ]
+        }
+    },
+    "definitions": {},
+    "responses": {},
+    "parameters": {}
+}

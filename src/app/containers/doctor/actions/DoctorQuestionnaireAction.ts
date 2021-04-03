@@ -61,9 +61,6 @@ class DoctorQuestionnaireAction extends CoreAction {
             result.dataValues.specialties = doctorSpecialties;
             result.dataValues.experience = doctor.transformExperience();
             delete result.dataValues.user;
-
-            console.log("doctorSpecialties", doctorSpecialties);
-            console.log("result", result.dataValues);
             
             return { error: 0, data: result.dataValues };
         } catch (e) {

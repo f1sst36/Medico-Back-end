@@ -1,4 +1,5 @@
 import path from "path";
+import fs from "fs";
 
 import express from "express";
 import { Response } from "express";
@@ -84,6 +85,17 @@ export class App {
                 <a href="${process.env.FRONT_APP_URL}">Front-end application</a>
                 <a href="/seeder/run">Start seeding</a>
             `);
+        });
+
+        this.app.get("/swagger", (_, res: Response) => {
+            return res.json(swaggerDocs);
+        });
+
+        this.app.get("/docs", (_, res: Response) => {
+            const html = fs.readFileSync(path.join(__dirname, "./swagger/index.html"), {
+                encoding: "utf-8",
+            });
+            return res.send(html);
         });
     }
 

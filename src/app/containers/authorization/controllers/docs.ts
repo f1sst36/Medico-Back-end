@@ -39,7 +39,7 @@
  *              message:
  *                type: string
  *                description: Reply message
- *        '400*':
+ *        '422':
  *          description: Validation errors
  *          schema:
  *            type: object
@@ -100,7 +100,7 @@
  *                type: string
  *                description: Reply message
  *                example: "На указанную почту было выслано письмо с подтверждением аккаунта"
- *        '400*':
+ *        '422':
  *          description: Validation errors
  *          schema:
  *            type: object
@@ -306,7 +306,7 @@
  *              message:
  *                type: string
  *                description: Reply message
- *        '400*':
+ *        '422':
  *          description: Validation errors
  *          schema:
  *            type: object

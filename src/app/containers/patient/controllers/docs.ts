@@ -23,7 +23,7 @@
  *                type: string
  *                description: Reply message
  *                example: "Анкета успешно заполнена"
- *        '400*':
+ *        '422':
  *          description: Validation errors
  *          schema:
  *            type: object

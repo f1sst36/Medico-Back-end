@@ -78,7 +78,7 @@
  *                type: string
  *                example: "Заявка отправлена на рассмотрение"
  *                description: Reply message
- *        '400*':
+ *        '422':
  *          description: Validation errors
  *          schema:
  *            type: object
@@ -157,7 +157,7 @@
 
 /**
  * @swagger
- * /doctor/paginate:
+ * /doctor/paginate?page={page}&count={count}:
  *    get:
  *      tags:
  *        - Doctor
