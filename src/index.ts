@@ -18,6 +18,7 @@ import {
     specialtiesSchema,
 } from "./app/containers/doctor/models";
 import { jsonErrorHandler, allowCrossDomain, verifyJWTToken } from "./app/ship/middlewares";
+import { DoctorController } from "./app/containers/doctor/controllers/DoctorController";
 
 const app = new App({
     port: +process.env.PORT || 8080,
@@ -28,6 +29,7 @@ const app = new App({
         new SpecialtiesController(),
         new DoctorProfileController(),
         new UserProfileController(),
+        new DoctorController(),
     ],
     middlewares: [allowCrossDomain, verifyJWTToken, jsonErrorHandler],
     models: [

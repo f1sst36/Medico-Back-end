@@ -4,6 +4,7 @@ import { CoreSeed } from "./CoreSeed";
 import { User } from "../../../containers/user/models/User";
 import { createNewDoctorTask } from "../../../containers/doctor/tasks/CreateNewDoctorTask";
 import { format } from "date-fns";
+import { DoctorSpecialtiesLink } from "../../../containers/doctor/models";
 
 interface IUserParams {
     name: String;
@@ -55,6 +56,14 @@ export class DoctorsSeed extends CoreSeed {
         const newDoctor = await createNewDoctorTask.run(newUser.id);
 
         await newDoctor.update(doctorData);
+        await DoctorSpecialtiesLink.create({
+            doctorId: newDoctor.id,
+            specialtyId: 1,
+        });
+        await DoctorSpecialtiesLink.create({
+            doctorId: newDoctor.id,
+            specialtyId: 2,
+        });
     };
 
     private arrayRandElement = (arr: Array<any>) => {

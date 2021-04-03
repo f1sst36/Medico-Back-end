@@ -9,6 +9,8 @@ export abstract class CoreController {
     public prefix: string = "";
     public router: Router | undefined = undefined;
 
+    private errorStatusCode = 422;
+
     protected validateRequest = (
         req: Request,
         res: Response,
@@ -16,7 +18,7 @@ export abstract class CoreController {
     ): Response | undefined => {
         const errors = validationResult(req).formatWith(errorFormatter);
         if (!errors.isEmpty())
-            return res.status(400).json(coreTransformer.getErrorResponse(message, errors.array()));
+            return res.status(this.errorStatusCode).json(coreTransformer.getErrorResponse(message, errors.array()));
     };
 
     protected validateFormDataRequest = (
@@ -27,7 +29,7 @@ export abstract class CoreController {
         const validateFormDataResult = validateMethod(req.body, req.files);
         if (Array.isArray(validateFormDataResult))
             return res
-                .status(400)
+                .status(this.errorStatusCode)
                 .json(coreTransformer.getErrorResponse("Ошибка валидации", validateFormDataResult));
     };
 }

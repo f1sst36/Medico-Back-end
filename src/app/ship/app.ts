@@ -118,6 +118,11 @@ export class App {
             as: "doctor",
             foreignKey: "doctorId",
         });
+        Doctor.hasMany(DoctorSpecialtiesLink, {
+            as: "doctorSpecialtiesLink",
+            foreignKey: "doctorId",
+            constraints: false,
+        });
         DoctorSpecialtiesLink.belongsTo(Specialties, {
             as: "specialty",
             foreignKey: "specialtyId",

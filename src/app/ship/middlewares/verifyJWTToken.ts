@@ -9,6 +9,7 @@ const exceptUrls = [
     prefix + "/auth/sign-up",
     prefix + "/auth/confirmation-account",
     prefix + "/doctor/specialties",
+    prefix + "/doctor/paginate",
     prefix + "/auth/send-email-with-token",
 ];
 

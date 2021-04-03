@@ -73,6 +73,10 @@
                 font-size: 14px;
             }
 
+            .link {
+                word-break: break-all;
+            }
+
             @media (max-width: 500px) {
                 .mail {
                     background: linear-gradient(to bottom, #5ea1f0 10%, #f6f9fc 10%);
@@ -114,7 +118,9 @@
 
                         <div class="text">
                             Если это не работает, скорируйте и вставьте ссылку в адресную строку
-                            вашего браузера: <br /><a href="{{link}}"><br />{{link}}</a>
+                            вашего браузера: <br /><a class="link" href="{{link}}"
+                                ><br />{{link}}</a
+                            >
                         </div>
                         <br />
                         <div class="text">
