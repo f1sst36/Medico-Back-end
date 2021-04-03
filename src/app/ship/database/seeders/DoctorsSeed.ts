@@ -137,7 +137,7 @@ export class DoctorsSeed extends CoreSeed {
                     userType: "doctor",
                 },
                 {
-                    IIN: "5023 1380 5346 7453",
+                    IIN: "502313805346",
                     experience: format(new Date(2017, 6, 26), "yyyy-MM-dd"),
                     photo: this.arrayRandElement(doctorPhotos),
                     summary: "/storage/files/summary.jpg",
@@ -153,5 +153,37 @@ export class DoctorsSeed extends CoreSeed {
                 }
             );
         }
+
+        await this.createDoctor(
+            {
+                name: "Илья",
+                surname: "Дожленко",
+                middleName: "Андреевич",
+                sex: "male",
+                birthDate: "2000-06-16",
+                phone: this.randomPhone(),
+                email: `ilya@mail.ru`,
+                isActivated: true,
+                hashedPassword: await bcrypt.hash("Q1w2e3r4", salt),
+                confirmationToken: await bcrypt.hash("ilya@mail.ru", salt),
+                acceptedUserAgreement: true,
+                userType: "doctor",
+            },
+            {
+                IIN: "502313805346",
+                experience: format(new Date(2019, 8, 11), "yyyy-MM-dd"),
+                photo: this.arrayRandElement(doctorPhotos),
+                summary: "/storage/files/summary.jpg",
+                diploma: "/storage/files/diploma.jpg",
+                about: "Я врач - хуяч",
+                workplaces: [
+                    "Саратовчкая клиника под Донбассом",
+                    "Центральная поликлинника города Ярославль",
+                ],
+                education: ["Высшее Томбовское образование", "Грамота цетрального округа"],
+                sent: "2021-03-31",
+                isVerified: true,
+            }
+        );
     };
 }

@@ -8,7 +8,7 @@ export const doctorQuestionnaireFormValidator = (data: IParams, files: any): Arr
     let errMessages: Array<String> = [];
 
     if (!data.IIN) errMessages.push("Необходимо указать ИИН");
-    else if (!data.IIN.match(/^[0-9]{16}$/))
+    else if (!data.IIN.match(/^[0-9]{12}$/))
         errMessages.push("Неверный формат ИИН");
 
     if (!data.specialties || !data.specialties.length)
