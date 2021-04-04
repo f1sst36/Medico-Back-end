@@ -113,12 +113,12 @@
  *    parameters:
  *      - name: IIN
  *        in: formData
- *        description: IIN of user (16 chars)
+ *        description: IIN of user (12 chars)
  *        required: true
  *        schema:
  *          type: string
  *          example:
- *            1234123412341234
+ *            123123123123
  *      - name: experience
  *        in: formData
  *        description: Experience of user
