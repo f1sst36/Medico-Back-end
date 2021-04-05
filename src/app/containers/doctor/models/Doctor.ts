@@ -39,7 +39,7 @@ export class Doctor extends CoreModel {
 
         let years = days / 365;
         if (years < 1) {
-            const months = Math.floor(days / 30);
+            const months = Math.round(days / 30);
             let word = "месяцев";
             if (months < 1) return "Отсутствует";
             else if (months === 1) word = "месяц";
@@ -47,9 +47,10 @@ export class Doctor extends CoreModel {
 
             result = `${months} ${word}`;
         } else {
-            const years = Math.floor(days / 365);
+            const years = Math.round(days / 365);
             let word = "лет";
-            if (years >= 2 && years <= 4) word = "года";
+            if (years === 1) word = "год";
+            else if (years >= 2 && years <= 4) word = "года";
 
             result = `${years} ${word}`;
         }

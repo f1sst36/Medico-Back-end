@@ -247,3 +247,67 @@
  *          example:
  *            count=3
  */
+
+/**
+ * @swagger
+ * /doctor?id={id}:
+ *    get:
+ *      tags:
+ *        - Doctor
+ *      description: Get doctor by id
+ *      responses:
+ *        '200':
+ *          description: Successfully getted doctor
+ *          schema:
+ *            type: object
+ *            properties:
+ *              error:
+ *                type: integer
+ *                example: 0
+ *              data:
+ *                type: Object
+ *                example: {"id":2,"name":"Дмитрий","surname":"Кличенко","middleName":"Николаевич","rating":null,"about":"Я врач - супер головач!","experience":"4 года","reviews":[],"education":["Высшее Томбовское образование","Грамота цетрального округа"],"workplaces":["Саратовчкая клиника под Донбассом","Центральная поликлинника города Ярославль"],"workTime":"с 10:00 до 18:00","photo":"/storage/files/doctor_3.jpg","costOfConsultation":1000,"specialties":[{"id":1,"name":"Терапевт","slug":"therapist"},{"id":2,"name":"Хирург","slug":"surgeon"}]}
+ *              message:
+ *                type: string
+ *                example: ""
+ *                description: Reply message
+ *        '404':
+ *          description: Not found
+ *          schema:
+ *            type: object
+ *            properties:
+ *              error:
+ *                type: integer
+ *                example: 1
+ *              data:
+ *                type: object
+ *                example: null
+ *              message:
+ *                type: string
+ *                example: "Доктор не найден"
+ *                description: Reply message
+ *        '422':
+ *          description: Validation error
+ *          schema:
+ *            type: object
+ *            properties:
+ *              error:
+ *                type: integer
+ *                example: 1
+ *              data:
+ *                type: object
+ *                example: ["Параметр должен быть числом"]
+ *              message:
+ *                type: string
+ *                example: "Ошибка валидации"
+ *                description: Reply message
+ *    parameters:
+ *      - name: id
+ *        in: query
+ *        description: Doctor's id
+ *        required: true
+ *        schema:
+ *          type: number
+ *          example:
+ *            id=1
+ */

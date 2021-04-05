@@ -29,6 +29,17 @@ class DoctorRepository extends CoreRepository {
                             ],
                         },
                     },
+                    {
+                        model: DoctorSpecialtiesLink,
+                        as: "doctorSpecialtiesLink",
+                        include: [
+                            {
+                                model: Specialties,
+                                as: "specialty",
+                                attributes: ["id", "name", "slug"],
+                            },
+                        ],
+                    },
                 ],
                 attributes: {
                     exclude: ["createdAt", "updatedAt"],
@@ -78,7 +89,7 @@ class DoctorRepository extends CoreRepository {
         }
     };
 
-    public getCountOfDoctors = () => {
+    public getCountOfDoctors = (): Promise<number> => {
         try {
             const result = this.model.count({
                 where: {
