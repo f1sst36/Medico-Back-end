@@ -30,11 +30,18 @@ export class DoctorController extends CoreController {
     public getDoctorsByPaginate = async (req: Request, res: Response) => {
         if (this.validateRequest(req, res)) return;
 
+        if (+req.query.page <= 0 || +req.query.count <= 0)
+            return res
+                .status(422)
+                .json(coreTransformer.getErrorResponse("Неверный формат параметров"));
+
         const result = await getDoctorsByPaginate.run(+req.query.page, +req.query.count);
 
         if (result.error) {
             if (result.data && !result.data.length)
-                return res.status(404).json(coreTransformer.getErrorResponse(result.message, result.data));
+                return res
+                    .status(404)
+                    .json(coreTransformer.getErrorResponse(result.message, result.data));
             else return res.status(400).json(coreTransformer.getErrorResponse(result.message));
         }
 
@@ -56,6 +63,13 @@ export class DoctorController extends CoreController {
         if (result.error)
             return res.status(404).json(coreTransformer.getErrorResponse(result.message));
 
-        return res.status(200).json(coreTransformer.getSimpleSuccessResponse("", doctorByIdTransformer.transform(result.data)));
+        return res
+            .status(200)
+            .json(
+                coreTransformer.getSimpleSuccessResponse(
+                    "",
+                    doctorByIdTransformer.transform(result.data)
+                )
+            );
     };
 }
