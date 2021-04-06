@@ -5,6 +5,7 @@ import { CoreModel } from "../../../ship/core/model/CoreModel";
 export class Review extends CoreModel {
     public readonly id: Number;
     public patientId: Number;
+    public doctorId: Number;
     public text: String;
     public estimation: Number;
     public createdAt: String | Date;
@@ -18,6 +19,10 @@ export const reviewSchema = {
         type: DataTypes.INTEGER,
     },
     patientId: {
+        allowNull: false,
+        type: DataTypes.INTEGER,
+    },
+    doctorId: {
         allowNull: false,
         type: DataTypes.INTEGER,
     },

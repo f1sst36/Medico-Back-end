@@ -10,9 +10,9 @@ export class Seeder {
         // await Specialties.sync({ force: true });
         // await Patient.sync({ force: true });
 
-        new DoctorSpecialtiesSeed().run();
-        new PatientsSeed().run();
-        new DoctorsSeed().run();
+        await new DoctorSpecialtiesSeed().run();
+        await new PatientsSeed().run();
+        await new DoctorsSeed().run();
     };
 }
 

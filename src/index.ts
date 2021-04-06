@@ -19,6 +19,7 @@ import {
 } from "./app/containers/doctor/models";
 import { jsonErrorHandler, allowCrossDomain, verifyJWTToken } from "./app/ship/middlewares";
 import { DoctorController } from "./app/containers/doctor/controllers/DoctorController";
+import { Review, reviewSchema } from "./app/containers/doctor/models/Review";
 
 const app = new App({
     port: +process.env.PORT || 8080,
@@ -57,6 +58,11 @@ const app = new App({
             model: DoctorSpecialtiesLink,
             schema: doctorSpecialtiesLinkSchema,
             tableName: "DoctorSpecialtiesLink",
+        },
+        {
+            model: Review,
+            schema: reviewSchema,
+            tableName: "Review",
         },
     ],
 });

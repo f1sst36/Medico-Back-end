@@ -1,6 +1,15 @@
 import { CoreTransformer, IResponse } from "../../../ship/core/transformer/CoreTransformer";
 import { Doctor } from "../models";
 
+interface Review {
+    name: String;
+    surname: String;
+    avatar: String;
+    text: String;
+    rating: Number;
+    createdAt: Date;
+}
+
 interface IDoctorResult {
     id: Number;
     name: String;
@@ -9,7 +18,7 @@ interface IDoctorResult {
     rating: Number;
     about: String;
     experience: String;
-    reviews: Array<Object>;
+    reviews: Array<Review>;
     education: Array<String>;
     workplaces: Array<String>;
     workTime: String;
@@ -30,7 +39,7 @@ class DoctorByIdTransformer extends CoreTransformer {
             rating: doctor.getDataValue("rating"),
             about: doctor.getDataValue("about"),
             experience: doctor.transformExperience(),
-            reviews: doctor.getDataValue("reviews") ? doctor.getDataValue("reviews") : [],
+            reviews: [],
             education: doctor.getDataValue("education"),
             workplaces: doctor.getDataValue("workplaces"),
             workTime: doctor.getDataValue("workTime"),
@@ -39,8 +48,20 @@ class DoctorByIdTransformer extends CoreTransformer {
             specialties: [],
         };
 
-        for (let key in doctor.doctorSpecialtiesLink) {
+        for (let key in doctor.doctorSpecialtiesLink)
             result.specialties.push(doctor.doctorSpecialtiesLink[key].specialty.dataValues);
+
+        for (let key in doctor.reviews) {
+            if (!doctor.reviews[key].patient) continue;
+
+            result.reviews.push({
+                name: doctor.reviews[key].patient.user.getDataValue("name"),
+                surname: doctor.reviews[key].patient.user.getDataValue("surname"),
+                avatar: doctor.reviews[key].patient.getDataValue("avatar"),
+                text: doctor.reviews[key].getDataValue("text"),
+                rating: doctor.reviews[key].getDataValue("rating"),
+                createdAt: doctor.reviews[key].getDataValue("createdAt"),
+            });
         }
 
         return result;

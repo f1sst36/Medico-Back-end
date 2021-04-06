@@ -4,7 +4,7 @@ import { CoreSeed } from "./CoreSeed";
 import { User } from "../../../containers/user/models/User";
 import { createNewDoctorTask } from "../../../containers/doctor/tasks/CreateNewDoctorTask";
 import { format } from "date-fns";
-import { DoctorSpecialtiesLink } from "../../../containers/doctor/models";
+import { DoctorSpecialtiesLink, Review } from "../../../containers/doctor/models";
 
 interface IUserParams {
     name: String;
@@ -64,6 +64,16 @@ export class DoctorsSeed extends CoreSeed {
             doctorId: newDoctor.id,
             specialtyId: 2,
         });
+
+        for (let i = 0; i < Math.round(Math.random() * 2) + 1; i++) {
+            await Review.create({
+                patientId: Math.round(Math.random() * 1) + 1,
+                doctorId: newDoctor.id,
+                text: "Какой же классный отзыв я могу оставить этому врачу",
+                estimation: Math.round(Math.random() * 4) + 1,
+                createdAt: format(new Date(), "yyyy-MM-dd"),
+            });
+        }
     };
 
     private arrayRandElement = (arr: Array<any>) => {

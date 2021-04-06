@@ -1,7 +1,9 @@
+import { Patient } from "../../../containers/patient/models/Patient";
 import { Op } from "sequelize";
 import { CoreRepository } from "../../../ship/core/repository/CoreRepository";
 import { User } from "../../user/models/User";
 import { Doctor, DoctorSpecialtiesLink, Specialties } from "../models";
+import { Review } from "../models/Review";
 
 class DoctorRepository extends CoreRepository {
     constructor() {
@@ -37,6 +39,24 @@ class DoctorRepository extends CoreRepository {
                                 model: Specialties,
                                 as: "specialty",
                                 attributes: ["id", "name", "slug"],
+                            },
+                        ],
+                    },
+                    {
+                        model: Review,
+                        as: "reviews",
+                        include: [
+                            {
+                                model: Patient,
+                                as: "patient",
+                                include: [
+                                    {
+                                        model: User,
+                                        as: "user",
+                                        attributes: ["name", "surname"],
+                                    },
+                                ],
+                                attributes: ["avatar"],
                             },
                         ],
                     },

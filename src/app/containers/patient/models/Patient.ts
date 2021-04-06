@@ -52,6 +52,9 @@ export const patientSchema = {
     isSmoker: {
         type: DataTypes.ENUM("Да", "Нет", "Иногда"),
     },
+    avatar: {
+        type: DataTypes.STRING,
+    },
     isAlcoholic: {
         type: DataTypes.ENUM(
             "1 раз в год",

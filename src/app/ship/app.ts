@@ -17,6 +17,7 @@ import { Patient } from "../containers/patient/models/Patient";
 import { Doctor, DoctorSpecialtiesLink, Specialties } from "../containers/doctor/models";
 import { User } from "../containers/user/models/User";
 import { Seeder } from "./database/seeders";
+import { Review } from "../containers/doctor/models/Review";
 
 export class App {
     public app: Application;
@@ -41,7 +42,7 @@ export class App {
         this.initModels(appInit.models);
 
         // force: true - удалит все таблицы и накатит заново
-        this.sequelize.sync({ force: false });
+        this.sequelize.sync({ force: true });
 
         // Seeder.run();
     }
@@ -125,7 +126,7 @@ export class App {
         // Relationships
         Patient.hasOne(User, { as: "user", foreignKey: "id", constraints: false });
         Doctor.hasOne(User, { as: "user", foreignKey: "id", constraints: false });
-
+        //
         DoctorSpecialtiesLink.belongsTo(Doctor, {
             as: "doctor",
             foreignKey: "doctorId",
@@ -138,6 +139,17 @@ export class App {
         DoctorSpecialtiesLink.belongsTo(Specialties, {
             as: "specialty",
             foreignKey: "specialtyId",
+        });
+        //
+        Review.belongsTo(Patient, {
+            as: "patient",
+            foreignKey: "patientId",
+            constraints: false,
+        });
+        Doctor.hasMany(Review, {
+            as: "reviews",
+            foreignKey: "doctorId",
+            constraints: false,
         });
     }
 
