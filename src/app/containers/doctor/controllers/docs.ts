@@ -266,7 +266,7 @@
  *                example: 0
  *              data:
  *                type: Object
- *                example: {"id":2,"name":"Дмитрий","surname":"Кличенко","middleName":"Николаевич","rating":null,"about":"Я врач - супер головач!","experience":"4 года","reviews":[],"education":["Высшее Томбовское образование","Грамота цетрального округа"],"workplaces":["Саратовчкая клиника под Донбассом","Центральная поликлинника города Ярославль"],"workTime":"с 10:00 до 18:00","photo":"/storage/files/doctor_3.jpg","costOfConsultation":1000,"specialties":[{"id":1,"name":"Терапевт","slug":"therapist"},{"id":2,"name":"Хирург","slug":"surgeon"}]}
+ *                example: {"id":4,"name":"Дмитрий","surname":"Кличенко","middleName":"Николаевич","rating":null,"about":"Я врач - супер головач!","experience":"4 года","reviews":[{"name":"Максим","surname":"Иванов","avatar":null,"text":"Какой же классный отзыв я могу оставить этому врачу","createdAt":"2021-04-06"},{"name":"Илья","surname":"Долженко","avatar":null,"text":"Какой же классный отзыв я могу оставить этому врачу","createdAt":"2021-04-06"}],"education":["Высшее Томбовское образование","Грамота цетрального округа"],"workplaces":["Саратовчкая клиника под Донбассом","Центральная поликлинника города Ярославль"],"workTime":"с 10:00 до 18:00","photo":"/storage/files/doctor_1.jpg","costOfConsultation":1000,"specialties":[{"id":1,"name":"Терапевт","slug":"therapist"},{"id":2,"name":"Хирург","slug":"surgeon"}]}
  *              message:
  *                type: string
  *                example: ""
