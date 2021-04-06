@@ -29,7 +29,7 @@ class DoctorQuestionnaireAction extends CoreAction {
 
         try {
             let specialties = doctorData.specialties.slice(1, doctorData.specialties.length - 1);
-            let specialtiesArray = specialties.split(",").map((string) => +string);
+            let specialtiesArray = [...new Set(specialties.split(",").map((string) => +string))];
 
             let doctorSpecialtiesLinkRecords: Array<Object> = [];
             for (let i = 0; i < specialtiesArray.length; i++)
@@ -61,11 +61,11 @@ class DoctorQuestionnaireAction extends CoreAction {
             result.dataValues.specialties = doctorSpecialties;
             result.dataValues.experience = doctor.transformExperience();
             delete result.dataValues.user;
-            
+
             return { error: 0, data: result.dataValues };
         } catch (e) {
             console.log(e);
-            
+
             return { error: 1, data: null, message: "Ошибка при отправке заявки" };
         }
     };
