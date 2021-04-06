@@ -16,6 +16,7 @@ class DoctorRepository extends CoreRepository {
             const result = this.model.findOne({
                 where: {
                     id: id,
+                    isVerified: true,
                 },
                 include: [
                     {
