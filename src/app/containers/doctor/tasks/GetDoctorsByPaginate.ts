@@ -16,7 +16,15 @@ class GetDoctorsByPaginate extends CoreTask {
         if (!doctors.length)
             return {
                 error: 1,
-                data: [],
+                data: {
+                    items: [],
+                    meta: {
+                        totalCount: countOfDoctors,
+                        pageCount: Math.ceil(countOfDoctors / count),
+                        currentPage: page,
+                        perPage: count,
+                    },
+                },
                 message: "Врачи не найдены",
             };
 

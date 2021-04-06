@@ -34,7 +34,7 @@ export class DoctorController extends CoreController {
 
         if (result.error) {
             if (result.data && !result.data.length)
-                return res.status(404).json(coreTransformer.getErrorResponse(result.message));
+                return res.status(404).json(coreTransformer.getErrorResponse(result.message, result.data));
             else return res.status(400).json(coreTransformer.getErrorResponse(result.message));
         }
 

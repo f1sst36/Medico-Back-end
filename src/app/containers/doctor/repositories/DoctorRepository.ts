@@ -54,6 +54,7 @@ class DoctorRepository extends CoreRepository {
     public getDoctorsByPaginate = (page: number, count: number) => {
         try {
             const result = this.model.findAll({
+                where: { isVerified: true },
                 include: [
                     {
                         model: User,
@@ -96,6 +97,7 @@ class DoctorRepository extends CoreRepository {
                     id: {
                         [Op.gt]: 0,
                     },
+                    isVerified: true,
                 },
             });
             return result;
