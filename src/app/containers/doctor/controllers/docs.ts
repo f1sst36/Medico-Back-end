@@ -250,7 +250,7 @@
 
 /**
  * @swagger
- * /doctor?id={id}:
+ * /doctor/info?id={id}:
  *    get:
  *      tags:
  *        - Doctor

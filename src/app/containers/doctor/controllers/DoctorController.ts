@@ -24,7 +24,7 @@ export class DoctorController extends CoreController {
             doctorsPaginateValidator,
             this.getDoctorsByPaginate
         );
-        this.router.get(this.prefix + "/", doctorByIdValidator, this.getDoctorById);
+        this.router.get(this.prefix + "/info", doctorByIdValidator, this.getDoctorById);
     }
 
     public getDoctorsByPaginate = async (req: Request, res: Response) => {
