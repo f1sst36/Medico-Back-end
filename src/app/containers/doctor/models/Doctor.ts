@@ -29,9 +29,14 @@ export class Doctor extends CoreModel {
 
     public user: User;
 
-    public transformExperience(): String {
+    public transformExperience(): String | Date {
         const currentDate: any = new Date();
-        const experience: any = new Date(format(this.experience, "yyyy-MM-dd"));
+        let experience: any;
+        try {
+            experience = new Date(format(this.experience, "yyyy-MM-dd"));
+        } catch (e) {
+            return this.experience;
+        }
 
         const days = Math.abs((currentDate - experience) / (60 * 60 * 24 * 1000));
 
