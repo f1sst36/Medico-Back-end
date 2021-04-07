@@ -2,11 +2,12 @@ import { CoreTransformer, IResponse } from "../../../ship/core/transformer/CoreT
 import { Doctor } from "../models";
 
 interface Review {
+    id: Number;
     name: String;
     surname: String;
     avatar: String;
     text: String;
-    rating: Number;
+    estimation: Number;
     createdAt: Date;
 }
 
@@ -55,11 +56,12 @@ class DoctorByIdTransformer extends CoreTransformer {
             if (!doctor.reviews[key].patient) continue;
 
             result.reviews.push({
+                id: doctor.reviews[key].getDataValue("id"),
                 name: doctor.reviews[key].patient.user.getDataValue("name"),
                 surname: doctor.reviews[key].patient.user.getDataValue("surname"),
                 avatar: doctor.reviews[key].patient.getDataValue("avatar"),
                 text: doctor.reviews[key].getDataValue("text"),
-                rating: doctor.reviews[key].getDataValue("rating"),
+                estimation: doctor.reviews[key].getDataValue("estimation"),
                 createdAt: doctor.reviews[key].getDataValue("createdAt"),
             });
         }
