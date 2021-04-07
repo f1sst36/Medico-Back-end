@@ -155,7 +155,7 @@ class DoctorRepository extends CoreRepository {
                     {
                         model: User,
                         as: "user",
-                        attributes: ["id", "name", "surname", "middleName"],
+                        attributes: ["name", "surname", "middleName"],
                     },
                     {
                         model: DoctorSpecialtiesLink,
@@ -169,7 +169,7 @@ class DoctorRepository extends CoreRepository {
                         ],
                     },
                 ],
-                attributes: ["photo", "experience"],
+                attributes: ["id", "photo", "experience"],
                 order: [["experience", "ASC"]],
                 limit: count,
             });
