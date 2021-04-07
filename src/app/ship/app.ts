@@ -42,7 +42,7 @@ export class App {
         this.initModels(appInit.models);
 
         // force: true - удалит все таблицы и накатит заново
-        this.sequelize.sync({ force: true });
+        this.sequelize.sync({ force: false });
 
         // Seeder.run();
     }

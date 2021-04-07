@@ -10,6 +10,9 @@ import { doctorByIdValidator } from "../validators/doctorByIdValidator";
 import { getDoctorByIdTask } from "../tasks/GetDoctorByIdTask";
 import { doctorByIdTransformer } from "../transformers/DoctorByIdTransformer";
 import { doctorRepository } from "../repositories/DoctorRepository";
+import { getMostExperiencedDoctorsTask } from "../tasks/GetMostExperiencedDoctorsTask";
+import { mostExperiencedDoctorsValidator } from "../validators/mostExperiencedDoctorsValidator";
+import { mostExperiencedDoctorsTransformer } from "../transformers/MostExperiencedDoctorsTransformer";
 
 export class DoctorController extends CoreController {
     constructor() {
@@ -27,6 +30,11 @@ export class DoctorController extends CoreController {
         );
         this.router.get(this.prefix + "/info", doctorByIdValidator, this.getDoctorById);
         this.router.get(this.prefix + "/unverified", this.getUnverifiedDoctors);
+        this.router.get(
+            this.prefix + "/most-experienced",
+            mostExperiencedDoctorsValidator,
+            this.getMostExperiencedDoctors
+        );
     }
 
     public getDoctorsByPaginate = async (req: Request, res: Response) => {
@@ -82,5 +90,28 @@ export class DoctorController extends CoreController {
             return res.status(404).json(coreTransformer.getErrorResponse("Врачи не найдены"));
 
         return res.status(200).json(result);
+    };
+
+    public getMostExperiencedDoctors = async (req: Request, res: Response) => {
+        if (this.validateRequest(req, res)) return;
+
+        if (+req.query.count <= 0)
+            return res
+                .status(422)
+                .json(coreTransformer.getErrorResponse("Неверный формат параметров"));
+
+        const result = await getMostExperiencedDoctorsTask.run(+req.query.count);
+
+        if (result.error || !result.data.length)
+            return res.status(404).json(coreTransformer.getErrorResponse("Врачи не найдены"));
+
+        return res
+            .status(200)
+            .json(
+                coreTransformer.getSimpleSuccessResponse(
+                    "",
+                    mostExperiencedDoctorsTransformer.transform(result.data)
+                )
+            );
     };
 }

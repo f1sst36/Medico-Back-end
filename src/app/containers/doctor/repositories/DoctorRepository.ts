@@ -146,6 +146,38 @@ class DoctorRepository extends CoreRepository {
             return null;
         }
     };
+
+    public getMostExperiencedDoctors = (count: Number) => {
+        try {
+            const result = this.model.findAll({
+                where: { isVerified: true },
+                include: [
+                    {
+                        model: User,
+                        as: "user",
+                        attributes: ["id", "name", "surname", "middleName"],
+                    },
+                    {
+                        model: DoctorSpecialtiesLink,
+                        as: "doctorSpecialtiesLink",
+                        include: [
+                            {
+                                model: Specialties,
+                                as: "specialty",
+                                attributes: ["id", "name", "slug"],
+                            },
+                        ],
+                    },
+                ],
+                attributes: ["photo", "experience"],
+                order: [["experience", "ASC"]],
+                limit: count,
+            });
+            return result;
+        } catch (_) {
+            return null;
+        }
+    };
 }
 
 export const doctorRepository = new DoctorRepository();

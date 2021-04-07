@@ -351,3 +351,67 @@
  *                example: "Врачи не найдены"
  *                description: Reply message
  */
+
+/**
+ * @swagger
+ * /doctor/most-experienced?count={count}:
+ *    get:
+ *      tags:
+ *        - Doctor
+ *      description: Get the most experienced doctors
+ *      responses:
+ *        '200':
+ *          description: Successfully getted doctor
+ *          schema:
+ *            type: object
+ *            properties:
+ *              error:
+ *                type: integer
+ *                example: 0
+ *              data:
+ *                type: Object
+ *                example: [{"name":"Сергей","surname":"Кличенко","middleName":"Николаевич","experience":"20 лет","photo":"/storage/files/doctor_1.jpg","specialties":[{"id":6,"name":"Косметолог","slug":"cosmetologist"},{"id":4,"name":"Эндокринолог","slug":"endocrinologist"}]}]
+ *              message:
+ *                type: string
+ *                example: ""
+ *                description: Reply message
+ *        '404':
+ *          description: Not found
+ *          schema:
+ *            type: object
+ *            properties:
+ *              error:
+ *                type: integer
+ *                example: 1
+ *              data:
+ *                type: object
+ *                example: null
+ *              message:
+ *                type: string
+ *                example: "Доктор не найден"
+ *                description: Reply message
+ *        '422':
+ *          description: Validation error
+ *          schema:
+ *            type: object
+ *            properties:
+ *              error:
+ *                type: integer
+ *                example: 1
+ *              data:
+ *                type: object
+ *                example: ["Параметр должен быть числом"]
+ *              message:
+ *                type: string
+ *                example: "Ошибка валидации"
+ *                description: Reply message
+ *    parameters:
+ *      - name: count
+ *        in: query
+ *        description: Count of doctors
+ *        required: true
+ *        schema:
+ *          type: number
+ *          example:
+ *            count=1
+ */

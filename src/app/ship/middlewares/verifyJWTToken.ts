@@ -8,11 +8,12 @@ const exceptUrls = [
     prefix + "/auth/sign-in",
     prefix + "/auth/sign-up",
     prefix + "/auth/confirmation-account",
+    prefix + "/auth/send-email-with-token",
     prefix + "/doctor/specialties",
     prefix + "/doctor/paginate",
     prefix + "/doctor/info",
     prefix + "/doctor/unverified",
-    prefix + "/auth/send-email-with-token",
+    prefix + "/doctor/most-experienced",
 ];
 
 export const verifyJWTToken = (req, res: Response, next: NextFunction) => {
