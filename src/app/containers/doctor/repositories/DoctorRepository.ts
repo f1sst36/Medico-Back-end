@@ -126,6 +126,26 @@ class DoctorRepository extends CoreRepository {
             return null;
         }
     };
+
+    public getUnverifiedDoctors = (): Promise<Array<Doctor>> => {
+        try {
+            const result = this.model.findAll({
+                where: {
+                    isVerified: false,
+                },
+                include: [
+                    {
+                        model: User,
+                        as: "user",
+                        attributes: ["name", "surname", "phone", "email"],
+                    },
+                ],
+            });
+            return result;
+        } catch (_) {
+            return null;
+        }
+    };
 }
 
 export const doctorRepository = new DoctorRepository();

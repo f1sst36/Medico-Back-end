@@ -32,6 +32,9 @@ interface IDoctorParams {
     education: Array<String>;
     sent: String | Date;
     isVerified: Boolean;
+    rating: Number;
+    costOfConsultation: Number;
+    workTime: String;
 }
 
 export class DoctorsSeed extends CoreSeed {
@@ -56,14 +59,12 @@ export class DoctorsSeed extends CoreSeed {
         const newDoctor = await createNewDoctorTask.run(newUser.id);
 
         await newDoctor.update(doctorData);
-        await DoctorSpecialtiesLink.create({
-            doctorId: newDoctor.id,
-            specialtyId: 1,
-        });
-        await DoctorSpecialtiesLink.create({
-            doctorId: newDoctor.id,
-            specialtyId: 2,
-        });
+        for (let i = 0; i < Math.round(Math.random() * 2) + 1; i++) {
+            await DoctorSpecialtiesLink.create({
+                doctorId: newDoctor.id,
+                specialtyId: Math.round(Math.random() * 15) + 1,
+            });
+        }
 
         for (let i = 0; i < Math.round(Math.random() * 2) + 1; i++) {
             await Review.create({
@@ -109,6 +110,17 @@ export class DoctorsSeed extends CoreSeed {
             prefix + "doctor_4.jpg",
             prefix + "doctor_5.jpg",
             prefix + "doctor_6.jpg",
+            prefix + "doctor_7.jpg",
+            prefix + "doctor_8.jpg",
+            prefix + "doctor_9.jpg",
+            prefix + "doctor_10.jpg",
+            prefix + "doctor_11.jpg",
+            prefix + "doctor_12.jpg",
+            prefix + "doctor_13.jpg",
+            prefix + "doctor_14.jpg",
+            prefix + "doctor_15.jpg",
+            prefix + "doctor_16.jpg",
+            prefix + "doctor_17.jpg",
         ];
         const names = [
             "Андрей",
@@ -130,7 +142,7 @@ export class DoctorsSeed extends CoreSeed {
             "Мария",
         ];
 
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 20; i++) {
             await this.createDoctor(
                 {
                     name: this.arrayRandElement(names),
@@ -148,18 +160,30 @@ export class DoctorsSeed extends CoreSeed {
                 },
                 {
                     IIN: "502313805346",
-                    experience: format(new Date(2017, 6, 26), "yyyy-MM-dd"),
+                    experience: format(
+                        new Date(
+                            Math.round(Math.random() * 21) + 2000,
+                            Math.round(Math.random() * 11) + 1,
+                            Math.round(Math.random() * 29) + 1
+                        ),
+                        "yyyy-MM-dd"
+                    ),
                     photo: this.arrayRandElement(doctorPhotos),
                     summary: "/storage/files/summary.jpg",
                     diploma: "/storage/files/diploma.jpg",
                     about: "Я врач - супер головач!",
+                    rating: Math.round(Math.random() * 4) + 1,
                     workplaces: [
                         "Саратовчкая клиника под Донбассом",
                         "Центральная поликлинника города Ярославль",
                     ],
                     education: ["Высшее Томбовское образование", "Грамота цетрального округа"],
                     sent: "2021-03-31",
-                    isVerified: true,
+                    isVerified: Boolean(Math.random() >= 0.1),
+                    costOfConsultation: (Math.round(Math.random() * 12) + 8) * 100,
+                    workTime: `с ${Math.round(Math.random() * 4) + 8}:00 до ${
+                        Math.round(Math.random() * 6) + 14
+                    }:00`,
                 }
             );
         }
@@ -181,11 +205,19 @@ export class DoctorsSeed extends CoreSeed {
             },
             {
                 IIN: "502313805346",
-                experience: format(new Date(2019, 8, 11), "yyyy-MM-dd"),
+                experience: format(
+                    new Date(
+                        Math.round(Math.random() * 21) + 2000,
+                        Math.round(Math.random() * 11) + 1,
+                        Math.round(Math.random() * 29) + 1
+                    ),
+                    "yyyy-MM-dd"
+                ),
                 photo: this.arrayRandElement(doctorPhotos),
                 summary: "/storage/files/summary.jpg",
                 diploma: "/storage/files/diploma.jpg",
                 about: "Я врач - хуяч",
+                rating: Math.round(Math.random() * 4) + 1,
                 workplaces: [
                     "Саратовчкая клиника под Донбассом",
                     "Центральная поликлинника города Ярославль",
@@ -193,6 +225,10 @@ export class DoctorsSeed extends CoreSeed {
                 education: ["Высшее Томбовское образование", "Грамота цетрального округа"],
                 sent: "2021-03-31",
                 isVerified: true,
+                costOfConsultation: (Math.round(Math.random() * 12) + 8) * 100,
+                workTime: `с ${Math.round(Math.random() * 4) + 8}:00 до ${
+                    Math.round(Math.random() * 6) + 14
+                }:00`,
             }
         );
     };

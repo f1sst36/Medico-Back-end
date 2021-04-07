@@ -9,6 +9,7 @@ import { doctorsPaginateValidator } from "../validators/doctorsPaginateValidator
 import { doctorByIdValidator } from "../validators/doctorByIdValidator";
 import { getDoctorByIdTask } from "../tasks/GetDoctorByIdTask";
 import { doctorByIdTransformer } from "../transformers/DoctorByIdTransformer";
+import { doctorRepository } from "../repositories/DoctorRepository";
 
 export class DoctorController extends CoreController {
     constructor() {
@@ -25,6 +26,7 @@ export class DoctorController extends CoreController {
             this.getDoctorsByPaginate
         );
         this.router.get(this.prefix + "/info", doctorByIdValidator, this.getDoctorById);
+        this.router.get(this.prefix + "/unverified", this.getUnverifiedDoctors);
     }
 
     public getDoctorsByPaginate = async (req: Request, res: Response) => {
@@ -71,5 +73,14 @@ export class DoctorController extends CoreController {
                     doctorByIdTransformer.transform(result.data)
                 )
             );
+    };
+
+    public getUnverifiedDoctors = async (req: Request, res: Response) => {
+        const result = await doctorRepository.getUnverifiedDoctors();
+
+        if (!result || !result.length)
+            return res.status(404).json(coreTransformer.getErrorResponse("Врачи не найдены"));
+
+        return res.status(200).json(result);
     };
 }

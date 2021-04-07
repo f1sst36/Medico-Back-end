@@ -311,3 +311,43 @@
  *          example:
  *            id=1
  */
+
+/**
+ * @swagger
+ * /doctor/unverified:
+ *    get:
+ *      tags:
+ *        - Admin
+ *      description: Get all unverified doctors
+ *      responses:
+ *        '200':
+ *          description: Successfully getted unverified doctors
+ *          schema:
+ *            type: object
+ *            properties:
+ *              error:
+ *                type: integer
+ *                example: 0
+ *              data:
+ *                type: Object
+ *                example: [{"id":3,"IIN":"502313805346","experience":"2017-07-26T00:00:00.000Z","photo":"/storage/files/doctor_2.jpg","summary":"/storage/files/summary.jpg","diploma":"/storage/files/diploma.jpg","about":"Я врач - супер головач!","workplaces":["Саратовчкая клиника под Донбассом","Центральная поликлинника города Ярославль"],"education":["Высшее Томбовское образование","Грамота цетрального округа"],"sent":"2021-03-31T00:00:00.000Z","isVerified":false,"rating":null,"costOfConsultation":1000,"workTime":"с 10:00 до 18:00","createdAt":"2021-04-07T07:55:45.943Z","updatedAt":"2021-04-07T07:55:45.951Z","user":{"name":"Николай","surname":"Кличенко","phone":"+67203744345","email":"sdfdfqwvurhdyjmxww@mail.ru"}}]
+ *              message:
+ *                type: string
+ *                example: ""
+ *                description: Reply message
+ *        '404':
+ *          description: Not found
+ *          schema:
+ *            type: object
+ *            properties:
+ *              error:
+ *                type: integer
+ *                example: 1
+ *              data:
+ *                type: object
+ *                example: null
+ *              message:
+ *                type: string
+ *                example: "Врачи не найдены"
+ *                description: Reply message
+ */
