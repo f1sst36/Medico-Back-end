@@ -25,7 +25,8 @@ class LoginAction extends CoreAction {
         let token;
         try {
             token = await jwt.sign({ _user: fullUser.dataValues }, process.env.TOKEN_SECRET_KEY);
-        } catch (_) {
+        } catch (e) {
+            console.log("LignAction jwt.sign ERROR", e);
             return { error: 1, message: "Ошибка входа" };
         }
 
