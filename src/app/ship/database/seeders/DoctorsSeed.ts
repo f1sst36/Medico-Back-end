@@ -216,10 +216,10 @@ export class DoctorsSeed extends CoreSeed {
                 photo: this.arrayRandElement(doctorPhotos),
                 summary: "/storage/files/summary.jpg",
                 diploma: "/storage/files/diploma.jpg",
-                about: "Я врач - хуяч",
+                about: "Я врач - не мяч!",
                 rating: Math.round(Math.random() * 4) + 1,
                 workplaces: [
-                    "Саратовчкая клиника под Донбассом",
+                    "Саратовская клиника под Донбассом",
                     "Центральная поликлинника города Ярославль",
                 ],
                 education: ["Высшее Томбовское образование", "Грамота цетрального округа"],
