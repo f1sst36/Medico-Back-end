@@ -16,6 +16,66 @@ class DoctorRepository extends CoreRepository {
             const result = this.model.findOne({
                 where: {
                     id: id,
+                },
+                include: [
+                    {
+                        model: User,
+                        as: "user",
+                        attributes: {
+                            exclude: [
+                                "createdAt",
+                                "updatedAt",
+                                "password",
+                                "confirmationToken",
+                                "id",
+                            ],
+                        },
+                    },
+                    {
+                        model: DoctorSpecialtiesLink,
+                        as: "doctorSpecialtiesLink",
+                        include: [
+                            {
+                                model: Specialties,
+                                as: "specialty",
+                                attributes: ["id", "name", "slug"],
+                            },
+                        ],
+                    },
+                    {
+                        model: Review,
+                        as: "reviews",
+                        include: [
+                            {
+                                model: Patient,
+                                as: "patient",
+                                include: [
+                                    {
+                                        model: User,
+                                        as: "user",
+                                        attributes: ["name", "surname"],
+                                    },
+                                ],
+                                attributes: ["avatar"],
+                            },
+                        ],
+                    },
+                ],
+                attributes: {
+                    exclude: ["createdAt", "updatedAt"],
+                },
+            });
+            return result;
+        } catch (error) {
+            return null;
+        }
+    };
+
+    public getVerifiedDoctorById = (id: Number): Promise<Doctor> => {
+        try {
+            const result = this.model.findOne({
+                where: {
+                    id: id,
                     isVerified: true,
                 },
                 include: [

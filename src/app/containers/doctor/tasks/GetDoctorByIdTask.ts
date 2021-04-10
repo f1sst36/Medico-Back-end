@@ -3,7 +3,7 @@ import { doctorRepository } from "../repositories/DoctorRepository";
 
 class GetDoctorByIdTask extends CoreTask {
     public run = async (id: Number): Promise<IResult> => {
-        const doctor = await doctorRepository.getDoctorById(id);
+        const doctor = await doctorRepository.getVerifiedDoctorById(id);
 
         if (!doctor)
             return {
