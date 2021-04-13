@@ -9,4 +9,12 @@ export const doctorsPaginateValidator = [
         .trim()
         .isInt()
         .withMessage("Параметр должен быть числом"),
+    Validator.query("fio")
+        .trim()
+        .isString()
+        .withMessage("Параметр должен быть строкой"),
+    Validator.query("specialty")
+        .trim()
+        .isString()
+        .withMessage("Параметр должен быть строкой"),
 ];

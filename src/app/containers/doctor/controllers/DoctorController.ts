@@ -45,7 +45,12 @@ export class DoctorController extends CoreController {
                 .status(422)
                 .json(coreTransformer.getErrorResponse("Неверный формат параметров"));
 
-        const result = await getDoctorsByPaginate.run(+req.query.page, +req.query.count);
+        const result = await getDoctorsByPaginate.run(
+            +req.query.page,
+            +req.query.count,
+            String(req.query.fio),
+            String(req.query.specialty)
+        );
 
         if (result.error) {
             if (result.data && !result.data.length)

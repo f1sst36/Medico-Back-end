@@ -157,11 +157,11 @@
 
 /**
  * @swagger
- * /doctor/paginate?page={page}&count={count}:
+ * /doctor/paginate?page={page}&count={count}&fio={fio}&specialty={specialty}:
  *    get:
  *      tags:
  *        - Doctor
- *      description: Get doctors by paginate. /doctor/paginate?page=1&count=3
+ *      description: Get doctors by paginate. /doctor/paginate?page=1&count=3. 'fio' and 'specialty' is not required. 'specialty' === slug
  *      responses:
  *        '200':
  *          description: Successfully getted doctors
@@ -246,6 +246,22 @@
  *          type: number
  *          example:
  *            count=3
+ *      - name: fio
+ *        in: query
+ *        description: Doctor's FIO
+ *        required: false
+ *        schema:
+ *          type: string
+ *          example:
+ *            fio=Ivan Ivanov
+ *      - name: specialty
+ *        in: query
+ *        description: Doctor's specialty
+ *        required: false
+ *        schema:
+ *          type: string
+ *          example:
+ *            specialty=immunologist
  */
 
 /**

@@ -2,8 +2,18 @@ import { CoreTask, IResult } from "../../../ship/core/task/CoreTask";
 import { doctorRepository } from "../repositories/DoctorRepository";
 
 class GetDoctorsByPaginate extends CoreTask {
-    public run = async (page: number, count: number): Promise<IResult> => {
-        const doctors = await doctorRepository.getDoctorsByPaginate(page, count);
+    public run = async (
+        page: number,
+        count: number,
+        fio: string = "",
+        specialtySlug: string = ""
+    ): Promise<IResult> => {
+        const doctors = await doctorRepository.getDoctorsByPaginate(
+            page,
+            count,
+            fio,
+            specialtySlug
+        );
         const countOfDoctors = await doctorRepository.getCountOfDoctors();
 
         if (!doctors)

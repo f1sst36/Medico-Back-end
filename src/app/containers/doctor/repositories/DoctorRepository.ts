@@ -4,6 +4,7 @@ import { CoreRepository } from "../../../ship/core/repository/CoreRepository";
 import { User } from "../../user/models/User";
 import { Doctor, DoctorSpecialtiesLink, Specialties } from "../models";
 import { Review } from "../models/Review";
+import { Sequelize } from "sequelize";
 
 class DoctorRepository extends CoreRepository {
     constructor() {
@@ -132,15 +133,43 @@ class DoctorRepository extends CoreRepository {
         }
     };
 
-    public getDoctorsByPaginate = (page: number, count: number) => {
+    public getDoctorsByPaginate = (
+        page: number,
+        count: number,
+        fio: string,
+        specialtySlug: string
+    ) => {
         try {
             const result = this.model.findAll({
-                where: { isVerified: true },
+                where: {
+                    isVerified: true,
+                    // abc: Sequelize.where(
+                    //     "spec",
+                    //     {
+                    //         [Op.like]: `%${ Sequelize.col('Specialties.slug') }%`,
+                    //     }
+                    // ),
+                },
                 include: [
                     {
                         model: User,
                         as: "user",
                         attributes: ["id", "name", "surname", "middleName"],
+                        where: {
+                            fio: Sequelize.where(
+                                Sequelize.fn(
+                                    "concat",
+                                    Sequelize.col("name"),
+                                    " ",
+                                    Sequelize.col("surname"),
+                                    " ",
+                                    Sequelize.col("middleName")
+                                ),
+                                {
+                                    [Op.like]: `%${fio}%`,
+                                }
+                            ),
+                        },
                     },
                     {
                         model: DoctorSpecialtiesLink,
@@ -150,6 +179,12 @@ class DoctorRepository extends CoreRepository {
                                 model: Specialties,
                                 as: "specialty",
                                 attributes: ["id", "name", "slug"],
+                                where: {
+                                    slug: Sequelize.where(Sequelize.col("slug"), {
+                                        [Op.like]: `%${specialtySlug}%`,
+                                    }),
+                                    // slug: "immunologist",
+                                },
                             },
                         ],
                     },
