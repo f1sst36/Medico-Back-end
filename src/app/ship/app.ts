@@ -18,6 +18,8 @@ import { Doctor, DoctorSpecialtiesLink, Specialties } from "../containers/doctor
 import { User } from "../containers/user/models/User";
 import { Seeder } from "./database/seeders";
 import { Review } from "../containers/doctor/models/Review";
+import { Consultation } from "../containers/consultation/models/Consultation";
+import { CommunicationMethod } from "../containers/consultation/models/CommunicationMethod";
 
 export class App {
     public app: Application;
@@ -149,6 +151,32 @@ export class App {
         Doctor.hasMany(Review, {
             as: "reviews",
             foreignKey: "doctorId",
+            constraints: false,
+        });
+        //
+        Consultation.belongsTo(Doctor, {
+            as: "doctor",
+            foreignKey: "doctorId",
+            constraints: false,
+        });
+        Consultation.belongsTo(Patient, {
+            as: "patient",
+            foreignKey: "patientId",
+            constraints: false,
+        });
+        Consultation.belongsTo(CommunicationMethod, {
+            as: "communicationMethod",
+            foreignKey: "communicationMethodId",
+            constraints: false,
+        });
+        Doctor.hasMany(Consultation, {
+            as: "consultations",
+            foreignKey: "doctorId",
+            constraints: false,
+        });
+        Patient.hasMany(Consultation, {
+            as: "consultations",
+            foreignKey: "patientId",
             constraints: false,
         });
     }
