@@ -1,25 +1,27 @@
-import path from "path";
-import fs from "fs";
+import path from 'path';
+import fs from 'fs';
 
-import express from "express";
-import { Response } from "express";
-import { Application } from "express";
-import "dotenv/config";
+import express from 'express';
+import { Response } from 'express';
+import { Application } from 'express';
+import 'dotenv/config';
 
-import { Sequelize } from "sequelize";
+import { Sequelize } from 'sequelize';
 
-import { swaggerDocs } from "./swagger";
-import swaggerUi from "swagger-ui-express";
+import { swaggerDocs } from './swagger';
+import swaggerUi from 'swagger-ui-express';
 
-import fileUpload from "express-fileupload";
+import fileUpload from 'express-fileupload';
 
-import { Patient } from "../containers/patient/models/Patient";
-import { Doctor, DoctorSpecialtiesLink, Specialties } from "../containers/doctor/models";
-import { User } from "../containers/user/models/User";
-import { Seeder } from "./database/seeders";
-import { Review } from "../containers/doctor/models/Review";
-import { Consultation } from "../containers/consultation/models/Consultation";
-import { CommunicationMethod } from "../containers/consultation/models/CommunicationMethod";
+import { Patient } from '../containers/patient/models/Patient';
+import { Doctor, DoctorSpecialtiesLink, Specialties } from '../containers/doctor/models';
+import { User } from '../containers/user/models/User';
+import { Seeder } from './database/seeders';
+import { Review } from '../containers/doctor/models/Review';
+import { Consultation } from '../containers/consultation/models/Consultation';
+import { CommunicationMethod } from '../containers/consultation/models/CommunicationMethod';
+import { Payment } from '../containers/payment/models/Payment';
+import { Card } from '../containers/payment/models/Card';
 
 export class App {
     public app: Application;
@@ -72,17 +74,17 @@ export class App {
         });
 
         // Роут для получения изображений
-        this.app.get("/storage/files/:fileName", (req, res: Response) =>
+        this.app.get('/storage/files/:fileName', (req, res: Response) =>
             res.sendFile(path.join(__dirname, `./storage/files/${req.params.fileName}`))
         );
 
         // Роут для запуска сидов
-        this.app.get("/seeder/run", (_, res: Response) => {
+        this.app.get('/seeder/run', (_, res: Response) => {
             Seeder.run();
             res.send(`<span>Success</span>`);
         });
 
-        this.app.get("/", (_, res: Response) => {
+        this.app.get('/', (_, res: Response) => {
             return res.send(`
                 <a href="/api-docs">Swagger</a>
                 <a href="${process.env.FRONT_APP_URL}">Front-end application</a>
@@ -90,13 +92,13 @@ export class App {
             `);
         });
 
-        this.app.get("/swagger", (_, res: Response) => {
+        this.app.get('/swagger', (_, res: Response) => {
             return res.json(swaggerDocs);
         });
 
-        this.app.get("/docs", (_, res: Response) => {
-            const html = fs.readFileSync(path.join(__dirname, "./swagger/index.html"), {
-                encoding: "utf-8",
+        this.app.get('/docs', (_, res: Response) => {
+            const html = fs.readFileSync(path.join(__dirname, './swagger/index.html'), {
+                encoding: 'utf-8',
             });
             return res.send(html);
         });
@@ -108,7 +110,7 @@ export class App {
             username: process.env.DB_USERNAME,
             password: process.env.DB_PASSWORD,
             host: process.env.DB_HOST,
-            dialect: "postgres",
+            dialect: 'postgres',
 
             dialectOptions: {
                 ssl: {
@@ -126,63 +128,73 @@ export class App {
         });
 
         // Relationships
-        Patient.hasOne(User, { as: "user", foreignKey: "id", constraints: false });
-        Doctor.hasOne(User, { as: "user", foreignKey: "id", constraints: false });
+        Patient.hasOne(User, { as: 'user', foreignKey: 'id', constraints: false });
+        Doctor.hasOne(User, { as: 'user', foreignKey: 'id', constraints: false });
         //
         DoctorSpecialtiesLink.belongsTo(Doctor, {
-            as: "doctor",
-            foreignKey: "doctorId",
+            as: 'doctor',
+            foreignKey: 'doctorId',
         });
         Doctor.hasMany(DoctorSpecialtiesLink, {
-            as: "doctorSpecialtiesLink",
-            foreignKey: "doctorId",
+            as: 'doctorSpecialtiesLink',
+            foreignKey: 'doctorId',
             constraints: false,
         });
         DoctorSpecialtiesLink.belongsTo(Specialties, {
-            as: "specialty",
-            foreignKey: "specialtyId",
+            as: 'specialty',
+            foreignKey: 'specialtyId',
         });
         //
         Review.belongsTo(Patient, {
-            as: "patient",
-            foreignKey: "patientId",
+            as: 'patient',
+            foreignKey: 'patientId',
             constraints: false,
         });
         Doctor.hasMany(Review, {
-            as: "reviews",
-            foreignKey: "doctorId",
+            as: 'reviews',
+            foreignKey: 'doctorId',
             constraints: false,
         });
         //
         Consultation.belongsTo(Doctor, {
-            as: "doctor",
-            foreignKey: "doctorId",
+            as: 'doctor',
+            foreignKey: 'doctorId',
             constraints: false,
         });
         Consultation.belongsTo(Patient, {
-            as: "patient",
-            foreignKey: "patientId",
+            as: 'patient',
+            foreignKey: 'patientId',
             constraints: false,
         });
         Consultation.belongsTo(CommunicationMethod, {
-            as: "communicationMethod",
-            foreignKey: "communicationMethodId",
+            as: 'communicationMethod',
+            foreignKey: 'communicationMethodId',
             constraints: false,
         });
         Doctor.hasMany(Consultation, {
-            as: "consultations",
-            foreignKey: "doctorId",
+            as: 'consultations',
+            foreignKey: 'doctorId',
             constraints: false,
         });
         Patient.hasMany(Consultation, {
-            as: "consultations",
-            foreignKey: "patientId",
+            as: 'consultations',
+            foreignKey: 'patientId',
             constraints: false,
         });
+        // Consultation.hasOne(Payment, {
+        //     as: 'payment',
+        //     foreignKey: 'paymentId',
+        //     constraints: false,
+        // });
+        // Payment.belongsTo(Card, {
+        //     as: "card",
+        //     foreignKey: "cardId",
+        //     constraints: false,
+        // })
     }
 
     private initSwagger() {
-        this.app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+        this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
     }
 
     public listen() {

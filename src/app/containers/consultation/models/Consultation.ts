@@ -1,6 +1,6 @@
-import { DataTypes } from "sequelize";
+import { DataTypes } from 'sequelize';
 
-import { CoreModel } from "../../../ship/core/model/CoreModel";
+import { CoreModel } from '../../../ship/core/model/CoreModel';
 
 export class Consultation extends CoreModel {
     public readonly id: Number;
@@ -15,7 +15,7 @@ export class Consultation extends CoreModel {
     public readonly updatedAt: Date;
 
     public getReceptionTime = (): String => {
-        return "string";
+        return 'string';
     };
 }
 
@@ -51,17 +51,20 @@ export const consultationSchema = {
         allowNull: true,
         type: DataTypes.INTEGER,
     },
-    isActive: { // идет ли консультация в текущий момент
+    isActive: {
+        // идет ли консультация в текущий момент
         allowNull: false,
         type: DataTypes.BOOLEAN,
         defaultValue: false,
     },
-    isCanceled: { // отменена ли консультация
+    isCanceled: {
+        // отменена ли консультация
         allowNull: false,
         type: DataTypes.BOOLEAN,
         defaultValue: false,
     },
-    isDone: { // завершена ли консультация
+    isDone: {
+        // завершена ли консультация
         allowNull: false,
         type: DataTypes.BOOLEAN,
         defaultValue: false,

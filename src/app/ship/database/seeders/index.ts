@@ -1,8 +1,9 @@
-import { Patient } from "../../../containers/patient/models/Patient";
-import { Doctor, Specialties } from "../../../containers/doctor/models";
-import { DoctorSpecialtiesSeed } from "./DoctorSpecialtiesSeed";
-import { DoctorsSeed } from "./DoctorsSeed";
-import { PatientsSeed } from "./PatientsSeed";
+import { Patient } from '../../../containers/patient/models/Patient';
+import { Doctor, Specialties } from '../../../containers/doctor/models';
+import { DoctorSpecialtiesSeed } from './DoctorSpecialtiesSeed';
+import { DoctorsSeed } from './DoctorsSeed';
+import { PatientsSeed } from './PatientsSeed';
+import { CommunicationMethodSeed } from './CommunicationMethodSeed';
 
 export class Seeder {
     public static run = async () => {
@@ -13,7 +14,6 @@ export class Seeder {
         await new DoctorSpecialtiesSeed().run();
         await new PatientsSeed().run();
         await new DoctorsSeed().run();
+        await new CommunicationMethodSeed().run();
     };
 }
-
-// Seeder.run();

@@ -29,9 +29,7 @@ export const registrationValidator = [
         .matches(/\b(?:male|female)\b/)
         .withMessage("Выберите пол"),
     Validator.body("birthDate", "Укажите дату рождения")
-        // .isDate({format: 'YYYY-MM-DD'})
-        .isString()
-        // .matches(/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/)
+        .isISO8601()
         .withMessage("Неверный формат даты рождения"),
     Validator.body("userType", "Укажите тип пользователя")
         .matches(/\b(?:patient|doctor)\b/)
