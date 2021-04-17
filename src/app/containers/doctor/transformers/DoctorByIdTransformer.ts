@@ -20,6 +20,7 @@ interface IDoctorResult {
     about: String;
     experience: String;
     reviews: Array<Review>;
+    countOfReviews: Number;
     education: Array<String>;
     workplaces: Array<String>;
     workTime: String;
@@ -29,7 +30,7 @@ interface IDoctorResult {
 }
 
 class DoctorByIdTransformer extends CoreTransformer {
-    public transform = (doctor: any): IDoctorResult => {
+    public transform = (doctor: any, countOfReviews: Number): IDoctorResult => {
         let result: IDoctorResult;
 
         result = {
@@ -41,6 +42,7 @@ class DoctorByIdTransformer extends CoreTransformer {
             about: doctor.getDataValue("about"),
             experience: doctor.transformExperience(),
             reviews: [],
+            countOfReviews: countOfReviews,
             education: doctor.getDataValue("education"),
             workplaces: doctor.getDataValue("workplaces"),
             workTime: doctor.getDataValue("workTime"),

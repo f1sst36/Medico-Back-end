@@ -13,6 +13,7 @@ import { doctorRepository } from "../repositories/DoctorRepository";
 import { getMostExperiencedDoctorsTask } from "../tasks/GetMostExperiencedDoctorsTask";
 import { mostExperiencedDoctorsValidator } from "../validators/mostExperiencedDoctorsValidator";
 import { mostExperiencedDoctorsTransformer } from "../transformers/MostExperiencedDoctorsTransformer";
+import { reviewRepository } from "../repositories/ReviewRepository";
 
 export class DoctorController extends CoreController {
     constructor() {
@@ -39,11 +40,6 @@ export class DoctorController extends CoreController {
 
     public getDoctorsByPaginate = async (req: Request, res: Response) => {
         if (this.validateRequest(req, res)) return;
-
-        // if (+req.query.page <= 0 || +req.query.count <= 0)
-        //     return res
-        //         .status(422)
-        //         .json(coreTransformer.getErrorResponse("Неверный формат параметров"));
 
         const result = await getDoctorsByPaginate.run(
             +req.query.page,
@@ -74,6 +70,7 @@ export class DoctorController extends CoreController {
         if (this.validateRequest(req, res)) return;
 
         const result = await getDoctorByIdTask.run(+req.query.id);
+        const countOfReviews = await reviewRepository.getCountOfReviewsFromDoctor(+req.query.id);
 
         if (result.error)
             return res.status(404).json(coreTransformer.getErrorResponse(result.message));
@@ -83,7 +80,7 @@ export class DoctorController extends CoreController {
             .json(
                 coreTransformer.getSimpleSuccessResponse(
                     "",
-                    doctorByIdTransformer.transform(result.data)
+                    doctorByIdTransformer.transform(result.data, countOfReviews)
                 )
             );
     };
@@ -99,11 +96,6 @@ export class DoctorController extends CoreController {
 
     public getMostExperiencedDoctors = async (req: Request, res: Response) => {
         if (this.validateRequest(req, res)) return;
-
-        // if (+req.query.count <= 0)
-        //     return res
-        //         .status(422)
-        //         .json(coreTransformer.getErrorResponse("Неверный формат параметров"));
 
         const result = await getMostExperiencedDoctorsTask.run(+req.query.count);
 

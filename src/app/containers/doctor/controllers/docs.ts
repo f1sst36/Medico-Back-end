@@ -282,7 +282,7 @@
  *                example: 0
  *              data:
  *                type: Object
- *                example: {"id":3,"name":"Георгий","surname":"Кличенко","middleName":"Николаевич","rating":null,"about":"Я врач - супер головач!","experience":"4 года","reviews":[{"id":1,"name":"Максим","surname":"Иванов","avatar":null,"text":"Какой же классный отзыв я могу оставить этому врачу","estimation":4,"createdAt":"2021-04-06"},{"id":2,"name":"Илья","surname":"Долженко","avatar":null,"text":"Какой же классный отзыв я могу оставить этому врачу","estimation":2,"createdAt":"2021-04-06"},{"id":3,"name":"Максим","surname":"Иванов","avatar":null,"text":"Какой же классный отзыв я могу оставить этому врачу","estimation":3,"createdAt":"2021-04-06"}],"education":["Высшее Томбовское образование","Грамота цетрального округа"],"workplaces":["Саратовчкая клиника под Донбассом","Центральная поликлинника города Ярославль"],"workTime":"с 10:00 до 18:00","photo":"/storage/files/doctor_6.jpg","costOfConsultation":1000,"specialties":[{"id":1,"name":"Терапевт","slug":"therapist"},{"id":2,"name":"Хирург","slug":"surgeon"}]}
+ *                example: {"id":3,"name":"Георгий","surname":"Кличенко","middleName":"Николаевич","rating":null,"about":"Я врач - супер головач!","experience":"4 года", "countOfReviews": 6, "reviews":[{"id":1,"name":"Максим","surname":"Иванов","avatar":null,"text":"Какой же классный отзыв я могу оставить этому врачу","estimation":4,"createdAt":"2021-04-06"},{"id":2,"name":"Илья","surname":"Долженко","avatar":null,"text":"Какой же классный отзыв я могу оставить этому врачу","estimation":2,"createdAt":"2021-04-06"},{"id":3,"name":"Максим","surname":"Иванов","avatar":null,"text":"Какой же классный отзыв я могу оставить этому врачу","estimation":3,"createdAt":"2021-04-06"}],"education":["Высшее Томбовское образование","Грамота цетрального округа"],"workplaces":["Саратовчкая клиника под Донбассом","Центральная поликлинника города Ярославль"],"workTime":"с 10:00 до 18:00","photo":"/storage/files/doctor_6.jpg","costOfConsultation":1000,"specialties":[{"id":1,"name":"Терапевт","slug":"therapist"},{"id":2,"name":"Хирург","slug":"surgeon"}]}
  *              message:
  *                type: string
  *                example: ""
@@ -450,7 +450,7 @@
  *                example: 0
  *              data:
  *                type: Object
- *                example: {"items":[{"id":31,"avatar":null,"name":"Илья","surname":"Долженко","text":"Какой же классный отзыв я могу оставить этому врачу","estimation":5,"createdAt":"2021-04-17"},{"id":30,"avatar":null,"name":"Илья","surname":"Долженко","text":"Какой же классный отзыв я могу оставить этому врачу","estimation":3,"createdAt":"2021-04-17"},{"id":29,"avatar":null,"name":"Максим","surname":"Иванов","text":"Какой же классный отзыв я могу оставить этому врачу","estimation":5,"createdAt":"2021-04-17"}],"count":6}
+ *                example: [{"id":31,"avatar":null,"name":"Илья","surname":"Долженко","text":"Какой же классный отзыв я могу оставить этому врачу","estimation":5,"createdAt":"2021-04-17"},{"id":30,"avatar":null,"name":"Илья","surname":"Долженко","text":"Какой же классный отзыв я могу оставить этому врачу","estimation":3,"createdAt":"2021-04-17"},{"id":29,"avatar":null,"name":"Максим","surname":"Иванов","text":"Какой же классный отзыв я могу оставить этому врачу","estimation":5,"createdAt":"2021-04-17"}]
  *              message:
  *                type: string
  *                example: ""

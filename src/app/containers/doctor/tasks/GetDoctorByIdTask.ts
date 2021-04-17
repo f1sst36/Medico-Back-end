@@ -2,7 +2,7 @@ import { CoreTask, IResult } from "../../../ship/core/task/CoreTask";
 import { doctorRepository } from "../repositories/DoctorRepository";
 
 class GetDoctorByIdTask extends CoreTask {
-    public run = async (id: Number): Promise<IResult> => {
+    public run = async (id: number): Promise<IResult> => {
         const doctor = await doctorRepository.getVerifiedDoctorById(id);
 
         if (!doctor)

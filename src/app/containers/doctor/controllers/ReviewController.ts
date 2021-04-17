@@ -33,11 +33,13 @@ export class ReviewController extends CoreController {
         if (result.error === 2)
             return res.status(404).json(coreTransformer.getErrorResponse(result.message));
 
-        return res.status(200).json(
-            coreTransformer.getSimpleSuccessResponse('', {
-                items: oldReviewsTransformer.transform(result.data.items),
-                count: result.data.count,
-            })
-        );
+        return res
+            .status(200)
+            .json(
+                coreTransformer.getSimpleSuccessResponse(
+                    '',
+                    oldReviewsTransformer.transform(result.data)
+                )
+            );
     };
 }
