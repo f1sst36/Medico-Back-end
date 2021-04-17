@@ -1,6 +1,7 @@
-import { DataTypes } from "sequelize";
+import { Patient } from '../../../containers/patient/models/Patient';
+import { DataTypes } from 'sequelize';
 
-import { CoreModel } from "../../../ship/core/model/CoreModel";
+import { CoreModel } from '../../../ship/core/model/CoreModel';
 
 export class Review extends CoreModel {
     public readonly id: Number;
@@ -9,6 +10,8 @@ export class Review extends CoreModel {
     public text: String;
     public estimation: Number;
     public createdAt: String | Date;
+
+    public patient: Patient;
 }
 
 export const reviewSchema = {
@@ -36,6 +39,6 @@ export const reviewSchema = {
     },
     createdAt: {
         allowNull: false,
-        type: DataTypes.STRING
-    }
+        type: DataTypes.STRING,
+    },
 };

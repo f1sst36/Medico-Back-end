@@ -40,10 +40,10 @@ export class DoctorController extends CoreController {
     public getDoctorsByPaginate = async (req: Request, res: Response) => {
         if (this.validateRequest(req, res)) return;
 
-        if (+req.query.page <= 0 || +req.query.count <= 0)
-            return res
-                .status(422)
-                .json(coreTransformer.getErrorResponse("Неверный формат параметров"));
+        // if (+req.query.page <= 0 || +req.query.count <= 0)
+        //     return res
+        //         .status(422)
+        //         .json(coreTransformer.getErrorResponse("Неверный формат параметров"));
 
         const result = await getDoctorsByPaginate.run(
             +req.query.page,
@@ -100,10 +100,10 @@ export class DoctorController extends CoreController {
     public getMostExperiencedDoctors = async (req: Request, res: Response) => {
         if (this.validateRequest(req, res)) return;
 
-        if (+req.query.count <= 0)
-            return res
-                .status(422)
-                .json(coreTransformer.getErrorResponse("Неверный формат параметров"));
+        // if (+req.query.count <= 0)
+        //     return res
+        //         .status(422)
+        //         .json(coreTransformer.getErrorResponse("Неверный формат параметров"));
 
         const result = await getMostExperiencedDoctorsTask.run(+req.query.count);
 

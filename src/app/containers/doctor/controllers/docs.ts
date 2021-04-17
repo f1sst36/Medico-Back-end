@@ -431,3 +431,98 @@
  *          example:
  *            count=1
  */
+
+/**
+ * @swagger
+ * /doctor/review/list?reviewId={reviewId}&doctorId={doctorId}&count={count}:
+ *    get:
+ *      tags:
+ *        - Review
+ *      description: Get doctor's review list below than ID
+ *      responses:
+ *        '200':
+ *          description: Successfully getted review list
+ *          schema:
+ *            type: object
+ *            properties:
+ *              error:
+ *                type: integer
+ *                example: 0
+ *              data:
+ *                type: Object
+ *                example: [{"id":39,"avatar":null,"name":"Максим","surname":"Иванов","text":"Какой же классный отзыв я могу оставить этому врачу","estimation":2,"createdAt":"2021-04-17"},{"id":38,"avatar":null,"name":"Илья","surname":"Долженко","text":"Какой же классный отзыв я могу оставить этому врачу","estimation":1,"createdAt":"2021-04-17"},{"id":37,"avatar":null,"name":"Максим","surname":"Иванов","text":"Какой же классный отзыв я могу оставить этому врачу","estimation":3,"createdAt":"2021-04-17"}]
+ *              message:
+ *                type: string
+ *                example: ""
+ *                description: Reply message
+ *        '404':
+ *          description: Not found
+ *          schema:
+ *            type: object
+ *            properties:
+ *              error:
+ *                type: integer
+ *                example: 1
+ *              data:
+ *                type: object
+ *                example: null
+ *              message:
+ *                type: string
+ *                example: "Отзывы не найдены"
+ *                description: Reply message
+ *        '422':
+ *          description: Validation error
+ *          schema:
+ *            type: object
+ *            properties:
+ *              error:
+ *                type: integer
+ *                example: 1
+ *              data:
+ *                type: object
+ *                example: ["Параметр должен быть числом"]
+ *              message:
+ *                type: string
+ *                example: "Ошибка валидации"
+ *                description: Reply message
+ *        '422*':
+ *          description: Unknown error
+ *          schema:
+ *            type: object
+ *            properties:
+ *              error:
+ *                type: integer
+ *                example: 1
+ *              data:
+ *                type: null
+ *                example: null
+ *              message:
+ *                type: string
+ *                example: "Ошибка получения отзывов"
+ *                description: Reply message
+ *    parameters:
+ *      - name: reviewId
+ *        in: query
+ *        description: Reviews's id
+ *        required: true
+ *        schema:
+ *          type: number
+ *          example:
+ *            reviewId=1
+ *      - name: doctorId
+ *        in: query
+ *        description: Doctor's id
+ *        required: true
+ *        schema:
+ *          type: number
+ *          example:
+ *            doctorId=1
+ *      - name: count
+ *        in: query
+ *        description: Count of reviews
+ *        required: true
+ *        schema:
+ *          type: number
+ *          example:
+ *            count=1
+ */

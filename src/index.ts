@@ -31,6 +31,7 @@ import {
 import { AppointmentController } from './app/containers/consultation/controllers/AppointmentController';
 import { Card, cardSchema } from './app/containers/payment/models/Card';
 import { Payment, paymentSchema } from './app/containers/payment/models/Payment';
+import { ReviewController } from './app/containers/doctor/controllers/ReviewController';
 
 const app = new App({
     port: +process.env.PORT || 8080,
@@ -43,6 +44,7 @@ const app = new App({
         new UserProfileController(),
         new DoctorController(),
         new AppointmentController(),
+        new ReviewController(),
     ],
     middlewares: [allowCrossDomain, verifyJWTToken, jsonErrorHandler],
     models: [

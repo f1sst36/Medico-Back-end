@@ -1,10 +1,10 @@
-import { Patient } from "../../../containers/patient/models/Patient";
-import { Op } from "sequelize";
-import { CoreRepository } from "../../../ship/core/repository/CoreRepository";
-import { User } from "../../user/models/User";
-import { Doctor, DoctorSpecialtiesLink, Specialties } from "../models";
-import { Review } from "../models/Review";
-import { Sequelize } from "sequelize";
+import { Patient } from '../../../containers/patient/models/Patient';
+import { Op } from 'sequelize';
+import { CoreRepository } from '../../../ship/core/repository/CoreRepository';
+import { User } from '../../user/models/User';
+import { Doctor, DoctorSpecialtiesLink, Specialties } from '../models';
+import { Review } from '../models/Review';
+import { Sequelize } from 'sequelize';
 
 class DoctorRepository extends CoreRepository {
     constructor() {
@@ -21,49 +21,49 @@ class DoctorRepository extends CoreRepository {
                 include: [
                     {
                         model: User,
-                        as: "user",
+                        as: 'user',
                         attributes: {
                             exclude: [
-                                "createdAt",
-                                "updatedAt",
-                                "password",
-                                "confirmationToken",
-                                "id",
+                                'createdAt',
+                                'updatedAt',
+                                'password',
+                                'confirmationToken',
+                                'id',
                             ],
                         },
                     },
                     {
                         model: DoctorSpecialtiesLink,
-                        as: "doctorSpecialtiesLink",
+                        as: 'doctorSpecialtiesLink',
                         include: [
                             {
                                 model: Specialties,
-                                as: "specialty",
-                                attributes: ["id", "name", "slug"],
+                                as: 'specialty',
+                                attributes: ['id', 'name', 'slug'],
                             },
                         ],
                     },
                     {
                         model: Review,
-                        as: "reviews",
+                        as: 'reviews',
                         include: [
                             {
                                 model: Patient,
-                                as: "patient",
+                                as: 'patient',
                                 include: [
                                     {
                                         model: User,
-                                        as: "user",
-                                        attributes: ["name", "surname"],
+                                        as: 'user',
+                                        attributes: ['name', 'surname'],
                                     },
                                 ],
-                                attributes: ["avatar"],
+                                attributes: ['avatar'],
                             },
                         ],
                     },
                 ],
                 attributes: {
-                    exclude: ["createdAt", "updatedAt"],
+                    exclude: ['createdAt', 'updatedAt'],
                 },
             });
             return result;
@@ -82,49 +82,51 @@ class DoctorRepository extends CoreRepository {
                 include: [
                     {
                         model: User,
-                        as: "user",
+                        as: 'user',
                         attributes: {
                             exclude: [
-                                "createdAt",
-                                "updatedAt",
-                                "password",
-                                "confirmationToken",
-                                "id",
+                                'createdAt',
+                                'updatedAt',
+                                'password',
+                                'confirmationToken',
+                                'id',
                             ],
                         },
                     },
                     {
                         model: DoctorSpecialtiesLink,
-                        as: "doctorSpecialtiesLink",
+                        as: 'doctorSpecialtiesLink',
                         include: [
                             {
                                 model: Specialties,
-                                as: "specialty",
-                                attributes: ["id", "name", "slug"],
+                                as: 'specialty',
+                                attributes: ['id', 'name', 'slug'],
                             },
                         ],
                     },
                     {
                         model: Review,
-                        as: "reviews",
+                        as: 'reviews',
                         include: [
                             {
                                 model: Patient,
-                                as: "patient",
+                                as: 'patient',
                                 include: [
                                     {
                                         model: User,
-                                        as: "user",
-                                        attributes: ["name", "surname"],
+                                        as: 'user',
+                                        attributes: ['name', 'surname'],
                                     },
                                 ],
-                                attributes: ["avatar"],
+                                attributes: ['avatar'],
                             },
                         ],
+                        limit: 3,
+                        order: [['id', 'DESC']],
                     },
                 ],
                 attributes: {
-                    exclude: ["createdAt", "updatedAt"],
+                    exclude: ['createdAt', 'updatedAt'],
                 },
             });
             return result;
@@ -153,17 +155,17 @@ class DoctorRepository extends CoreRepository {
                 include: [
                     {
                         model: User,
-                        as: "user",
-                        attributes: ["id", "name", "surname", "middleName"],
+                        as: 'user',
+                        attributes: ['id', 'name', 'surname', 'middleName'],
                         where: {
                             fio: Sequelize.where(
                                 Sequelize.fn(
-                                    "concat",
-                                    Sequelize.col("name"),
-                                    " ",
-                                    Sequelize.col("surname"),
-                                    " ",
-                                    Sequelize.col("middleName")
+                                    'concat',
+                                    Sequelize.col('name'),
+                                    ' ',
+                                    Sequelize.col('surname'),
+                                    ' ',
+                                    Sequelize.col('middleName')
                                 ),
                                 {
                                     [Op.like]: `%${fio}%`,
@@ -173,14 +175,14 @@ class DoctorRepository extends CoreRepository {
                     },
                     {
                         model: DoctorSpecialtiesLink,
-                        as: "doctorSpecialtiesLink",
+                        as: 'doctorSpecialtiesLink',
                         include: [
                             {
                                 model: Specialties,
-                                as: "specialty",
-                                attributes: ["id", "name", "slug"],
+                                as: 'specialty',
+                                attributes: ['id', 'name', 'slug'],
                                 where: {
-                                    slug: Sequelize.where(Sequelize.col("slug"), {
+                                    slug: Sequelize.where(Sequelize.col('slug'), {
                                         [Op.like]: `%${specialtySlug}%`,
                                     }),
                                     // slug: "immunologist",
@@ -190,12 +192,12 @@ class DoctorRepository extends CoreRepository {
                     },
                 ],
                 attributes: [
-                    "about",
-                    "rating",
-                    "experience",
-                    "costOfConsultation",
-                    "workTime",
-                    "photo",
+                    'about',
+                    'rating',
+                    'experience',
+                    'costOfConsultation',
+                    'workTime',
+                    'photo',
                 ],
                 offset: (page - 1) * count,
                 limit: count,
@@ -231,8 +233,8 @@ class DoctorRepository extends CoreRepository {
                 include: [
                     {
                         model: User,
-                        as: "user",
-                        attributes: ["name", "surname", "phone", "email"],
+                        as: 'user',
+                        attributes: ['name', 'surname', 'phone', 'email'],
                     },
                 ],
             });
@@ -249,23 +251,23 @@ class DoctorRepository extends CoreRepository {
                 include: [
                     {
                         model: User,
-                        as: "user",
-                        attributes: ["name", "surname", "middleName"],
+                        as: 'user',
+                        attributes: ['name', 'surname', 'middleName'],
                     },
                     {
                         model: DoctorSpecialtiesLink,
-                        as: "doctorSpecialtiesLink",
+                        as: 'doctorSpecialtiesLink',
                         include: [
                             {
                                 model: Specialties,
-                                as: "specialty",
-                                attributes: ["id", "name", "slug"],
+                                as: 'specialty',
+                                attributes: ['id', 'name', 'slug'],
                             },
                         ],
                     },
                 ],
-                attributes: ["id", "photo", "experience"],
-                order: [["experience", "ASC"]],
+                attributes: ['id', 'photo', 'experience'],
+                order: [['experience', 'ASC']],
                 limit: count,
             });
             return result;
