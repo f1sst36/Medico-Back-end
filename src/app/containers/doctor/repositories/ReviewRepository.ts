@@ -13,7 +13,7 @@ class ReviewRepository extends CoreRepository {
 
     public getOldReviewsLessThanId = (reviewId: number, doctorId: number, count: number) => {
         try {
-            const reviews = Review.findAll({
+            const reviews = this.model.findAll({
                 where: {
                     doctorId: doctorId,
                     id: {
@@ -39,6 +39,22 @@ class ReviewRepository extends CoreRepository {
                 order: [['id', 'DESC']],
             });
             return reviews;
+        } catch (error) {
+            return null;
+        }
+    };
+
+    public getCountOfReviewsFromDoctor = async (doctorId: number): Promise<number> => {
+        try {
+            const reviewsCount = this.model.count({
+                where: {
+                    id: {
+                        [Op.gt]: 0,
+                    },
+                    doctorId: doctorId,
+                },
+            });
+            return reviewsCount;
         } catch (error) {
             return null;
         }

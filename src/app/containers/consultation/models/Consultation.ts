@@ -14,8 +14,10 @@ export class Consultation extends CoreModel {
     public readonly createdAt: Date;
     public readonly updatedAt: Date;
 
-    public getReceptionTime = (): String => {
-        return 'string';
+    public getReceptionHours = (): Number => {
+        // 3 для часового пояса
+        // return this.receptionDate.getHours() - 3;
+        return this.receptionDate.getHours();
     };
 }
 

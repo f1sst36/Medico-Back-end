@@ -4,6 +4,7 @@ import { reviewRepository } from '../repositories/ReviewRepository';
 class GetOldReviewsTask extends CoreTask {
     public run = async (reviewId: number, doctorId: number, count: number): Promise<IResult> => {
         const reviews = await reviewRepository.getOldReviewsLessThanId(reviewId, doctorId, count);
+        const countOfReviews = await reviewRepository.getCountOfReviewsFromDoctor(doctorId);
 
         if (!reviews)
             return {
@@ -19,7 +20,10 @@ class GetOldReviewsTask extends CoreTask {
 
         return {
             error: 0,
-            data: reviews,
+            data: {
+                count: countOfReviews,
+                items: reviews,
+            },
             message: '',
         };
     };

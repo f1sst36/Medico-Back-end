@@ -5,6 +5,8 @@ import { Request, Response } from 'express';
 import { CoreController } from '../../../ship/core/controller/CoreController';
 import { appointmentForConsultationValidator } from '../validators/appointmentForConsultationValidator';
 import { createConsultationTask } from '../tasks/CreateConsultationTask';
+import { freeDoctorTimeValidator } from '../validators/freeDoctorTimeValidator';
+import { getFreeDoctorTimeAction } from '../actions/GetFreeDoctorTimeAction';
 
 export class AppointmentController extends CoreController {
     constructor() {
@@ -20,10 +22,17 @@ export class AppointmentController extends CoreController {
             appointmentForConsultationValidator,
             this.appointmentForConsultation
         );
+        this.router.get(
+            this.prefix + '/free-doctor-time',
+            freeDoctorTimeValidator,
+            this.getFreeDoctorTime
+        );
     }
 
     public appointmentForConsultation = async (req: any, res: Response) => {
         if (this.validateRequest(req, res)) return;
+
+        // еще не готово
 
         const consultationFileds = req.body;
         consultationFileds.patientId = req.user.id;
@@ -33,5 +42,19 @@ export class AppointmentController extends CoreController {
             res.status(422).json(coreTransformer.getErrorResponse('Ошибка записи на консультацию'));
 
         return res.status(200).json(coreTransformer.getSimpleSuccessResponse('', consultation));
+    };
+
+    public getFreeDoctorTime = async (req: Request, res: Response) => {
+        if (this.validateRequest(req, res)) return;
+
+        const result = await getFreeDoctorTimeAction.run(
+            +req.query.doctorId,
+            String(req.query.date)
+        );
+
+        if (result.error)
+            return res.status(404).json(coreTransformer.getErrorResponse(result.message));
+
+        return res.status(200).json(coreTransformer.getSimpleSuccessResponse('', result.data));
     };
 }

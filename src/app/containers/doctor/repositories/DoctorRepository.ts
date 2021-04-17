@@ -275,6 +275,20 @@ class DoctorRepository extends CoreRepository {
             return null;
         }
     };
+
+    public getDoctorsWorkTimeByDay = (doctorId: number): Promise<Doctor> => {
+        try {
+            const result = this.model.findOne({
+                where: {
+                    id: doctorId,
+                },
+                attributes: ['workTimeByDay'],
+            });
+            return result;
+        } catch (_) {
+            return null;
+        }
+    };
 }
 
 export const doctorRepository = new DoctorRepository();

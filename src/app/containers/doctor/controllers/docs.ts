@@ -450,7 +450,7 @@
  *                example: 0
  *              data:
  *                type: Object
- *                example: [{"id":39,"avatar":null,"name":"Максим","surname":"Иванов","text":"Какой же классный отзыв я могу оставить этому врачу","estimation":2,"createdAt":"2021-04-17"},{"id":38,"avatar":null,"name":"Илья","surname":"Долженко","text":"Какой же классный отзыв я могу оставить этому врачу","estimation":1,"createdAt":"2021-04-17"},{"id":37,"avatar":null,"name":"Максим","surname":"Иванов","text":"Какой же классный отзыв я могу оставить этому врачу","estimation":3,"createdAt":"2021-04-17"}]
+ *                example: {"items":[{"id":31,"avatar":null,"name":"Илья","surname":"Долженко","text":"Какой же классный отзыв я могу оставить этому врачу","estimation":5,"createdAt":"2021-04-17"},{"id":30,"avatar":null,"name":"Илья","surname":"Долженко","text":"Какой же классный отзыв я могу оставить этому врачу","estimation":3,"createdAt":"2021-04-17"},{"id":29,"avatar":null,"name":"Максим","surname":"Иванов","text":"Какой же классный отзыв я могу оставить этому врачу","estimation":5,"createdAt":"2021-04-17"}],"count":6}
  *              message:
  *                type: string
  *                example: ""
