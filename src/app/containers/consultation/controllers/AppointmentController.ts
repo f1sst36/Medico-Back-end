@@ -47,14 +47,24 @@ export class AppointmentController extends CoreController {
     public getFreeDoctorTime = async (req: Request, res: Response) => {
         if (this.validateRequest(req, res)) return;
 
-        const result = await getFreeDoctorTimeAction.run(
-            +req.query.doctorId,
-            String(req.query.date)
-        );
+        let result;
+        try {
+            result = await getFreeDoctorTimeAction.run(
+                +req.query.doctorId,
+                String(req.query.date)
+            );
+        } catch (e) {
+            console.log(e);
+            return res
+                .status(404)
+                .json(coreTransformer.getErrorResponse('Ошбика выполнения экшена'));
+        }
 
         if (result.error)
             return res.status(404).json(coreTransformer.getErrorResponse(result.message));
 
-        return res.status(200).json(coreTransformer.getSimpleSuccessResponse('', result.data));
+        return res
+            .status(200)
+            .json(coreTransformer.getSimpleSuccessResponse(result.message, result.data));
     };
 }

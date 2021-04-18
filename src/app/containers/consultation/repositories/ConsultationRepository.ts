@@ -9,11 +9,14 @@ class ConsultationRepository extends CoreRepository {
         this.model = Consultation;
     }
 
-    public getConsultationsInOneDay = (doctorId: number, startDate: Date, endDate: Date): Array<Consultation> => {
+    public getConsultationsInOneDay = (doctorId: number, startDate: Date, endDate: Date): Promise<Array<Consultation>> => {
         try {
             const result = this.model.findAll({
                 where: {
                     doctorId: doctorId,
+                    isCanceled: false,
+                    isDone: false,
+                    isActive: false,
                     receptionDate: {
                         [Op.between]: [startDate, endDate],
                     },

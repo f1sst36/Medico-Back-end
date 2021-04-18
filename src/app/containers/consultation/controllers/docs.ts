@@ -4,10 +4,10 @@
  *    get:
  *      tags:
  *        - Consultation
- *      description: Free/busy time of the doctor on the specified day
+ *      description: Free/busy time of the doctor on the specified day. if the transmitted date is less than the current date, the response will return as if the current date was transmitted.
  *      responses:
  *        '200':
- *          description: Successfully getted review list
+ *          description: Successfully getted list
  *          schema:
  *            type: object
  *            properties:
@@ -20,6 +20,21 @@
  *              message:
  *                type: string
  *                example: ""
+ *                description: Reply message
+ *        '200*':
+ *          description: Successfully getted empty list
+ *          schema:
+ *            type: object
+ *            properties:
+ *              error:
+ *                type: integer
+ *                example: 0
+ *              data:
+ *                type: null
+ *                example: null
+ *              message:
+ *                type: string
+ *                example: "У врача нет приемов в этот день"
  *                description: Reply message
  *        '404':
  *          description: Not found

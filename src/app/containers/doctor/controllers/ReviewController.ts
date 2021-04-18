@@ -5,6 +5,7 @@ import { CoreController } from '../../../ship/core/controller/CoreController';
 import { coreTransformer } from '../../../ship/core/transformer/CoreTransformer';
 import { getOldReviewsTask } from '../tasks/GetOldReviewsTask';
 import { oldReviewsTransformer } from '../transformers/OldReviewsTransformer';
+import { leaveReviewValidator } from '../validators/leaveReviewValidator';
 import { oldReviewsValidator } from '../validators/oldReviewsValidator';
 
 export class ReviewController extends CoreController {
@@ -17,6 +18,7 @@ export class ReviewController extends CoreController {
 
     public initRoutes() {
         this.router.get(this.prefix + '/list', oldReviewsValidator, this.getOldReviews);
+        this.router.post(this.prefix + '/leave', leaveReviewValidator, this.leaveReview);
     }
 
     public getOldReviews = async (req: Request, res: Response) => {
@@ -41,5 +43,13 @@ export class ReviewController extends CoreController {
                     oldReviewsTransformer.transform(result.data)
                 )
             );
+    };
+
+    public leaveReview = async (req: any, res: Response) => {
+        if (this.validateRequest(req, res)) return;
+
+        console.log(req.body);
+
+        res.status(200).json(req.body);
     };
 }
