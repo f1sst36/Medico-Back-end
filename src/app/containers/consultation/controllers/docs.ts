@@ -4,6 +4,8 @@
  *    get:
  *      tags:
  *        - Consultation
+ *      security:
+ *        bearerAuth: []
  *      description: Free/busy time of the doctor on the specified day. if the transmitted date is less than the current date, the response will return as if the current date was transmitted.
  *      responses:
  *        '200':

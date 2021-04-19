@@ -533,6 +533,8 @@
  *    post:
  *      tags:
  *        - Review
+ *      security:
+ *        bearerAuth: []
  *      description: Leave review about doctor. This method only for patients
  *      responses:
  *        '200':
