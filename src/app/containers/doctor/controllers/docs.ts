@@ -526,3 +526,106 @@
  *          example:
  *            count=1
  */
+
+/**
+ * @swagger
+ * /doctor/review/leave:
+ *    post:
+ *      tags:
+ *        - Review
+ *      description: Leave review about doctor. This method only for patients
+ *      responses:
+ *        '200':
+ *          description: Successfully addded review
+ *          schema:
+ *            type: object
+ *            properties:
+ *              error:
+ *                type: integer
+ *                example: 0
+ *              data:
+ *                type: Object
+ *                example: {
+ *                       "id": 141,
+ *                       "name": "Илья",
+ *                       "surname": "Долженко",
+ *                       "avatar": null,
+ *                       "text": "ляяя, какой классный док  1122",
+ *                       "estimation": 5,
+ *                       "createdAt": "2021-04-19T08:51:30.804Z"
+ *                   }
+ *              message:
+ *                type: string
+ *                example: ""
+ *                description: Reply message
+ *        '404':
+ *          description: Not found
+ *          schema:
+ *            type: object
+ *            properties:
+ *              error:
+ *                type: integer
+ *                example: 1
+ *              data:
+ *                type: object
+ *                example: null
+ *              message:
+ *                type: string
+ *                example: "Доктор не найден"
+ *                description: Reply message
+ *        '422':
+ *          description: Validation error
+ *          schema:
+ *            type: object
+ *            properties:
+ *              error:
+ *                type: integer
+ *                example: 1
+ *              data:
+ *                type: object
+ *                example: ["Оценка это целое число от 1 до 5"]
+ *              message:
+ *                type: string
+ *                example: "Ошибка валидации"
+ *                description: Reply message
+ *        '422*':
+ *          description: Unknown error
+ *          schema:
+ *            type: object
+ *            properties:
+ *              error:
+ *                type: integer
+ *                example: 1
+ *              data:
+ *                type: null
+ *                example: null
+ *              message:
+ *                type: string
+ *                example: "Ошибка добавления отзыва"
+ *                description: Reply message
+ *    parameters:
+ *      - name: doctorId
+ *        in: body
+ *        description: Doctor's id
+ *        required: true
+ *        schema:
+ *          type: number
+ *          example:
+ *            { doctorId: 3 }
+ *      - name: text
+ *        in: body
+ *        description: Text of review
+ *        required: true
+ *        schema:
+ *          type: string
+ *          example:
+ *            { text: 'this is supeeeer doctor' }
+ *      - name: estimation
+ *        in: body
+ *        description: Estimation of review
+ *        required: true
+ *        schema:
+ *          type: number
+ *          example:
+ *            { estimation: 5}
+ */

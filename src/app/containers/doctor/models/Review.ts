@@ -9,7 +9,8 @@ export class Review extends CoreModel {
     public doctorId: Number;
     public text: String;
     public estimation: Number;
-    public createdAt: String | Date;
+    public createdAt: Date;
+    public updatedAt: Date;
 
     public patient: Patient;
 }
@@ -36,9 +37,5 @@ export const reviewSchema = {
     estimation: {
         allowNull: false,
         type: DataTypes.FLOAT,
-    },
-    createdAt: {
-        allowNull: false,
-        type: DataTypes.STRING,
     },
 };

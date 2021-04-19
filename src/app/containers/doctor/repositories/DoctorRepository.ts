@@ -224,6 +224,20 @@ class DoctorRepository extends CoreRepository {
         }
     };
 
+    public isExistDoctorById = (doctorId: number): Promise<Doctor> => {
+        try {
+            const result = this.model.findOne({
+                where: {
+                    id: doctorId,
+                },
+                attributes: ['id'],
+            });
+            return result;
+        } catch (_) {
+            return null;
+        }
+    };
+
     public getUnverifiedDoctors = (): Promise<Array<Doctor>> => {
         try {
             const result = this.model.findAll({
