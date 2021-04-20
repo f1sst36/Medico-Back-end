@@ -366,6 +366,38 @@ class DoctorRepository extends CoreRepository {
             return null;
         }
     };
+
+    public getDoctorForAppointment = (doctorId: number): Promise<Doctor> => {
+        try {
+            const result = this.model.findOne({
+                where: {
+                    id: doctorId,
+                },
+                include: [
+                    {
+                        model: User,
+                        as: 'user',
+                        attributes: ['name', 'surname', 'middleName'],
+                    },
+                    {
+                        model: DoctorSpecialtiesLink,
+                        as: 'doctorSpecialtiesLink',
+                        include: [
+                            {
+                                model: Specialties,
+                                as: 'specialty',
+                                attributes: ['id', 'name', 'slug'],
+                            },
+                        ],
+                    },
+                ],
+                attributes: ['id', 'rating', 'photo', 'costOfConsultation', 'experience'],
+            });
+            return result;
+        } catch (_) {
+            return null;
+        }
+    };
 }
 
 export const doctorRepository = new DoctorRepository();

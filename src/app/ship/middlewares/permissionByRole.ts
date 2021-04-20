@@ -4,6 +4,7 @@ const prefix = '/api/v1';
 const patientUrls = [
     prefix + '/user',
     prefix + '/consultation/appointment/free-doctor-time',
+    prefix + '/consultation/appointment/meta-info',
     prefix + '/doctor/review/leave',
     prefix + '/patient/profile/questionnaire',
 ];

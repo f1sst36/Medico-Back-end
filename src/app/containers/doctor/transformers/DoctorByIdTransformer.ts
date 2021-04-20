@@ -1,4 +1,4 @@
-import { CoreTransformer, IResponse } from "../../../ship/core/transformer/CoreTransformer";
+import { CoreTransformer } from "../../../ship/core/transformer/CoreTransformer";
 import { Doctor } from "../models";
 
 interface Review {

@@ -86,3 +86,69 @@
  *          example:
  *            doctorId=1
  */
+
+/**
+ * @swagger
+ * /consultation/appointment/meta-info?doctorId={doctorId}:
+ *    get:
+ *      tags:
+ *        - Consultation
+ *      security:
+ *        bearerAuth: []
+ *      description: Meta info for appointment by doctor id
+ *      responses:
+ *        '200':
+ *          description: Successfully getted info
+ *          schema:
+ *            type: object
+ *            properties:
+ *              error:
+ *                type: integer
+ *                example: 0
+ *              data:
+ *                type: Object
+ *                example: { "doctor": { "id": 7, "name": "Николай", "surname": "Кличенко", "middleName": "Николаевич", "rating": 3, "experience": "11 лет", "countOfReviews": 3, "photo": "/storage/files/doctor_9.jpg", "costOfConsultation": 1400, "specialties": [ { "id": 3, "name": "Травматолог", "slug": "traumatologist" }, { "id": 13, "name": "Педиатр", "slug": "pediatrician" } ] }, "communicationMethods": [ { "id": 1, "method": "Сообщения в чате" }, { "id": 2, "method": "Аудиозвонок" }, { "id": 3, "method": "Видеозвонок" } ] }
+ *              message:
+ *                type: string
+ *                example: ""
+ *                description: Reply message
+ *        '404':
+ *          description: Not found
+ *          schema:
+ *            type: object
+ *            properties:
+ *              error:
+ *                type: integer
+ *                example: 1
+ *              data:
+ *                type: object
+ *                example: null
+ *              message:
+ *                type: string
+ *                example: "Данные не найдены"
+ *                description: Reply message
+ *        '422':
+ *          description: Validation error
+ *          schema:
+ *            type: object
+ *            properties:
+ *              error:
+ *                type: integer
+ *                example: 1
+ *              data:
+ *                type: object
+ *                example: ["Параметр должен быть числом"]
+ *              message:
+ *                type: string
+ *                example: "Ошибка валидации"
+ *                description: Reply message
+ *    parameters:
+ *      - name: doctorId
+ *        in: query
+ *        description: Doctor's id
+ *        required: true
+ *        schema:
+ *          type: number
+ *          example:
+ *            doctorId=1
+ */
