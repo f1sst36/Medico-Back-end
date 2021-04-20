@@ -38,7 +38,6 @@
         "redoc": "^2.0.0-rc.48",
         "sequelize": "^6.3.5",
         "sequelize-cli": "^6.2.0",
-        "swagger-jsdoc": "^6.0.0",
         "swagger-ui-express": "^4.1.6",
         "ts-node": "^9.1.1",
         "tslint": "^6.1.3",

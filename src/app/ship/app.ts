@@ -8,7 +8,7 @@ import 'dotenv/config';
 
 import { Sequelize } from 'sequelize';
 
-import { swaggerDocs } from './swagger';
+import { swaggerOptions } from './swagger';
 import swaggerUi from 'swagger-ui-express';
 
 import fileUpload from 'express-fileupload';
@@ -93,7 +93,7 @@ export class App {
         });
 
         this.app.get('/swagger', (_, res: Response) => {
-            return res.json(swaggerDocs);
+            return res.json(swaggerOptions);
         });
 
         this.app.get('/docs', (_, res: Response) => {
@@ -194,7 +194,7 @@ export class App {
     }
 
     private initSwagger() {
-        this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+        this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerOptions));
     }
 
     public listen() {
