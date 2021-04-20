@@ -345,6 +345,27 @@ class DoctorRepository extends CoreRepository {
             return null;
         }
     };
+
+    public getDoctorWithAllReviews = (doctorId: number): Promise<Doctor> => {
+        try {
+            const result = this.model.findOne({
+                where: {
+                    id: doctorId,
+                },
+                include: [
+                    {
+                        model: Review,
+                        as: 'reviews',
+                        attributes: ['id', 'estimation'],
+                    },
+                ],
+                attributes: ['id', 'rating'],
+            });
+            return result;
+        } catch (_) {
+            return null;
+        }
+    };
 }
 
 export const doctorRepository = new DoctorRepository();

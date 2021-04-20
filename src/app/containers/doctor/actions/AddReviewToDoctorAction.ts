@@ -1,6 +1,7 @@
 import { CoreAction, IResult } from '../../../ship/core/action/CoreAction';
 import { Review } from '../models';
 import { doctorRepository } from '../repositories/DoctorRepository';
+import { calculateDoctorsRatingTask } from '../tasks/CalculateDoctorsRatingTask';
 
 class AddReviewToDoctorAction extends CoreAction {
     public run = async (
@@ -25,6 +26,8 @@ class AddReviewToDoctorAction extends CoreAction {
                 text: text,
                 estimation: estimation,
             });
+
+            calculateDoctorsRatingTask.run(doctorId);
         } catch (e) {
             console.log('Ошибка добавления отзыва', e);
 

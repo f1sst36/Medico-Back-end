@@ -2,16 +2,17 @@ import { Response, NextFunction } from 'express';
 
 const prefix = '/api/v1';
 const patientUrls = [
+    prefix + '/user',
     prefix + '/consultation/appointment/free-doctor-time',
     prefix + '/doctor/review/leave',
     prefix + '/patient/profile/questionnaire',
 ];
 
-const doctorUrls = [prefix + '/doctor/profile/questionnaire'];
+const doctorUrls = [prefix + '/user', prefix + '/doctor/profile/questionnaire'];
 
 export const permissionByRole = (req: any, res: Response, next: NextFunction) => {
     if (!req.user) return next();
-    
+
     if (req.user.user.userType === 'doctor') {
         for (let i = 0; i < doctorUrls.length; i++)
             if (req.url.indexOf(doctorUrls[i]) !== -1) return next();

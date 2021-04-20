@@ -38,7 +38,7 @@ class DoctorByIdTransformer extends CoreTransformer {
             name: doctor.user.getDataValue("name"),
             surname: doctor.user.getDataValue("surname"),
             middleName: doctor.user.getDataValue("middleName"),
-            rating: doctor.getDataValue("rating"),
+            rating: doctor.getRating(),
             about: doctor.getDataValue("about"),
             experience: doctor.transformExperience(),
             reviews: [],

@@ -3,17 +3,18 @@ import { DataTypes } from 'sequelize';
 
 import { CoreModel } from '../../../ship/core/model/CoreModel';
 import { User } from '../../user/models/User';
+import { Review } from './Review';
 
 export class Doctor extends CoreModel {
-    public readonly id: Number;
-    public IIN: String;
+    public readonly id: number;
+    public IIN: string;
 
     public experience: Date;
 
-    public photo: String;
-    public summary: String;
-    public diploma: String;
-    public about: String;
+    public photo: string;
+    public summary: string;
+    public diploma: string;
+    public about: string;
     // public mainDirections: Array<String>;
 
     // Данных полей нет в анкете на врача, т.е. они будут пустыми
@@ -21,13 +22,18 @@ export class Doctor extends CoreModel {
     public education: Array<String>;
 
     public sent: Date;
-    public isVerified: Boolean;
+    public isVerified: boolean;
 
-    public rating: Number;
-    public costOfConsultation: Number;
-    public workTime: String;
+    public rating: number;
+    public costOfConsultation: number;
+    public workTime: string;
 
     public user: User;
+    public reviews: Array<Review>;
+
+    public getRating = (): number => {
+        return Math.round(this.rating);
+    }
 
     public transformExperience(): String | Date {
         const currentDate: any = new Date();
@@ -137,7 +143,7 @@ export const doctorSchema = {
         defaultValue: false,
     },
     rating: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
     },
     costOfConsultation: {
         allowNull: false,

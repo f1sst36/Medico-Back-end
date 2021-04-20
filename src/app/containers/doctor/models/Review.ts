@@ -4,11 +4,11 @@ import { DataTypes } from 'sequelize';
 import { CoreModel } from '../../../ship/core/model/CoreModel';
 
 export class Review extends CoreModel {
-    public readonly id: Number;
-    public patientId: Number;
-    public doctorId: Number;
-    public text: String;
-    public estimation: Number;
+    public readonly id: number;
+    public patientId: number;
+    public doctorId: number;
+    public text: string;
+    public estimation: number;
     public createdAt: Date;
     public updatedAt: Date;
 
