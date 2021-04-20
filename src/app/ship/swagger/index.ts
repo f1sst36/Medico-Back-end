@@ -46,13 +46,13 @@ export const swaggerOptions = {
                     type: 'number',
                     example: 0,
                 },
-                message: {
-                    type: 'string',
-                    example: 'Reply message',
-                },
                 data: {
                     type: 'object',
                     example: { foo: 'bar' },
+                },
+                message: {
+                    type: 'string',
+                    example: 'Reply message',
                 },
             },
         },
@@ -75,6 +75,7 @@ export const swaggerOptions = {
         },
     },
     responses: {
+        200: { description: 'Success', schema: "$ref: '#/definitions/SuccessResponse'" },
         400: { description: 'Bad Request', schema: "$ref: '#/definitions/ErrorResponse'" },
         401: { description: 'Unauthorized', schema: "$ref: '#/definitions/ErrorResponse'" },
         403: { description: 'Forbidden', schema: "$ref: '#/definitions/ErrorResponse'" },
