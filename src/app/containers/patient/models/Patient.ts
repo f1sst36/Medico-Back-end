@@ -1,7 +1,7 @@
-import { Association, DataTypes } from "sequelize";
+import { Association, DataTypes } from 'sequelize';
 
-import { CoreModel } from "../../../ship/core/model/CoreModel";
-import { User } from "../../user/models/User";
+import { CoreModel } from '../../../ship/core/model/CoreModel';
+import { User } from '../../user/models/User';
 
 export class Patient extends CoreModel {
     public readonly id: Number;
@@ -35,10 +35,10 @@ export const patientSchema = {
         type: DataTypes.FLOAT,
     },
     bloodType: {
-        type: DataTypes.ENUM("I", "II", "III", "IV"),
+        type: DataTypes.ENUM('I', 'II', 'III', 'IV'),
     },
     RHFactor: {
-        type: DataTypes.ENUM("Rh+", "Rh-"),
+        type: DataTypes.ENUM('Rh+', 'Rh-'),
     },
     allergies: {
         type: DataTypes.STRING,
@@ -50,17 +50,17 @@ export const patientSchema = {
         type: DataTypes.STRING,
     },
     isSmoker: {
-        type: DataTypes.ENUM("Да", "Нет", "Иногда"),
+        type: DataTypes.ENUM('Да', 'Нет', 'Иногда'),
     },
     avatar: {
         type: DataTypes.STRING,
     },
     isAlcoholic: {
         type: DataTypes.ENUM(
-            "1 раз в год",
-            "1 раз в месяц",
-            "1 раз в неделю",
-            "более 3 раз в неделю"
+            '1 раз в год',
+            '1 раз в месяц',
+            '1 раз в неделю',
+            'более 3 раз в неделю'
         ),
     },
     badHabits: {
@@ -73,5 +73,5 @@ export const patientSchema = {
         allowNull: false,
         type: DataTypes.BOOLEAN,
         defaultValue: false,
-    }
+    },
 };

@@ -1,8 +1,8 @@
-import bcrypt from "bcryptjs";
+import bcrypt from 'bcryptjs';
 
-import { CoreSeed } from "./CoreSeed";
-import { createNewPatientTask } from "../../../containers/patient/tasks/CreateNewPatientTask";
-import { User } from "../../../containers/user/models/User";
+import { CoreSeed } from './CoreSeed';
+import { createNewPatientTask } from '../../../containers/patient/tasks/CreateNewPatientTask';
+import { User } from '../../../containers/user/models/User';
 
 interface IParams {
     name: String;
@@ -39,39 +39,56 @@ export class PatientsSeed extends CoreSeed {
         });
 
         await createNewPatientTask.run(newUser.id);
+        // const newPatient = await createNewPatientTask.run(newUser.id);
+
+        // await newPatient.update({
+        //     weight: '80',
+        //     height: '180',
+        //     bloodType: 'II',
+        //     RHFactor: 'Rh+',
+        //     allergies: null,
+        //     chronicDiseases: null,
+        //     operations: null,
+        //     isSmoker: 'Нет',
+        //     avatar: null,
+        //     isAlcoholic: '1 раз в год',
+        //     badHabits: null,
+        //     bloodTransfusion: 'нет',
+        //     isFullData: true,
+        // });
     };
 
     public run = async () => {
         const salt = await bcrypt.genSalt(10);
 
         this.createPatient({
-            name: "Илья",
-            surname: "Долженко",
-            middleName: "Андреевич",
-            sex: "male",
-            birthDate: "2000-06-16",
-            phone: "+79784809172",
-            email: "ilay00@mail.ru",
+            name: 'Илья',
+            surname: 'Долженко',
+            middleName: 'Андреевич',
+            sex: 'male',
+            birthDate: '2000-06-16',
+            phone: '+79784809172',
+            email: 'ilay00@mail.ru',
             isActivated: true,
-            hashedPassword: await bcrypt.hash("Q1w2e3r4", salt),
-            confirmationToken: await bcrypt.hash("ilay00@mail.ru", salt),
+            hashedPassword: await bcrypt.hash('Q1w2e3r4', salt),
+            confirmationToken: await bcrypt.hash('ilay00@mail.ru', salt),
             acceptedUserAgreement: true,
-            userType: "patient",
+            userType: 'patient',
         });
 
         this.createPatient({
-            name: "Максим",
-            surname: "Иванов",
-            middleName: "Сергеевич",
-            sex: "male",
-            birthDate: "2000-02-15",
-            phone: "+79780037912",
-            email: "abc@mail.ru",
+            name: 'Максим',
+            surname: 'Иванов',
+            middleName: 'Сергеевич',
+            sex: 'male',
+            birthDate: '2000-02-15',
+            phone: '+79780037912',
+            email: 'abc@mail.ru',
             isActivated: true,
-            hashedPassword: await bcrypt.hash("qwe123Q!", salt),
-            confirmationToken: await bcrypt.hash("abc@mail.ru", salt),
+            hashedPassword: await bcrypt.hash('qwe123Q!', salt),
+            confirmationToken: await bcrypt.hash('abc@mail.ru', salt),
             acceptedUserAgreement: true,
-            userType: "patient",
+            userType: 'patient',
         });
     };
 }

@@ -23,7 +23,6 @@ class LoginAction extends CoreAction {
             fullUser = await doctorRepository.getDoctorByIdForToken(user.id);
 
         let token;
-
         try {
             token = await jwt.sign({ _user: fullUser.dataValues }, process.env.TOKEN_SECRET_KEY);
         } catch (e) {
