@@ -72,6 +72,48 @@ class DoctorRepository extends CoreRepository {
         }
     };
 
+    public getDoctorByIdForToken = (id: Number): Promise<Doctor> => {
+        try {
+            const result = this.model.findOne({
+                where: {
+                    id: id,
+                },
+                include: [
+                    {
+                        model: User,
+                        as: 'user',
+                        attributes: {
+                            exclude: [
+                                'createdAt',
+                                'updatedAt',
+                                'password',
+                                'confirmationToken',
+                                'id',
+                            ],
+                        },
+                    },
+                    {
+                        model: DoctorSpecialtiesLink,
+                        as: 'doctorSpecialtiesLink',
+                        include: [
+                            {
+                                model: Specialties,
+                                as: 'specialty',
+                                attributes: ['id', 'name', 'slug'],
+                            },
+                        ],
+                    },
+                ],
+                attributes: {
+                    exclude: ['createdAt', 'updatedAt'],
+                },
+            });
+            return result;
+        } catch (error) {
+            return null;
+        }
+    };
+
     public getVerifiedDoctorById = (id: Number): Promise<Doctor> => {
         try {
             const result = this.model.findOne({

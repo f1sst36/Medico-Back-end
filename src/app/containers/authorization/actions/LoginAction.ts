@@ -18,11 +18,12 @@ class LoginAction extends CoreAction {
         if (!validPass) return { error: 1, message: "Неверный логин или пароль" };
 
         let fullUser: any = {};
-        if (user.userType === "patient") fullUser = await patientRepository.getPatientById(user.id);
+        if (user.userType === "patient") fullUser = await patientRepository.getPatientByIdForToken(user.id);
         else if (user.userType === "doctor")
-            fullUser = await doctorRepository.getDoctorById(user.id);
+            fullUser = await doctorRepository.getDoctorByIdForToken(user.id);
 
         let token;
+
         try {
             token = await jwt.sign({ _user: fullUser.dataValues }, process.env.TOKEN_SECRET_KEY);
         } catch (e) {

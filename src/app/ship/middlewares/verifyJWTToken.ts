@@ -3,6 +3,8 @@ import jwt from 'jsonwebtoken';
 import { Response, NextFunction } from 'express';
 
 const prefix = '/api/v1';
+
+// урлы доступные без авторизации
 const exceptUrls = [
     '/api-docs',
     prefix + '/auth/sign-in',
@@ -17,14 +19,15 @@ const exceptUrls = [
     prefix + '/doctor/review/list',
 ];
 
-export const verifyJWTToken = (req, res: Response, next: NextFunction) => {
+export const verifyJWTToken = (req, res: Response, next: NextFunction) => {    
     if (req.url.indexOf(prefix) === -1) return next();
 
     for (let i = 0; i < exceptUrls.length; i++)
         if (req.url.indexOf(exceptUrls[i]) !== -1) return next();
 
     const accessToken = req.header('accessToken');
-    if (!accessToken) return res.status(401).send({ error: 1, message: 'Access denied' });
+    if (!accessToken)
+        return res.status(401).send({ error: 1, data: null, message: 'Не авторизован' });
 
     try {
         const verified = jwt.verify(accessToken, process.env.TOKEN_SECRET_KEY);
@@ -34,6 +37,6 @@ export const verifyJWTToken = (req, res: Response, next: NextFunction) => {
 
         next();
     } catch (err) {
-        return res.status(400).send({ error: 1, message: 'Invalid token' });
+        return res.status(403).send({ error: 1, data: null, message: 'Неверный токен' });
     }
 };

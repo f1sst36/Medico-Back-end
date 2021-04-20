@@ -29,9 +29,8 @@ import {
     communicationMethodSchema,
 } from './app/containers/consultation/models/CommunicationMethod';
 import { AppointmentController } from './app/containers/consultation/controllers/AppointmentController';
-import { Card, cardSchema } from './app/containers/payment/models/Card';
-import { Payment, paymentSchema } from './app/containers/payment/models/Payment';
 import { ReviewController } from './app/containers/doctor/controllers/ReviewController';
+import { permissionByRole } from './app/ship/middlewares/permissionByRole';
 
 const app = new App({
     port: +process.env.PORT || 8080,
@@ -46,7 +45,7 @@ const app = new App({
         new AppointmentController(),
         new ReviewController(),
     ],
-    middlewares: [allowCrossDomain, verifyJWTToken, jsonErrorHandler],
+    middlewares: [allowCrossDomain, verifyJWTToken, jsonErrorHandler, permissionByRole],
     models: [
         {
             model: User,

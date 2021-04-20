@@ -38,6 +38,37 @@ class PatientRepository extends CoreRepository {
             return null;
         }
     };
+
+    getPatientByIdForToken = (id: Number): Promise<Patient> => {
+        try {
+            const result = this.model.findOne({
+                where: {
+                    id: id,
+                },
+                include: [
+                    {
+                        model: User,
+                        as: "user",
+                        attributes: {
+                            exclude: [
+                                "createdAt",
+                                "updatedAt",
+                                "password",
+                                "confirmationToken",
+                                "id",
+                            ],
+                        },
+                    },
+                ],
+                attributes: {
+                    exclude: ["createdAt", "updatedAt"],
+                },
+            });
+            return result;
+        } catch (error) {
+            return null;
+        }
+    };
 }
 
 export const patientRepository = new PatientRepository();
