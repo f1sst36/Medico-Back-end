@@ -21,16 +21,14 @@ class GetFreeDoctorTimeTask extends CoreTask {
         let isEarly: Boolean = false;
         let isToday: Boolean = false;
 
-        // Если передается в get параметр старая дата (меньше текущей),
-        // то мы будем работать и отдавать ответ как будто передали текущую дату
         if (startDate < new Date(format(currentDate, 'yyyy-MM-dd'))) {
-            startDate = new Date(format(currentDate, 'yyyy-MM-dd'));
+            // startDate = new Date(format(currentDate, 'yyyy-MM-dd'));
             isEarly = true;
         }
 
         const endDate: Date = new Date(format(addDays(startDate, 1), 'yyyy-MM-dd'));
 
-        if (currentDate >= startDate && currentDate <= endDate) isToday = true;
+        if (currentDate >= startDate && currentDate < endDate) isToday = true;
 
         // В этом методе достаются все консультации врача (которые не отменены, не идут в текущий момент и не завершены)
         // в период от указаной даты (date) до date + 24 часа
