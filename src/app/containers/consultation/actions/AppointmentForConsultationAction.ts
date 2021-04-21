@@ -1,17 +1,23 @@
-import { format, parseISO } from 'date-fns';
+import { parseISO } from 'date-fns';
 import { doctorRepository } from '../../../containers/doctor/repositories/DoctorRepository';
 import { CoreAction, IResult } from '../../../ship/core/action/CoreAction';
 import { createConsultationTask } from '../tasks/CreateConsultationTask';
+import { getFreeDoctorTimeTask } from '../tasks/GetFreeDoctorTimeTask';
+
+interface IWorkingTime {
+    time: number;
+    isClosed: boolean;
+}
 
 class AppointmentForConsultationAction extends CoreAction {
     public run = async (
         doctorId: number,
         patientId: number,
-        receptionDate: Date,
+        receptionDate: string,
         communicationMethodId: number,
         symptoms: string
     ): Promise<IResult> => {
-        const doctor = await doctorRepository.getDoctorsFIOAndWorkTimeJson(doctorId);
+        const doctor = await doctorRepository.getDoctorsFIO(doctorId);
 
         if (!doctor)
             return {
@@ -20,32 +26,44 @@ class AppointmentForConsultationAction extends CoreAction {
             };
 
         // receptionDate - дата полученная от клиента
-        const receptionDateAndTime = parseISO(String(receptionDate));
+        const receptionDateAndTime = new Date(receptionDate);
         receptionDateAndTime.setMinutes(0, 0, 0);
-        // const currentDate = new Date();
 
-        // doctorsScheduleToday - раписание доктора на сегодня в часах
-        // const doctorsScheduleToday: Array<number> = doctor.workTimeByDay.find(
-        //     (day) => day.dayNumber === receptionDateAndTime.getDay()
-        // ).workingHours;
+        if (receptionDateAndTime <= new Date())
+            return {
+                error: 1,
+                message: 'Нет приема в это время',
+            };
 
+        const result = await getFreeDoctorTimeTask.run(doctorId, receptionDate, false);
 
+        if (result.error)
+            return {
+                error: result.error,
+                message: result.message,
+            };
 
-        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        // Сделай GetFreeDoctorTimeAction таском и вызывай его здесь. Получишь массив свободного/занятого времени
-
-
-
-        // 
-        // const freeTime: boolean = Boolean(
-        //     doctorsScheduleToday.find((hour) => hour === receptionDateAndTime.getHours())
-        // );
-
-        // if (!freeTime || receptionDateAndTime <= currentDate)
+        // if (!result.data)
         //     return {
-        //         error: 1,
-        //         message: 'У доктора отсутствует текущее время для записи',
+        //         error: result.error,
+        //         data: null,
+        //         message: result.message,
         //     };
+
+        // doctorsSchedule - распиисание доктора на день в часах
+        const doctorsSchedule: Array<IWorkingTime> = result.data;
+
+        const isHaveFreeTime: boolean = Boolean(
+            doctorsSchedule.find(
+                (hour) => hour.time === receptionDateAndTime.getHours() && !hour.isClosed
+            )
+        );
+
+        if (!isHaveFreeTime)
+            return {
+                error: 1,
+                message: 'У доктора нет приема на данное время',
+            };
 
         const consultation = await createConsultationTask.run({
             doctorId: doctorId,
@@ -55,8 +73,6 @@ class AppointmentForConsultationAction extends CoreAction {
             symptoms: symptoms,
         });
 
-        console.log('consultation', consultation.getDataValue("receptionDate").getHours());
-
         if (!consultation)
             return {
                 error: 1,
@@ -65,7 +81,10 @@ class AppointmentForConsultationAction extends CoreAction {
 
         return {
             error: 0,
-            data: consultation,
+            data: {
+                consultation: consultation,
+                doctor: doctor,
+            },
             message: '',
         };
     };

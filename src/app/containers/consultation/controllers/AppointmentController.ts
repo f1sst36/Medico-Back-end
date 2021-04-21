@@ -6,10 +6,11 @@ import { CoreController } from '../../../ship/core/controller/CoreController';
 import { appointmentForConsultationValidator } from '../validators/appointmentForConsultationValidator';
 import { freeDoctorTimeValidator } from '../validators/freeDoctorTimeValidator';
 import { metaInfoForAppointmentValidator } from '../validators/metaInfoForAppointmentValidator';
-import { getFreeDoctorTimeAction } from '../actions/GetFreeDoctorTimeAction';
 import { getMetaInfoForAppointmentAction } from '../actions/GetMetaInfoForAppointmentAction';
 import { metaInfoForAppointmentTransformer } from '../transformers/MetaInfoForAppointmentTransformer';
 import { appointmentForConsultationAction } from '../actions/AppointmentForConsultationAction';
+import { getFreeDoctorTimeTask } from '../tasks/GetFreeDoctorTimeTask';
+import { format } from 'date-fns';
 
 export class AppointmentController extends CoreController {
     constructor() {
@@ -48,12 +49,19 @@ export class AppointmentController extends CoreController {
             req.body.symptoms
         );
 
-        // console.log(result.data);
+        // сделай трансформер ответа + дата должна обязательно содержать часовой пояс (+03)
 
         if (result.error)
             return res.status(422).json(coreTransformer.getErrorResponse(result.message));
 
-        return res.status(200).json(coreTransformer.getSimpleSuccessResponse('', result.data));
+        return res
+            .status(200)
+            .json(
+                coreTransformer.getSimpleSuccessResponse(
+                    'Вы успешно записались на консультацию',
+                    null
+                )
+            );
     };
 
     public getMetaInfoForAppointment = async (req: Request, res: Response) => {
@@ -82,7 +90,7 @@ export class AppointmentController extends CoreController {
 
         let result;
         try {
-            result = await getFreeDoctorTimeAction.run(+req.query.doctorId, String(req.query.date));
+            result = await getFreeDoctorTimeTask.run(+req.query.doctorId, String(req.query.date));
         } catch (e) {
             console.log(e);
             return res

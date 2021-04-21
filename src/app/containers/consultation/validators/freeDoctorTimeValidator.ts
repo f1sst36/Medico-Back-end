@@ -8,5 +8,6 @@ export const freeDoctorTimeValidator = [
     Validator.query('date', 'Неободимо указать дату планируемой консультации')
         .trim()
         .isISO8601()
+        // .matches(/(\+03)$/)
         .withMessage('Неверный формат даты'),
 ];

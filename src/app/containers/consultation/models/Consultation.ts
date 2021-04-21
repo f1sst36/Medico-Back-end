@@ -1,6 +1,7 @@
 import { DataTypes } from 'sequelize';
 
 import { CoreModel } from '../../../ship/core/model/CoreModel';
+import { CommunicationMethod } from './CommunicationMethod';
 
 export class Consultation extends CoreModel {
     public readonly id: Number;
@@ -13,6 +14,8 @@ export class Consultation extends CoreModel {
 
     public readonly createdAt: Date;
     public readonly updatedAt: Date;
+
+    public communicationMethod: CommunicationMethod;
 
     public getReceptionHours = (): Number => {
         // 3 для часового пояса

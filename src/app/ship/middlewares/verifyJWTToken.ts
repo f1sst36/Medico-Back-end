@@ -19,7 +19,7 @@ const exceptUrls = [
     prefix + '/doctor/review/list',
 ];
 
-export const verifyJWTToken = (req, res: Response, next: NextFunction) => {    
+export const verifyJWTToken = (req, res: Response, next: NextFunction) => {
     if (req.url.indexOf(prefix) === -1) return next();
 
     for (let i = 0; i < exceptUrls.length; i++)

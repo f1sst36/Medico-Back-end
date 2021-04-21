@@ -399,7 +399,7 @@ class DoctorRepository extends CoreRepository {
         }
     };
 
-    public getDoctorsFIOAndWorkTimeJson = (doctorId: number): Promise<Doctor> => {
+    public getDoctorsFIO = (doctorId: number): Promise<Doctor> => {
         try {
             const result = this.model.findOne({
                 where: {
@@ -412,7 +412,7 @@ class DoctorRepository extends CoreRepository {
                         attributes: ['name', 'surname', 'middleName'],
                     },
                 ],
-                attributes: ['workTimeByDay'],
+                attributes: ['id'],
             });
             return result;
         } catch (_) {

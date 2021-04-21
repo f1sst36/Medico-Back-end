@@ -276,5 +276,121 @@
                 }
             }
         ]
+    },
+    "/consultation/appointment/create": {
+        "post": {
+            "tags": ["Consultation"],
+            "security": {
+                "bearerAuth": []
+            },
+            "description": "Appointment to consultation",
+            "responses": {
+                "200": {
+                    "description": "Successfully appointmented",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                                "type": "integer",
+                                "example": 0
+                            },
+                            "data": {
+                                "type": "object",
+                                "example": null
+                            },
+                            "message": {
+                                "type": "string",
+                                "example": "Вы успешно записались на консультацию",
+                                "description": "Reply message"
+                            }
+                        }
+                    }
+                },
+                "422": {
+                    "description": "Error",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "data": {
+                                "type": "object",
+                                "example": null
+                            },
+                            "message": {
+                                "type": "string",
+                                "example": "Сообщение об ошибке",
+                                "description": "Reply message"
+                            }
+                        }
+                    }
+                },
+                "422*": {
+                    "description": "Validation error",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "data": {
+                                "type": "object",
+                                "example": ["Параметр должен быть числом"]
+                            },
+                            "message": {
+                                "type": "string",
+                                "example": "Ошибка валидации",
+                                "description": "Reply message"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "parameters": [
+            {
+                "name": "doctorId",
+                "in": "body",
+                "description": "Doctor's id",
+                "required": true,
+                "schema": {
+                    "type": "number",
+                    "example": { "doctorId": 1 }
+                }
+            },
+            {
+                "name": "receptionDate",
+                "in": "body",
+                "description": "Reception date of consultation",
+                "required": true,
+                "schema": {
+                    "type": "Date",
+                    "example": { "receptionDate": "2021-04-22T16:00:00" }
+                }
+            },
+            {
+                "name": "communicationMethodId",
+                "in": "body",
+                "description": "Communication method id",
+                "required": true,
+                "schema": {
+                    "type": "number",
+                    "example": { "communicationMethodId": 1 }
+                }
+            },
+            {
+                "name": "symptoms",
+                "in": "body",
+                "description": "Patient's symptoms",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "example": { "symptoms": "foobarbarfoobarbbarabra" }
+                }
+            }
+        ]
     }
 }

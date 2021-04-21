@@ -1,30 +1,36 @@
-import { Request } from 'express';
-
-import { CoreAction, IResult } from '../../../ship/core/action/CoreAction';
 import { addDays, format, parseISO } from 'date-fns';
 import { consultationRepository } from '../repositories/ConsultationRepository';
-import { doctorRepository } from '../../../containers/doctor/repositories/DoctorRepository';
+import { doctorRepository } from '../../doctor/repositories/DoctorRepository';
+import { CoreTask, IResult } from '../../../ship/core/task/CoreTask';
 
-interface WorkingTime {
-    time: string;
+interface IWorkingTime {
+    time: string | number;
     isClosed: boolean;
 }
 
-class GetFreeDoctorTimeAction extends CoreAction {
-    public run = async (doctorId: number, date: string): Promise<IResult> => {
+class GetFreeDoctorTimeTask extends CoreTask {
+    public run = async (
+        doctorId: number,
+        date: string,
+        transformTimeToString: boolean = true
+    ): Promise<IResult> => {
         // date: string это дата, которую хочет выбрать пациент для консультации
         const currentDate: Date = new Date();
         let startDate: Date = new Date(format(parseISO(date), 'yyyy-MM-dd'));
+
+        let isEarly: Boolean = false;
         let isToday: Boolean = false;
 
-        // Если передается в get параметр старая дата (меньше или равно текущей), 
+        // Если передается в get параметр старая дата (меньше текущей),
         // то мы будем работать и отдавать ответ как будто передали текущую дату
-        if (startDate <= new Date(format(currentDate, 'yyyy-MM-dd'))) {
+        if (startDate < new Date(format(currentDate, 'yyyy-MM-dd'))) {
             startDate = new Date(format(currentDate, 'yyyy-MM-dd'));
-            isToday = true;
+            isEarly = true;
         }
 
         const endDate: Date = new Date(format(addDays(startDate, 1), 'yyyy-MM-dd'));
+
+        if (currentDate >= startDate && currentDate <= endDate) isToday = true;
 
         // В этом методе достаются все консультации врача (которые не отменены, не идут в текущий момент и не завершены)
         // в период от указаной даты (date) до date + 24 часа
@@ -52,19 +58,21 @@ class GetFreeDoctorTimeAction extends CoreAction {
         ).workingHours;
 
         if (!workingHoursInThatDay.length)
-            return { error: 0, data: null, message: 'У врача нет приемов в этот день' };
+            return { error: 1, message: 'У врача нет приемов в этот день' };
 
-        const workingTime: Array<WorkingTime> = [];
+        const workingTime: Array<IWorkingTime> = [];
+
         workingHoursInThatDay.forEach((hour: number) => {
             workingTime.push({
-                time: `${hour}:00`,
+                time: transformTimeToString ? `${hour}:00` : hour,
                 isClosed:
                     Boolean(
                         consultations.find(
                             (consultation) => consultation.getReceptionHours() === hour
                         )
                     ) ||
-                    (isToday && hour <= currentDate.getHours()),
+                    (isToday && hour <= currentDate.getHours()) ||
+                    Boolean(isEarly),
             });
         });
 
@@ -72,4 +80,4 @@ class GetFreeDoctorTimeAction extends CoreAction {
     };
 }
 
-export const getFreeDoctorTimeAction = new GetFreeDoctorTimeAction();
+export const getFreeDoctorTimeTask = new GetFreeDoctorTimeTask();
