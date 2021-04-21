@@ -6,6 +6,7 @@ export const appointmentForConsultationValidator = [
         .withMessage('id доктора должно быть больше нуля'),
     Validator.body('receptionDate', 'Необходимо указать дату и время приема')
         .isISO8601()
+        .matches(/(\+03)$/)
         .withMessage('Неверный формат даты'),
     Validator.body('communicationMethodId', 'Невоходимо указать id метода связи')
         .isInt({ min: 1 })

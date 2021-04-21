@@ -38,24 +38,24 @@ export class PatientsSeed extends CoreSeed {
             return null;
         });
 
-        await createNewPatientTask.run(newUser.id);
-        // const newPatient = await createNewPatientTask.run(newUser.id);
+        // await createNewPatientTask.run(newUser.id);
+        const newPatient = await createNewPatientTask.run(newUser.id);
 
-        // await newPatient.update({
-        //     weight: '80',
-        //     height: '180',
-        //     bloodType: 'II',
-        //     RHFactor: 'Rh+',
-        //     allergies: null,
-        //     chronicDiseases: null,
-        //     operations: null,
-        //     isSmoker: 'Нет',
-        //     avatar: null,
-        //     isAlcoholic: '1 раз в год',
-        //     badHabits: null,
-        //     bloodTransfusion: 'нет',
-        //     isFullData: true,
-        // });
+        await newPatient.update({
+            weight: '80',
+            height: '180',
+            bloodType: 'II',
+            RHFactor: 'Rh+',
+            allergies: null,
+            chronicDiseases: null,
+            operations: null,
+            isSmoker: 'Нет',
+            avatar: null,
+            isAlcoholic: '1 раз в год',
+            badHabits: null,
+            bloodTransfusion: 'нет',
+            isFullData: true,
+        });
     };
 
     public run = async () => {

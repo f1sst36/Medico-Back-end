@@ -118,6 +118,8 @@ export class App {
                     rejectUnauthorized: false,
                 },
             },
+
+            timezone: '+03:00',
         });
     }
 

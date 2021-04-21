@@ -398,6 +398,27 @@ class DoctorRepository extends CoreRepository {
             return null;
         }
     };
+
+    public getDoctorsFIOAndWorkTimeJson = (doctorId: number): Promise<Doctor> => {
+        try {
+            const result = this.model.findOne({
+                where: {
+                    id: doctorId,
+                },
+                include: [
+                    {
+                        model: User,
+                        as: 'user',
+                        attributes: ['name', 'surname', 'middleName'],
+                    },
+                ],
+                attributes: ['workTimeByDay'],
+            });
+            return result;
+        } catch (_) {
+            return null;
+        }
+    };
 }
 
 export const doctorRepository = new DoctorRepository();

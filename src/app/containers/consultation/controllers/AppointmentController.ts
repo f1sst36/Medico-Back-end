@@ -4,12 +4,12 @@ import { Request, Response } from 'express';
 
 import { CoreController } from '../../../ship/core/controller/CoreController';
 import { appointmentForConsultationValidator } from '../validators/appointmentForConsultationValidator';
-import { createConsultationTask } from '../tasks/CreateConsultationTask';
 import { freeDoctorTimeValidator } from '../validators/freeDoctorTimeValidator';
 import { metaInfoForAppointmentValidator } from '../validators/metaInfoForAppointmentValidator';
 import { getFreeDoctorTimeAction } from '../actions/GetFreeDoctorTimeAction';
 import { getMetaInfoForAppointmentAction } from '../actions/GetMetaInfoForAppointmentAction';
 import { metaInfoForAppointmentTransformer } from '../transformers/MetaInfoForAppointmentTransformer';
+import { appointmentForConsultationAction } from '../actions/AppointmentForConsultationAction';
 
 export class AppointmentController extends CoreController {
     constructor() {
@@ -21,7 +21,7 @@ export class AppointmentController extends CoreController {
 
     public initRoutes() {
         this.router.post(
-            this.prefix + '/',
+            this.prefix + '/create',
             appointmentForConsultationValidator,
             this.appointmentForConsultation
         );
@@ -40,16 +40,20 @@ export class AppointmentController extends CoreController {
     public appointmentForConsultation = async (req: any, res: Response) => {
         if (this.validateRequest(req, res)) return;
 
-        // еще не готово
+        const result = await appointmentForConsultationAction.run(
+            req.body.doctorId,
+            req.user.id,
+            req.body.receptionDate,
+            req.body.communicationMethodId,
+            req.body.symptoms
+        );
 
-        const consultationFileds = req.body;
-        consultationFileds.patientId = req.user.id;
-        const consultation = await createConsultationTask.run(consultationFileds);
+        // console.log(result.data);
 
-        if (!consultation)
-            res.status(422).json(coreTransformer.getErrorResponse('Ошибка записи на консультацию'));
+        if (result.error)
+            return res.status(422).json(coreTransformer.getErrorResponse(result.message));
 
-        return res.status(200).json(coreTransformer.getSimpleSuccessResponse('', consultation));
+        return res.status(200).json(coreTransformer.getSimpleSuccessResponse('', result.data));
     };
 
     public getMetaInfoForAppointment = async (req: Request, res: Response) => {

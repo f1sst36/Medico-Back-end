@@ -5,6 +5,11 @@ import { CoreModel } from '../../../ship/core/model/CoreModel';
 import { User } from '../../user/models/User';
 import { Review } from './Review';
 
+interface IWorkTimeByDayItem {
+    dayNumber: number;
+    workingHours: Array<number>;
+}
+
 export class Doctor extends CoreModel {
     public readonly id: number;
     public IIN: string;
@@ -27,13 +32,14 @@ export class Doctor extends CoreModel {
     public rating: number;
     public costOfConsultation: number;
     public workTime: string;
+    public workTimeByDay: Array<IWorkTimeByDayItem>;
 
     public user: User;
     public reviews: Array<Review>;
 
     public getRating = (): number => {
         return Math.round(this.rating);
-    }
+    };
 
     public transformExperience(): String | Date {
         const currentDate: any = new Date();

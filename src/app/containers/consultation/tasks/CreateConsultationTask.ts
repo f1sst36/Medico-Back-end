@@ -11,8 +11,13 @@ interface IParams {
 
 class CreateConsultationTask extends CoreTask {
     public run = async (consultationFields: IParams): Promise<Consultation> => {
-        const newConsultation = await Consultation.create(consultationFields);
-        return newConsultation;
+        try {
+            return await Consultation.create(consultationFields);
+        } catch (e) {
+            console.log(e);
+            
+            return null;
+        }
     };
 }
 

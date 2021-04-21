@@ -110,7 +110,7 @@
                         }
                     }
                 },
-                "400": {
+                "422": {
                     "description": "Bad request",
                     "schema": {
                         "type": "object",
@@ -131,7 +131,7 @@
                         }
                     }
                 },
-                "422": {
+                "422*": {
                     "description": "Validation errors",
                     "schema": {
                         "type": "object",
