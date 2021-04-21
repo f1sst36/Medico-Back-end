@@ -5,7 +5,7 @@
             "security": {
                 "bearerAuth": []
             },
-            "description": "Free/busy time of the doctor on the specified day. if the transmitted date is less than the current date, the response will return as if the current date was transmitted.",
+            "description": "Free/busy time of the doctor on the specified day.",
             "responses": {
                 "200": {
                     "description": "Successfully getted list",
@@ -102,27 +102,6 @@
                             "message": {
                                 "type": "string",
                                 "example": "Ошибка валидации",
-                                "description": "Reply message"
-                            }
-                        }
-                    }
-                },
-                "200*": {
-                    "description": "Successfully getted empty list",
-                    "schema": {
-                        "type": "object",
-                        "properties": {
-                            "error": {
-                                "type": "integer",
-                                "example": 0
-                            },
-                            "data": {
-                                "type": null,
-                                "example": null
-                            },
-                            "message": {
-                                "type": "string",
-                                "example": "У врача нет приемов в этот день",
                                 "description": "Reply message"
                             }
                         }
