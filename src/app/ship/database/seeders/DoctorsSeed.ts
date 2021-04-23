@@ -73,11 +73,10 @@ export class DoctorsSeed extends CoreSeed {
                 text: 'Какой же классный отзыв я могу оставить этому врачу',
                 estimation: this.randomInt(1, 5),
                 createdAt: format(
-                    new Date(
-                        // this.randomInt(2020, 2021),
-                        // this.randomInt(1, 12),
-                        // this.randomInt(1, 28)
-                    ),
+                    new Date(),
+                    // this.randomInt(2020, 2021),
+                    // this.randomInt(1, 12),
+                    // this.randomInt(1, 28)
                     'yyyy-MM-dd'
                 ),
             });
@@ -149,12 +148,12 @@ export class DoctorsSeed extends CoreSeed {
             'Мария',
         ];
 
-        for (let i = 0; i < 20; i++) {
+        for (let i = 0; i < 30; i++) {
             await this.createDoctor(
                 {
                     name: this.arrayRandElement(names),
                     surname: 'Кличенко',
-                    middleName: 'Николаевич',
+                    middleName: Math.random() > 0.1 ? 'Николаевич' : '',
                     sex: Math.random() > 0.5 ? 'male' : 'female',
                     birthDate: '2000-06-16',
                     phone: this.randomPhone(),

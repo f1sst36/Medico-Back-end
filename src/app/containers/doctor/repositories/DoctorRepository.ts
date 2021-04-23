@@ -200,19 +200,38 @@ class DoctorRepository extends CoreRepository {
                         as: 'user',
                         attributes: ['id', 'name', 'surname', 'middleName'],
                         where: {
-                            fio: Sequelize.where(
-                                Sequelize.fn(
-                                    'concat',
-                                    Sequelize.col('name'),
-                                    ' ',
-                                    Sequelize.col('surname'),
-                                    ' ',
-                                    Sequelize.col('middleName')
-                                ),
+                            [Op.or]: [
                                 {
-                                    [Op.like]: `%${fio}%`,
-                                }
-                            ),
+                                    fio: Sequelize.where(
+                                        Sequelize.fn(
+                                            'concat',
+                                            Sequelize.col('name'),
+                                            ' ',
+                                            Sequelize.col('surname'),
+                                            ' ',
+                                            Sequelize.col('middleName')
+                                        ),
+                                        {
+                                            [Op.iLike]: `%${fio}%`,
+                                        }
+                                    ),
+                                },
+                                {
+                                    fio: Sequelize.where(
+                                        Sequelize.fn(
+                                            'concat',
+                                            Sequelize.col('surname'),
+                                            ' ',
+                                            Sequelize.col('name'),
+                                            ' ',
+                                            Sequelize.col('middleName')
+                                        ),
+                                        {
+                                            [Op.iLike]: `%${fio}%`,
+                                        }
+                                    ),
+                                },
+                            ],
                         },
                     },
                     {
@@ -250,17 +269,77 @@ class DoctorRepository extends CoreRepository {
         }
     };
 
-    public getCountOfDoctors = (): Promise<number> => {
+    public getCountOfDoctors = async (fio: string, specialtySlug: string): Promise<any> => {
         try {
-            const result = this.model.count({
+            const result = await this.model.findAll({
+                distinct: true,
                 where: {
-                    id: {
-                        [Op.gt]: 0,
-                    },
+                    // id: {
+                    //     [Op.gt]: 0,
+                    // },
                     isVerified: true,
                 },
+                include: [
+                    {
+                        model: User,
+                        as: 'user',
+                        attributes: ['id', 'name', 'surname', 'middleName'],
+                        where: {
+                            [Op.or]: [
+                                {
+                                    fio: Sequelize.where(
+                                        Sequelize.fn(
+                                            'concat',
+                                            Sequelize.col('name'),
+                                            ' ',
+                                            Sequelize.col('surname'),
+                                            ' ',
+                                            Sequelize.col('middleName')
+                                        ),
+                                        {
+                                            [Op.iLike]: `%${fio}%`,
+                                        }
+                                    ),
+                                },
+                                {
+                                    fio: Sequelize.where(
+                                        Sequelize.fn(
+                                            'concat',
+                                            Sequelize.col('surname'),
+                                            ' ',
+                                            Sequelize.col('name'),
+                                            ' ',
+                                            Sequelize.col('middleName')
+                                        ),
+                                        {
+                                            [Op.iLike]: `%${fio}%`,
+                                        }
+                                    ),
+                                },
+                            ],
+                        },
+                    },
+                    {
+                        model: DoctorSpecialtiesLink,
+                        as: 'doctorSpecialtiesLink',
+                        include: [
+                            {
+                                model: Specialties,
+                                as: 'specialty',
+                                attributes: ['id', 'name', 'slug'],
+                                where: {
+                                    slug: Sequelize.where(Sequelize.col('slug'), {
+                                        [Op.like]: `%${specialtySlug}%`,
+                                    }),
+                                },
+                            },
+                        ],
+                    },
+                ],
+                // limit - костыль
+                limit: 999999,
             });
-            return result;
+            return result.length;
         } catch (_) {
             return null;
         }
