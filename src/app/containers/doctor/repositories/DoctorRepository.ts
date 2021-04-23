@@ -270,6 +270,7 @@ class DoctorRepository extends CoreRepository {
     };
 
     public getCountOfDoctors = async (fio: string, specialtySlug: string): Promise<any> => {
+        // Этот метод крайне гавёно написан. Перепиши, пожалуйста, как будет время и желание
         try {
             const result = await this.model.findAll({
                 distinct: true,
