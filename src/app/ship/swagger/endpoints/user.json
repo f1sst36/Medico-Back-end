@@ -62,5 +62,93 @@
                 }
             }
         ]
+    },
+    "/user/fresh-token": {
+        "get": {
+            "tags": ["User"],
+            "security": {
+                "bearerAuth": []
+            },
+            "description": "Get fresh user's token",
+            "responses": {
+                "200": {
+                    "description": "Token successfully getted",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                                "type": "integer",
+                                "example": 0
+                            },
+                            "data": {
+                                "type": "object",
+                                "example": {
+                                    "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+                                    "tokenType": "Bearer"
+                                }
+                            },
+                            "message": {
+                                "type": "string",
+                                "description": "Reply message",
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "404": {
+                    "description": "User not found",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "data": {
+                                "type": "object",
+                                "example": null
+                            },
+                            "message": {
+                                "type": "string",
+                                "description": "Reply message",
+                                "example": "Пользователь не найден"
+                            }
+                        }
+                    }
+                },
+                "422": {
+                    "description": "Error with token generation",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "data": {
+                                "type": "object",
+                                "example": null
+                            },
+                            "message": {
+                                "type": "string",
+                                "description": "Reply message",
+                                "example": "Ошибка генерации токена"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "parameters": [
+            {
+                "name": "accessToken",
+                "in": "header",
+                "description": "User's token",
+                "required": true,
+                "schema": {
+                    "type": "string"
+                }
+            }
+        ]
     }
 }

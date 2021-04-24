@@ -105,7 +105,7 @@ class DoctorRepository extends CoreRepository {
                     },
                 ],
                 attributes: {
-                    exclude: ['createdAt', 'updatedAt'],
+                    exclude: ['createdAt', 'updatedAt', 'diploma', 'summary', 'workTimeByDay'],
                 },
             });
             return result;

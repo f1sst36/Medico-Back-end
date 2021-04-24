@@ -15,6 +15,7 @@ const patientUrls = [
 // Урлы доступные авторизованному пациенту без пройденной анкеты
 const patientUrlsWithoutQuestionnaire = [
     prefix + '/user',
+    prefix + '/user/fresh-token',
     prefix + '/patient/profile/questionnaire',
 ];
 
@@ -25,7 +26,11 @@ const doctorUrls = [
 ];
 
 // Урлы доступные авторизованому доктору без пройденной анкеты
-const doctorUrlsWithoutQuestionnaire = [prefix + '/user', prefix + '/doctor/profile/questionnaire'];
+const doctorUrlsWithoutQuestionnaire = [
+    prefix + '/user',
+    prefix + '/user/fresh-token',
+    prefix + '/doctor/profile/questionnaire',
+];
 
 export const permissionByRole = (req: any, res: Response, next: NextFunction) => {
     if (!req.user) return next();
@@ -48,7 +53,5 @@ export const permissionByRole = (req: any, res: Response, next: NextFunction) =>
         }
     }
 
-    return res
-        .status(403)
-        .send({ error: 1, data: null, message: 'Нет доступа к данному методу' });
+    return res.status(403).send({ error: 1, data: null, message: 'Нет доступа к данному методу' });
 };
