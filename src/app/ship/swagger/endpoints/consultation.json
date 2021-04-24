@@ -391,24 +391,26 @@
                             },
                             "data": {
                                 "type": "Object",
-                                "example": {
-                                    "id": 61,
-                                    "receptionDate": "2021-04-26T08:00:00.000Z",
-                                    "communicationMethod": {
-                                        "id": 2,
-                                        "method": "Аудиозвонок"
-                                    },
-                                    "doctorSpecialty": {
-                                        "id": 4,
-                                        "name": "Эндокринолог"
-                                    },
-                                    "doctor": {
-                                        "name": "Степан",
-                                        "surname": "Кличенко",
-                                        "middleName": "Николаевич",
-                                        "photo": "/storage/files/doctor_4.jpg"
+                                "example": [
+                                    {
+                                        "id": 61,
+                                        "receptionDate": "2021-04-26T08:00:00.000Z",
+                                        "communicationMethod": {
+                                            "id": 2,
+                                            "method": "Аудиозвонок"
+                                        },
+                                        "doctorSpecialty": {
+                                            "id": 4,
+                                            "name": "Эндокринолог"
+                                        },
+                                        "doctor": {
+                                            "name": "Степан",
+                                            "surname": "Кличенко",
+                                            "middleName": "Николаевич",
+                                            "photo": "/storage/files/doctor_4.jpg"
+                                        }
                                     }
-                                }
+                                ]
                             },
                             "message": {
                                 "type": "string",
