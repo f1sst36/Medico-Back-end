@@ -9,6 +9,7 @@ const patientUrls = [
     prefix + '/consultation/appointment/meta-info',
     prefix + '/consultation/appointment/create',
     prefix + '/doctor/review/leave',
+    prefix + '/consultation/patient',
     // prefix + '/patient/profile/questionnaire',
 ];
 

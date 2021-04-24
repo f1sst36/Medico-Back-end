@@ -371,5 +371,110 @@
                 }
             }
         ]
+    },
+    "/consultation/patient/consultationState={waiting | done}": {
+        "get": {
+            "tags": ["Consultation"],
+            "security": {
+                "bearerAuth": []
+            },
+            "description": "Patient's consultations by state (waiting or done)",
+            "responses": {
+                "200": {
+                    "description": "Successfully getted consultations list",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                                "type": "integer",
+                                "example": 0
+                            },
+                            "data": [
+                                {
+                                    "type": "Object",
+                                    "example": {
+                                        "id": 61,
+                                        "receptionDate": "2021-04-26T08:00:00.000Z",
+                                        "communicationMethod": {
+                                            "id": 2,
+                                            "method": "Аудиозвонок"
+                                        },
+                                        "doctorSpecialty": {
+                                            "id": 4,
+                                            "name": "Эндокринолог"
+                                        },
+                                        "doctor": {
+                                            "name": "Степан",
+                                            "surname": "Кличенко",
+                                            "middleName": "Николаевич",
+                                            "photo": "/storage/files/doctor_4.jpg"
+                                        }
+                                    },
+                                    "message": {
+                                        "type": "string",
+                                        "example": "",
+                                        "description": "Reply message"
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                },
+                "404": {
+                    "description": "Not found",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "data": {
+                                "type": "object",
+                                "example": null
+                            },
+                            "message": {
+                                "type": "string",
+                                "example": "Консультации не найдены",
+                                "description": "Reply message"
+                            }
+                        }
+                    }
+                },
+                "400": {
+                    "description": "Validation error",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "data": {
+                                "type": "object",
+                                "example": ["Параметр должен быть числом"]
+                            },
+                            "message": {
+                                "type": "string",
+                                "example": "Ошибка валидации",
+                                "description": "Reply message"
+                            }
+                        }
+                    }
+                }
+            },
+            "parameters": [
+                {
+                    "name": "consultationState",
+                    "in": "query",
+                    "description": "State of consultation. Can be 'waiting' or 'done'",
+                    "required": true,
+                    "schema": {
+                        "type": "string",
+                        "example": "consultationState=waiting"
+                    }
+                }
+            ]
+        }
     }
 }

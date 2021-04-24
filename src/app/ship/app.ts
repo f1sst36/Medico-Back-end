@@ -46,7 +46,7 @@ export class App {
         this.initModels(appInit.models);
 
         // force: true - удалит все таблицы и накатит заново
-        this.sequelize.sync({ force: false });
+        this.sequelize.sync({ force: true });
 
         // Seeder.run();
     }
@@ -163,6 +163,11 @@ export class App {
             foreignKey: 'doctorId',
             constraints: false,
         });
+        Consultation.belongsTo(Specialties, {
+            as: 'doctorSpecialty',
+            foreignKey: 'doctorSpecialtyId',
+            constraints: false,
+        });
         Consultation.belongsTo(Patient, {
             as: 'patient',
             foreignKey: 'patientId',
@@ -183,16 +188,6 @@ export class App {
             foreignKey: 'patientId',
             constraints: false,
         });
-        // Consultation.hasOne(Payment, {
-        //     as: 'payment',
-        //     foreignKey: 'paymentId',
-        //     constraints: false,
-        // });
-        // Payment.belongsTo(Card, {
-        //     as: "card",
-        //     foreignKey: "cardId",
-        //     constraints: false,
-        // })
     }
 
     private initSwagger() {

@@ -15,6 +15,7 @@ class AppointmentForConsultationAction extends CoreAction {
         patientId: number,
         receptionDate: string,
         communicationMethodId: number,
+        doctorSpecialtyId: number,
         symptoms: string
     ): Promise<IResult> => {
         const doctor = await doctorRepository.getDoctorsFIO(doctorId);
@@ -70,6 +71,7 @@ class AppointmentForConsultationAction extends CoreAction {
             patientId: patientId,
             receptionDate: receptionDateAndTime,
             communicationMethodId: communicationMethodId,
+            doctorSpecialtyId: doctorSpecialtyId,
             symptoms: symptoms,
         });
 

@@ -46,6 +46,7 @@ export class AppointmentController extends CoreController {
             req.user.id,
             req.body.receptionDate,
             req.body.communicationMethodId,
+            req.body.doctorSpecialtyId,
             req.body.symptoms
         );
 

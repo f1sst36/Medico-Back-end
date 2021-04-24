@@ -14,6 +14,9 @@ export const appointmentForConsultationValidator = [
     Validator.body('symptoms', 'Необходимо указать симптомы')
         .isLength({ min: 10 })
         .withMessage('Опишите симптомы подробнее'),
+    Validator.body('doctorSpecialtyId', 'Необходимо указать id специальности доктора')
+        .isInt({ min: 1 })
+        .withMessage('id специальности врача должно быть больше нуля'),
     //
     // Validator.body('cardNumber', 'Необходимо указать номер карты')
     //     .matches(/^[0-9]{4}[0-9]{4}[0-9]{4}[0-9]{4}$/)

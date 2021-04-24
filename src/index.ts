@@ -31,6 +31,7 @@ import {
 import { AppointmentController } from './app/containers/consultation/controllers/AppointmentController';
 import { ReviewController } from './app/containers/doctor/controllers/ReviewController';
 import { permissionByRole } from './app/ship/middlewares/permissionByRole';
+import { ConsultationController } from './app/containers/consultation/controllers/ConsultationController';
 
 const app = new App({
     port: +process.env.PORT || 8080,
@@ -44,6 +45,7 @@ const app = new App({
         new DoctorController(),
         new AppointmentController(),
         new ReviewController(),
+        new ConsultationController()
     ],
     middlewares: [allowCrossDomain, verifyJWTToken, jsonErrorHandler, permissionByRole],
     models: [

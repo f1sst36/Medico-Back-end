@@ -11,9 +11,10 @@ export class ConsultationSeed extends CoreSeed {
             patientId: this.randomInt(1, 2),
             doctorId: this.randomInt(3, 20),
             communicationMethodId: this.randomInt(1, 3),
+            doctorSpecialtyId: this.randomInt(1, 16),
             receptionDate: receptionDate,
             symptoms: 'Такие-то такие-то симптомы ....',
-            isDone: receptionDate < new Date() ? true : false,
+            state: receptionDate <= new Date() ? 'done' : 'waiting',
         });
     };
 

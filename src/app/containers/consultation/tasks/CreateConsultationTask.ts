@@ -2,11 +2,12 @@ import { CoreTask } from '../../../ship/core/task/CoreTask';
 import { Consultation } from '../models/Consultation';
 
 interface IParams {
-    doctorId: Number;
-    patientId: Number;
+    doctorId: number;
+    patientId: number;
+    doctorSpecialtyId: number;
     receptionDate: Date;
-    communicationMethodId: Number;
-    symptoms: String;
+    communicationMethodId: number;
+    symptoms: string;
 }
 
 class CreateConsultationTask extends CoreTask {
@@ -15,7 +16,6 @@ class CreateConsultationTask extends CoreTask {
             return await Consultation.create(consultationFields);
         } catch (e) {
             console.log(e);
-            
             return null;
         }
     };

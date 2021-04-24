@@ -1,6 +1,6 @@
-import { Association, DataTypes } from "sequelize";
+import { Association, DataTypes } from 'sequelize';
 
-import { CoreModel } from "../../../ship/core/model/CoreModel";
+import { CoreModel } from '../../../ship/core/model/CoreModel';
 
 export class User extends CoreModel {
     public readonly id: Number;
@@ -49,11 +49,11 @@ export const userSchema = {
     middleName: {
         allowNull: false,
         type: DataTypes.STRING,
-        defaultValue: "",
+        defaultValue: '',
     },
     sex: {
         allowNull: false,
-        type: DataTypes.ENUM("male", "female"),
+        type: DataTypes.ENUM('male', 'female'),
     },
     birthDate: {
         allowNull: false,
@@ -86,7 +86,7 @@ export const userSchema = {
     },
     userType: {
         allowNull: false,
-        type: DataTypes.ENUM("doctor", "patient"),
+        type: DataTypes.ENUM('doctor', 'patient'),
     },
     createdAt: {
         allowNull: false,

@@ -1,23 +1,29 @@
+import { Doctor, Specialties } from '../../doctor/models';
 import { DataTypes } from 'sequelize';
 
 import { CoreModel } from '../../../ship/core/model/CoreModel';
 import { CommunicationMethod } from './CommunicationMethod';
+import { Patient } from '../../patient/models/Patient';
 
 export class Consultation extends CoreModel {
-    public readonly id: Number;
-    public patientId: Number;
-    public doctorId: Number;
-    public communicationMethodId: Number;
+    public readonly id: number;
+    public patientId: number;
+    public doctorId: number;
+    public communicationMethodId: number;
+    public doctorSpecialtyId: number;
     public receptionDate: Date;
-    public symptoms: String;
-    public paymentId: Number;
+    public symptoms: string;
+    public paymentId: number;
 
     public readonly createdAt: Date;
     public readonly updatedAt: Date;
 
+    public doctor: Doctor;
+    public patient: Patient;
     public communicationMethod: CommunicationMethod;
+    public doctorSpecialty: Specialties;
 
-    public getReceptionHours = (): Number => {
+    public getReceptionHours = (): number => {
         // 3 для часового пояса
         // return this.receptionDate.getHours() - 3;
         return this.receptionDate.getHours();
@@ -39,6 +45,10 @@ export const consultationSchema = {
         allowNull: false,
         type: DataTypes.INTEGER,
     },
+    doctorSpecialtyId: {
+        allowNull: false,
+        type: DataTypes.INTEGER,
+    },
     communicationMethodId: {
         allowNull: false,
         type: DataTypes.INTEGER,
@@ -56,23 +66,10 @@ export const consultationSchema = {
         allowNull: true,
         type: DataTypes.INTEGER,
     },
-    isActive: {
-        // идет ли консультация в текущий момент
+    state: {
         allowNull: false,
-        type: DataTypes.BOOLEAN,
-        defaultValue: false,
-    },
-    isCanceled: {
-        // отменена ли консультация
-        allowNull: false,
-        type: DataTypes.BOOLEAN,
-        defaultValue: false,
-    },
-    isDone: {
-        // завершена ли консультация
-        allowNull: false,
-        type: DataTypes.BOOLEAN,
-        defaultValue: false,
+        type: DataTypes.ENUM('active', 'canceled', 'done', 'waiting'),
+        defaultValue: 'waiting',
     },
     createdAt: {
         allowNull: false,
