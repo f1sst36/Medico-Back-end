@@ -28,8 +28,8 @@
                         }
                     }
                 },
-                "400": {
-                    "description": "Bad request",
+                "422": {
+                    "description": "Unprocessable Etity",
                     "schema": {
                         "type": "object",
                         "properties": {
@@ -48,7 +48,7 @@
                         }
                     }
                 },
-                "422": {
+                "400": {
                     "description": "Validation errors",
                     "schema": {
                         "type": "object",

@@ -28,7 +28,7 @@
                         }
                     }
                 },
-                "400": {
+                "422": {
                     "description": "Some error",
                     "schema": {
                         "type": "object",

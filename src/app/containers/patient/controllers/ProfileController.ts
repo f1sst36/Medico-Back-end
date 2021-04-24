@@ -36,6 +36,6 @@ export class ProfileController extends CoreController {
                         result.data
                     )
                 );
-        else return res.status(400).json(coreTransformer.getErrorResponse(result.message));
+        else return res.status(422).json(coreTransformer.getErrorResponse(result.message));
     };
 }

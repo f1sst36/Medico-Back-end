@@ -13,7 +13,7 @@ class GetMetaInfoForAppointmentAction extends CoreAction {
             };
         const countOfReviews = await reviewRepository.getCountOfReviewsFromDoctor(doctorId);
         const communicationMethods = await communicationMethodRepository.getAllMethods();
-        if (!countOfReviews || !communicationMethods.length)
+        if (!countOfReviews || !communicationMethods || !communicationMethods.length)
             return {
                 error: 1,
                 message: 'Данные не найдены',

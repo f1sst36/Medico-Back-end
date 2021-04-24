@@ -32,11 +32,11 @@
                         }
                     }
                 },
-                "400": {
-                    "description": "Bad request",
+                "422": {
+                    "description": "Unprocessable Etity",
                     "schema": { "$ref": "#/definitions/ErrorResponse" }
                 },
-                "422": {
+                "400": {
                     "description": "Validation errors",
                     "schema": {
                         "type": "object",
@@ -120,11 +120,11 @@
                         }
                     }
                 },
-                "400": {
-                    "description": "Bad request",
+                "422": {
+                    "description": "Unprocessable Etity",
                     "schema": { "$ref": "#/definitions/ErrorResponse" }
                 },
-                "422": {
+                "400": {
                     "description": "Validation errors",
                     "schema": {
                         "type": "object",
@@ -317,8 +317,8 @@
                         }
                     }
                 },
-                "400": {
-                    "description": "Bad request",
+                "422": {
+                    "description": "Unprocessable Etity",
                     "schema": { "$ref": "#/definitions/ErrorResponse" }
                 }
             }
@@ -357,11 +357,11 @@
                         }
                     }
                 },
-                "400": {
-                    "description": "Bad request",
+                "422": {
+                    "description": "Unprocessable Etity",
                     "schema": { "$ref": "#/definitions/ErrorResponse" }
                 },
-                "422": {
+                "400": {
                     "description": "Validation errors",
                     "schema": {
                         "type": "object",

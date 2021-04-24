@@ -9,7 +9,7 @@ export abstract class CoreController {
     public prefix: string = "";
     public router: Router | undefined = undefined;
 
-    private errorStatusCode = 422;
+    private errorStatusCode = 400;
 
     protected validateRequest = (
         req: Request,

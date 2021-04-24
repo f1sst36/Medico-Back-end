@@ -53,7 +53,7 @@ export class DoctorController extends CoreController {
                 return res
                     .status(404)
                     .json(coreTransformer.getErrorResponse(result.message, result.data));
-            else return res.status(400).json(coreTransformer.getErrorResponse(result.message));
+            else return res.status(422).json(coreTransformer.getErrorResponse(result.message));
         }
 
         const transformedDoctors = doctorsByPaginateTransformer.transform(result.data.items);

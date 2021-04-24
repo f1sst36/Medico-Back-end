@@ -32,7 +32,7 @@ export class AuthController extends CoreController {
         let statusCode = 200;
         if (!result.error) response = tokenTransformer.transform(result.data);
         else {
-            statusCode = 400;
+            statusCode = 422;
             response = tokenTransformer.getErrorResponse(result.message);
         }
 
@@ -46,7 +46,7 @@ export class AuthController extends CoreController {
 
         if (!result.error)
             return res.status(200).json(tokenTransformer.getSimpleSuccessResponse(result.message));
-        return res.status(400).json(tokenTransformer.getErrorResponse(result.message));
+        return res.status(422).json(tokenTransformer.getErrorResponse(result.message));
     };
 
     public confirmationAccount = async (req: Request, res: Response): Promise<any> => {
@@ -62,7 +62,7 @@ export class AuthController extends CoreController {
             if (result.error === 2) return res.redirect(process.env.FRONT_APP_URL);
 
             // иначе редирект на фронт, но с модалкой типо "не удалось подтвердить аккаунт"
-            return res.status(400).json(tokenTransformer.getErrorResponse(result.message));
+            return res.status(422).json(tokenTransformer.getErrorResponse(result.message));
         }
     };
 
@@ -73,7 +73,7 @@ export class AuthController extends CoreController {
 
         if (!result.error)
             return res.status(200).json(tokenTransformer.getSimpleSuccessResponse(result.message));
-        return res.status(400).json(tokenTransformer.getErrorResponse(result.message));
+        return res.status(422).json(tokenTransformer.getErrorResponse(result.message));
     };
 
     public logout = (req: Request, res: Response): void => {

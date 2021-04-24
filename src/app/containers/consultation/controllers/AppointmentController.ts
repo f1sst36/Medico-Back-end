@@ -49,8 +49,6 @@ export class AppointmentController extends CoreController {
             req.body.symptoms
         );
 
-        // сделай трансформер ответа + дата должна обязательно содержать часовой пояс (+03)
-
         if (result.error)
             return res.status(422).json(coreTransformer.getErrorResponse(result.message));
 
@@ -95,7 +93,11 @@ export class AppointmentController extends CoreController {
             console.log(e);
             return res
                 .status(404)
-                .json(coreTransformer.getErrorResponse('Ошбика выполнения экшена'));
+                .json(
+                    coreTransformer.getErrorResponse(
+                        'Ошбика выполнения метода для поиска свободного времени у врача'
+                    )
+                );
         }
 
         if (result.error)

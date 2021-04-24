@@ -24,7 +24,7 @@ export class ProfileController extends CoreController {
         const result = await getUserInfoAction.run(req.user.id);
 
         if (result.error)
-            return res.status(400).json(coreTransformer.getErrorResponse(result.message));
+            return res.status(422).json(coreTransformer.getErrorResponse(result.message));
         else {
             const transformedUser = userTransformer.transform(result.data);
             return res

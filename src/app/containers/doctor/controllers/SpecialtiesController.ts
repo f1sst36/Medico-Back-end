@@ -22,7 +22,7 @@ export class SpecialtiesController extends CoreController {
 
         if (specialties === null)
             return res
-                .status(400)
+                .status(422)
                 .json(coreTransformer.getErrorResponse("Ошибка получения специальностей"));
         else if (!specialties.length)
             return res

@@ -86,7 +86,7 @@
                         }
                     }
                 },
-                "422": {
+                "400": {
                     "description": "Validation error",
                     "schema": {
                         "type": "object",
@@ -220,7 +220,7 @@
                         }
                     }
                 },
-                "422": {
+                "400": {
                     "description": "Validation error",
                     "schema": {
                         "type": "object",
@@ -306,7 +306,7 @@
                         }
                     }
                 },
-                "422*": {
+                "400": {
                     "description": "Validation error",
                     "schema": {
                         "type": "object",
