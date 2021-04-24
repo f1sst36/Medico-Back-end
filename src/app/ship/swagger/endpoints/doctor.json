@@ -87,7 +87,7 @@
             "security": {
                 "bearerAuth": []
             },
-            "description": "Questionnaire form is successfully filled",
+            "description": "Fill the questionnaire form. After success response need to call 'user/fresh-token' endpoint and refresh token in frontend application",
             "responses": {
                 "200": {
                     "description": "Successfully getted specialties list",
@@ -527,6 +527,7 @@
                                 "type": "Object",
                                 "example": [
                                     {
+                                        "id": 1,
                                         "name": "Сергей",
                                         "surname": "Кличенко",
                                         "middleName": "Николаевич",

@@ -5,7 +5,7 @@
             "security": {
                 "bearerAuth": []
             },
-            "description": "Fill the questionnaire form",
+            "description": "Fill the questionnaire form. After success response need to call 'user/fresh-token' endpoint and refresh token in frontend application",
             "responses": {
                 "200": {
                     "description": "Questionnaire form is successfully filled",
