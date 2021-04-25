@@ -26,7 +26,7 @@ export abstract class CoreController {
         res: Response,
         validateMethod: Function
     ): Response | undefined => {
-        const validateFormDataResult = validateMethod(req.body, req.files);
+        const validateFormDataResult = validateMethod(req.files, req.body);
         if (Array.isArray(validateFormDataResult))
             return res
                 .status(this.errorStatusCode)

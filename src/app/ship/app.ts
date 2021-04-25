@@ -52,6 +52,7 @@ export class App {
                 tempFileDir: `${path.dirname(__filename)}/storage/tempFiles/`,
                 safeFileNames: true,
                 preserveExtension: true,
+                limits: { fileSize: 50 * 1024 * 1024 },
             })
         );
 

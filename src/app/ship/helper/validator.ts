@@ -2,7 +2,7 @@ export const emailRegExp = (): RegExp => {
     return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 };
 
-export const checkPassword = (password): Boolean => {
+export const checkPassword = (password): boolean => {
     if (password.length < 8) return false;
     if (!password.match(/[A-Z]+/)) return false;
     if (!password.match(/[a-z]+/)) return false;
