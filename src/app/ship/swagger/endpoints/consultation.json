@@ -369,6 +369,16 @@
                     "type": "string",
                     "example": { "symptoms": "foobarbarfoobarbbarabra" }
                 }
+            },
+            {
+                "name": "doctorSpecialtyId",
+                "in": "body",
+                "description": "Id of selected specialty",
+                "required": true,
+                "schema": {
+                    "type": "number",
+                    "example": { "doctorSpecialtyId": 1 }
+                }
             }
         ]
     },
