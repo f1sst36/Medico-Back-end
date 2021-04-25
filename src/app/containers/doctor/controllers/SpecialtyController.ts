@@ -5,16 +5,16 @@ import { CoreController } from "../../../ship/core/controller/CoreController";
 import { coreTransformer } from "../../../ship/core/transformer/CoreTransformer";
 import { getAllSpecialtiesTask } from "../tasks/GetAllSpecialtiesTask";
 
-export class SpecialtiesController extends CoreController {
+export class SpecialtyController extends CoreController {
     constructor() {
         super();
-        this.prefix = "/doctor/specialties";
+        this.prefix = "/doctor/specialty";
         this.router = express.Router();
         this.initRoutes();
     }
 
     public initRoutes() {
-        this.router.get(this.prefix + "/", this.getSpecialties);
+        this.router.get(this.prefix + "/all", this.getSpecialties);
     }
 
     getSpecialties = async (_: Request, res: Response): Promise<Response> => {

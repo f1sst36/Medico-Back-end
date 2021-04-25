@@ -1,5 +1,5 @@
 {
-    "/doctor/specialties": {
+    "/doctor/specialty/all": {
         "get": {
             "tags": ["Doctor"],
             "description": "Get all specialties list",

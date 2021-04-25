@@ -1,4 +1,4 @@
 export * from "./DoctorSpecialtiesLink";
 export * from "./Doctor";
-export * from "./Specialties";
+export * from "./Specialty";
 export * from "./Review";

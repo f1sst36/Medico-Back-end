@@ -8,6 +8,7 @@ const review = readJson('./src/app/ship/swagger/endpoints/review.json');
 const patient = readJson('./src/app/ship/swagger/endpoints/patient.json');
 const user = readJson('./src/app/ship/swagger/endpoints/user.json');
 const other = readJson('./src/app/ship/swagger/endpoints/other.json');
+const analysis = readJson('./src/app/ship/swagger/endpoints/analysis.json');
 
 export const swaggerOptions = {
     swagger: '2.0',
@@ -32,11 +33,13 @@ export const swaggerOptions = {
         ...authorization,
         ...consultation,
         ...doctor,
-        ...admin,
         ...review,
         ...patient,
+        ...analysis,
         ...user,
+        ...admin,
         ...other,
+        
     },
     definitions: {
         SuccessResponse: {
@@ -92,5 +95,6 @@ export const swaggerOptions = {
         'Patient',
         'User',
         'Other',
+        'Analysis',
     ],
 };

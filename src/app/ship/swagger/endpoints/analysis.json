@@ -1,0 +1,55 @@
+{
+    "/patient/analysis/all": {
+        "get": {
+            "tags": ["Analysis"],
+            "security": {
+                "bearerAuth": []
+            },
+            "description": "Get all patient's analyzes",
+            "responses": {
+                "200": {
+                    "description": "Successfully getted analyzes list",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                                "type": "integer",
+                                "example": 0
+                            },
+                            "data": {
+                                "type": "Object",
+                                "example": { "abc": "........" }
+                            },
+                            "message": {
+                                "type": "string",
+                                "example": "",
+                                "description": "Reply message"
+                            }
+                        }
+                    }
+                },
+                "404": {
+                    "description": "Not found",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "data": {
+                                "type": "object",
+                                "example": null
+                            },
+                            "message": {
+                                "type": "string",
+                                "example": "Анализы не найдены",
+                                "description": "Reply message"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

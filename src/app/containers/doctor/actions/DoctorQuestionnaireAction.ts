@@ -2,7 +2,7 @@ import { format } from 'date-fns';
 import { CoreAction, IResult } from '../../../ship/core/action/CoreAction';
 import { DoctorSpecialtiesLink } from '../models';
 import { doctorRepository } from '../repositories/DoctorRepository';
-import { specialtiesRepository } from '../repositories/SpecialtiesRepository';
+import { specialtyRepository } from '../repositories/SpecialtyRepository';
 
 interface IParams {
     doctorId: Number;
@@ -61,7 +61,7 @@ class DoctorQuestionnaireAction extends CoreAction {
 
             const result: any = {};
             for (let key in doctor) result[key] = doctor[key];
-            const doctorSpecialties = await specialtiesRepository.getSpecialtiesByIds(
+            const doctorSpecialties = await specialtyRepository.getSpecialtiesByIds(
                 specialtiesArray
             );
             result.dataValues.specialties = doctorSpecialties;

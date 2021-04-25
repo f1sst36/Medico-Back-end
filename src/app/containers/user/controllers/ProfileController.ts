@@ -16,7 +16,7 @@ export class ProfileController extends CoreController {
     }
 
     public initRoutes() {
-        this.router.get(this.prefix + '/', this.getInfo);
+        this.router.get(this.prefix + '/info', this.getInfo);
         this.router.get(this.prefix + '/fresh-token', this.getFreshToken);
     }
 

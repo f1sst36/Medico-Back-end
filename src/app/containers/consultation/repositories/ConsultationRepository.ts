@@ -1,4 +1,4 @@
-import { Doctor, Specialties } from '../../doctor/models';
+import { Doctor, Specialty } from '../../doctor/models';
 import { User } from '../../user/models/User';
 import { Op } from 'sequelize';
 import { CoreRepository } from '../../../ship/core/repository/CoreRepository';
@@ -54,7 +54,7 @@ class ConsultationRepository extends CoreRepository {
                         attributes: ['id', 'method'],
                     },
                     {
-                        model: Specialties,
+                        model: Specialty,
                         as: 'doctorSpecialty',
                         attributes: ['id', 'name'],
                     },
@@ -88,6 +88,7 @@ class ConsultationRepository extends CoreRepository {
                     state: 'waiting',
                     [Op.or]: [{ patientId: userId }, { doctorId: userId }],
                 },
+                attributes: ['id', 'state']
             });
         } catch (e) {
             return null;

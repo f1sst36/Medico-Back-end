@@ -1,10 +1,10 @@
 import { CoreTask } from "../../../ship/core/task/CoreTask";
-import { Specialties } from "../models";
-import { specialtiesRepository } from "../repositories/SpecialtiesRepository";
+import { Specialty } from "../models";
+import { specialtyRepository } from "../repositories/SpecialtyRepository";
 
 class GetAllSpecialtiesTask extends CoreTask {
-    public run = (): Promise<Array<Specialties>> => {
-        return specialtiesRepository.getSpecialties();
+    public run = (): Promise<Array<Specialty>> => {
+        return specialtyRepository.getSpecialties();
     };
 }
 

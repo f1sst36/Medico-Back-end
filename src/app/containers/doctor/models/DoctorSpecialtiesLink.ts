@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
 
 import { CoreModel } from "../../../ship/core/model/CoreModel";
-import { Doctor, Specialties } from "./";
+import { Doctor, Specialty } from "./";
 
 export class DoctorSpecialtiesLink extends CoreModel {
     public readonly id: Number;
@@ -9,7 +9,7 @@ export class DoctorSpecialtiesLink extends CoreModel {
     public specialtyId: Number;
 
     public readonly doctor: Doctor;
-    public readonly specialty: Specialties;
+    public readonly specialty: Specialty;
 }
 
 export const doctorSpecialtiesLinkSchema = {

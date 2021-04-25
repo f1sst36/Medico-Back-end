@@ -1,15 +1,15 @@
 import { Op } from "sequelize";
 import { CoreRepository } from "../../../ship/core/repository/CoreRepository";
 
-import { Specialties } from "../models";
+import { Specialty } from "../models";
 
-class SpecialtiesRepository extends CoreRepository {
+class SpecialtyRepository extends CoreRepository {
     constructor() {
         super();
-        this.model = Specialties;
+        this.model = Specialty;
     }
 
-    public getSpecialties = (): Promise<Array<Specialties>> => {
+    public getSpecialties = (): Promise<Array<Specialty>> => {
         try {
             const result = this.model.findAll({ attributes: ["id", "name", "slug"] });
             return result;
@@ -18,7 +18,7 @@ class SpecialtiesRepository extends CoreRepository {
         }
     };
 
-    public getSpecialtiesByIds = (specialties: Array<Number>): Promise<Array<Specialties>> => {
+    public getSpecialtiesByIds = (specialties: Array<Number>): Promise<Array<Specialty>> => {
         try {
             const result = this.model.findAll({
                 attributes: ["id", "name", "slug"],
@@ -31,4 +31,4 @@ class SpecialtiesRepository extends CoreRepository {
     };
 }
 
-export const specialtiesRepository = new SpecialtiesRepository();
+export const specialtyRepository = new SpecialtyRepository();

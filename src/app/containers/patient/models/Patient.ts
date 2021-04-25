@@ -2,6 +2,7 @@ import { Association, DataTypes } from 'sequelize';
 
 import { CoreModel } from '../../../ship/core/model/CoreModel';
 import { User } from '../../user/models/User';
+import { Analysis } from './Analysis';
 
 export class Patient extends CoreModel {
     public readonly id: Number;
@@ -19,6 +20,7 @@ export class Patient extends CoreModel {
     public isFullData: Boolean;
 
     public user: User;
+    public analyzes: Array<Analysis>;
 }
 
 export const patientSchema = {

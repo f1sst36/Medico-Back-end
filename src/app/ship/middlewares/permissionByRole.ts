@@ -11,6 +11,7 @@ const patientUrls = [
     prefix + '/doctor/review/leave',
     prefix + '/consultation/patient',
     prefix + '/consultation/cancel',
+    prefix + '/patient/analysis/all',
     // prefix + '/patient/profile/questionnaire',
 ];
 

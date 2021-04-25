@@ -1,4 +1,4 @@
-import { Doctor, Specialties } from '../../doctor/models';
+import { Doctor, Specialty } from '../../doctor/models';
 import { DataTypes } from 'sequelize';
 
 import { CoreModel } from '../../../ship/core/model/CoreModel';
@@ -21,7 +21,7 @@ export class Consultation extends CoreModel {
     public doctor: Doctor;
     public patient: Patient;
     public communicationMethod: CommunicationMethod;
-    public doctorSpecialty: Specialties;
+    public doctorSpecialty: Specialty;
 
     public getReceptionHours = (): number => {
         // 3 для часового пояса

@@ -3,7 +3,7 @@ import 'dotenv/config';
 
 import { AuthController } from './app/containers/authorization/controllers/auth/AuthController';
 import { ProfileController as PatientProfileController } from './app/containers/patient/controllers/ProfileController';
-import { SpecialtiesController } from './app/containers/doctor/controllers/SpecialtiesController';
+import { SpecialtyController } from './app/containers/doctor/controllers/SpecialtyController';
 import { ProfileController as DoctorProfileController } from './app/containers/doctor/controllers/ProfileController';
 import { ProfileController as UserProfileController } from './app/containers/user/controllers/ProfileController';
 
@@ -14,8 +14,8 @@ import {
     doctorSchema,
     DoctorSpecialtiesLink,
     doctorSpecialtiesLinkSchema,
-    Specialties,
-    specialtiesSchema,
+    Specialty,
+    specialtySchema,
 } from './app/containers/doctor/models';
 import { jsonErrorHandler, allowCrossDomain, verifyJWTToken } from './app/ship/middlewares';
 import { DoctorController } from './app/containers/doctor/controllers/DoctorController';
@@ -32,6 +32,8 @@ import { AppointmentController } from './app/containers/consultation/controllers
 import { ReviewController } from './app/containers/doctor/controllers/ReviewController';
 import { permissionByRole } from './app/ship/middlewares/permissionByRole';
 import { ConsultationController } from './app/containers/consultation/controllers/ConsultationController';
+import { Analysis, analysisSchema } from './app/containers/patient/models/Analysis';
+import { AnalysisController } from './app/containers/patient/controllers/AnalysisController';
 
 const app = new App({
     port: +process.env.PORT || 8080,
@@ -39,13 +41,14 @@ const app = new App({
     controllers: [
         new AuthController(),
         new PatientProfileController(),
-        new SpecialtiesController(),
+        new SpecialtyController(),
         new DoctorProfileController(),
         new UserProfileController(),
         new DoctorController(),
         new AppointmentController(),
         new ReviewController(),
-        new ConsultationController()
+        new ConsultationController(),
+        new AnalysisController(),
     ],
     middlewares: [allowCrossDomain, verifyJWTToken, jsonErrorHandler, permissionByRole],
     models: [
@@ -65,8 +68,8 @@ const app = new App({
             tableName: 'Doctors',
         },
         {
-            model: Specialties,
-            schema: specialtiesSchema,
+            model: Specialty,
+            schema: specialtySchema,
             tableName: 'Specialties',
         },
         {
@@ -89,16 +92,11 @@ const app = new App({
             schema: communicationMethodSchema,
             tableName: 'CommunicationMethods',
         },
-        // {
-        //     model: Payment,
-        //     schema: paymentSchema,
-        //     tableName: 'Payments',
-        // },
-        // {
-        //     model: Card,
-        //     schema: cardSchema,
-        //     tableName: 'Cards',
-        // },
+        {
+            model: Analysis,
+            schema: analysisSchema,
+            tableName: 'Analyzes',
+        },
     ],
 });
 

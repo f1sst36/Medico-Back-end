@@ -2,7 +2,7 @@ import { Patient } from '../../../containers/patient/models/Patient';
 import { Op } from 'sequelize';
 import { CoreRepository } from '../../../ship/core/repository/CoreRepository';
 import { User } from '../../user/models/User';
-import { Doctor, DoctorSpecialtiesLink, Specialties } from '../models';
+import { Doctor, DoctorSpecialtiesLink, Specialty } from '../models';
 import { Review } from '../models/Review';
 import { Sequelize } from 'sequelize';
 
@@ -37,7 +37,7 @@ class DoctorRepository extends CoreRepository {
                         as: 'doctorSpecialtiesLink',
                         include: [
                             {
-                                model: Specialties,
+                                model: Specialty,
                                 as: 'specialty',
                                 attributes: ['id', 'name', 'slug'],
                             },
@@ -97,7 +97,7 @@ class DoctorRepository extends CoreRepository {
                         as: 'doctorSpecialtiesLink',
                         include: [
                             {
-                                model: Specialties,
+                                model: Specialty,
                                 as: 'specialty',
                                 attributes: ['id', 'name', 'slug'],
                             },
@@ -140,7 +140,7 @@ class DoctorRepository extends CoreRepository {
                         as: 'doctorSpecialtiesLink',
                         include: [
                             {
-                                model: Specialties,
+                                model: Specialty,
                                 as: 'specialty',
                                 attributes: ['id', 'name', 'slug'],
                             },
@@ -239,7 +239,7 @@ class DoctorRepository extends CoreRepository {
                         as: 'doctorSpecialtiesLink',
                         include: [
                             {
-                                model: Specialties,
+                                model: Specialty,
                                 as: 'specialty',
                                 attributes: ['id', 'name', 'slug'],
                                 where: {
@@ -325,7 +325,7 @@ class DoctorRepository extends CoreRepository {
                         as: 'doctorSpecialtiesLink',
                         include: [
                             {
-                                model: Specialties,
+                                model: Specialty,
                                 as: 'specialty',
                                 attributes: ['id', 'name', 'slug'],
                                 where: {
@@ -395,7 +395,7 @@ class DoctorRepository extends CoreRepository {
                         as: 'doctorSpecialtiesLink',
                         include: [
                             {
-                                model: Specialties,
+                                model: Specialty,
                                 as: 'specialty',
                                 attributes: ['id', 'name', 'slug'],
                             },
@@ -464,7 +464,7 @@ class DoctorRepository extends CoreRepository {
                         as: 'doctorSpecialtiesLink',
                         include: [
                             {
-                                model: Specialties,
+                                model: Specialty,
                                 as: 'specialty',
                                 attributes: ['id', 'name', 'slug'],
                             },

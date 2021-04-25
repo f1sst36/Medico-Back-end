@@ -1,4 +1,4 @@
-import { Specialties } from "../../../containers/doctor/models";
+import { Specialty } from "../../../containers/doctor/models";
 import { CoreSeed } from "./CoreSeed";
 
 export class DoctorSpecialtiesSeed extends CoreSeed {
@@ -70,6 +70,6 @@ export class DoctorSpecialtiesSeed extends CoreSeed {
             },
         ];
 
-        Specialties.bulkCreate(this.records);
+        Specialty.bulkCreate(this.records);
     };
 }
