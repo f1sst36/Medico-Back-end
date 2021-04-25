@@ -10,6 +10,7 @@ const patientUrls = [
     prefix + '/consultation/appointment/create',
     prefix + '/doctor/review/leave',
     prefix + '/consultation/patient',
+    prefix + '/consultation/cancel',
     // prefix + '/patient/profile/questionnaire',
 ];
 
@@ -23,6 +24,7 @@ const patientUrlsWithoutQuestionnaire = [
 // Урлы доступные авторизованному доктору после прохождения анкеты
 const doctorUrls = [
     prefix + '/user',
+    prefix + '/consultation/cancel',
     // prefix + '/doctor/profile/questionnaire'
 ];
 

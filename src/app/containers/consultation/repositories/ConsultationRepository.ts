@@ -79,6 +79,20 @@ class ConsultationRepository extends CoreRepository {
             return null;
         }
     };
+
+    public getConsultationForCancel = (id: number, userId: number): Promise<Consultation> => {
+        try {
+            return this.model.findOne({
+                where: {
+                    id: id,
+                    state: 'waiting',
+                    [Op.or]: [{ patientId: userId }, { doctorId: userId }],
+                },
+            });
+        } catch (e) {
+            return null;
+        }
+    };
 }
 
 export const consultationRepository = new ConsultationRepository();
