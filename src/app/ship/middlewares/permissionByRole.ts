@@ -4,7 +4,7 @@ const prefix = '/api/v1';
 
 // Урлы доступные авторизованому пациенту после прохождения анкеты
 const patientUrls = [
-    prefix + '/user',
+    prefix + '/user/info',
     prefix + '/consultation/appointment/free-doctor-time',
     prefix + '/consultation/appointment/meta-info',
     prefix + '/consultation/appointment/create',
@@ -18,21 +18,21 @@ const patientUrls = [
 
 // Урлы доступные авторизованному пациенту без пройденной анкеты
 const patientUrlsWithoutQuestionnaire = [
-    prefix + '/user',
+    prefix + '/user/info',
     prefix + '/user/fresh-token',
     prefix + '/patient/profile/questionnaire',
 ];
 
 // Урлы доступные авторизованному доктору после прохождения анкеты
 const doctorUrls = [
-    prefix + '/user',
+    prefix + '/user/info',
     prefix + '/consultation/cancel',
     // prefix + '/doctor/profile/questionnaire'
 ];
 
 // Урлы доступные авторизованому доктору без пройденной анкеты
 const doctorUrlsWithoutQuestionnaire = [
-    prefix + '/user',
+    prefix + '/user/info',
     prefix + '/user/fresh-token',
     prefix + '/doctor/profile/questionnaire',
 ];
