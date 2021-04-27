@@ -4,6 +4,11 @@ import { CoreModel } from '../../../ship/core/model/CoreModel';
 
 export class Analysis extends CoreModel {
     public readonly id: Number;
+    public patientId: number;
+    public name: string;
+    public type: string;
+    public path: string;
+    public analysisDeliveryDate: Date;
 }
 
 export const analysisSchema = {

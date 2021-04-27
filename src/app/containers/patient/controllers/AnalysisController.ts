@@ -3,7 +3,9 @@ import { Request, Response } from 'express';
 
 import { CoreController } from '../../../ship/core/controller/CoreController';
 import { coreTransformer } from '../../../ship/core/transformer/CoreTransformer';
+import { createAnalysisTask } from '../tasks/CreateAnalysisTask';
 import { getAllAnalyzesByPatientIdTask } from '../tasks/GetAllAnalyzesByPatientIdTask';
+import { appendAnalysisTransformer } from '../transformers/appendAnalysisTransformer';
 import {
     appendAnalysisValidator,
     isValidImageValidator,
@@ -40,6 +42,24 @@ export class AnalysisController extends CoreController {
         )
             return;
 
-        return res.status(200).json(req.body);
+        const result = await createAnalysisTask.run(
+            req.user.id,
+            req.body.name,
+            req.body.type,
+            req.body.analysisDeliveryDate,
+            req.files.file
+        );
+
+        if (result.error)
+            return res.status(422).json(coreTransformer.getErrorResponse(result.message));
+
+        return res
+            .status(200)
+            .json(
+                coreTransformer.getSimpleSuccessResponse(
+                    '',
+                    appendAnalysisTransformer.transform(result.data)
+                )
+            );
     };
 }

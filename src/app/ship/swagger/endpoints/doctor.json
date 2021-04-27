@@ -174,8 +174,8 @@
                 "description": "Experience of user",
                 "required": true,
                 "schema": {
-                    "type": "date",
-                    "example": "2015-06-12"
+                    "type": "Date",
+                    "example": "2021-04-25T07:34:57.000Z"
                 }
             },
             {

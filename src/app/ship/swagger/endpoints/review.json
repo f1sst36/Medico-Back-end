@@ -172,9 +172,6 @@
                                 "type": "Object",
                                 "example": {
                                     "id": 141,
-                                    "name": "Илья",
-                                    "surname": "Долженко",
-                                    "avatar": null,
                                     "text": "ляяя, какой классный док  1122",
                                     "estimation": 5,
                                     "createdAt": "2021-04-19T08:51:30.804Z"

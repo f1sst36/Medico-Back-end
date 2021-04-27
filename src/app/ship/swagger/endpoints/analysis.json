@@ -18,7 +18,22 @@
                             },
                             "data": {
                                 "type": "Object",
-                                "example": { "abc": "........" }
+                                "example": [
+                                    {
+                                        "id": 1,
+                                        "name": "мой анализ",
+                                        "type": "analysis",
+                                        "path": "/storage/files/photo_2021-04-26_22-52-19.jpg",
+                                        "analysisDeliveryDate": "2021-04-25T07:34:57.000Z"
+                                    },
+                                    {
+                                        "id": 2,
+                                        "name": "Какой-то снимок",
+                                        "type": "snapshot",
+                                        "path": "/storage/files/_70O2585.jpg",
+                                        "analysisDeliveryDate": "2021-04-25T07:34:57.000Z"
+                                    }
+                                ]
                             },
                             "message": {
                                 "type": "string",
@@ -51,5 +66,100 @@
                 }
             }
         }
+    },
+    "/patient/analysis/append": {
+        "post": {
+            "tags": ["Analysis"],
+            "security": {
+                "bearerAuth": []
+            },
+            "description": "Append new analysis. Can only be used for the patient",
+            "responses": {
+                "200": {
+                    "description": "Successfully appended analysis",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                                "type": "integer",
+                                "example": 0
+                            },
+                            "data": {
+                                "type": "Object",
+                                "example": {
+                                    "id": 3,
+                                    "name": "Какой-то снимок",
+                                    "type": "snapshot",
+                                    "analysisDeliveryDate": "2021-04-25T07:34:57.000Z",
+                                    "path": "/storage/files/_70O2585.jpg"
+                                }
+                            },
+                            "message": {
+                                "type": "string",
+                                "example": "",
+                                "description": "Reply message"
+                            }
+                        }
+                    }
+                },
+                "422": {
+                    "description": "Unknown error",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "data": {
+                                "type": "object",
+                                "example": null
+                            },
+                            "message": {
+                                "type": "string",
+                                "example": "Ошибка загрузки файла",
+                                "description": "Reply message"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "parameters": [
+            {
+                "name": "name",
+                "in": "formData",
+                "description": "name of analysis",
+                "required": true,
+                "type": "string"
+            },
+            {
+                "name": "type",
+                "in": "formData",
+                "description": "Type of analysis. 'analysis' or 'snapshot' only",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "example": "snapshot"
+                }
+            },
+            {
+                "name": "analysisDeliveryDate",
+                "in": "formData",
+                "description": "Date of delivery analysis",
+                "required": true,
+                "schema": {
+                    "type": "date",
+                    "example": "2021-04-25T07:34:57.000Z"
+                }
+            },
+            {
+                "name": "file",
+                "in": "formData",
+                "description": "File",
+                "required": true,
+                "type": "file"
+            }
+        ]
     }
 }

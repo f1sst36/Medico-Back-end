@@ -67,12 +67,7 @@ export class ReviewController extends CoreController {
             .json(
                 coreTransformer.getSimpleSuccessResponse(
                     '',
-                    addReviewToDoctorTransformer.transform(
-                        result.data,
-                        req.user.user.name,
-                        req.user.user.surname,
-                        req.user.avatar
-                    )
+                    addReviewToDoctorTransformer.transform(result.data)
                 )
             );
     };
