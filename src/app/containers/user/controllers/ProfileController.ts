@@ -6,6 +6,9 @@ import { coreTransformer } from '../../../ship/core/transformer/CoreTransformer'
 import { getFreshTokenAction } from '../actions/getFreshTokenAction';
 import { getUserInfoAction } from '../actions/getUserInfoAction';
 import { userTransformer } from '../transformers/UserTransformer';
+import { changeUserInfoValidator } from '../validators/changeUserInfoValidator';
+import { changeUserInfoAction } from '../actions/changeUserInfoAction';
+import { changeUserInfoTransformer } from '../transformers/ChangeUserInfoTransformer';
 
 export class ProfileController extends CoreController {
     constructor() {
@@ -18,6 +21,11 @@ export class ProfileController extends CoreController {
     public initRoutes() {
         this.router.get(this.prefix + '/info', this.getInfo);
         this.router.get(this.prefix + '/fresh-token', this.getFreshToken);
+        this.router.post(
+            this.prefix + '/change-user-info',
+            changeUserInfoValidator,
+            this.changeUserInfo
+        );
     }
 
     public getInfo = async (req: any, res: Response): Promise<Response> => {
@@ -42,5 +50,25 @@ export class ProfileController extends CoreController {
                 .json(coreTransformer.getErrorResponse(result.message));
 
         return res.status(200).json(tokenTransformer.transform(result.data));
+    };
+
+    public changeUserInfo = async (req: any, res: Response): Promise<Response> => {
+        if (this.validateRequest(req, res)) return;
+
+        const result = await changeUserInfoAction.run(req.body, req.user.id);
+
+        if (result.error)
+            return res
+                .status(result.error === 1 ? 400 : result.error === 2 ? 404 : 422)
+                .json(coreTransformer.getErrorResponse(result.message));
+
+        return res
+            .status(200)
+            .json(
+                coreTransformer.getSimpleSuccessResponse(
+                    '',
+                    changeUserInfoTransformer.transform(result.data)
+                )
+            );
     };
 }

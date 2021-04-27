@@ -6,6 +6,7 @@ const prefix = '/api/v1';
 const patientUrls = [
     prefix + '/user/info',
     prefix + '/user/fresh-token',
+    prefix + '/user/change-user-info',
     prefix + '/consultation/appointment/free-doctor-time',
     prefix + '/consultation/appointment/meta-info',
     prefix + '/consultation/appointment/create',
@@ -23,14 +24,15 @@ const patientUrlsWithoutQuestionnaire = [
     prefix + '/patient/profile/questionnaire',
 ];
 
-// Урлы доступные авторизованному доктору после прохождения анкеты
+// Урлы доступные авторизованному доктору после прохождения анкеты и верефицирования
 const doctorUrls = [
     prefix + '/user/info',
     prefix + '/user/fresh-token',
+    prefix + '/user/change-user-info',
     prefix + '/consultation/cancel',
 ];
 
-// Урлы доступные авторизованому доктору без пройденной анкеты
+// Урлы доступные авторизованому доктору без пройденной анкеты и верефицирования
 const doctorUrlsWithoutQuestionnaire = [
     prefix + '/user/info',
     prefix + '/user/fresh-token',

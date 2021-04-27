@@ -150,5 +150,190 @@
                 }
             }
         ]
+    },
+    "/user/change-user-info": {
+        "post": {
+            "tags": ["User"],
+            "security": {
+                "bearerAuth": []
+            },
+            "description": "Change user info. Can be used for patient and doctor",
+            "responses": {
+                "200": {
+                    "description": "Info successfully changed",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                                "type": "integer",
+                                "example": 0
+                            },
+                            "data": {
+                                "type": "object",
+                                "example": {
+                                    "name": "Максим",
+                                    "surname": "Иванов",
+                                    "middleName": "Сергеевич",
+                                    "birthDate": "2000-02-15T00:00:00.000Z",
+                                    "sex": "male",
+                                    "email": "abc@mail.ru"
+                                }
+                            },
+                            "message": {
+                                "type": "string",
+                                "description": "Reply message",
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "404": {
+                    "description": "User not found",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "data": {
+                                "type": "object",
+                                "example": null
+                            },
+                            "message": {
+                                "type": "string",
+                                "description": "Reply message",
+                                "example": "Пользователь не найден"
+                            }
+                        }
+                    }
+                },
+                "400": {
+                    "description": "No data found for changing user info",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "data": {
+                                "type": "object",
+                                "example": null
+                            },
+                            "message": {
+                                "type": "string",
+                                "description": "Reply message",
+                                "example": "Отсутствуют данные для изменения"
+                            }
+                        }
+                    }
+                },
+                "400*": {
+                    "description": "Validation error",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "data": {
+                                "type": "object",
+                                "example": ["Неверный формат даты рождения"]
+                            },
+                            "message": {
+                                "type": "string",
+                                "description": "Reply message",
+                                "example": "Ошибка валидации"
+                            }
+                        }
+                    }
+                },
+                "422": {
+                    "description": "User update error",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "data": {
+                                "type": "object",
+                                "example": null
+                            },
+                            "message": {
+                                "type": "string",
+                                "description": "Reply message",
+                                "example": "Ошибка при обновлении пользователя"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "parameters": [
+            {
+                "name": "name",
+                "in": "body",
+                "description": "User's name",
+                "required": false,
+                "schema": {
+                    "type": "string",
+                    "example": { "name": "Олег" }
+                }
+            },
+            {
+                "name": "surname",
+                "in": "body",
+                "description": "User's surname",
+                "required": false,
+                "schema": {
+                    "type": "string",
+                    "example": { "surname": "Олегов" }
+                }
+            },
+            {
+                "name": "middleName",
+                "in": "body",
+                "description": "User's middlename",
+                "required": false,
+                "schema": {
+                    "type": "string",
+                    "example": { "middleName": "Олегович" }
+                }
+            },
+            {
+                "name": "birthDate",
+                "in": "body",
+                "description": "User's birth date",
+                "required": false,
+                "schema": {
+                    "type": "date",
+                    "example": { "birthDate": "2000-02-15T00:00:00.000Z" }
+                }
+            },
+            {
+                "name": "sex",
+                "in": "body",
+                "description": "User's sex",
+                "required": false,
+                "schema": {
+                    "type": "string",
+                    "example": { "sex": "male" }
+                }
+            },
+            {
+                "name": "email",
+                "in": "body",
+                "description": "User's email",
+                "required": false,
+                "schema": {
+                    "type": "string",
+                    "example": { "email": "abc@gmail.com" }
+                }
+            }
+        ]
     }
 }

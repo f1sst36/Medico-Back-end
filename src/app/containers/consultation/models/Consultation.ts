@@ -13,6 +13,7 @@ export class Consultation extends CoreModel {
     public doctorSpecialtyId: number;
     public receptionDate: Date;
     public symptoms: string;
+    public appointment: string;
     public paymentId: number;
 
     public readonly createdAt: Date;
@@ -59,6 +60,10 @@ export const consultationSchema = {
     },
     symptoms: {
         allowNull: false,
+        type: DataTypes.TEXT,
+    },
+    appointment: {
+        allowNull: true,
         type: DataTypes.TEXT,
     },
     paymentId: {
