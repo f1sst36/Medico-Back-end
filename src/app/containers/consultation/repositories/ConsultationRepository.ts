@@ -88,7 +88,42 @@ class ConsultationRepository extends CoreRepository {
                     state: 'waiting',
                     [Op.or]: [{ patientId: userId }, { doctorId: userId }],
                 },
-                attributes: ['id', 'state']
+                attributes: ['id', 'state'],
+            });
+        } catch (e) {
+            return null;
+        }
+    };
+
+    public getAppointmentsOfConsultationByPatientId = (
+        patientId: number
+    ): Promise<Array<Consultation>> => {
+        try {
+            return this.model.findAll({
+                where: {
+                    patientId: patientId,
+                    state: 'done',
+                },
+                include: [
+                    {
+                        model: Doctor,
+                        as: 'doctor',
+                        include: [
+                            {
+                                model: User,
+                                as: 'user',
+                                attributes: ['name', 'surname', 'middleName'],
+                            },
+                        ],
+                        attributes: ['photo'],
+                    },
+                    {
+                        model: Specialty,
+                        as: 'doctorSpecialty',
+                        attributes: ['name'],
+                    },
+                ],
+                attributes: ['appointment', 'receptionDate'],
             });
         } catch (e) {
             return null;

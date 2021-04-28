@@ -593,5 +593,81 @@
                 }
             }
         ]
+    },
+    "/consultation/appointments": {
+        "get": {
+            "tags": ["Consultation"],
+            "security": {
+                "bearerAuth": []
+            },
+            "description": "Doctors appointments for patient",
+            "responses": {
+                "200": {
+                    "description": "Successfully getted list",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                                "type": "integer",
+                                "example": 0
+                            },
+                            "data": {
+                                "type": "Object",
+                                "example": [
+                                    {
+                                        "appointment": "Это текст назвачения врача ",
+                                        "receptionDate": "2021-04-20T11:00:00.000Z",
+                                        "doctor": {
+                                            "name": "Ольга",
+                                            "surname": "Кличенко",
+                                            "middleName": "",
+                                            "photo": "/storage/files/doctor_7.jpg",
+                                            "specialty": "Иммунолог"
+                                        }
+                                    },
+                                    {
+                                        "appointment": "Это текст назвачения врача ",
+                                        "receptionDate": "2021-04-28T09:00:00.000Z",
+                                        "doctor": {
+                                            "name": "Илья",
+                                            "surname": "Кличенко",
+                                            "middleName": "Николаевич",
+                                            "photo": "/storage/files/doctor_5.jpg",
+                                            "specialty": "Дерматовенеролог"
+                                        }
+                                    }
+                                ],
+                                "message": {
+                                    "type": "string",
+                                    "example": "",
+                                    "description": "Reply message"
+                                }
+                            }
+                        }
+                    }
+                },
+                "404": {
+                    "description": "Not found",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "data": {
+                                "type": "object",
+                                "example": null
+                            },
+                            "message": {
+                                "type": "string",
+                                "example": "Назначения не найдены",
+                                "description": "Reply message"
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }

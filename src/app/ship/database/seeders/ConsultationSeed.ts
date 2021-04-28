@@ -14,6 +14,7 @@ export class ConsultationSeed extends CoreSeed {
             doctorSpecialtyId: this.randomInt(1, 16),
             receptionDate: receptionDate,
             symptoms: 'Такие-то такие-то симптомы ....',
+            appointment: receptionDate <= new Date() ? 'Это текст назвачения врача ' : null,
             state: receptionDate <= new Date() ? 'done' : 'waiting',
         });
     };

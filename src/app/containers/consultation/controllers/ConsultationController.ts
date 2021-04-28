@@ -8,6 +8,8 @@ import { getConsultationsByStateAndPatientIdTask } from '../tasks/GetConsultatio
 import { consultationsForCurrentPatientTransformer } from '../transformers/ConsultationsForCurrentPatientTransformer';
 import { cancelConsultationTask } from '../tasks/CancelConsultationTask';
 import { cancelConsultationValidator } from '../validators/cancelConsultationValidator';
+import { getDoctorsAppointmentsByPatientIdTask } from '../tasks/GetDoctorsAppointmentsByPatientIdTask';
+import { getDoctorsAppointmentsTransformer } from '../transformers/GetDoctorsAppointmentsTransformer';
 
 export class ConsultationController extends CoreController {
     constructor() {
@@ -28,6 +30,7 @@ export class ConsultationController extends CoreController {
             cancelConsultationValidator,
             this.cancelConsultation
         );
+        this.router.get(this.prefix + '/appointments', this.getDoctorsAppointments);
     }
 
     public getConsultationsForCurrentPatient = async (req: any, res: Response) => {
@@ -62,5 +65,21 @@ export class ConsultationController extends CoreController {
                 .json(coreTransformer.getErrorResponse(result.message));
 
         return res.status(200).json(coreTransformer.getSimpleSuccessResponse(result.message));
+    };
+
+    public getDoctorsAppointments = async (req: any, res: Response) => {
+        const result = await getDoctorsAppointmentsByPatientIdTask.run(req.user.id);
+
+        if (result.error)
+            return res.status(404).json(coreTransformer.getErrorResponse(result.message));
+
+        return res
+            .status(200)
+            .json(
+                coreTransformer.getSimpleSuccessResponse(
+                    '',
+                    getDoctorsAppointmentsTransformer.transform(result.data)
+                )
+            );
     };
 }
