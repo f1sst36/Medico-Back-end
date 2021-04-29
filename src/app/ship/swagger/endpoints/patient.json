@@ -220,5 +220,254 @@
                 }
             }
         ]
+    },
+    "/patient/profile/change-medical-card": {
+        "post": {
+            "tags": ["Patient"],
+            "security": {
+                "bearerAuth": []
+            },
+            "description": "Change the medical card data",
+            "responses": {
+                "200": {
+                    "description": "Medical card is successfully changed",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                                "type": "integer",
+                                "example": 0
+                            },
+                            "data": {
+                                "type": "object",
+                                "example": {
+                                    "weight": 80,
+                                    "height": 180,
+                                    "bloodType": "III",
+                                    "allergies": null,
+                                    "chronicDiseases": null,
+                                    "operations": null,
+                                    "isSmoker": "Нет",
+                                    "isAlcoholic": "1 раз в год",
+                                    "bloodTransfusion": "нет"
+                                }
+                            },
+                            "message": {
+                                "type": "string",
+                                "description": "Reply message",
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "422": {
+                    "description": "Unprocessable Etity",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "data": {
+                                "type": "object",
+                                "example": null
+                            },
+                            "message": {
+                                "type": "string",
+                                "description": "Ошибка обновления мед. карты"
+                            }
+                        }
+                    }
+                },
+                "400*": {
+                    "description": "Validation errors",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "data": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                },
+                                "example": [
+                                    "Необходимо указать рост",
+                                    "Неверный формат списка хронических заболеваний"
+                                ]
+                            },
+                            "message": {
+                                "type": "string",
+                                "description": "Reply message",
+                                "example": "Ошибка валидации"
+                            }
+                        }
+                    }
+                },
+                "404": {
+                    "description": "Not found",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "data": {
+                                "type": "object",
+                                "example": null
+                            },
+                            "message": {
+                                "type": "string",
+                                "description": "Reply message",
+                                "example": "Пациент не найден"
+                            }
+                        }
+                    }
+                },
+                "400": {
+                    "description": "Getted no data",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "data": {
+                                "type": "object",
+                                "example": null
+                            },
+                            "message": {
+                                "type": "string",
+                                "description": "Reply message",
+                                "example": "Отсутствуют данные для изменения"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "parameters": [
+            {
+                "name": "weight",
+                "in": "body",
+                "description": "Weight of user",
+                "required": false,
+                "schema": {
+                    "type": "float",
+                    "example": {
+                        "weight": 60.5
+                    }
+                }
+            },
+            {
+                "name": "height",
+                "in": "body",
+                "description": "Height of user",
+                "required": false,
+                "schema": {
+                    "type": "float",
+                    "example": {
+                        "height": 180
+                    }
+                }
+            },
+            {
+                "name": "bloodType",
+                "in": "body",
+                "description": "User's type of blood",
+                "required": false,
+                "schema": {
+                    "type": "string",
+                    "enum": ["I", "II", "III", "IV"],
+                    "example": {
+                        "bloodType": "II"
+                    }
+                }
+            },
+            {
+                "name": "allergies",
+                "in": "body",
+                "description": "User's allergies",
+                "required": false,
+                "schema": {
+                    "type": "string",
+                    "example": {
+                        "allergies": "ta-tata-t-at-a-ta-taa"
+                    }
+                }
+            },
+            {
+                "name": "chronicDiseases",
+                "in": "body",
+                "description": "User's chronic diseases",
+                "required": false,
+                "schema": {
+                    "type": "string",
+                    "example": {
+                        "chronicDiseases": "foo baarr"
+                    }
+                }
+            },
+            {
+                "name": "operations",
+                "in": "body",
+                "description": "User's operations",
+                "required": false,
+                "schema": {
+                    "type": "string",
+                    "example": {
+                        "operations": "fogfgdgfdo baarr1231231"
+                    }
+                }
+            },
+            {
+                "name": "isSmoker",
+                "in": "body",
+                "description": "Is user a smoker",
+                "required": false,
+                "schema": {
+                    "type": "string",
+                    "enum": ["Да", "Нет", "Иногда"],
+                    "example": {
+                        "isSmoker": "Нет"
+                    }
+                }
+            },
+            {
+                "name": "isAlcoholic",
+                "in": "body",
+                "description": "Is user a alcoholic",
+                "required": false,
+                "schema": {
+                    "type": "string",
+                    "enum": [
+                        "1 раз в год",
+                        "1 раз в месяц",
+                        "1 раз в неделю",
+                        "более 3 раз в неделю"
+                    ],
+                    "example": {
+                        "isAlcoholic": "1 раз в месяц"
+                    }
+                }
+            },
+            {
+                "name": "bloodTransfusion",
+                "in": "body",
+                "description": "'Да' или 'Нет'",
+                "required": false,
+                "schema": {
+                    "type": "enum",
+                    "example": {
+                        "bloodTransfusion": "Нет"
+                    }
+                }
+            }
+        ]
     }
 }

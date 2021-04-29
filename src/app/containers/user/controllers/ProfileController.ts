@@ -68,6 +68,7 @@ export class ProfileController extends CoreController {
                 coreTransformer.getSimpleSuccessResponse(
                     '',
                     changeUserInfoTransformer.transform(result.data)
+                    // result.data
                 )
             );
     };

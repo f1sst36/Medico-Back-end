@@ -4,11 +4,13 @@ export const questionnaireFormValidator = [
     Validator.body("weight", "Необходимо указать вес")
         .isFloat({
             min: 0,
+            max: 10000,
         })
         .withMessage("Вес не может быть меньше нуля"),
     Validator.body("height", "Необходимо указать рост")
         .isFloat({
             min: 0,
+            max: 10000,
         })
         .withMessage("Рост не может быть меньше нуля"),
     Validator.body("bloodType", "Необходимо указать группу крови")

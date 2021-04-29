@@ -16,6 +16,7 @@ const patientUrls = [
     prefix + '/consultation/appointments',
     prefix + '/patient/analysis/all',
     prefix + '/patient/analysis/append',
+    prefix + '/patient/profile/change-medical-card',
 ];
 
 // Урлы доступные авторизованному пациенту без пройденной анкеты
