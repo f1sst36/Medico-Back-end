@@ -7,7 +7,7 @@ import { getFreshTokenAction } from '../actions/getFreshTokenAction';
 import { getUserInfoAction } from '../actions/getUserInfoAction';
 import { userTransformer } from '../transformers/UserTransformer';
 import { changeUserInfoValidator } from '../validators/changeUserInfoValidator';
-import { changeUserInfoAction } from '../actions/changeUserInfoAction';
+import { changeUserInfoAction } from '../actions/ChangeUserInfoAction';
 import { changeUserInfoTransformer } from '../transformers/ChangeUserInfoTransformer';
 
 export class ProfileController extends CoreController {

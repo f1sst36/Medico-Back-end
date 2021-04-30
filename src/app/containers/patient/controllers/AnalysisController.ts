@@ -5,7 +5,7 @@ import { CoreController } from '../../../ship/core/controller/CoreController';
 import { coreTransformer } from '../../../ship/core/transformer/CoreTransformer';
 import { createAnalysisTask } from '../tasks/CreateAnalysisTask';
 import { getAllAnalyzesByPatientIdTask } from '../tasks/GetAllAnalyzesByPatientIdTask';
-import { appendAnalysisTransformer } from '../transformers/appendAnalysisTransformer';
+import { appendAnalysisTransformer } from '../transformers/AppendAnalysisTransformer';
 import {
     appendAnalysisValidator,
     isValidImageValidator,
