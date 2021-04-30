@@ -10,6 +10,9 @@ import { cancelConsultationTask } from '../tasks/CancelConsultationTask';
 import { cancelConsultationValidator } from '../validators/cancelConsultationValidator';
 import { getDoctorsAppointmentsByPatientIdTask } from '../tasks/GetDoctorsAppointmentsByPatientIdTask';
 import { getDoctorsAppointmentsTransformer } from '../transformers/GetDoctorsAppointmentsTransformer';
+import { getPatientsAppointmentsByDateTask } from '../tasks/GetPatientsAppointmentsByDateTask';
+import { patientsAppointmentsByDateValidator } from '../validators/patientsAppointmentsByDateValidator';
+import { getPatientsAppointmentsByDateTransformer } from '../transformers/GetPatientsAppointmentsByDateTransformer';
 
 export class ConsultationController extends CoreController {
     constructor() {
@@ -21,7 +24,7 @@ export class ConsultationController extends CoreController {
 
     public initRoutes() {
         this.router.get(
-            this.prefix + '/patient',
+            this.prefix + '/doctors-for-patient',
             consultationsForCurrentPatientValidator,
             this.getConsultationsForCurrentPatient
         );
@@ -31,9 +34,17 @@ export class ConsultationController extends CoreController {
             this.cancelConsultation
         );
         this.router.get(this.prefix + '/appointments', this.getDoctorsAppointments);
+        this.router.get(
+            this.prefix + '/patients-for-doctor',
+            patientsAppointmentsByDateValidator,
+            this.getPatientsAppointmentsByDate
+        );
     }
 
-    public getConsultationsForCurrentPatient = async (req: any, res: Response) => {
+    public getConsultationsForCurrentPatient = async (
+        req: any,
+        res: Response
+    ): Promise<Response> => {
         if (this.validateRequest(req, res)) return;
 
         const result = await getConsultationsByStateAndPatientIdTask.run(
@@ -54,7 +65,7 @@ export class ConsultationController extends CoreController {
             );
     };
 
-    public cancelConsultation = async (req: any, res: Response) => {
+    public cancelConsultation = async (req: any, res: Response): Promise<Response> => {
         if (this.validateRequest(req, res)) return;
 
         const result = await cancelConsultationTask.run(req.body.consultationId, req.user.id);
@@ -67,7 +78,8 @@ export class ConsultationController extends CoreController {
         return res.status(200).json(coreTransformer.getSimpleSuccessResponse(result.message));
     };
 
-    public getDoctorsAppointments = async (req: any, res: Response) => {
+    // Список консультаций для пациента
+    public getDoctorsAppointments = async (req: any, res: Response): Promise<Response> => {
         const result = await getDoctorsAppointmentsByPatientIdTask.run(req.user.id);
 
         if (result.error)
@@ -79,6 +91,30 @@ export class ConsultationController extends CoreController {
                 coreTransformer.getSimpleSuccessResponse(
                     '',
                     getDoctorsAppointmentsTransformer.transform(result.data)
+                )
+            );
+    };
+
+    // Список консультаций для врача
+    public getPatientsAppointmentsByDate = async (req: any, res: Response): Promise<Response> => {
+        if (this.validateRequest(req, res)) return;
+
+        const result = await getPatientsAppointmentsByDateTask.run(
+            req.user.id,
+            String(req.query.date)
+        );
+
+        if (result.error)
+            return res
+                .status(result.error === 1 ? 404 : 422)
+                .json(coreTransformer.getErrorResponse(result.message));
+
+        return res
+            .status(200)
+            .json(
+                coreTransformer.getSimpleSuccessResponse(
+                    '',
+                    getPatientsAppointmentsByDateTransformer.transform(result.data)
                 )
             );
     };

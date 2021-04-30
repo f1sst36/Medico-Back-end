@@ -15,6 +15,8 @@ export class Consultation extends CoreModel {
     public symptoms: string;
     public appointment: string;
     public paymentId: number;
+    public state: string;
+    public isFirstConsultation: string;
 
     public readonly createdAt: Date;
     public readonly updatedAt: Date;
@@ -75,6 +77,11 @@ export const consultationSchema = {
         allowNull: false,
         type: DataTypes.ENUM('active', 'canceled', 'done', 'waiting'),
         defaultValue: 'waiting',
+    },
+    isFirstConsultation: {
+        allowNull: false,
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
     },
     createdAt: {
         allowNull: false,

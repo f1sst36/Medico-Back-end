@@ -86,7 +86,7 @@ export class AppointmentController extends CoreController {
 
     public getFreeDoctorTime = async (req: Request, res: Response) => {
         if (this.validateRequest(req, res)) return;
-
+        
         let result;
         try {
             result = await getFreeDoctorTimeTask.run(+req.query.doctorId, String(req.query.date));

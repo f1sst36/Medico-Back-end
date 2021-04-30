@@ -11,7 +11,7 @@ const patientUrls = [
     prefix + '/consultation/appointment/meta-info',
     prefix + '/consultation/appointment/create',
     prefix + '/doctor/review/leave',
-    prefix + '/consultation/patient',
+    prefix + '/consultation/doctors-for-patient',
     prefix + '/consultation/cancel',
     prefix + '/consultation/appointments',
     prefix + '/patient/analysis/all',
@@ -32,6 +32,7 @@ const doctorUrls = [
     prefix + '/user/fresh-token',
     prefix + '/user/change-user-info',
     prefix + '/consultation/cancel',
+    prefix + '/consultation/patients-for-doctor',
 ];
 
 // Урлы доступные авторизованому доктору без пройденной анкеты и верефицирования

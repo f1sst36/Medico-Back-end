@@ -5,6 +5,7 @@ import { CoreRepository } from '../../../ship/core/repository/CoreRepository';
 import { CommunicationMethod } from '../models/CommunicationMethod';
 
 import { Consultation } from '../models/Consultation';
+import { Patient } from '../../patient/models/Patient';
 
 class ConsultationRepository extends CoreRepository {
     constructor() {
@@ -124,6 +125,62 @@ class ConsultationRepository extends CoreRepository {
                     },
                 ],
                 attributes: ['appointment', 'receptionDate'],
+            });
+        } catch (e) {
+            return null;
+        }
+    };
+
+    public getCountOfConsultationsWithPatientAndDoctor = (
+        patientId: number,
+        doctorId: number
+    ): Promise<number> => {
+        try {
+            return this.model.count({
+                where: {
+                    patientId: patientId,
+                    doctorId: doctorId,
+                },
+            });
+        } catch (e) {
+            return null;
+        }
+    };
+
+    public getConsultationsForDoctorByDate = (
+        doctorId: number,
+        startDate: Date,
+        endDate: Date
+    ): Promise<Array<Consultation>> => {
+        try {
+            return this.model.findAll({
+                where: {
+                    doctorId: doctorId,
+                    receptionDate: {
+                        [Op.between]: [startDate, endDate],
+                    },
+                    state: 'waiting',
+                },
+                include: [
+                    {
+                        model: Patient,
+                        as: 'patient',
+                        include: [
+                            {
+                                model: User,
+                                as: 'user',
+                                attributes: ['name', 'surname'],
+                            },
+                        ],
+                        attributes: ['avatar'],
+                    },
+                    {
+                        model: CommunicationMethod,
+                        as: 'communicationMethod',
+                        attributes: ['id', 'method'],
+                    },
+                ],
+                attributes: ['id', 'receptionDate', 'isFirstConsultation'],
             });
         } catch (e) {
             return null;

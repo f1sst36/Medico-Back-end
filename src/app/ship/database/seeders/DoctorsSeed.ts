@@ -230,7 +230,7 @@ export class DoctorsSeed extends CoreSeed {
                 ],
                 education: ['Высшее Томбовское образование', 'Грамота цетрального округа'],
                 sent: '2021-03-31',
-                isVerified: false,
+                isVerified: true,
                 costOfConsultation: (Math.round(Math.random() * 12) + 8) * 100,
                 workTime: `с ${Math.round(Math.random() * 4) + 8}:00 до ${
                     Math.round(Math.random() * 6) + 14

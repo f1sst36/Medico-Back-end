@@ -8,6 +8,7 @@ interface IParams {
     receptionDate: Date;
     communicationMethodId: number;
     symptoms: string;
+    isFirstConsultation: boolean;
 }
 
 class CreateConsultationTask extends CoreTask {

@@ -1,6 +1,7 @@
 import { parseISO } from 'date-fns';
 import { doctorRepository } from '../../../containers/doctor/repositories/DoctorRepository';
 import { CoreAction, IResult } from '../../../ship/core/action/CoreAction';
+import { consultationRepository } from '../repositories/ConsultationRepository';
 import { createConsultationTask } from '../tasks/CreateConsultationTask';
 import { getFreeDoctorTimeTask } from '../tasks/GetFreeDoctorTimeTask';
 
@@ -44,13 +45,6 @@ class AppointmentForConsultationAction extends CoreAction {
                 message: result.message,
             };
 
-        // if (!result.data)
-        //     return {
-        //         error: result.error,
-        //         data: null,
-        //         message: result.message,
-        //     };
-
         // doctorsSchedule - распиисание доктора на день в часах
         const doctorsSchedule: Array<IWorkingTime> = result.data;
 
@@ -66,6 +60,12 @@ class AppointmentForConsultationAction extends CoreAction {
                 message: 'У доктора нет приема на данное время',
             };
 
+        // Кол-во консультаций между текущим пациентом и доктором
+        const countOfConsultations = await consultationRepository.getCountOfConsultationsWithPatientAndDoctor(
+            patientId,
+            doctorId
+        );
+
         const consultation = await createConsultationTask.run({
             doctorId: doctorId,
             patientId: patientId,
@@ -73,6 +73,7 @@ class AppointmentForConsultationAction extends CoreAction {
             communicationMethodId: communicationMethodId,
             doctorSpecialtyId: doctorSpecialtyId,
             symptoms: symptoms,
+            isFirstConsultation: !countOfConsultations,
         });
 
         if (!consultation)

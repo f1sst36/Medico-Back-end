@@ -9,7 +9,7 @@ export const appointmentForConsultationValidator = [
         // .matches(/(\+03)$/)
         .withMessage('Неверный формат даты'),
     Validator.body('communicationMethodId', 'Невоходимо указать id метода связи')
-        .isInt({ min: 1 })
+        .isInt({ min: 1, max: 3 })
         .withMessage('id метода связи должно быть больше нуля'),
     Validator.body('symptoms', 'Необходимо указать симптомы')
         .isLength({ min: 10 })

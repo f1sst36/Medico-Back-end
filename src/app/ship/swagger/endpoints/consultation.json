@@ -382,7 +382,7 @@
             }
         ]
     },
-    "/consultation/patient/consultationState={waiting | done}": {
+    "/consultation/doctors-for-patient/consultationState={waiting | done}": {
         "get": {
             "tags": ["Consultation"],
             "security": {
@@ -668,6 +668,142 @@
                     }
                 }
             }
+        }
+    },
+    "/consultation/patients-for-doctor": {
+        "get": {
+            "tags": ["Consultation"],
+            "security": {
+                "bearerAuth": []
+            },
+            "description": "Get doctor's patients (consultations) by day (Date) and with state === 'waiting'. receptionDate returned in +00 timezone! Use new Date() or something to set timezone",
+            "responses": {
+                "200": {
+                    "description": "Successfully getted consultations list",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                                "type": "integer",
+                                "example": 0
+                            },
+                            "data": {
+                                "type": "Object",
+                                "example": [
+                                    {
+                                        "id": 81,
+                                        "receptionDate": "2021-05-05T08:00:00.000Z",
+                                        "isFirstConsultation": true,
+                                        "patient": {
+                                            "name": "Максим",
+                                            "surname": "Иванов",
+                                            "avatar": null
+                                        },
+                                        "communicationMethod": {
+                                            "id": 3,
+                                            "method": "Видеозвонок"
+                                        }
+                                    },
+                                    {
+                                        "id": 83,
+                                        "receptionDate": "2021-05-05T13:00:00.000Z",
+                                        "isFirstConsultation": false,
+                                        "patient": {
+                                            "name": "Максим",
+                                            "surname": "Иванов",
+                                            "avatar": null
+                                        },
+                                        "communicationMethod": {
+                                            "id": 3,
+                                            "method": "Видеозвонок"
+                                        }
+                                    }
+                                ]
+                            },
+                            "message": {
+                                "type": "string",
+                                "example": "",
+                                "description": "Reply message"
+                            }
+                        }
+                    }
+                },
+                "404": {
+                    "description": "Not found",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "data": {
+                                "type": "object",
+                                "example": null
+                            },
+                            "message": {
+                                "type": "string",
+                                "example": "Записи на консультации не найдены",
+                                "description": "Reply message"
+                            }
+                        }
+                    }
+                },
+                "422": {
+                    "description": "Unknown error",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "data": {
+                                "type": "object",
+                                "example": null
+                            },
+                            "message": {
+                                "type": "string",
+                                "example": "Ошибка форматирования даты",
+                                "description": "Reply message"
+                            }
+                        }
+                    }
+                },
+                "400": {
+                    "description": "Validation error",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "data": {
+                                "type": "object",
+                                "example": ["Параметр должен быть числом"]
+                            },
+                            "message": {
+                                "type": "string",
+                                "example": "Ошибка валидации",
+                                "description": "Reply message"
+                            }
+                        }
+                    }
+                }
+            },
+            "parameters": [
+                {
+                    "name": "date",
+                    "in": "query",
+                    "description": "Date with a day",
+                    "required": true,
+                    "schema": {
+                        "type": "string",
+                        "example": "date=2021-05-05T00:00:00"
+                    }
+                }
+            ]
         }
     }
 }
