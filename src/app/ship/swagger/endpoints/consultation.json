@@ -382,7 +382,7 @@
             }
         ]
     },
-    "/consultation/doctors-for-patient/consultationState={waiting | done}": {
+    "/consultation/doctors-for-patient?consultationState={waiting | done}": {
         "get": {
             "tags": ["Consultation"],
             "security": {
@@ -670,7 +670,7 @@
             }
         }
     },
-    "/consultation/patients-for-doctor": {
+    "/consultation/patients-for-doctor?date={date}": {
         "get": {
             "tags": ["Consultation"],
             "security": {
