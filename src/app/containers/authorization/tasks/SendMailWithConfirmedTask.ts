@@ -9,9 +9,9 @@ class SendMailWithConfirmedTask extends CoreTask {
     private result: IResult;
 
     public run = async (
-        recipient: String,
-        userName: String,
-        confirmationToken: String
+        recipient: string,
+        userName: string,
+        confirmationToken: string
     ): Promise<IResult> => {
         const html = fs.readFileSync(
             path.join(__dirname, "../../../../app/ship/mail/templates/confirmAccount.html"),

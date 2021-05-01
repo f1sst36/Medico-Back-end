@@ -2,12 +2,12 @@ import { CoreTransformer, IResponse } from "../../../ship/core/transformer/CoreT
 import { Doctor } from "../models";
 
 interface IMostExpreriencedDoctorResult {
-    id: Number;
-    name: String;
-    surname: String;
-    middleName?: String;
-    experience: String;
-    photo: String;
+    id: number;
+    name: string;
+    surname: string;
+    middleName?: string;
+    experience: string;
+    photo: string;
     specialties: Array<any>;
 }
 

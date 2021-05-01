@@ -2,35 +2,35 @@ import { CoreTransformer } from "../../../ship/core/transformer/CoreTransformer"
 import { Doctor } from "../models";
 
 interface Review {
-    id: Number;
-    name: String;
-    surname: String;
-    avatar: String;
-    text: String;
-    estimation: Number;
+    id: number;
+    name: string;
+    surname: string;
+    avatar: string;
+    text: string;
+    estimation: number;
     createdAt: Date;
 }
 
 interface IDoctorResult {
-    id: Number;
-    name: String;
-    surname: String;
-    middleName?: String;
-    rating: Number;
-    about: String;
-    experience: String;
+    id: number;
+    name: string;
+    surname: string;
+    middleName?: string;
+    rating: number;
+    about: string;
+    experience: string;
     reviews: Array<Review>;
-    countOfReviews: Number;
-    education: Array<String>;
-    workplaces: Array<String>;
-    workTime: String;
-    photo: String;
-    costOfConsultation: String;
-    specialties: Array<String>;
+    countOfReviews: number;
+    education: Array<string>;
+    workplaces: Array<string>;
+    workTime: string;
+    photo: string;
+    costOfConsultation: string;
+    specialties: Array<string>;
 }
 
 class DoctorByIdTransformer extends CoreTransformer {
-    public transform = (doctor: any, countOfReviews: Number): IDoctorResult => {
+    public transform = (doctor: any, countOfReviews: number): IDoctorResult => {
         let result: IDoctorResult;
 
         result = {

@@ -2,12 +2,12 @@ import { CoreTransformer } from '../../../ship/core/transformer/CoreTransformer'
 import { Review } from '../models';
 
 interface TransformedReview {
-    id: Number;
-    name: String;
-    surname: String;
-    avatar: String;
-    text: String;
-    estimation: Number;
+    id: number;
+    name: string;
+    surname: string;
+    avatar: string;
+    text: string;
+    estimation: number;
     createdAt: Date;
 }
 

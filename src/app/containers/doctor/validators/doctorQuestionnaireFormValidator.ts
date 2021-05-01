@@ -2,8 +2,8 @@ const Validator = require('express-validator');
 
 interface IParams {
     IIN: String;
-    specialties: Array<Number>;
-    experience: String;
+    specialties: Array<number>;
+    experience: string;
 }
 
 export const doctorQuestionnaireFormValidator = [
@@ -15,8 +15,8 @@ export const doctorQuestionnaireFormValidator = [
 export const doctorQuestionnaireFormFilesValidator = (
     files: any,
     data: IParams
-): Array<String> | false => {
-    let errMessages: Array<String> = [];
+): Array<string> | false => {
+    let errMessages: Array<string> = [];
 
     if (!data.IIN) errMessages.push('Необходимо указать ИИН');
     else if (!data.IIN.match(/^[0-9]{12}$/)) errMessages.push('Неверный формат ИИН');

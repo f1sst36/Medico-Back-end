@@ -5,19 +5,19 @@ import { User } from '../../user/models/User';
 import { Analysis } from './Analysis';
 
 export class Patient extends CoreModel {
-    public readonly id: Number;
-    public weight: Number;
-    public height: Number;
-    public bloodType: String;
-    public RHFactor: String;
-    public allergies: String;
-    public chronicDiseases: String;
-    public operations: String;
-    public isSmoker: String;
-    public isAlcoholic: String;
-    public badHabits: String;
-    public bloodTransfusion: String;
-    public isFullData: Boolean;
+    public readonly id: number;
+    public weight: number;
+    public height: number;
+    public bloodType: string;
+    public RHFactor: string;
+    public allergies: string;
+    public chronicDiseases: string;
+    public operations: string;
+    public isSmoker: string;
+    public isAlcoholic: string;
+    public badHabits: string;
+    public bloodTransfusion: string;
+    public isFullData: boolean;
 
     public user: User;
     public analyzes: Array<Analysis>;

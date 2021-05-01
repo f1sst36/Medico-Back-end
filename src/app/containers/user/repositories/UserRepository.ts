@@ -18,7 +18,7 @@ class UserRepository extends CoreRepository {
         }
     };
 
-    getUserWithSameEmailOrPhone = (email: String, phone: String): User => {
+    getUserWithSameEmailOrPhone = (email: string, phone: string): User => {
         try {
             const result = this.model.findOne({
                 where: {
@@ -31,7 +31,7 @@ class UserRepository extends CoreRepository {
         }
     };
 
-    getUserByConfirmationToken = (token: String): User => {
+    getUserByConfirmationToken = (token: string): User => {
         try {
             const user = this.model.findOne({
                 where: {

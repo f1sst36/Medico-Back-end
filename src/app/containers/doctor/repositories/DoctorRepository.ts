@@ -12,7 +12,7 @@ class DoctorRepository extends CoreRepository {
         this.model = Doctor;
     }
 
-    public getDoctorById = (id: Number): Promise<Doctor> => {
+    public getDoctorById = (id: number): Promise<Doctor> => {
         try {
             const result = this.model.findOne({
                 where: {
@@ -72,7 +72,7 @@ class DoctorRepository extends CoreRepository {
         }
     };
 
-    public getDoctorByIdForToken = (id: Number): Promise<Doctor> => {
+    public getDoctorByIdForToken = (id: number): Promise<Doctor> => {
         try {
             const result = this.model.findOne({
                 where: {
@@ -114,7 +114,7 @@ class DoctorRepository extends CoreRepository {
         }
     };
 
-    public getVerifiedDoctorById = (id: Number): Promise<Doctor> => {
+    public getVerifiedDoctorById = (id: number): Promise<Doctor> => {
         try {
             const result = this.model.findOne({
                 where: {
@@ -380,7 +380,7 @@ class DoctorRepository extends CoreRepository {
         }
     };
 
-    public getMostExperiencedDoctors = (count: Number) => {
+    public getMostExperiencedDoctors = (count: number) => {
         try {
             const result = this.model.findAll({
                 where: { isVerified: true },

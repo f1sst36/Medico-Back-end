@@ -2,17 +2,17 @@ import { CoreTask } from "../../../ship/core/task/CoreTask";
 import { User } from "../models/User";
 
 interface IParams {
-    name: String;
-    surname: String;
-    middleName: String;
-    sex: String;
-    birthDate: String;
-    phone: String;
-    email: String;
-    hashedPassword: String;
-    confirmationToken: String;
-    acceptedUserAgreement: Boolean;
-    userType: String;
+    name: string;
+    surname: string;
+    middleName: string;
+    sex: string;
+    birthDate: string;
+    phone: string;
+    email: string;
+    hashedPassword: string;
+    confirmationToken: string;
+    acceptedUserAgreement: boolean;
+    userType: string;
 }
 
 class CreateNewUserTask extends CoreTask {

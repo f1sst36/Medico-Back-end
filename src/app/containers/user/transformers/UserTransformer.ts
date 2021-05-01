@@ -1,17 +1,17 @@
 import { CoreTransformer } from "../../../ship/core/transformer/CoreTransformer";
 
 interface ITransformedUser {
-    id: Number;
-    name: String;
-    surname: String;
-    middlename?: String;
-    sex: String;
-    birthDate: String;
-    phone: String;
-    email: String;
+    id: number;
+    name: string;
+    surname: string;
+    middlename?: string;
+    sex: string;
+    birthDate: string;
+    phone: string;
+    email: string;
     isActivated: true;
     acceptedUserAgreement: true;
-    userType: String;
+    userType: string;
 
     additionalData: any;
 }

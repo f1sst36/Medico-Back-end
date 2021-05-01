@@ -3,19 +3,19 @@ import { Association, DataTypes } from 'sequelize';
 import { CoreModel } from '../../../ship/core/model/CoreModel';
 
 export class User extends CoreModel {
-    public readonly id: Number;
-    public name: String;
-    public surname: String;
-    public middleName: String;
-    public sex: String;
+    public readonly id: number;
+    public name: string;
+    public surname: string;
+    public middleName: string;
+    public sex: string;
     public birthDate: Date;
-    public phone: String;
-    public email: String;
-    public isActivated: Boolean;
-    public password: String;
-    public confirmationToken: String;
-    public acceptedUserAgreement: Boolean;
-    public readonly userType: String;
+    public phone: string;
+    public email: string;
+    public isActivated: boolean;
+    public password: string;
+    public confirmationToken: string;
+    public acceptedUserAgreement: boolean;
+    public readonly userType: string;
     public readonly createdAt: Date;
     public readonly updatedAt: Date;
 

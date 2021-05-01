@@ -3,12 +3,12 @@ import { DataTypes } from 'sequelize';
 import { CoreModel } from '../../../ship/core/model/CoreModel';
 
 export class Card extends CoreModel {
-    public readonly id: Number;
-    public cardNumber: String;
-    public validThru: String;
-    public cardValidationCode: String;
-    public ownersName: String;
-    public isSavedCard: Boolean;
+    public readonly id: number;
+    public cardNumber: string;
+    public validThru: string;
+    public cardValidationCode: string;
+    public ownersName: string;
+    public isSavedCard: boolean;
 }
 
 export const cardSchema = {

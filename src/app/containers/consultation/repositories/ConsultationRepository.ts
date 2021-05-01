@@ -172,7 +172,7 @@ class ConsultationRepository extends CoreRepository {
                                 attributes: ['name', 'surname'],
                             },
                         ],
-                        attributes: ['avatar'],
+                        attributes: ['id', 'avatar'],
                     },
                     {
                         model: CommunicationMethod,
@@ -181,6 +181,21 @@ class ConsultationRepository extends CoreRepository {
                     },
                 ],
                 attributes: ['id', 'receptionDate', 'isFirstConsultation'],
+            });
+        } catch (e) {
+            return null;
+        }
+    };
+
+    public consultationByPatientAndDocotrIds = (patientId: number, doctorId: number): Promise<Consultation> => {
+        try {
+            return this.model.findOne({
+                where: {
+                    [Op.or]: [{ state: 'waiting' }, { state: 'active' }],
+                    patientId: patientId,
+                    doctorId: doctorId,
+                },
+                attributes: ['id', 'symptoms'],
             });
         } catch (e) {
             return null;

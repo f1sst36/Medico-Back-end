@@ -2,7 +2,7 @@ import { CoreTask, IResult } from "../../../ship/core/task/CoreTask";
 import { doctorRepository } from "../repositories/DoctorRepository";
 
 class GetMostExperiencedDoctorsTask extends CoreTask {
-    public run = async (count: Number): Promise<IResult> => {
+    public run = async (count: number): Promise<IResult> => {
         const doctors = await doctorRepository.getMostExperiencedDoctors(count);
 
         if (!doctors || !doctors.length)

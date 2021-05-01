@@ -2,9 +2,9 @@ import { CoreTransformer } from '../../../ship/core/transformer/CoreTransformer'
 import { Review } from '../models';
 
 interface IReview {
-    id: Number;
-    text: String;
-    estimation: Number;
+    id: number;
+    text: string;
+    estimation: number;
     createdAt: Date;
 }
 

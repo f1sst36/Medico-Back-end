@@ -4,9 +4,9 @@ import { CoreModel } from "../../../ship/core/model/CoreModel";
 import { Doctor, Specialty } from "./";
 
 export class DoctorSpecialtiesLink extends CoreModel {
-    public readonly id: Number;
-    public doctorId: Number;
-    public specialtyId: Number;
+    public readonly id: number;
+    public doctorId: number;
+    public specialtyId: number;
 
     public readonly doctor: Doctor;
     public readonly specialty: Specialty;

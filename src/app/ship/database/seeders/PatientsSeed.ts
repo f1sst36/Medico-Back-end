@@ -5,18 +5,18 @@ import { createNewPatientTask } from '../../../containers/patient/tasks/CreateNe
 import { User } from '../../../containers/user/models/User';
 
 interface IParams {
-    name: String;
-    surname: String;
-    middleName: String;
-    sex: String;
-    birthDate: String;
-    phone: String;
-    email: String;
-    isActivated: Boolean;
-    hashedPassword: String;
-    confirmationToken: String;
-    acceptedUserAgreement: Boolean;
-    userType: String;
+    name: string;
+    surname: string;
+    middleName: string;
+    sex: string;
+    birthDate: string;
+    phone: string;
+    email: string;
+    isActivated: boolean;
+    hashedPassword: string;
+    confirmationToken: string;
+    acceptedUserAgreement: boolean;
+    userType: string;
 }
 
 export class PatientsSeed extends CoreSeed {

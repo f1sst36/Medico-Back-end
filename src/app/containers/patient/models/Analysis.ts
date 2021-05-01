@@ -3,7 +3,7 @@ import { DataTypes } from 'sequelize';
 import { CoreModel } from '../../../ship/core/model/CoreModel';
 
 export class Analysis extends CoreModel {
-    public readonly id: Number;
+    public readonly id: number;
     public patientId: number;
     public name: string;
     public type: string;

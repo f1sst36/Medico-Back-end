@@ -5,15 +5,15 @@ import { doctorRepository } from '../repositories/DoctorRepository';
 import { specialtyRepository } from '../repositories/SpecialtyRepository';
 
 interface IParams {
-    doctorId: Number;
-    IIN: String;
-    specialties: String;
+    doctorId: number;
+    IIN: string;
+    specialties: string;
     experience: Date;
 }
 
 class DoctorQuestionnaireAction extends CoreAction {
     public run = async (
-        doctorId: Number,
+        doctorId: number,
         doctorData: IParams,
         doctorFiles: any
     ): Promise<IResult> => {

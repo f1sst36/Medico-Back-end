@@ -2,22 +2,22 @@ import { CoreAction, IResult } from "../../../ship/core/action/CoreAction";
 import { patientRepository } from "../repositories/PatientRepository";
 
 interface IParams {
-    weight: Number;
-    height: Number;
-    bloodType: String;
-    RHFactor: String;
-    allergies: String;
-    chronicDiseases: String;
-    operations: String;
-    isSmoker: String;
-    isAlcoholic: String;
-    badHabits: String;
-    bloodTransfusion: String;
-    isFullData: Boolean;
+    weight: number;
+    height: number;
+    bloodType: string;
+    RHFactor: string;
+    allergies: string;
+    chronicDiseases: string;
+    operations: string;
+    isSmoker: string;
+    isAlcoholic: string;
+    badHabits: string;
+    bloodTransfusion: string;
+    isFullData: boolean;
 }
 
 class QuestionnaireFormAction extends CoreAction {
-    public run = async (patientData: IParams, patientId: Number): Promise<IResult> => {
+    public run = async (patientData: IParams, patientId: number): Promise<IResult> => {
         const patient = await patientRepository.getPatientById(patientId);
 
         if (patient.isFullData) return { error: 1, data: null, message: "Анкета уже заполнена" };

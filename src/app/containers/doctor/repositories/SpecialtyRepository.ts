@@ -18,7 +18,7 @@ class SpecialtyRepository extends CoreRepository {
         }
     };
 
-    public getSpecialtiesByIds = (specialties: Array<Number>): Promise<Array<Specialty>> => {
+    public getSpecialtiesByIds = (specialties: Array<number>): Promise<Array<Specialty>> => {
         try {
             const result = this.model.findAll({
                 attributes: ["id", "name", "slug"],

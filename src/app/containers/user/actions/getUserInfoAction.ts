@@ -5,7 +5,7 @@ import { Patient } from "../../patient/models/Patient";
 import { patientRepository } from "../../patient/repositories/PatientRepository";
 
 class GetUserInfoAction extends CoreAction {
-    public run = async (userId: Number): Promise<IResult> => {
+    public run = async (userId: number): Promise<IResult> => {
         let user: Doctor | Patient;
         try {
             user = await patientRepository.getPatientById(userId);

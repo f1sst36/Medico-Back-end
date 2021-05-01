@@ -7,34 +7,34 @@ import { format } from 'date-fns';
 import { DoctorSpecialtiesLink, Review } from '../../../containers/doctor/models';
 
 interface IUserParams {
-    name: String;
-    surname: String;
-    middleName: String;
-    sex: String;
-    birthDate: String;
-    phone: String;
-    email: String;
-    isActivated: Boolean;
-    hashedPassword: String;
-    confirmationToken: String;
-    acceptedUserAgreement: Boolean;
-    userType: String;
+    name: string;
+    surname: string;
+    middleName: string;
+    sex: string;
+    birthDate: string;
+    phone: string;
+    email: string;
+    isActivated: boolean;
+    hashedPassword: string;
+    confirmationToken: string;
+    acceptedUserAgreement: boolean;
+    userType: string;
 }
 
 interface IDoctorParams {
-    IIN: String;
-    experience: String | Date;
-    photo: String;
-    summary: String;
-    diploma: String;
-    about: String;
-    workplaces: Array<String>;
-    education: Array<String>;
-    sent: String | Date;
-    isVerified: Boolean;
-    rating: Number;
-    costOfConsultation: Number;
-    workTime: String;
+    IIN: string;
+    experience: string | Date;
+    photo: string;
+    summary: string;
+    diploma: string;
+    about: string;
+    workplaces: Array<string>;
+    education: Array<string>;
+    sent: string | Date;
+    isVerified: boolean;
+    rating: number;
+    costOfConsultation: number;
+    workTime: string;
 }
 
 export class DoctorsSeed extends CoreSeed {
@@ -88,7 +88,7 @@ export class DoctorsSeed extends CoreSeed {
         return arr[rand];
     };
 
-    private randomString = (length: Number = 10) => {
+    private randomString = (length: number = 10) => {
         const abc = 'abcdefghijklmnopqrstuvwxyz';
         let rs = '';
         while (rs.length < length) {
@@ -97,7 +97,7 @@ export class DoctorsSeed extends CoreSeed {
         return rs;
     };
 
-    private randomPhone = (length: Number = 11) => {
+    private randomPhone = (length: number = 11) => {
         const numbers = '1234567890';
         let rs = '';
         while (rs.length < length) {

@@ -14,7 +14,7 @@ export abstract class CoreController {
     protected validateRequest = (
         req: Request,
         res: Response,
-        message: String = "Ошибка валидации"
+        message: string = "Ошибка валидации"
     ): Response | undefined => {
         const errors = validationResult(req).formatWith(errorFormatter);
         if (!errors.isEmpty())

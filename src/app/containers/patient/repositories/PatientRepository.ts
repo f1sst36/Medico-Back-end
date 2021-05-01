@@ -1,6 +1,7 @@
-import { CoreRepository } from "../../../ship/core/repository/CoreRepository";
-import { User } from "../../user/models/User";
-import { Patient } from "../models/Patient";
+import { CoreRepository } from '../../../ship/core/repository/CoreRepository';
+import { User } from '../../user/models/User';
+import { Analysis } from '../models/Analysis';
+import { Patient } from '../models/Patient';
 
 class PatientRepository extends CoreRepository {
     constructor() {
@@ -8,7 +9,7 @@ class PatientRepository extends CoreRepository {
         this.model = Patient;
     }
 
-    getPatientById = (id: Number): Promise<Patient> => {
+    public getPatientById = (id: number): Promise<Patient> => {
         try {
             const result = this.model.findOne({
                 where: {
@@ -17,20 +18,20 @@ class PatientRepository extends CoreRepository {
                 include: [
                     {
                         model: User,
-                        as: "user",
+                        as: 'user',
                         attributes: {
                             exclude: [
-                                "createdAt",
-                                "updatedAt",
-                                "password",
-                                "confirmationToken",
-                                "id",
+                                'createdAt',
+                                'updatedAt',
+                                'password',
+                                'confirmationToken',
+                                'id',
                             ],
                         },
                     },
                 ],
                 attributes: {
-                    exclude: ["createdAt", "updatedAt"],
+                    exclude: ['createdAt', 'updatedAt'],
                 },
             });
             return result;
@@ -39,7 +40,7 @@ class PatientRepository extends CoreRepository {
         }
     };
 
-    getPatientByIdForToken = (id: Number): Promise<Patient> => {
+    public getPatientByIdForToken = (id: number): Promise<Patient> => {
         try {
             const result = this.model.findOne({
                 where: {
@@ -48,24 +49,60 @@ class PatientRepository extends CoreRepository {
                 include: [
                     {
                         model: User,
-                        as: "user",
+                        as: 'user',
                         attributes: {
                             exclude: [
-                                "createdAt",
-                                "updatedAt",
-                                "password",
-                                "confirmationToken",
-                                "id",
+                                'createdAt',
+                                'updatedAt',
+                                'password',
+                                'confirmationToken',
+                                'id',
                             ],
                         },
                     },
                 ],
                 attributes: {
-                    exclude: ["createdAt", "updatedAt"],
+                    exclude: ['createdAt', 'updatedAt'],
                 },
             });
             return result;
         } catch (error) {
+            return null;
+        }
+    };
+
+    public getPatientInfoForConsultation = (patientId: number): Promise<Patient> => {
+        try {
+            return this.model.findOne({
+                where: {
+                    id: patientId,
+                },
+                include: [
+                    {
+                        model: User,
+                        as: 'user',
+                        attributes: ['name', 'surname', 'middleName', 'birthDate'],
+                    },
+                    {
+                        model: Analysis,
+                        as: 'analyzes',
+                        attributes: ['id', 'name', 'type', 'path', 'analysisDeliveryDate']
+                    }
+                ],
+                attributes: [
+                    'avatar',
+                    'height',
+                    'weight',
+                    'bloodType',
+                    'isSmoker',
+                    'isAlcoholic',
+                    'operations',
+                    'bloodTransfusion',
+                    'chronicDiseases',
+                    'allergies',
+                ],
+            });
+        } catch (e) {
             return null;
         }
     };

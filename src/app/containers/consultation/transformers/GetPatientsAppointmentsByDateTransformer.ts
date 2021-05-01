@@ -6,6 +6,7 @@ interface ITransformedResult {
     receptionDate: Date;
     isFirstConsultation: boolean;
     patient: {
+        id: number;
         avatar: string;
         name: string;
         surname: string;
@@ -25,6 +26,7 @@ class GetPatientsAppointmentsByDateTransformer extends CoreTransformer {
                 receptionDate: consultations[i].getDataValue('receptionDate'),
                 isFirstConsultation: consultations[i].getDataValue('isFirstConsultation'),
                 patient: {
+                    id: consultations[i].patient.getDataValue('id'),
                     name: consultations[i].patient.user.getDataValue('name'),
                     surname: consultations[i].patient.user.getDataValue('surname'),
                     avatar: consultations[i].patient.getDataValue('avatar'),

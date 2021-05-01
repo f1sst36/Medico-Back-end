@@ -1,11 +1,11 @@
 export interface IResponse {
-    error: Number;
+    error: number;
     data: Object;
-    message?: String;
+    message?: string;
 }
 
 export class CoreTransformer {
-    public getSimpleSuccessResponse(message: String, data: Object | null = null) {
+    public getSimpleSuccessResponse(message: string, data: Object | null = null) {
         const successSimpleResponse: IResponse = {
             error: 0,
             data: data,
@@ -14,7 +14,7 @@ export class CoreTransformer {
         return successSimpleResponse;
     }
 
-    public getErrorResponse(errorMessage: String, errorObject: Object | null = null) {
+    public getErrorResponse(errorMessage: string, errorObject: Object | null = null) {
         const errorResponse: IResponse = {
             error: 1,
             data: errorObject,

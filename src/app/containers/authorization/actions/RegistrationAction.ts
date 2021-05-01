@@ -21,7 +21,7 @@ class RegistrationAction extends CoreAction {
                 message: "Пользователь с такой почтой или номером телефона уже существует",
             };
 
-        let hashedPassword: String, confirmationToken: String;
+        let hashedPassword: string, confirmationToken: string;
         try {
             const salt = await bcrypt.genSalt(10);
             hashedPassword = await bcrypt.hash(req.body.password, salt);

@@ -2,7 +2,7 @@ import { CoreTask } from "../../../ship/core/task/CoreTask";
 import { Doctor } from "../models/Doctor";
 
 class CreateNewDoctorTask extends CoreTask {
-    public run = async (id: Number): Promise<Doctor> => {
+    public run = async (id: number): Promise<Doctor> => {
         return await Doctor.create({
             id: id,
         });

@@ -1,7 +1,7 @@
 import fs from "fs";
 import nodemailer from "nodemailer";
 
-export const sendMail = async (recipient: String, subject: String, html: String) => {
+export const sendMail = async (recipient: string, subject: string, html: string) => {
     let transporter = nodemailer.createTransport({
         service: "Gmail",
         // host: "smtp.gmail.com",
