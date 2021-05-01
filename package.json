@@ -23,6 +23,7 @@
     "devDependencies": {},
     "dependencies": {
         "@types/express": "^4.17.9",
+        "@types/socket.io": "^2.1.13",
         "bcryptjs": "^2.4.3",
         "date-fns": "^2.19.0",
         "dotenv": "^8.2.0",
@@ -37,6 +38,7 @@
         "pm2": "^4.5.4",
         "redoc": "^2.0.0-rc.48",
         "sequelize": "^6.3.5",
+        "socket.io": "^4.0.1",
         "swagger-ui-express": "^4.1.6",
         "ts-node": "^9.1.1",
         "tslint": "^6.1.3",

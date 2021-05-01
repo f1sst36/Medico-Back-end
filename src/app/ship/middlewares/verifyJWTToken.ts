@@ -2,10 +2,10 @@ import jwt from 'jsonwebtoken';
 
 import { Response, NextFunction } from 'express';
 
-const prefix = '/api/v1';
+const prefix: string = '/api/v1';
 
 // урлы доступные без авторизации
-const exceptUrls = [
+const exceptUrls: Array<string> = [
     '/api-docs',
     prefix + '/auth/sign-in',
     prefix + '/auth/sign-up',
@@ -19,7 +19,7 @@ const exceptUrls = [
     prefix + '/doctor/review/list',
 ];
 
-export const verifyJWTToken = (req, res: Response, next: NextFunction) => {
+export const verifyJWTToken = (req: any, res: Response, next: NextFunction) => {
     if (req.url.indexOf(prefix) === -1) return next();
 
     for (let i = 0; i < exceptUrls.length; i++)

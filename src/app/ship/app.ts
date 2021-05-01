@@ -19,6 +19,7 @@ import { linkModels } from './database/relationships';
 export class App {
     public app: Application;
     public port: number;
+    public server: any;
     public sequelize: Sequelize;
 
     constructor(appInit: {
@@ -37,6 +38,8 @@ export class App {
 
         this.initDataBaseConnection();
         this.initModels(appInit.models);
+
+        this.server = require('http').createServer(this.app);
 
         // force: true - удалит все таблицы и накатит заново
         this.sequelize.sync({ force: false });
@@ -96,6 +99,15 @@ export class App {
             });
             return res.send(html);
         });
+
+        // this.app.use(express.static(path.join(__dirname, './public')));
+
+        this.app.get('/chat', (_, res: Response) => {
+            const html = fs.readFileSync(path.join(__dirname, './public/index.html'), {
+                encoding: 'utf-8',
+            });
+            return res.send(html);
+        });
     }
 
     private initDataBaseConnection() {
@@ -127,13 +139,24 @@ export class App {
         linkModels();
     }
 
+    private initSocketConnection() {
+        const io: SocketIO.Server = require('socket.io')(this.server);
+
+        io.on('connection', (socket) => {
+            console.log('connected');
+
+            socket.emit('authorized', { message: "Hello from backend", id: socket.id });
+        });
+    }
+
     private initSwagger() {
         this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerOptions));
     }
 
     public listen() {
-        this.app.listen(this.port, () => {
+        this.server.listen(this.port, () => {
             console.log(`App is working on the port ${this.port}`);
+            this.initSocketConnection();
         });
     }
 }
