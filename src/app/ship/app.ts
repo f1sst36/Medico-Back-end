@@ -156,7 +156,7 @@ export class App {
     public listen() {
         this.server.listen(this.port, () => {
             console.log(`App is working on the port ${this.port}`);
-            this.initSocketConnection();
+            // this.initSocketConnection();
         });
     }
 }

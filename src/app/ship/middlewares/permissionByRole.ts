@@ -33,6 +33,7 @@ const doctorUrls = [
     prefix + '/user/change-user-info',
     prefix + '/consultation/cancel',
     prefix + '/consultation/patients-for-doctor',
+    prefix + '/patient/consultation-info',
 ];
 
 // Урлы доступные авторизованому доктору без пройденной анкеты и верефицирования

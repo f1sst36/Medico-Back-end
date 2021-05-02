@@ -13,6 +13,7 @@ interface IResult {
         name: string;
     };
     doctor: {
+        id: number;
         photo: string;
         name: string;
         surname: string;
@@ -37,6 +38,7 @@ class ConsultationsForCurrentPatientTransformer extends CoreTransformer {
                     name: consultations[i].doctorSpecialty.getDataValue('name'),
                 },
                 doctor: {
+                    id: consultations[i].doctor.getDataValue('id'),
                     name: consultations[i].doctor.user.getDataValue('name'),
                     surname: consultations[i].doctor.user.getDataValue('surname'),
                     middleName: consultations[i].doctor.user.getDataValue('middleName'),

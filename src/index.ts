@@ -34,6 +34,7 @@ import { permissionByRole } from './app/ship/middlewares/permissionByRole';
 import { ConsultationController } from './app/containers/consultation/controllers/ConsultationController';
 import { Analysis, analysisSchema } from './app/containers/patient/models/Analysis';
 import { AnalysisController } from './app/containers/patient/controllers/AnalysisController';
+import { PatientController } from './app/containers/patient/controllers/PatientController';
 
 const app = new App({
     port: +process.env.PORT || 8080,
@@ -49,6 +50,7 @@ const app = new App({
         new ReviewController(),
         new ConsultationController(),
         new AnalysisController(),
+        new PatientController()
     ],
     middlewares: [allowCrossDomain, verifyJWTToken, jsonErrorHandler, permissionByRole],
     models: [

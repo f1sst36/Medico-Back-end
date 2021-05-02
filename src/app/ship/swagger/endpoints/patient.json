@@ -469,5 +469,204 @@
                 }
             }
         ]
+    },
+    "/patient/consultation-info?patientId={patientId}&consultationId={consultationId}": {
+        "get": {
+            "tags": ["Patient"],
+            "security": {
+                "bearerAuth": []
+            },
+            "description": "Method only for doctor. Get information about the patient with whom there is a consultation",
+            "responses": {
+                "200": {
+                    "description": "Successfully getted info",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                                "type": "integer",
+                                "example": 0
+                            },
+                            "data": {
+                                "type": "object",
+                                "example": {
+                                    "patient": {
+                                        "avatar": null,
+                                        "height": 180,
+                                        "weight": 80,
+                                        "bloodType": "II",
+                                        "isSmoker": "Нет",
+                                        "isAlcoholic": "1 раз в год",
+                                        "operations": null,
+                                        "bloodTransfusion": "нет",
+                                        "chronicDiseases": null,
+                                        "allergies": null,
+                                        "analyzes": [
+                                            {
+                                                "id": 1,
+                                                "name": "name of ......",
+                                                "type": "snapshot",
+                                                "path": "/storage/files/_70O2585.jpg",
+                                                "analysisDeliveryDate": "2021-04-25T07:34:57.000Z"
+                                            }
+                                        ]
+                                    },
+                                    "currentConsultation": {
+                                        "id": 81,
+                                        "symptoms": "gsehdjhfjutrfykjtyik"
+                                    },
+                                    "history": [
+                                        {
+                                            "id": 1,
+                                            "receptionDate": "2021-04-25T08:00:00.000Z",
+                                            "appointment": "Это текст назвачения врача ",
+                                            "doctor": {
+                                                "id": 18,
+                                                "name": "Николай",
+                                                "surname": "Кличенко",
+                                                "middleName": "Николаевич"
+                                            },
+                                            "doctorSpecialty": {
+                                                "id": 9,
+                                                "name": "Офтальмолог"
+                                            }
+                                        },
+                                        {
+                                            "id": 2,
+                                            "receptionDate": "2021-04-27T10:00:00.000Z",
+                                            "appointment": "Это текст назвачения врача ",
+                                            "doctor": {
+                                                "id": 17,
+                                                "name": "Степан",
+                                                "surname": "Кличенко",
+                                                "middleName": "Николаевич"
+                                            },
+                                            "doctorSpecialty": {
+                                                "id": 13,
+                                                "name": "Педиатр"
+                                            }
+                                        }
+                                    ]
+                                }
+                            },
+                            "message": {
+                                "type": "string",
+                                "description": "Reply message",
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+
+                "422": {
+                    "description": "Unprocessable Etity",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "data": {
+                                "type": "object",
+                                "example": null
+                            },
+                            "message": {
+                                "type": "string",
+                                "example": "Ошибка получения консультаций"
+                            }
+                        }
+                    }
+                },
+                "400*": {
+                    "description": "Validation errors",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "data": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                },
+                                "example": ["Неверный формат данных"]
+                            },
+                            "message": {
+                                "type": "string",
+                                "description": "Reply message",
+                                "example": "Ошибка валидации"
+                            }
+                        }
+                    }
+                },
+                "404": {
+                    "description": "Not found",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "data": {
+                                "type": "object",
+                                "example": null
+                            },
+                            "message": {
+                                "type": "string",
+                                "description": "Reply message",
+                                "example": "Пациент не найден"
+                            }
+                        }
+                    }
+                },
+                "403": {
+                    "description": "Forbidden",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "data": {
+                                "type": "object",
+                                "example": null
+                            },
+                            "message": {
+                                "type": "string",
+                                "description": "Reply message",
+                                "example": "Нет прав на получение информации о пациенте"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "parameters": [
+            {
+                "name": "patientId",
+                "in": "query",
+                "description": "Patient's id",
+                "required": true,
+                "schema": {
+                    "type": "integer",
+                    "example": "patientId=1"
+                }
+            },
+            {
+                "name": "consultationId",
+                "in": "query",
+                "description": "Id of consultation",
+                "required": true,
+                "schema": {
+                    "type": "integer",
+                    "example": "consultationId=80"
+                }
+            }
+        ]
     }
 }

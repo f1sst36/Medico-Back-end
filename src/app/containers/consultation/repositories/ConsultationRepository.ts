@@ -69,7 +69,7 @@ class ConsultationRepository extends CoreRepository {
                                 attributes: ['name', 'surname', 'middleName'],
                             },
                         ],
-                        attributes: ['photo'],
+                        attributes: ['id', 'photo'],
                     },
                 ],
                 attributes: ['id', 'receptionDate'],
@@ -187,15 +187,53 @@ class ConsultationRepository extends CoreRepository {
         }
     };
 
-    public consultationByPatientAndDocotrIds = (patientId: number, doctorId: number): Promise<Consultation> => {
+    public consultationByPatientAndDocotrIds = (
+        patientId: number,
+        doctorId: number,
+        consultationId: number
+    ): Promise<Consultation> => {
         try {
             return this.model.findOne({
                 where: {
                     [Op.or]: [{ state: 'waiting' }, { state: 'active' }],
                     patientId: patientId,
                     doctorId: doctorId,
+                    id: consultationId,
                 },
                 attributes: ['id', 'symptoms'],
+            });
+        } catch (e) {
+            return null;
+        }
+    };
+
+    public pastPatientConsultations = (patientId: number): Promise<Array<Consultation>> => {
+        try {
+            return this.model.findAll({
+                where: {
+                    state: 'done',
+                    patientId: patientId,
+                },
+                include: [
+                    {
+                        model: Doctor,
+                        as: 'doctor',
+                        include: [
+                            {
+                                model: User,
+                                as: 'user',
+                                attributes: ['name', 'surname', 'middleName'],
+                            },
+                        ],
+                        attributes: ['id'],
+                    },
+                    {
+                        model: Specialty,
+                        as: 'doctorSpecialty',
+                        attributes: ['id', 'name'],
+                    },
+                ],
+                attributes: ['id', 'receptionDate', 'appointment'],
             });
         } catch (e) {
             return null;
