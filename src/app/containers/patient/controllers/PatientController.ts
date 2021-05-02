@@ -23,6 +23,7 @@ export class PatientController extends CoreController {
         );
     }
 
+    // Информация о пациете для врача, у которого есть консультация с этим пациентом
     public getPatientInfoForConsultation = async (req: any, res: Response): Promise<Response> => {
         if (this.validateRequest(req, res)) return;
 
