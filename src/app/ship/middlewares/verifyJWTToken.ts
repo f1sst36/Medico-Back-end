@@ -31,6 +31,12 @@ export const verifyJWTToken = (req: any, res: Response, next: NextFunction) => {
 
     try {
         const verified = jwt.verify(accessToken, process.env.TOKEN_SECRET_KEY);
+
+        if (!verified._expired || verified._expired < new Date())
+            return res
+                .status(401)
+                .send({ error: 1, data: null, message: 'Истекло время жизни токена авторизации' });
+
         req.user = verified._user;
 
         // проверка на isActivated происходит во время логина (входа)
