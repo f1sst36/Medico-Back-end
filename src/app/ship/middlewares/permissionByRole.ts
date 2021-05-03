@@ -33,6 +33,7 @@ const doctorUrls = [
     prefix + '/user/change-user-info',
     prefix + '/consultation/cancel',
     prefix + '/consultation/patients-for-doctor',
+    prefix + '/consultation/add-appointment',
     prefix + '/patient/consultation-info',
 ];
 
