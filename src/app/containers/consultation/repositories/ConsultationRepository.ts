@@ -240,7 +240,7 @@ class ConsultationRepository extends CoreRepository {
         }
     };
 
-    public getWaitingOrActiveConsultationByIds = (
+    public getActiveConsultationByIds = (
         doctorId: number,
         patientId: number,
         consultationId: number
@@ -250,10 +250,10 @@ class ConsultationRepository extends CoreRepository {
                 where: {
                     doctorId: doctorId,
                     patientId: patientId,
-                    consultationId: consultationId,
-                    [Op.or]: [{ state: 'waiting' }, { state: 'active' }],
+                    id: consultationId,
+                    state: 'active',
                 },
-                attributes: ['id', 'appointment']
+                attributes: ['id', 'appointment'],
             });
         } catch (e) {
             return null;

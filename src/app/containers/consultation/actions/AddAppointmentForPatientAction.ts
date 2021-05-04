@@ -8,7 +8,7 @@ class AddAppointmentForPatientAction extends CoreAction {
         consultationId: number,
         appointmentText: string
     ): Promise<IResult> => {
-        const consultation = await consultationRepository.getWaitingOrActiveConsultationByIds(
+        const consultation = await consultationRepository.getActiveConsultationByIds(
             doctorId,
             patientId,
             consultationId

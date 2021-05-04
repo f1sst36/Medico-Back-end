@@ -806,5 +806,113 @@
                 }
             ]
         }
+    },
+    "/consultation/add-appointment": {
+        "post": {
+            "tags": ["Consultation"],
+            "security": {
+                "bearerAuth": []
+            },
+            "description": "Only dor doctor. Leave the appointment for patient",
+            "responses": {
+                "200": {
+                    "description": "Success",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                                "type": "integer",
+                                "example": 0
+                            },
+                            "data": {
+                                "type": "Object",
+                                "example": {
+                                    "abc": "Пока не протестил из-за отсутствия переключения состояний для консультации"
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "example": "",
+                                    "description": "Reply message"
+                                }
+                            }
+                        }
+                    }
+                },
+                "403": {
+                    "description": "Forbidden",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "data": {
+                                "type": "object",
+                                "example": null
+                            },
+                            "message": {
+                                "type": "string",
+                                "example": "Недостаточно прав на выполнение метода",
+                                "description": "Reply message"
+                            }
+                        }
+                    }
+                },
+                "422": {
+                    "description": "Unknown error",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "data": {
+                                "type": "object",
+                                "example": null
+                            },
+                            "message": {
+                                "type": "string",
+                                "example": "Ошибка добавления назначения",
+                                "description": "Reply message"
+                            }
+                        }
+                    }
+                }
+            },
+            "parameters": [
+                {
+                    "name": "patientId",
+                    "in": "body",
+                    "description": "Id of patient",
+                    "required": true,
+                    "schema": {
+                        "type": "number",
+                        "example": { "patientId": 1 }
+                    }
+                },
+                {
+                    "name": "consultationId",
+                    "in": "body",
+                    "description": "Id of consultation",
+                    "required": true,
+                    "schema": {
+                        "type": "number",
+                        "example": { "consultationId": 1 }
+                    }
+                },
+                {
+                    "name": "appointmentText",
+                    "in": "body",
+                    "description": "Text of appointment",
+                    "required": true,
+                    "schema": {
+                        "type": "string",
+                        "example": { "appointmentText": "foobabarabrbarabrar" }
+                    }
+                }
+            ]
+        }
     }
 }

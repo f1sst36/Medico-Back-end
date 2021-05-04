@@ -15,6 +15,7 @@ import fileUpload from 'express-fileupload';
 
 import { Seeder } from './database/seeders';
 import { linkModels } from './database/relationships';
+import { checkConsultationState } from '../containers/consultation/schedules/CheckConsultationState';
 
 export class App {
     public app: Application;
@@ -38,6 +39,8 @@ export class App {
 
         this.initDataBaseConnection();
         this.initModels(appInit.models);
+
+        //this.initSchedules();
 
         this.server = require('http').createServer(this.app);
 
@@ -145,8 +148,12 @@ export class App {
         io.on('connection', (socket) => {
             console.log('connected');
 
-            socket.emit('authorized', { message: "Hello from backend", id: socket.id });
+            socket.emit('authorized', { message: 'Hello from backend', id: socket.id });
         });
+    }
+
+    private async initSchedules() {
+        await checkConsultationState.run();
     }
 
     private initSwagger() {

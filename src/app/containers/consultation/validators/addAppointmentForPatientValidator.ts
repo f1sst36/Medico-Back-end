@@ -1,7 +1,7 @@
 const Validator = require('express-validator');
 
 export const addAppointmentForPatientValidator = [
-    Validator.body('pateintId', 'Необходимо указать id пациента')
+    Validator.body('patientId', 'Необходимо указать id пациента')
         .isInt({ min: 1 })
         .withMessage('id пациента должно быть больше нуля'),
     Validator.body('consultationId', 'Необходимо указать id консультации')
