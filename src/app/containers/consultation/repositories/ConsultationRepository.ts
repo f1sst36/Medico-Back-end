@@ -259,6 +259,19 @@ class ConsultationRepository extends CoreRepository {
             return null;
         }
     };
+
+    public getAllConsultationsForRedisByState = (state: string): Promise<Array<Consultation>> => {
+        try {
+            return this.model.findAll({
+                where: {
+                    state: state,
+                },
+                attributes: ['id', 'receptionDate'],
+            });
+        } catch (e) {
+            return null;
+        }
+    };
 }
 
 export const consultationRepository = new ConsultationRepository();

@@ -3,8 +3,12 @@ import { CoreSeed } from './CoreSeed';
 
 export class ConsultationSeed extends CoreSeed {
     private createConsultation = async () => {
+        const randomDay = this.randomInt(1, 15);
         const receptionDate = new Date(
-            `2021-04-${this.randomInt(17, 30)}T${this.randomInt(10, 18)}:00:00`
+            `2021-05-${randomDay < 10 ? '0' + randomDay : randomDay}T${this.randomInt(
+                10,
+                18
+            )}:00:00`
         );
 
         await Consultation.create({

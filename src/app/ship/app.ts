@@ -40,7 +40,7 @@ export class App {
         this.initDataBaseConnection();
         this.initModels(appInit.models);
 
-        //this.initSchedules();
+        // this.initSchedules();
 
         this.server = require('http').createServer(this.app);
 
