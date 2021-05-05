@@ -272,6 +272,21 @@ class ConsultationRepository extends CoreRepository {
             return null;
         }
     };
+
+    public getConsultationForRedisById = (
+        consultationId: number,
+    ): Promise<Consultation> => {
+        try {
+            return this.model.findOne({
+                where: {
+                    id: consultationId,
+                },
+                attributes: ['id', 'state'],
+            });
+        } catch (e) {
+            return null;
+        }
+    };
 }
 
 export const consultationRepository = new ConsultationRepository();

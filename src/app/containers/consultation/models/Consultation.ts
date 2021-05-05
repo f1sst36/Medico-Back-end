@@ -75,7 +75,7 @@ export const consultationSchema = {
     },
     state: {
         allowNull: false,
-        type: DataTypes.ENUM('active', 'canceled', 'done', 'waiting'),
+        type: DataTypes.ENUM('active', 'canceled', 'done', 'waiting', 'error'),
         defaultValue: 'waiting',
     },
     isFirstConsultation: {
