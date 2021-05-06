@@ -7,9 +7,9 @@ import redis from 'redis';
 // export const client = redis.createClient(process.env.REDISCLOUD_URL, { no_ready_check: true });
 export const client = redis.createClient(process.env.REDISCLOUD_URL);
 
-client.set('foo', 'bar');
-client.get('foo', (e, reply) => {
-    if (e) return console.log('redis error', e);
+// client.set('foo', 'bar');
+// client.get('foo', (e, reply) => {
+//     if (e) return console.log('redis error', e);
 
-    console.log(reply.toString());
-});
+//     console.log(reply.toString());
+// });
