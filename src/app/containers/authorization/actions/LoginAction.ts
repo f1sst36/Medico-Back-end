@@ -26,11 +26,17 @@ class LoginAction extends CoreAction {
         const validPass = await bcrypt.compare(req.body.password, user.password);
         if (!validPass) return { error: 1, message: 'Неверный логин или пароль' };
 
-        let fullUser: any = {};
+        let fullUser: any;
         if (user.userType === 'patient')
             fullUser = await patientRepository.getPatientByIdForToken(user.id);
         else if (user.userType === 'doctor')
             fullUser = await doctorRepository.getDoctorByIdForToken(user.id);
+
+        if (!fullUser)
+            return {
+                error: 1,
+                message: 'Ошибка входа',
+            };
 
         let token;
         try {

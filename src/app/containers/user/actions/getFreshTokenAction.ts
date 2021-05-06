@@ -7,6 +7,15 @@ import { Patient } from '../../patient/models/Patient';
 import { Doctor } from '../../doctor/models';
 
 class GetFreshTokenAction extends CoreAction {
+    // Кол-во дней жизни токена авторизации
+    private tokenLifeTime = 1;
+
+    private getExpiredDate = (): Date => {
+        const date = new Date();
+        date.setDate(date.getDate() + this.tokenLifeTime);
+        return date;
+    };
+
     public run = async (user: Patient | Doctor): Promise<IResult> => {
         //user - это данные о пользователе из токена
 
@@ -24,7 +33,10 @@ class GetFreshTokenAction extends CoreAction {
 
         let token;
         try {
-            token = await jwt.sign({ _user: fullUser.dataValues }, process.env.TOKEN_SECRET_KEY);
+            token = await jwt.sign(
+                { _user: fullUser.dataValues, _expired: this.getExpiredDate() },
+                process.env.TOKEN_SECRET_KEY
+            );
         } catch (e) {
             console.log('GetFreshTokenAction jwt.sign ERROR', e);
             return { error: 1, message: 'Ошибка генерации токена' };
