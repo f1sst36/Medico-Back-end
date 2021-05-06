@@ -281,7 +281,7 @@ class ConsultationRepository extends CoreRepository {
                 where: {
                     id: consultationId,
                 },
-                attributes: ['id', 'state'],
+                attributes: ['id', 'state', 'receptionDate'],
             });
         } catch (e) {
             return null;
