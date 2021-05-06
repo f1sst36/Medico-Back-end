@@ -19,7 +19,10 @@ export const isValidImageValidator = (files: any): Array<String> | false => {
         errMessages.push('Ошибка получения файла');
         return errMessages;
     }
-    if (!files.file) errMessages.push('Необходимо загрузить фотографию анализа');
+    if (!files.file) {
+        errMessages.push('Необходимо загрузить фотографию анализа');
+        return errMessages;
+    }
 
     if (files.file.mimetype !== 'image/jpeg' && files.file.mimetype !== 'image/png')
         errMessages.push('Неверный формат изображения');

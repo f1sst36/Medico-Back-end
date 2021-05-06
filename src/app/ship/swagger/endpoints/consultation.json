@@ -813,7 +813,7 @@
             "security": {
                 "bearerAuth": []
             },
-            "description": "Only dor doctor. Leave the appointment for patient",
+            "description": "Only for doctor. Leave the appointment for patient. Can be used only while the consultation is have 'active' state",
             "responses": {
                 "200": {
                     "description": "Success",
@@ -826,14 +826,16 @@
                             },
                             "data": {
                                 "type": "Object",
-                                "example": {
-                                    "abc": "Пока не протестил из-за отсутствия переключения состояний для консультации"
-                                },
+                                "example": null,
                                 "message": {
                                     "type": "string",
                                     "example": "",
                                     "description": "Reply message"
                                 }
+                            },
+                            "message": {
+                                "type": "string",
+                                "example": ""
                             }
                         }
                     }

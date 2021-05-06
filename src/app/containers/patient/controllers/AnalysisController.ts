@@ -4,12 +4,14 @@ import { Request, Response } from 'express';
 import { CoreController } from '../../../ship/core/controller/CoreController';
 import { coreTransformer } from '../../../ship/core/transformer/CoreTransformer';
 import { createAnalysisTask } from '../tasks/CreateAnalysisTask';
+import { deleteAnalysisTask } from '../tasks/DeleteAnalysisTask';
 import { getAllAnalyzesByPatientIdTask } from '../tasks/GetAllAnalyzesByPatientIdTask';
 import { appendAnalysisTransformer } from '../transformers/AppendAnalysisTransformer';
 import {
     appendAnalysisValidator,
     isValidImageValidator,
 } from '../validators/appendAnalysisValidator';
+import { deleteAnalysisValidator } from '../validators/deleteAnalysisValidator';
 
 export class AnalysisController extends CoreController {
     constructor() {
@@ -22,6 +24,8 @@ export class AnalysisController extends CoreController {
     public initRoutes() {
         this.router.get(this.prefix + '/all', this.getAllAnalyzesForPatient);
         this.router.post(this.prefix + '/append', appendAnalysisValidator, this.appendAnalysis);
+        this.router.post(this.prefix + '/delete', deleteAnalysisValidator, this.deleteAnalysis);
+
     }
 
     public getAllAnalyzesForPatient = async (req: any, res: Response): Promise<Response> => {
@@ -61,5 +65,16 @@ export class AnalysisController extends CoreController {
                     appendAnalysisTransformer.transform(result.data)
                 )
             );
+    };
+
+    public deleteAnalysis = async (req: any, res: Response): Promise<Response> => {
+        if (this.validateRequest(req, res)) return;
+
+        const result = await deleteAnalysisTask.run(req.user.id, req.body.analysisId);
+
+        if (result.error)
+            return res.status(422).json(coreTransformer.getErrorResponse(result.message));
+
+        return res.status(200).json(coreTransformer.getSimpleSuccessResponse('', result.data));
     };
 }

@@ -161,5 +161,71 @@
                 "type": "file"
             }
         ]
+    },
+    "/patient/analysis/delete": {
+        "post": {
+            "tags": ["Analysis"],
+            "security": {
+                "bearerAuth": []
+            },
+            "description": "Delete the analysis. Can only be used for the patient",
+            "responses": {
+                "200": {
+                    "description": "Successfully deleted analysis",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                                "type": "integer",
+                                "example": 0
+                            },
+                            "data": {
+                                "type": "Object",
+                                "example": null
+                            },
+                            "message": {
+                                "type": "string",
+                                "example": "",
+                                "description": "Reply message"
+                            }
+                        }
+                    }
+                },
+                "422": {
+                    "description": "Unknown error",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "data": {
+                                "type": "object",
+                                "example": null
+                            },
+                            "message": {
+                                "type": "string",
+                                "example": "Ошибка удаления анализа",
+                                "description": "Reply message"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "parameters": [
+            {
+                "name": "analysisId",
+                "in": "body",
+                "description": "Id of analysis",
+                "required": true,
+                "type": "string",
+                "schema": {
+                    "type": "number",
+                    "example": { "analysisId": 1 }
+                }
+            }
+        ]
     }
 }

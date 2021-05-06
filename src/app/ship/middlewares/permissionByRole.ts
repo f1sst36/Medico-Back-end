@@ -16,6 +16,7 @@ const patientUrls = [
     prefix + '/consultation/appointments',
     prefix + '/patient/analysis/all',
     prefix + '/patient/analysis/append',
+    prefix + '/patient/analysis/delete',
     prefix + '/patient/profile/change-medical-card',
 ];
 

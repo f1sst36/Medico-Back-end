@@ -148,6 +148,50 @@ export class DoctorsSeed extends CoreSeed {
             'Мария',
         ];
 
+        await this.createDoctor(
+            {
+                name: 'Илья',
+                surname: 'Дожленко',
+                middleName: 'Андреевич',
+                sex: 'male',
+                birthDate: '2000-06-16',
+                phone: this.randomPhone(),
+                email: `ilya@mail.ru`,
+                isActivated: true,
+                hashedPassword: await bcrypt.hash('Q1w2e3r4', salt),
+                confirmationToken: await bcrypt.hash('ilya@mail.ru', salt),
+                acceptedUserAgreement: true,
+                userType: 'doctor',
+            },
+            {
+                IIN: '502313805346',
+                experience: format(
+                    new Date(
+                        this.randomInt(2000, 2021),
+                        this.randomInt(1, 12),
+                        this.randomInt(1, 30)
+                    ),
+                    'yyyy-MM-dd'
+                ),
+                photo: this.arrayRandElement(doctorPhotos),
+                summary: '/storage/files/summary.jpg',
+                diploma: '/storage/files/diploma.jpg',
+                about: 'Я врач - не мяч!',
+                rating: this.randomInt(1, 5),
+                workplaces: [
+                    'Саратовская клиника под Донбассом',
+                    'Центральная поликлинника города Ярославль',
+                ],
+                education: ['Высшее Томбовское образование', 'Грамота цетрального округа'],
+                sent: '2021-03-31',
+                isVerified: true,
+                costOfConsultation: (Math.round(Math.random() * 12) + 8) * 100,
+                workTime: `с ${Math.round(Math.random() * 4) + 8}:00 до ${
+                    Math.round(Math.random() * 6) + 14
+                }:00`,
+            }
+        );
+
         for (let i = 0; i < 30; i++) {
             await this.createDoctor(
                 {
@@ -193,49 +237,5 @@ export class DoctorsSeed extends CoreSeed {
                 }
             );
         }
-
-        await this.createDoctor(
-            {
-                name: 'Илья',
-                surname: 'Дожленко',
-                middleName: 'Андреевич',
-                sex: 'male',
-                birthDate: '2000-06-16',
-                phone: this.randomPhone(),
-                email: `ilya@mail.ru`,
-                isActivated: true,
-                hashedPassword: await bcrypt.hash('Q1w2e3r4', salt),
-                confirmationToken: await bcrypt.hash('ilya@mail.ru', salt),
-                acceptedUserAgreement: true,
-                userType: 'doctor',
-            },
-            {
-                IIN: '502313805346',
-                experience: format(
-                    new Date(
-                        this.randomInt(2000, 2021),
-                        this.randomInt(1, 12),
-                        this.randomInt(1, 30)
-                    ),
-                    'yyyy-MM-dd'
-                ),
-                photo: this.arrayRandElement(doctorPhotos),
-                summary: '/storage/files/summary.jpg',
-                diploma: '/storage/files/diploma.jpg',
-                about: 'Я врач - не мяч!',
-                rating: this.randomInt(1, 5),
-                workplaces: [
-                    'Саратовская клиника под Донбассом',
-                    'Центральная поликлинника города Ярославль',
-                ],
-                education: ['Высшее Томбовское образование', 'Грамота цетрального округа'],
-                sent: '2021-03-31',
-                isVerified: true,
-                costOfConsultation: (Math.round(Math.random() * 12) + 8) * 100,
-                workTime: `с ${Math.round(Math.random() * 4) + 8}:00 до ${
-                    Math.round(Math.random() * 6) + 14
-                }:00`,
-            }
-        );
     };
 }

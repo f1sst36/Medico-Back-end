@@ -19,6 +19,19 @@ class AnalysisRepository extends CoreRepository {
             return null;
         }
     };
+
+    deleteAlanysisById = (patientId: number, analysisId: number) => {
+        try {
+            return this.model.destroy({
+                where: {
+                    id: analysisId,
+                    patientId: patientId,
+                },
+            });
+        } catch (e) {
+            return null;
+        }
+    };
 }
 
 export const analysisRepository = new AnalysisRepository();
