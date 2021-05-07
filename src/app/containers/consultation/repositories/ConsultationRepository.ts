@@ -6,6 +6,7 @@ import { CommunicationMethod } from '../models/CommunicationMethod';
 
 import { Consultation } from '../models/Consultation';
 import { Patient } from '../../patient/models/Patient';
+import { addDays } from 'date-fns';
 
 class ConsultationRepository extends CoreRepository {
     constructor() {
@@ -265,6 +266,9 @@ class ConsultationRepository extends CoreRepository {
             return this.model.findAll({
                 where: {
                     state: state,
+                    receptionDate: {
+                        [Op.lt]: addDays(new Date().setHours(0, 0, 0, 0), 1),
+                    },
                 },
                 attributes: ['id', 'receptionDate'],
             });
@@ -273,9 +277,7 @@ class ConsultationRepository extends CoreRepository {
         }
     };
 
-    public getConsultationForRedisById = (
-        consultationId: number,
-    ): Promise<Consultation> => {
+    public getConsultationForRedisById = (consultationId: number): Promise<Consultation> => {
         try {
             return this.model.findOne({
                 where: {
