@@ -68,6 +68,7 @@ class CheckConsultationState {
         }
 
         console.log('checkConsultationsDate', reply);
+        console.log('currentDate', new Date());
 
         // Если в редисе пусто
         if (!reply) return;
