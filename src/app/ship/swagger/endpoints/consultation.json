@@ -382,13 +382,13 @@
             }
         ]
     },
-    "/consultation/doctors-for-patient?consultationState={waiting | done}": {
+    "/consultation/doctors-for-patient?consultationState={waiting | done | active}": {
         "get": {
             "tags": ["Consultation"],
             "security": {
                 "bearerAuth": []
             },
-            "description": "Patient's consultations by state (waiting or done)",
+            "description": "Patient's consultations by state (waiting, done or active)",
             "responses": {
                 "200": {
                     "description": "Successfully getted consultations list",

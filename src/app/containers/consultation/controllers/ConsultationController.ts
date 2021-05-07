@@ -48,6 +48,7 @@ export class ConsultationController extends CoreController {
         );
     }
 
+    // Метод для пациента
     public getConsultationsForCurrentPatient = async (
         req: any,
         res: Response
