@@ -4,6 +4,7 @@ import { CoreAction, IResult } from '../../../ship/core/action/CoreAction';
 import { consultationRepository } from '../repositories/ConsultationRepository';
 import { createConsultationTask } from '../tasks/CreateConsultationTask';
 import { getFreeDoctorTimeTask } from '../tasks/GetFreeDoctorTimeTask';
+import { writeConsultationsToRedisTask } from '../tasks/WriteConsultationsToRedisTask';
 
 interface IWorkingTime {
     time: number;
@@ -81,6 +82,20 @@ class AppointmentForConsultationAction extends CoreAction {
                 error: 1,
                 message: 'Ошибка записи на консультацию',
             };
+
+        // Записывается в редис только если запись на консультацию сегодня
+        if (
+            new Date(receptionDate).getMonth() === new Date().getMonth() &&
+            new Date(receptionDate).getHours() === new Date().getHours() &&
+            new Date(receptionDate).getFullYear() === new Date().getFullYear()
+        ) {
+            const writeToRedisResult = await writeConsultationsToRedisTask.run(consultation);
+            if (writeToRedisResult.error)
+                return {
+                    error: 1,
+                    message: writeToRedisResult.message || 'Ошибка записи на консультацию',
+                };
+        }
 
         return {
             error: 0,
