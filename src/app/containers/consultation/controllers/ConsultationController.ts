@@ -85,7 +85,7 @@ export class ConsultationController extends CoreController {
         return res.status(200).json(coreTransformer.getSimpleSuccessResponse(result.message));
     };
 
-    // Список консультаций для пациента
+    // Список назначений для пациента
     public getDoctorsAppointments = async (req: any, res: Response): Promise<Response> => {
         const result = await getDoctorsAppointmentsByPatientIdTask.run(req.user.id);
 
