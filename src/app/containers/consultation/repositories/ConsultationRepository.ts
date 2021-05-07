@@ -116,7 +116,7 @@ class ConsultationRepository extends CoreRepository {
                                 attributes: ['name', 'surname', 'middleName'],
                             },
                         ],
-                        attributes: ['photo'],
+                        attributes: ['id', 'photo'],
                     },
                     {
                         model: Specialty,

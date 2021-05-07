@@ -5,6 +5,7 @@ interface ITransformedResult {
     appointment: string;
     receptionDate: Date;
     doctor: {
+        id: number;
         name: string;
         surname: string;
         middleName: string;
@@ -22,6 +23,7 @@ class GetDoctorsAppointmentsTransformer extends CoreTransformer {
                 appointment: consultations[i].getDataValue('appointment'),
                 receptionDate: consultations[i].getDataValue('receptionDate'),
                 doctor: {
+                    id: consultations[i].doctor.getDataValue('id'),
                     name: consultations[i].doctor.user.getDataValue('name'),
                     surname: consultations[i].doctor.user.getDataValue('surname'),
                     middleName: consultations[i].doctor.user.getDataValue('middleName'),

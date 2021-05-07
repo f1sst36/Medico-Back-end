@@ -619,6 +619,7 @@
                                         "appointment": "Это текст назвачения врача ",
                                         "receptionDate": "2021-04-20T11:00:00.000Z",
                                         "doctor": {
+                                            "id": 35,
                                             "name": "Ольга",
                                             "surname": "Кличенко",
                                             "middleName": "",
@@ -630,6 +631,7 @@
                                         "appointment": "Это текст назвачения врача ",
                                         "receptionDate": "2021-04-28T09:00:00.000Z",
                                         "doctor": {
+                                            "id": 21,
                                             "name": "Илья",
                                             "surname": "Кличенко",
                                             "middleName": "Николаевич",

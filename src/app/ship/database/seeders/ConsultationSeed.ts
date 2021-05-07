@@ -3,7 +3,7 @@ import { CoreSeed } from './CoreSeed';
 
 export class ConsultationSeed extends CoreSeed {
     private createConsultation = async () => {
-        const randomDay = this.randomInt(6, 10);
+        const randomDay = this.randomInt(7, 10);
         const receptionDate = new Date(
             `2021-05-${randomDay < 10 ? '0' + randomDay : randomDay}T${this.randomInt(
                 10,
@@ -25,7 +25,7 @@ export class ConsultationSeed extends CoreSeed {
     };
 
     public run = () => {
-        for (let i = 0; i < 20; i++) {
+        for (let i = 0; i < 30; i++) {
             this.createConsultation();
         }
     };

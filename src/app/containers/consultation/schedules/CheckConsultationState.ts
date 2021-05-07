@@ -9,8 +9,11 @@ import { consultationRepository } from '../repositories/ConsultationRepository';
 class CheckConsultationState {
     // Длительность консультации в часах
     private consultationDuration: number = 1;
+
     private WAITING_LIST_NAME: string = 'consultations:waiting';
     private ACTIVE_LIST_NAME: string = 'consultations:active';
+
+    private checkRedisJob: any;
 
     private getConsultationsByState = async (state: string): Promise<Array<Consultation>> => {
         const consultations = await consultationRepository.getAllConsultationsForRedisByState(
@@ -63,6 +66,8 @@ class CheckConsultationState {
             console.log('checkConsultationsDate', e);
             return;
         }
+
+        // console.log('checkConsultationsDate');
 
         // Если в редисе пусто
         if (!reply) return;
@@ -142,12 +147,7 @@ class CheckConsultationState {
         }
     };
 
-    // Этот метод run (а точнее то, что в секции try), необходимо вызывать раз в сутки (в 12 часов ночи).
-    // Перед этим надо почистить редис
-    public run = async () => {
-        // По идее редис автоматом почистит все с одинаковым ключем ('consultations:waiting' или 'consultations:active')
-        // при вызове метода 'client.hmset()',
-        // но возможно лучше почистить самому
+    private refreshRedisLists = async () => {
         await util.promisify(client.del).bind(client)(this.WAITING_LIST_NAME);
         await util.promisify(client.del).bind(client)(this.ACTIVE_LIST_NAME);
 
@@ -160,15 +160,34 @@ class CheckConsultationState {
         } catch (e) {
             console.log('Redis error', e);
         }
+    };
 
-        const job = schedule.scheduleJob('15 * * * * *', async () => {
-            // console.log('job');
-            
+    private syncTimer = async (): Promise<void> => {
+        await this.refreshRedisLists();
+
+        if (this.checkRedisJob) this.checkRedisJob.cancel();
+
+        this.checkRedisJob = schedule.scheduleJob('15 * * * * *', async () => {
+            console.log('job');
+
             await this.checkConsultationsDate(this.WAITING_LIST_NAME);
             await this.checkConsultationsDate(this.ACTIVE_LIST_NAME);
         });
+    };
 
-        // job.cancel();
+    // Этот метод run (а точнее то, что в секции try), необходимо вызывать раз в сутки (в 12 часов ночи).
+    // Перед этим надо почистить редис
+    public run = async () => {
+        // По идее редис автоматом почистит все с одинаковым ключем ('consultations:waiting' или 'consultations:active')
+        // при вызове метода 'client.hmset()',
+        // но возможно лучше почистить самому
+
+        await this.syncTimer();
+
+        const dayJob = schedule.scheduleJob('0 0 * * *', async () => {
+            // console.log('dayJob');
+            this.syncTimer();
+        });
     };
 }
 
