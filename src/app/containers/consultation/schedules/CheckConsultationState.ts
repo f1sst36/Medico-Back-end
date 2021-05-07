@@ -30,6 +30,8 @@ class CheckConsultationState {
         consultations: Array<Consultation>,
         state: string = 'waiting'
     ) => {
+        console.log('consultations', consultations);
+
         if (!consultations || !consultations.length) return;
 
         const list: Array<string> = [listName];
@@ -47,13 +49,15 @@ class CheckConsultationState {
             list.push(date);
         }
 
+        console.log('list', list);
+
         client.hmset(list, (err, _) => {
             if (err) throw err;
-        });
 
-        //86400
-        client.expire(listName, 60 * 60 * 24);
-        // Установка времени жизни ключа 24 часа
+            //86400
+            client.expire(listName, 60 * 60 * 24);
+            // Установка времени жизни ключа 24 часа
+        });
 
         // console.log(list);
     };
