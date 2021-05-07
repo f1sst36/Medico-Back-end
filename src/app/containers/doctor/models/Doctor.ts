@@ -81,31 +81,31 @@ const workTimeByDayDefault = [
         // 0 - воскресенье, 1 - понедельник
         dayNumber: 0,
         // 9 - 9:00, 14 - 14:00
-        workingHours: [10, 11],
+        workingHours: [9, 10, 11, 12, 14, 15, 16, 17, 18, 19, 20],
     },
     {
         dayNumber: 1,
-        workingHours: [9, 10, 11, 12, 14, 15, 16, 17, 18],
+        workingHours: [9, 10, 11, 12, 14, 15, 16, 17, 18, 19, 20],
     },
     {
         dayNumber: 2,
-        workingHours: [9, 10, 11, 12, 14, 15, 16, 17, 18],
+        workingHours: [9, 10, 11, 12, 14, 15, 16, 17, 18, 19, 20],
     },
     {
         dayNumber: 3,
-        workingHours: [9, 10, 11, 12, 14, 15, 16, 17, 18],
+        workingHours: [9, 10, 11, 12, 14, 15, 16, 17, 18, 19, 20],
     },
     {
         dayNumber: 4,
-        workingHours: [9, 10, 11, 12, 14, 15, 16, 17, 18],
+        workingHours: [9, 10, 11, 12, 14, 15, 16, 17, 18, 19, 20],
     },
     {
         dayNumber: 5,
-        workingHours: [9, 10, 11, 12, 14, 15],
+        workingHours: [9, 10, 11, 12, 14, 15, 16, 17, 18, 19, 20],
     },
     {
         dayNumber: 6,
-        workingHours: [10, 11],
+        workingHours: [9, 10, 11, 12, 14, 15, 16, 17, 18, 19, 20],
     },
 ];
 
