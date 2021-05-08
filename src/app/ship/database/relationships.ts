@@ -5,6 +5,9 @@ import { Review } from '../../containers/doctor/models/Review';
 import { Consultation } from '../../containers/consultation/models/Consultation';
 import { CommunicationMethod } from '../../containers/consultation/models/CommunicationMethod';
 import { Analysis } from '../../containers/patient/models/Analysis';
+import { Chat } from '../../containers/chat/models/Chat';
+import { Message } from '../../containers/chat/models/Message';
+import { MediaFile } from '../../containers/chat/models/MediaFile';
 
 export const linkModels = () => {
     Patient.hasOne(User, { as: 'user', foreignKey: 'id', constraints: false });
@@ -69,6 +72,17 @@ export const linkModels = () => {
     Patient.hasMany(Analysis, {
         as: 'analyzes',
         foreignKey: 'patientId',
+        constraints: false,
+    });
+    //
+    Chat.hasMany(Message, {
+        as: 'messages',
+        foreignKey: 'chatId',
+        constraints: false,
+    });
+    Message.hasMany(MediaFile, {
+        as: 'files',
+        foreignKey: 'messageId',
         constraints: false,
     });
 };

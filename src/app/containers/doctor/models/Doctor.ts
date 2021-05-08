@@ -5,7 +5,7 @@ import { CoreModel } from '../../../ship/core/model/CoreModel';
 import { User } from '../../user/models/User';
 import { Review } from './Review';
 
-interface IWorkTimeByDayItem {
+interface IWeeklyScheduleItem {
     dayNumber: number;
     workingHours: Array<number>;
 }
@@ -32,7 +32,7 @@ export class Doctor extends CoreModel {
     public rating: number;
     public costOfConsultation: number;
     public workTime: string;
-    public workTimeByDay: Array<IWorkTimeByDayItem>;
+    public weeklySchedule: Array<IWeeklyScheduleItem>;
 
     public user: User;
     public reviews: Array<Review>;
@@ -76,36 +76,36 @@ export class Doctor extends CoreModel {
     }
 }
 
-const workTimeByDayDefault = [
+const weeklyScheduleDefault = [
     {
         // 0 - воскресенье, 1 - понедельник
-        dayNumber: 0,
-        // 9 - 9:00, 14 - 14:00
-        workingHours: [9, 10, 11, 12, 14, 15, 16, 17, 18, 19, 20],
-    },
-    {
         dayNumber: 1,
-        workingHours: [9, 10, 11, 12, 14, 15, 16, 17, 18, 19, 20],
+        // 9 - 9:00, 14 - 14:00
+        workingHours: [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
     },
     {
         dayNumber: 2,
-        workingHours: [9, 10, 11, 12, 14, 15, 16, 17, 18, 19, 20],
+        workingHours: [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
     },
     {
         dayNumber: 3,
-        workingHours: [9, 10, 11, 12, 14, 15, 16, 17, 18, 19, 20],
+        workingHours: [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
     },
     {
         dayNumber: 4,
-        workingHours: [9, 10, 11, 12, 14, 15, 16, 17, 18, 19, 20],
+        workingHours: [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
     },
     {
         dayNumber: 5,
-        workingHours: [9, 10, 11, 12, 14, 15, 16, 17, 18, 19, 20],
+        workingHours: [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
     },
     {
         dayNumber: 6,
-        workingHours: [9, 10, 11, 12, 14, 15, 16, 17, 18, 19, 20],
+        workingHours: [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+    },
+    {
+        dayNumber: 0,
+        workingHours: [10, 11, 12, 13, 14, 15, 16, 17, 18],
     },
 ];
 
@@ -161,9 +161,9 @@ export const doctorSchema = {
         type: DataTypes.STRING,
         defaultValue: 'с 10:00 до 18:00',
     },
-    workTimeByDay: {
+    weeklySchedule: {
         allowNull: false,
         type: DataTypes.JSON,
-        defaultValue: workTimeByDayDefault,
+        defaultValue: weeklyScheduleDefault,
     },
 };

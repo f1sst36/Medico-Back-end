@@ -35,6 +35,9 @@ import { ConsultationController } from './app/containers/consultation/controller
 import { Analysis, analysisSchema } from './app/containers/patient/models/Analysis';
 import { AnalysisController } from './app/containers/patient/controllers/AnalysisController';
 import { PatientController } from './app/containers/patient/controllers/PatientController';
+import { Chat, chatSchema } from './app/containers/chat/models/Chat';
+import { Message, messageSchema } from './app/containers/chat/models/Message';
+import { MediaFile, mediaFileSchema } from './app/containers/chat/models/MediaFile';
 
 const app = new App({
     port: +process.env.PORT || 8080,
@@ -50,7 +53,7 @@ const app = new App({
         new ReviewController(),
         new ConsultationController(),
         new AnalysisController(),
-        new PatientController()
+        new PatientController(),
     ],
     middlewares: [allowCrossDomain, verifyJWTToken, jsonErrorHandler, permissionByRole],
     models: [
@@ -98,6 +101,21 @@ const app = new App({
             model: Analysis,
             schema: analysisSchema,
             tableName: 'Analyzes',
+        },
+        {
+            model: Chat,
+            schema: chatSchema,
+            tableName: 'Chats',
+        },
+        {
+            model: Message,
+            schema: messageSchema,
+            tableName: 'Messages',
+        },
+        {
+            model: MediaFile,
+            schema: mediaFileSchema,
+            tableName: 'MediaFiles',
         },
     ],
 });

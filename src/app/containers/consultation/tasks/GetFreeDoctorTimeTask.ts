@@ -18,6 +18,10 @@ class GetFreeDoctorTimeTask extends CoreTask {
         const currentDate: Date = new Date();
         let startDate: Date = new Date(format(parseISO(date), 'yyyy-MM-dd'));
 
+        console.log('date', date);
+        console.log('currentDate', currentDate);
+        console.log('startDate', startDate);
+
         let isEarly: Boolean = false;
         let isToday: Boolean = false;
 
@@ -38,9 +42,9 @@ class GetFreeDoctorTimeTask extends CoreTask {
             endDate
         );
 
-        // Получаем доктора с одним полем workTimeByDay, в котором json дней недели и часов в которые доктор предпочитает работать
+        // Получаем доктора с одним полем weeklySchedule, в котором json дней недели и часов в которые доктор предпочитает работать
         // На будущее - запрети изменять доктору его расписание если у него назначены конультации
-        const doctor = await doctorRepository.getDoctorsWorkTimeByDay(doctorId);
+        const doctor = await doctorRepository.getDoctorsWeeklySchedule(doctorId);
 
         if (!doctor || !consultations)
             return {
@@ -48,7 +52,7 @@ class GetFreeDoctorTimeTask extends CoreTask {
                 message: 'Врач не найден или ошибка поиска консультации',
             };
 
-        const doctorsWorkTime = doctor.getDataValue('workTimeByDay');
+        const doctorsWorkTime = doctor.getDataValue('weeklySchedule');
 
         // Получаем часы из расписания доктора на заданный день (date)
         let workingHoursInThatDay: Array<number> = doctorsWorkTime.find(

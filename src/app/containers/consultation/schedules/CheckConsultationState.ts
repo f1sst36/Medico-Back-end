@@ -71,7 +71,7 @@ class CheckConsultationState {
             return;
         }
 
-        console.log('checkConsultationsDate', reply);
+        console.log(listName, reply);
         console.log('currentDate', new Date());
 
         // Если в редисе пусто
@@ -172,7 +172,7 @@ class CheckConsultationState {
 
         if (this.checkRedisJob) this.checkRedisJob.cancel();
 
-        this.checkRedisJob = schedule.scheduleJob('15 * * * * *', async () => {
+        this.checkRedisJob = schedule.scheduleJob('30 * * * * *', async () => {
             console.log('job');
 
             await this.checkConsultationsDate(this.WAITING_LIST_NAME);
@@ -189,7 +189,7 @@ class CheckConsultationState {
 
         await this.syncTimer();
 
-        const dayJob = schedule.scheduleJob('0 0 * * *', async () => {
+        const dayJob = schedule.scheduleJob('0 */6 * * *', async () => {
             // console.log('dayJob');
             this.syncTimer();
         });

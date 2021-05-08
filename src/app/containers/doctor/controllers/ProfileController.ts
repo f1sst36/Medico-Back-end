@@ -8,6 +8,10 @@ import {
 } from '../validators/doctorQuestionnaireFormValidator';
 import { coreTransformer } from '../../../ship/core/transformer/CoreTransformer';
 import { doctorQuestionnaireAction } from '../actions/DoctorQuestionnaireAction';
+import { getDoctorsScheduleTask } from '../tasks/GetDoctorsScheduleTask';
+import { doctorsScheduleTransformer } from '../transformers/DoctorsScheduleTransformer';
+import { changeDoctorsScheduleAction } from '../actions/ChangeDoctorsScheduleAction';
+import { changeDoctorsScheduleValidator } from '../validators/changeDoctorsScheduleValidator';
 
 export class ProfileController extends CoreController {
     constructor() {
@@ -18,7 +22,17 @@ export class ProfileController extends CoreController {
     }
 
     public initRoutes() {
-        this.router.post(this.prefix + '/questionnaire', doctorQuestionnaireFormValidator, this.doctorQuestionnaireForm);
+        this.router.post(
+            this.prefix + '/questionnaire',
+            doctorQuestionnaireFormValidator,
+            this.doctorQuestionnaireForm
+        );
+        this.router.get(this.prefix + '/schedule', this.getDoctorsSchedule);
+        this.router.post(
+            this.prefix + '/change-schedule',
+            changeDoctorsScheduleValidator,
+            this.changeDoctorsSchedule
+        );
     }
 
     public doctorQuestionnaireForm = async (req: any, res: Response): Promise<Response> => {
@@ -40,5 +54,31 @@ export class ProfileController extends CoreController {
                     )
                 );
         else return res.status(422).json(coreTransformer.getErrorResponse(result.message));
+    };
+
+    // Метод только для доктора
+    public getDoctorsSchedule = async (req: any, res: Response): Promise<Response> => {
+        const result = await getDoctorsScheduleTask.run(req.user.id);
+
+        if (result.error)
+            return res.status(404).json(coreTransformer.getErrorResponse(result.message));
+
+        return res
+            .status(200)
+            .json(
+                coreTransformer.getSimpleSuccessResponse(
+                    '',
+                    doctorsScheduleTransformer.transform(result.data)
+                )
+            );
+    };
+
+    // Метод только для доктора
+    public changeDoctorsSchedule = async (req: any, res: Response): Promise<Response> => {
+        if (this.validateRequest(req, res)) return;
+
+        const result = await changeDoctorsScheduleAction.run(req.user.id, req.body.schedule);
+
+        return res.status(200).json(coreTransformer.getSimpleSuccessResponse('', result.data));
     };
 }

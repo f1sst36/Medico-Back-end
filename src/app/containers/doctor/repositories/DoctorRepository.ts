@@ -105,7 +105,7 @@ class DoctorRepository extends CoreRepository {
                     },
                 ],
                 attributes: {
-                    exclude: ['createdAt', 'updatedAt', 'diploma', 'summary', 'workTimeByDay'],
+                    exclude: ['createdAt', 'updatedAt', 'diploma', 'summary', 'weeklySchedule'],
                 },
             });
             return result;
@@ -412,13 +412,14 @@ class DoctorRepository extends CoreRepository {
         }
     };
 
-    public getDoctorsWorkTimeByDay = (doctorId: number): Promise<Doctor> => {
+    // Этот метод используется в двух разных тасках/экшенах!
+    public getDoctorsWeeklySchedule = (doctorId: number): Promise<Doctor> => {
         try {
             const result = this.model.findOne({
                 where: {
                     id: doctorId,
                 },
-                attributes: ['workTimeByDay'],
+                attributes: ['weeklySchedule'],
             });
             return result;
         } catch (_) {

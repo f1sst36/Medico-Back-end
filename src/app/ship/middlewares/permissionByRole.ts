@@ -36,6 +36,8 @@ const doctorUrls = [
     prefix + '/consultation/patients-for-doctor',
     prefix + '/consultation/add-appointment',
     prefix + '/patient/consultation-info',
+    prefix + '/doctor/profile/schedule',
+    prefix + '/doctor/profile/change-schedule',
 ];
 
 // Урлы доступные авторизованому доктору без пройденной анкеты и верефицирования
