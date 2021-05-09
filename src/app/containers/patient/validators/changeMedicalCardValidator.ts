@@ -19,6 +19,10 @@ export const changeMedicalCardValidator = [
         .optional()
         .isIn(['I', 'II', 'III', 'IV'])
         .withMessage('Неверный формат группы крови'),
+    Validator.body('RHFactor', 'Необходимо указать резус фактор')
+        .optional()
+        .isIn(['Rh+', 'Rh-'])
+        .withMessage('Неверный тип резус фактора'),
     Validator.body('allergies')
         .optional()
         .isString()
@@ -51,6 +55,12 @@ export const changeMedicalCardValidator = [
         .optional()
         .isIn(['1 раз в год', '1 раз в месяц', '1 раз в неделю', 'более 3 раз в неделю'])
         .withMessage('Неверный тип отношения к алкоголю'),
+    Validator.body('badHabits')
+        .optional()
+        .isLength({
+            max: 3000,
+        })
+        .withMessage("Максимальная длина поля 'Вредные привычки' 3000 символов"),
     Validator.body('bloodTransfusion')
         .optional()
         .isIn(['Да', 'Нет'])

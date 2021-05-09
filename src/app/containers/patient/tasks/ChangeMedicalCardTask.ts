@@ -6,11 +6,13 @@ interface IParam {
     weight: number;
     height: number;
     bloodType: string;
+    RHFactor: string;
     allergies: string;
     chronicDiseases: string;
     operations: string;
     isSmoker: string;
     isAlcoholic: string;
+    badHabits: string;
     bloodTransfusion: string;
 }
 
@@ -25,7 +27,9 @@ class ChangeMedicalCardTask extends CoreTask {
             !data.operations &&
             !data.isSmoker &&
             !data.isAlcoholic &&
-            !data.bloodTransfusion
+            !data.bloodTransfusion &&
+            !data.RHFactor &&
+            !data.badHabits
         )
             return { error: 1, message: 'Отсутствуют данные для изменения' };
 
