@@ -504,7 +504,7 @@ class DoctorRepository extends CoreRepository {
     public updateSchedule = (doctorId: number, newSchedule: object): Promise<number> => {
         try {
             return this.model.update(
-                { schedule: newSchedule },
+                { weeklySchedule: newSchedule },
                 { returning: true, where: { id: doctorId } }
             );
         } catch (e) {

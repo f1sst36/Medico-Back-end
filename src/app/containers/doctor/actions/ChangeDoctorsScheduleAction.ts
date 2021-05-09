@@ -59,7 +59,7 @@ class ChangeDoctorsScheduleAction extends CoreAction {
 
         return {
             error: 0,
-            data: transformedSchedule,
+            data: newSchedule,
             message: 'Расписание приема изменено',
         };
     };
