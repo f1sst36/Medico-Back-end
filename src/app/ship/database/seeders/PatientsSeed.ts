@@ -53,7 +53,7 @@ export class PatientsSeed extends CoreSeed {
             avatar: null,
             isAlcoholic: '1 раз в год',
             badHabits: null,
-            bloodTransfusion: 'нет',
+            bloodTransfusion: 'Нет',
             isFullData: true,
         });
     };
