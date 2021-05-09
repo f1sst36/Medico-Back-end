@@ -9,6 +9,8 @@ import { userTransformer } from '../transformers/UserTransformer';
 import { changeUserInfoValidator } from '../validators/changeUserInfoValidator';
 import { changeUserInfoAction } from '../actions/ChangeUserInfoAction';
 import { changeUserInfoTransformer } from '../transformers/ChangeUserInfoTransformer';
+import { changePhotoValidator } from '../validators/changePhotoValidator';
+import { changeUserPhotoAction } from '../actions/ChangeUserPhotoAction';
 
 export class ProfileController extends CoreController {
     constructor() {
@@ -26,6 +28,7 @@ export class ProfileController extends CoreController {
             changeUserInfoValidator,
             this.changeUserInfo
         );
+        this.router.post(this.prefix + '/change-photo', this.changeUserPhoto);
     }
 
     public getInfo = async (req: any, res: Response): Promise<Response> => {
@@ -68,8 +71,23 @@ export class ProfileController extends CoreController {
                 coreTransformer.getSimpleSuccessResponse(
                     '',
                     changeUserInfoTransformer.transform(result.data)
-                    // result.data
                 )
             );
+    };
+
+    // Изменение фотки. Метод для врача и пациента
+    public changeUserPhoto = async (req: any, res: Response): Promise<Response> => {
+        if (this.validateFormDataRequest(req, res, changePhotoValidator)) return;
+        
+        const result = await changeUserPhotoAction.run(
+            req.user.id,
+            req.user.user.userType,
+            req.files.file
+        );
+
+        if (result.error)
+            return res.status(422).json(coreTransformer.getErrorResponse(result.message));
+
+        return res.status(200).json(coreTransformer.getSimpleSuccessResponse('', result.data));
     };
 }

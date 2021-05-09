@@ -7,7 +7,6 @@ interface ITransformedUser {
     middleName: string;
     birthDate: Date;
     sex: string;
-    email: string;
 }
 
 class ChangeUserInfoTransformer extends CoreTransformer {
@@ -18,7 +17,6 @@ class ChangeUserInfoTransformer extends CoreTransformer {
             middleName: user.getDataValue('middleName'),
             birthDate: user.getDataValue('birthDate'),
             sex: user.getDataValue('sex'),
-            email: user.getDataValue('email'),
         };
     };
 }

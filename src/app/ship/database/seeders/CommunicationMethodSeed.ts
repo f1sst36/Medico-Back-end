@@ -2,7 +2,7 @@ import { CommunicationMethod } from '../../../containers/consultation/models/Com
 import { CoreSeed } from './CoreSeed';
 
 export class CommunicationMethodSeed extends CoreSeed {
-    public run = () => {
+    public run = async (): Promise<void> => {
         this.records = [
             {
                 method: 'Сообщения в чате',
@@ -15,6 +15,6 @@ export class CommunicationMethodSeed extends CoreSeed {
             },
         ];
 
-        CommunicationMethod.bulkCreate(this.records);
+        await CommunicationMethod.bulkCreate(this.records);
     };
 }

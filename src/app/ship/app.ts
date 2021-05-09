@@ -46,8 +46,6 @@ export class App {
 
         // force: true - удалит все таблицы и накатит заново
         this.sequelize.sync({ force: false });
-
-        // Seeder.run();
     }
 
     private initMiddlewares(middlewares: Array<any>) {
@@ -80,7 +78,7 @@ export class App {
 
         // Роут для запуска сидов
         this.app.get('/seeder/run', (_, res: Response) => {
-            Seeder.run();
+            Seeder.run(this.sequelize);
             res.send(`<span>Success</span>`);
         });
 

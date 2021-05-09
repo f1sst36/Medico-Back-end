@@ -33,5 +33,8 @@ export const changeUserInfoValidator = [
         .withMessage('Отчество должно быть не меньше двух символов'),
     Validator.body('birthDate').optional().isISO8601().withMessage('Неверный формат даты рождения'),
     Validator.body('sex').optional().isIn(['male', 'female']).withMessage('Неверный формат пола'),
-    Validator.body('email').optional().matches(emailRegExp()).withMessage('Неверный e-mail'),
+    Validator.body('phone')
+        .optional()
+        .matches(/^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$/)
+        .withMessage('Номер телефона имеет неверный формат'),
 ];

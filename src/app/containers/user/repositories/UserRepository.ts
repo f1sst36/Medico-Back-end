@@ -9,7 +9,7 @@ class UserRepository extends CoreRepository {
         this.model = User;
     }
 
-    getUserByFields = (fields): User => {
+    public getUserByFields = (fields): Promise<User> => {
         try {
             const result = this.model.findOne({ where: fields });
             return result;
@@ -18,7 +18,7 @@ class UserRepository extends CoreRepository {
         }
     };
 
-    getUserWithSameEmailOrPhone = (email: string, phone: string): User => {
+    public getUserWithSameEmailOrPhone = (email: string, phone: string): Promise<User> => {
         try {
             const result = this.model.findOne({
                 where: {
@@ -31,7 +31,7 @@ class UserRepository extends CoreRepository {
         }
     };
 
-    getUserByConfirmationToken = (token: string): User => {
+    public getUserByConfirmationToken = (token: string): Promise<User> => {
         try {
             const user = this.model.findOne({
                 where: {

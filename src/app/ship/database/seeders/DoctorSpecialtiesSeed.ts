@@ -1,75 +1,75 @@
-import { Specialty } from "../../../containers/doctor/models";
-import { CoreSeed } from "./CoreSeed";
+import { Specialty } from '../../../containers/doctor/models';
+import { CoreSeed } from './CoreSeed';
 
 export class DoctorSpecialtiesSeed extends CoreSeed {
-    public run = () => {
+    public run = async (): Promise<void> => {
         this.records = [
             {
-                name: "Терапевт",
-                slug: "therapist",
+                name: 'Терапевт',
+                slug: 'therapist',
             },
             {
-                name: "Хирург",
-                slug: "surgeon",
+                name: 'Хирург',
+                slug: 'surgeon',
             },
             {
-                name: "Травматолог",
-                slug: "traumatologist",
+                name: 'Травматолог',
+                slug: 'traumatologist',
             },
             {
-                name: "Эндокринолог",
-                slug: "endocrinologist",
+                name: 'Эндокринолог',
+                slug: 'endocrinologist',
             },
             {
-                name: "Дерматолог",
-                slug: "dermatologist",
+                name: 'Дерматолог',
+                slug: 'dermatologist',
             },
             {
-                name: "Косметолог",
-                slug: "cosmetologist",
+                name: 'Косметолог',
+                slug: 'cosmetologist',
             },
             {
-                name: "Уролог",
-                slug: "urologist",
+                name: 'Уролог',
+                slug: 'urologist',
             },
             {
-                name: "Гинеколог",
-                slug: "gynecologist",
+                name: 'Гинеколог',
+                slug: 'gynecologist',
             },
             {
-                name: "Офтальмолог",
-                slug: "ophtalmologist",
+                name: 'Офтальмолог',
+                slug: 'ophtalmologist',
             },
             {
-                name: "Реабилитолог",
-                slug: "rehabilitologist",
+                name: 'Реабилитолог',
+                slug: 'rehabilitologist',
             },
             {
-                name: "Дерматовенеролог",
-                slug: "dermatovenereologist",
+                name: 'Дерматовенеролог',
+                slug: 'dermatovenereologist',
             },
             {
-                name: "Иммунолог",
-                slug: "immunologist",
+                name: 'Иммунолог',
+                slug: 'immunologist',
             },
             {
-                name: "Педиатр",
-                slug: "pediatrician",
+                name: 'Педиатр',
+                slug: 'pediatrician',
             },
             {
-                name: "Инфекционист",
-                slug: "infectious-disease-specialist",
+                name: 'Инфекционист',
+                slug: 'infectious-disease-specialist',
             },
             {
-                name: "Аллерголог",
-                slug: "allergist",
+                name: 'Аллерголог',
+                slug: 'allergist',
             },
             {
-                name: "Гастроэнтеролог",
-                slug: "gastroenterologist",
+                name: 'Гастроэнтеролог',
+                slug: 'gastroenterologist',
             },
         ];
 
-        Specialty.bulkCreate(this.records);
+        await Specialty.bulkCreate(this.records);
     };
 }

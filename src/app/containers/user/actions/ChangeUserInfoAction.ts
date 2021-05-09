@@ -7,7 +7,7 @@ interface IParam {
     middleName?: string;
     birthDate?: Date;
     sex?: string;
-    email?: string;
+    phone?: string;
 }
 
 class ChangeUserInfoAction extends CoreAction {
@@ -18,7 +18,7 @@ class ChangeUserInfoAction extends CoreAction {
             !data.hasOwnProperty('middleName') &&
             !data.hasOwnProperty('birthDate') &&
             !data.hasOwnProperty('sex') &&
-            !data.hasOwnProperty('email')
+            !data.hasOwnProperty('phone')
         ) {
             return {
                 error: 1,

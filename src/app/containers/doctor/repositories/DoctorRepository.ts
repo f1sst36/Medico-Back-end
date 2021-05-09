@@ -511,6 +511,19 @@ class DoctorRepository extends CoreRepository {
             return null;
         }
     };
+
+    public getDoctorForChangePhoto = (doctorId: number): Promise<Doctor> => {
+        try {
+            return this.model.findOne({
+                where: {
+                    id: doctorId,
+                },
+                attributes: ['id', 'photo'],
+            });
+        } catch (e) {
+            return null;
+        }
+    };
 }
 
 export const doctorRepository = new DoctorRepository();

@@ -86,8 +86,8 @@ class PatientRepository extends CoreRepository {
                     {
                         model: Analysis,
                         as: 'analyzes',
-                        attributes: ['id', 'name', 'type', 'path', 'analysisDeliveryDate']
-                    }
+                        attributes: ['id', 'name', 'type', 'path', 'analysisDeliveryDate'],
+                    },
                 ],
                 attributes: [
                     'avatar',
@@ -101,6 +101,19 @@ class PatientRepository extends CoreRepository {
                     'chronicDiseases',
                     'allergies',
                 ],
+            });
+        } catch (e) {
+            return null;
+        }
+    };
+
+    public getPatientForChangeAvatar = (patientId: number): Promise<Patient> => {
+        try {
+            return this.model.findOne({
+                where: {
+                    id: patientId,
+                },
+                attributes: ['id', 'avatar'],
             });
         } catch (e) {
             return null;

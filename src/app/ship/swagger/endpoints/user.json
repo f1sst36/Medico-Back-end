@@ -335,5 +335,88 @@
                 }
             }
         ]
+    },
+    "/user/change-photo": {
+        "post": {
+            "tags": ["User"],
+            "security": {
+                "bearerAuth": []
+            },
+            "description": "Change user photo. Can be used for patient and doctor",
+            "responses": {
+                "200": {
+                    "description": "Photo successfully changed",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                                "type": "integer",
+                                "example": 0
+                            },
+                            "data": {
+                                "type": "string",
+                                "example": "/storage/files/123151352.jpg"
+                            },
+                            "message": {
+                                "type": "string",
+                                "description": "Reply message",
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "400": {
+                    "description": "Validation error",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "data": {
+                                "type": "object",
+                                "example": ["Неверный формат изображения"]
+                            },
+                            "message": {
+                                "type": "string",
+                                "description": "Reply message",
+                                "example": "Ошибка валидации"
+                            }
+                        }
+                    }
+                },
+                "422": {
+                    "description": "Unknown error",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "data": {
+                                "type": "object",
+                                "example": null
+                            },
+                            "message": {
+                                "type": "string",
+                                "description": "Reply message",
+                                "example": "Ошибка загрузки фото"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "parameters": [
+            {
+                "name": "file",
+                "in": "formData",
+                "description": "User's photo",
+                "required": true,
+                "type": "file"
+            }
+        ]
     }
 }
