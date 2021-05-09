@@ -79,6 +79,13 @@ export class ProfileController extends CoreController {
 
         const result = await changeDoctorsScheduleAction.run(req.user.id, req.body.schedule);
 
-        return res.status(200).json(coreTransformer.getSimpleSuccessResponse('', result.data));
+        if (result.error)
+            return res
+                .status(result.error === 2 ? 403 : 422)
+                .json(coreTransformer.getErrorResponse(result.message));
+
+        return res
+            .status(200)
+            .json(coreTransformer.getSimpleSuccessResponse(result.message, result.data));
     };
 }

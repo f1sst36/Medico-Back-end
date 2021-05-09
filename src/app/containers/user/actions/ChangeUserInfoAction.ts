@@ -13,12 +13,12 @@ interface IParam {
 class ChangeUserInfoAction extends CoreAction {
     public run = async (data: IParam, userId: number): Promise<IResult> => {
         if (
-            !data.name &&
-            !data.surname &&
-            !data.middleName &&
-            !data.birthDate &&
-            !data.sex &&
-            !data.email
+            !data.hasOwnProperty('name') &&
+            !data.hasOwnProperty('surname') &&
+            !data.hasOwnProperty('middleName') &&
+            !data.hasOwnProperty('birthDate') &&
+            !data.hasOwnProperty('sex') &&
+            !data.hasOwnProperty('email')
         ) {
             return {
                 error: 1,

@@ -92,17 +92,17 @@ class DoctorRepository extends CoreRepository {
                             ],
                         },
                     },
-                    {
-                        model: DoctorSpecialtiesLink,
-                        as: 'doctorSpecialtiesLink',
-                        include: [
-                            {
-                                model: Specialty,
-                                as: 'specialty',
-                                attributes: ['id', 'name', 'slug'],
-                            },
-                        ],
-                    },
+                    // {
+                    //     model: DoctorSpecialtiesLink,
+                    //     as: 'doctorSpecialtiesLink',
+                    //     include: [
+                    //         {
+                    //             model: Specialty,
+                    //             as: 'specialty',
+                    //             attributes: ['id', 'name', 'slug'],
+                    //         },
+                    //     ],
+                    // },
                 ],
                 attributes: {
                     exclude: ['createdAt', 'updatedAt', 'diploma', 'summary', 'weeklySchedule'],
@@ -497,6 +497,17 @@ class DoctorRepository extends CoreRepository {
             });
             return result;
         } catch (_) {
+            return null;
+        }
+    };
+
+    public updateSchedule = (doctorId: number, newSchedule: object): Promise<number> => {
+        try {
+            return this.model.update(
+                { schedule: newSchedule },
+                { returning: true, where: { id: doctorId } }
+            );
+        } catch (e) {
             return null;
         }
     };

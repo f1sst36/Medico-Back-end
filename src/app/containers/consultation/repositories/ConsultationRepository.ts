@@ -289,6 +289,21 @@ class ConsultationRepository extends CoreRepository {
             return null;
         }
     };
+
+    public isExistWaitingOrActiveConsultations = (
+        doctorId: number
+    ): Promise<Array<Consultation>> => {
+        try {
+            return this.model.findAll({
+                where: {
+                    doctorId: doctorId,
+                    [Op.or]: [{ state: 'waiting' }, { state: 'active' }],
+                },
+            });
+        } catch (e) {
+            return null;
+        }
+    };
 }
 
 export const consultationRepository = new ConsultationRepository();

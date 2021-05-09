@@ -44,12 +44,12 @@ export const checkSchedule = (schedule: Array<any>): boolean => {
             !schedule[i].hasOwnProperty('to') ||
             isNaN(schedule[i].to) ||
             !Number.isInteger(schedule[i].to) ||
-            schedule[i].to < 9 ||
-            schedule[i].to > 21
+            schedule[i].to < 8 ||
+            schedule[i].to > 20
         )
             return false;
 
-        if (schedule[i].from >= schedule[i].to) return false;
+        if (schedule[i].from > schedule[i].to) return false;
     }
 
     if (JSON.stringify(dayNumbers) !== JSON.stringify([1, 2, 3, 4, 5, 6, 0])) return false;

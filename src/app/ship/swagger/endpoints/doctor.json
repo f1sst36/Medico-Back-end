@@ -701,5 +701,182 @@
                 }
             }
         }
+    },
+    "/doctor/profile/change-schedule": {
+        "post": {
+            "tags": ["Doctor"],
+            "security": {
+                "bearerAuth": []
+            },
+            "description": "Method only for doctor. Modify doctor's schedule",
+            "responses": {
+                "200": {
+                    "description": "Successfully updated schedule",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                                "type": "integer",
+                                "example": 0
+                            },
+                            "data": {
+                                "type": "object",
+                                "example": [
+                                    {
+                                        "dayNumber": 1,
+                                        "workingHours": [11, 12, 13, 14, 15, 16, 17]
+                                    },
+                                    {
+                                        "dayNumber": 2,
+                                        "workingHours": [12, 13, 14, 15, 16, 17]
+                                    },
+                                    {
+                                        "dayNumber": 3,
+                                        "workingHours": [13, 14, 15, 16, 17]
+                                    },
+                                    {
+                                        "dayNumber": 4,
+                                        "workingHours": [16, 17]
+                                    },
+                                    {
+                                        "dayNumber": 5,
+                                        "workingHours": [17]
+                                    },
+                                    {
+                                        "dayNumber": 6,
+                                        "workingHours": [11, 12, 13, 14, 15, 16, 17, 18]
+                                    },
+                                    {
+                                        "dayNumber": 0,
+                                        "workingHours": [20]
+                                    }
+                                ]
+                            },
+                            "message": {
+                                "type": "string",
+                                "example": "Расписание приема изменено",
+                                "description": "Reply message"
+                            }
+                        }
+                    }
+                },
+                "422": {
+                    "description": "Unprocessable Entity",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "data": {
+                                "type": "object",
+                                "example": null
+                            },
+                            "message": {
+                                "type": "string",
+                                "example": "Ошибка обновления расписания приема",
+                                "description": "Reply message"
+                            }
+                        }
+                    }
+                },
+                "403": {
+                    "description": "Forbidden",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "data": {
+                                "type": "object",
+                                "example": null
+                            },
+                            "message": {
+                                "type": "string",
+                                "example": "Необходимо завершить все текущие консультации чтобы изменить расписание приема",
+                                "description": "Reply message"
+                            }
+                        }
+                    }
+                },
+                "400": {
+                    "description": "Validation errors",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "data": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                },
+                                "example": ["Неверный тип расписания"]
+                            },
+                            "message": {
+                                "type": "string",
+                                "description": "Reply message",
+                                "example": "Ошибка валидации"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "parameters": [
+            {
+                "name": "schedule",
+                "in": "body",
+                "description": "New doctor's schedule in JSON. dayNumber: 0 - Sunday, dayNumber: 1 - Monday ...",
+                "required": true,
+                "schema": {
+                    "type": "object",
+                    "example": {
+                        "schedule": [
+                            {
+                                "dayNumber": 1,
+                                "from": 11,
+                                "to": 17
+                            },
+                            {
+                                "dayNumber": 2,
+                                "from": 12,
+                                "to": 17
+                            },
+                            {
+                                "dayNumber": 3,
+                                "from": 13,
+                                "to": 17
+                            },
+                            {
+                                "dayNumber": 4,
+                                "from": 16,
+                                "to": 17
+                            },
+                            {
+                                "dayNumber": 5,
+                                "from": 17,
+                                "to": 17
+                            },
+                            {
+                                "dayNumber": 6,
+                                "from": 11,
+                                "to": 18
+                            },
+                            {
+                                "dayNumber": 0,
+                                "from": 20,
+                                "to": 20
+                            }
+                        ]
+                    }
+                }
+            }
+        ]
     }
 }
