@@ -19,17 +19,17 @@ interface IParam {
 class ChangeMedicalCardTask extends CoreTask {
     public run = async (data: IParam, patientId: number): Promise<IResult> => {
         if (
-            !data.weight &&
-            !data.height &&
-            !data.bloodType &&
-            !data.allergies &&
-            !data.chronicDiseases &&
-            !data.operations &&
-            !data.isSmoker &&
-            !data.isAlcoholic &&
-            !data.bloodTransfusion &&
-            !data.RHFactor &&
-            !data.badHabits
+            !data.hasOwnProperty('weight') &&
+            !data.hasOwnProperty('height') &&
+            !data.hasOwnProperty('bloodType') &&
+            !data.hasOwnProperty('allergies') &&
+            !data.hasOwnProperty('chronicDiseases') &&
+            !data.hasOwnProperty('operations') &&
+            !data.hasOwnProperty('isSmoker') &&
+            !data.hasOwnProperty('isAlcoholic') &&
+            !data.hasOwnProperty('bloodTransfusion') &&
+            !data.hasOwnProperty('RHFactor') &&
+            !data.hasOwnProperty('badHabits')
         )
             return { error: 1, message: 'Отсутствуют данные для изменения' };
 

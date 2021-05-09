@@ -27,7 +27,6 @@ export const changeMedicalCardValidator = [
         .optional()
         .isString()
         .isLength({
-            min: 1,
             max: 2000,
         })
         .withMessage('Неверный формат описания аллергии'),
@@ -35,7 +34,6 @@ export const changeMedicalCardValidator = [
         .optional()
         .isString()
         .isLength({
-            min: 1,
             max: 2000,
         })
         .withMessage('Неверный формат описания хронический заболеваний'),
@@ -43,7 +41,6 @@ export const changeMedicalCardValidator = [
         .optional()
         .isString()
         .isLength({
-            min: 1,
             max: 2000,
         })
         .withMessage('Неверный формат описания операций'),
