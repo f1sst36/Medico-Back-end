@@ -11,6 +11,7 @@ interface IParams {
     experience: Date;
 }
 
+// Говнокод. Исправь
 class DoctorQuestionnaireAction extends CoreAction {
     public run = async (
         doctorId: number,

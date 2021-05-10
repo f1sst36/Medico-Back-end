@@ -60,10 +60,12 @@ class DoctorRepository extends CoreRepository {
                                 attributes: ['avatar'],
                             },
                         ],
+                        limit: 3,
+                        order: [['id', 'DESC']],
                     },
                 ],
                 attributes: {
-                    exclude: ['createdAt', 'updatedAt'],
+                    exclude: ['createdAt', 'updatedAt', 'weeklySchedule'],
                 },
             });
             return result;

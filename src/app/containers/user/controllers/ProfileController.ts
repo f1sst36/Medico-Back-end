@@ -32,7 +32,7 @@ export class ProfileController extends CoreController {
     }
 
     public getInfo = async (req: any, res: Response): Promise<Response> => {
-        const result = await getUserInfoAction.run(req.user.id);
+        const result = await getUserInfoAction.run(req.user.id, req.user.user.userType);
 
         if (result.error)
             return res.status(422).json(coreTransformer.getErrorResponse(result.message));

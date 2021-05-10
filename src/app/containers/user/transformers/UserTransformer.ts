@@ -1,4 +1,4 @@
-import { CoreTransformer } from "../../../ship/core/transformer/CoreTransformer";
+import { CoreTransformer } from '../../../ship/core/transformer/CoreTransformer';
 
 interface ITransformedUser {
     id: number;
@@ -16,6 +16,7 @@ interface ITransformedUser {
     additionalData: any;
 }
 
+// Лютый говнокод. Исправь потом!
 class UserTransformer extends CoreTransformer {
     public transform = (user: any): ITransformedUser => {
         let transformedUser: ITransformedUser;
@@ -26,8 +27,7 @@ class UserTransformer extends CoreTransformer {
         const additionalData = user.dataValues;
 
         transformedUser = mainUserData;
-
-        // if (transformedUser.userType === "doctor") {
+        
         if (
             (additionalData.IIN &&
                 additionalData.diploma &&
@@ -38,17 +38,26 @@ class UserTransformer extends CoreTransformer {
         ) {
             transformedUser.additionalData = additionalData;
             delete transformedUser.additionalData.id;
-        } else transformedUser.additionalData = null;
-        // }
-        // else {
-        //     if (additionalData.isFullData) {
-        //         transformedUser.additionalData = additionalData;
-        //         delete transformedUser.additionalData.id;
-        //     } else transformedUser.additionalData = null;
-        // }
 
-        // transformedUser.additionalData = additionalData;
-        // delete transformedUser.additionalData.id;
+            if (transformedUser.userType === 'doctor') {
+                transformedUser.additionalData.specialties = [];
+                for (
+                    let i = 0;
+                    i < transformedUser.additionalData.doctorSpecialtiesLink.length;
+                    i++
+                ) {
+                    transformedUser.additionalData.specialties.push({
+                        id: transformedUser.additionalData.doctorSpecialtiesLink[i].specialty.id,
+                        name:
+                            transformedUser.additionalData.doctorSpecialtiesLink[i].specialty.name,
+                        slug:
+                            transformedUser.additionalData.doctorSpecialtiesLink[i].specialty.slug,
+                    });
+                }
+
+                delete transformedUser.additionalData.doctorSpecialtiesLink;
+            }
+        } else transformedUser.additionalData = null;
 
         return transformedUser;
     };
