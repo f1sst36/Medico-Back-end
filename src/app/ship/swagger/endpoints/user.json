@@ -176,7 +176,7 @@
                                     "middleName": "Сергеевич",
                                     "birthDate": "2000-02-15T00:00:00.000Z",
                                     "sex": "male",
-                                    "email": "abc@mail.ru"
+                                    "phone": "+75902471176"
                                 }
                             },
                             "message": {
@@ -325,13 +325,13 @@
                 }
             },
             {
-                "name": "email",
+                "name": "phone",
                 "in": "body",
-                "description": "User's email",
+                "description": "User's phone number",
                 "required": false,
                 "schema": {
                     "type": "string",
-                    "example": { "email": "abc@gmail.com" }
+                    "example": { "phone": "+12345678901" }
                 }
             }
         ]

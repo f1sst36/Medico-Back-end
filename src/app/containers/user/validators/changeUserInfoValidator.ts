@@ -27,7 +27,6 @@ export const changeUserInfoValidator = [
     Validator.body('middleName')
         .optional()
         .isLength({
-            min: 2,
             max: 200,
         })
         .withMessage('Отчество должно быть не меньше двух символов'),
