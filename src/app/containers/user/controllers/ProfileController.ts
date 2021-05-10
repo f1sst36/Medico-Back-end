@@ -37,7 +37,10 @@ export class ProfileController extends CoreController {
         if (result.error)
             return res.status(422).json(coreTransformer.getErrorResponse(result.message));
         else {
-            const transformedUser = userTransformer.transform(result.data);
+            const transformedUser = userTransformer.transform(
+                result.data.user,
+                result.data.countOfReviews
+            );
             return res
                 .status(200)
                 .json(coreTransformer.getSimpleSuccessResponse('', transformedUser));
@@ -78,7 +81,7 @@ export class ProfileController extends CoreController {
     // Изменение фотки. Метод для врача и пациента
     public changeUserPhoto = async (req: any, res: Response): Promise<Response> => {
         if (this.validateFormDataRequest(req, res, changePhotoValidator)) return;
-        
+
         const result = await changeUserPhotoAction.run(
             req.user.id,
             req.user.user.userType,

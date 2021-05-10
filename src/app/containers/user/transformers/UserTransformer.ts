@@ -18,7 +18,7 @@ interface ITransformedUser {
 
 // Лютый говнокод. Исправь потом!
 class UserTransformer extends CoreTransformer {
-    public transform = (user: any): ITransformedUser => {
+    public transform = (user: any, countOfReviews: number = undefined): ITransformedUser => {
         let transformedUser: ITransformedUser;
 
         const mainUserData = user.dataValues.user.dataValues;
@@ -27,7 +27,7 @@ class UserTransformer extends CoreTransformer {
         const additionalData = user.dataValues;
 
         transformedUser = mainUserData;
-        
+
         if (
             (additionalData.IIN &&
                 additionalData.diploma &&
@@ -56,6 +56,26 @@ class UserTransformer extends CoreTransformer {
                 }
 
                 delete transformedUser.additionalData.doctorSpecialtiesLink;
+
+                const transformedReviews: Array<any> = [];
+                for (let i = 0; i < transformedUser.additionalData.reviews.length; i++) {
+                    transformedReviews.push({
+                        id: transformedUser.additionalData.reviews[i].id,
+                        text: transformedUser.additionalData.reviews[i].text,
+                        estimation: transformedUser.additionalData.reviews[i].estimation,
+                        patient: {
+                            avatar: transformedUser.additionalData.reviews[i].patient.avatar,
+                            name: transformedUser.additionalData.reviews[i].patient.user.name,
+                            surname: transformedUser.additionalData.reviews[i].patient.user.surname,
+                        },
+                    });
+                }
+
+                transformedUser.additionalData.reviews = transformedReviews;
+
+                if (Number.isInteger(countOfReviews))
+                    transformedUser.additionalData.countOfReviews = countOfReviews;
+                else transformedUser.additionalData.countOfReviews = null;
             }
         } else transformedUser.additionalData = null;
 

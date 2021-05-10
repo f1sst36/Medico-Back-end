@@ -60,6 +60,7 @@ class DoctorRepository extends CoreRepository {
                                 attributes: ['avatar'],
                             },
                         ],
+                        attributes: ['id', 'text', 'estimation'],
                         limit: 3,
                         order: [['id', 'DESC']],
                     },
