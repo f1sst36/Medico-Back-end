@@ -59,15 +59,16 @@ class UserTransformer extends CoreTransformer {
 
                 const transformedReviews: Array<any> = [];
                 for (let i = 0; i < transformedUser.additionalData.reviews.length; i++) {
+                    console.log(transformedUser.additionalData.reviews[i].createdAt);
+                    
                     transformedReviews.push({
                         id: transformedUser.additionalData.reviews[i].id,
                         text: transformedUser.additionalData.reviews[i].text,
                         estimation: transformedUser.additionalData.reviews[i].estimation,
-                        patient: {
-                            avatar: transformedUser.additionalData.reviews[i].patient.avatar,
-                            name: transformedUser.additionalData.reviews[i].patient.user.name,
-                            surname: transformedUser.additionalData.reviews[i].patient.user.surname,
-                        },
+                        avatar: transformedUser.additionalData.reviews[i].patient.avatar,
+                        name: transformedUser.additionalData.reviews[i].patient.user.name,
+                        surname: transformedUser.additionalData.reviews[i].patient.user.surname,
+                        createdAt: transformedUser.additionalData.reviews[i].createdAt,
                     });
                 }
 
