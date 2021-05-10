@@ -28,8 +28,8 @@ interface IDoctorParams {
     summary: string;
     diploma: string;
     about: string;
-    workplaces: Array<string>;
-    education: Array<string>;
+    workplaces?: Array<string>;
+    education?: Array<string>;
     sent: string | Date;
     isVerified: boolean;
     rating: number;
@@ -178,11 +178,11 @@ export class DoctorsSeed extends CoreSeed {
                 diploma: '/storage/files/diploma.jpg',
                 about: 'Я врач - не мяч!',
                 rating: this.randomInt(1, 5),
-                workplaces: [
-                    'Саратовская клиника под Донбассом',
-                    'Центральная поликлинника города Ярославль',
-                ],
-                education: ['Высшее Томбовское образование', 'Грамота цетрального округа'],
+                // workplaces: [
+                //     'Саратовская клиника под Донбассом',
+                //     'Центральная поликлинника города Ярославль',
+                // ],
+                // education: ['Высшее Томбовское образование', 'Грамота цетрального округа'],
                 sent: '2021-03-31',
                 isVerified: true,
                 costOfConsultation: (Math.round(Math.random() * 12) + 8) * 100,

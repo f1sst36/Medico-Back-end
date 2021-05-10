@@ -135,10 +135,14 @@ export const doctorSchema = {
         type: DataTypes.TEXT,
     },
     workplaces: {
+        allowNull: false,
         type: DataTypes.ARRAY(DataTypes.STRING),
+        defaultValue: [],
     },
     education: {
+        allowNull: false,
         type: DataTypes.ARRAY(DataTypes.STRING),
+        defaultValue: [],
     },
     sent: {
         type: DataTypes.DATE,
