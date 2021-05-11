@@ -3,18 +3,21 @@ import { Patient } from '../../../containers/patient/models/Patient';
 import { CoreAction, IResult } from '../../../ship/core/action/CoreAction';
 import { doctorRepository } from '../../../containers/doctor/repositories/DoctorRepository';
 import { patientRepository } from '../../../containers/patient/repositories/PatientRepository';
+import { FileStorage } from '../../../ship/helper';
 
 class ChangeUserPhotoAction extends CoreAction {
     public run = async (userId: number, userType: string, file: any): Promise<IResult> => {
         let user: Doctor | Patient;
-        const uploadPath = 'src/app/ship/storage/files/' + file.name;
-        const pathToFileImage = '/storage/files/' + file.name;
+        // const uploadPath = 'src/app/ship/storage/files/' + file.name;
+        // const pathToFileImage = '/storage/files/' + file.name;
 
+        let pathToFileImage: string;
         if (userType === 'patient') {
             user = await patientRepository.getPatientForChangeAvatar(userId);
 
             try {
-                await file.mv(uploadPath);
+                pathToFileImage = await FileStorage.moveFile(file);
+                // await file.mv(uploadPath);
                 await user.update({
                     avatar: pathToFileImage,
                 });
@@ -28,7 +31,8 @@ class ChangeUserPhotoAction extends CoreAction {
             user = await doctorRepository.getDoctorForChangePhoto(userId);
 
             try {
-                await file.mv(uploadPath);
+                pathToFileImage = await FileStorage.moveFile(file);
+                // await file.mv(uploadPath);
                 await user.update({
                     photo: pathToFileImage,
                 });

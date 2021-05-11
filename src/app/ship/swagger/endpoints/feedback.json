@@ -1,0 +1,116 @@
+{
+    "/feedback/leave": {
+        "post": {
+            "tags": ["Feedback"],
+            "description": "Leave a feedback about the service",
+            "responses": {
+                "200": {
+                    "description": "Successfully leaved feedback",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                                "type": "integer",
+                                "example": 0
+                            },
+                            "data": {
+                                "type": "object",
+                                "example": null
+                            },
+                            "message": {
+                                "type": "string",
+                                "example": "Отзыв добавлен",
+                                "description": "Reply message"
+                            }
+                        }
+                    }
+                },
+                "422": {
+                    "description": "Error",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "data": {
+                                "type": "object",
+                                "example": null
+                            },
+                            "message": {
+                                "type": "string",
+                                "example": "Ошибка добавления отзыва",
+                                "description": "Reply message"
+                            }
+                        }
+                    }
+                },
+                "400": {
+                    "description": "Validation error",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "data": {
+                                "type": "object",
+                                "example": ["Неверный e-mail"]
+                            },
+                            "message": {
+                                "type": "string",
+                                "example": "Ошибка валидации",
+                                "description": "Reply message"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+
+        "parameters": [
+            {
+                "name": "name",
+                "in": "body",
+                "description": "User's name",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "example": { "name": "Joe" }
+                }
+            },
+            {
+                "name": "email",
+                "in": "body",
+                "description": "User's email",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "example": { "email": "abc@mail.ru" }
+                }
+            },
+            {
+                "name": "subject",
+                "in": "body",
+                "description": "Line subject",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "example": { "subject": "foofofbaar" }
+                }
+            },
+            {
+                "name": "text",
+                "in": "body",
+                "description": "Text of the letter",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "example": { "text": "qwertywtqqewtgsd" }
+                }
+            }
+        ]
+    }
+}

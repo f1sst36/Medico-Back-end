@@ -1,3 +1,4 @@
+import { FileStorage } from '../../../ship/helper';
 import { format } from 'date-fns';
 import { CoreAction, IResult } from '../../../ship/core/action/CoreAction';
 import { DoctorSpecialtiesLink } from '../models';
@@ -29,10 +30,10 @@ class DoctorQuestionnaireAction extends CoreAction {
         if (doctor.sent)
             return { error: 1, data: null, message: 'Заявка ожидает проверки модератором' };
 
-        const uploadPath = 'src/app/ship/storage/files/';
-        const pathToPhotoImage = '/storage/files/' + doctorFiles.photo.name;
-        const pathToSummaryImage = '/storage/files/' + doctorFiles.summary.name;
-        const pathToDiplomaImage = '/storage/files/' + doctorFiles.diploma.name;
+        // const uploadPath = 'src/app/ship/storage/files/';
+        // let pathToPhotoImage;
+        // let pathToSummaryImage;
+        // let pathToDiplomaImage;
 
         try {
             let specialties = doctorData.specialties.slice(1, doctorData.specialties.length - 1);
@@ -47,7 +48,11 @@ class DoctorQuestionnaireAction extends CoreAction {
 
             DoctorSpecialtiesLink.bulkCreate(doctorSpecialtiesLinkRecords);
 
-            doctor.update({
+            const pathToPhotoImage = await FileStorage.moveFile(doctorFiles.photo);
+            const pathToSummaryImage = await FileStorage.moveFile(doctorFiles.summary);
+            const pathToDiplomaImage = await FileStorage.moveFile(doctorFiles.diploma);
+
+            await doctor.update({
                 photo: pathToPhotoImage,
                 summary: pathToSummaryImage,
                 diploma: pathToDiplomaImage,
@@ -56,9 +61,9 @@ class DoctorQuestionnaireAction extends CoreAction {
                 sent: format(new Date(), 'yyyy-MM-dd'),
             });
 
-            await doctorFiles.photo.mv(uploadPath + doctorFiles.photo.name);
-            await doctorFiles.summary.mv(uploadPath + doctorFiles.summary.name);
-            await doctorFiles.diploma.mv(uploadPath + doctorFiles.diploma.name);
+            // await doctorFiles.photo.mv(uploadPath + doctorFiles.photo.name);
+            // await doctorFiles.summary.mv(uploadPath + doctorFiles.summary.name);
+            // await doctorFiles.diploma.mv(uploadPath + doctorFiles.diploma.name);
 
             const result: any = {};
             for (let key in doctor) result[key] = doctor[key];
