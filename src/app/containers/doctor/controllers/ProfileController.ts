@@ -81,7 +81,7 @@ export class ProfileController extends CoreController {
 
         if (result.error)
             return res
-                .status(result.error === 2 ? 403 : 422)
+                .status(422)
                 .json(coreTransformer.getErrorResponse(result.message));
 
         return res

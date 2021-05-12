@@ -31,22 +31,22 @@ class ChangeDoctorsScheduleAction extends CoreAction {
     };
 
     public run = async (doctorId: number, newSchedule: Array<IScheduleItem>): Promise<IResult> => {
-        const consultations = await consultationRepository.isExistWaitingOrActiveConsultations(
-            doctorId
-        );
+        // const consultations = await consultationRepository.isExistWaitingOrActiveConsultations(
+        //     doctorId
+        // );
 
-        if (!consultations)
-            return {
-                error: 1,
-                message: 'Ошибка получения данных',
-            };
+        // if (!consultations)
+        //     return {
+        //         error: 1,
+        //         message: 'Ошибка получения данных',
+        //     };
 
-        if (consultations.length > 0)
-            return {
-                error: 2,
-                message:
-                    'Необходимо завершить все текущие консультации чтобы изменить расписание приема',
-            };
+        // if (consultations.length > 0)
+        //     return {
+        //         error: 2,
+        //         message:
+        //             'Необходимо завершить все текущие консультации чтобы изменить расписание приема',
+        //     };
 
         const transformedSchedule = this.transformSchedule(newSchedule);
         const resultOfUpdate = await doctorRepository.updateSchedule(doctorId, transformedSchedule);

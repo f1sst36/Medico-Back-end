@@ -788,27 +788,6 @@
                         }
                     }
                 },
-                "403": {
-                    "description": "Forbidden",
-                    "schema": {
-                        "type": "object",
-                        "properties": {
-                            "error": {
-                                "type": "integer",
-                                "example": 1
-                            },
-                            "data": {
-                                "type": "object",
-                                "example": null
-                            },
-                            "message": {
-                                "type": "string",
-                                "example": "Необходимо завершить все текущие консультации чтобы изменить расписание приема",
-                                "description": "Reply message"
-                            }
-                        }
-                    }
-                },
                 "400": {
                     "description": "Validation errors",
                     "schema": {
