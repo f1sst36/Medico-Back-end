@@ -48,7 +48,7 @@ class ChangeDoctorsScheduleAction extends CoreAction {
         //         error: 2,
         //         message:
         //             'Необходимо завершить все текущие консультации чтобы изменить расписание приема',
-        //     };
+        //     };        
 
         const transformedSchedule = this.transformSchedule(newSchedule);
         const resultOfUpdate = await doctorRepository.updateSchedule(doctorId, transformedSchedule);
