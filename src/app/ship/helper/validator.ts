@@ -30,29 +30,29 @@ export const checkSchedule = (schedule: Array<any>): boolean => {
 
         dayNumbers.push(schedule[i].dayNumber);
 
-        if (schedule[i].from === null || schedule[i].to === null) return true;
-
         schedule[i].from = +schedule[i].from;
         schedule[i].to = +schedule[i].to;
 
-        if (
-            !schedule[i].hasOwnProperty('from') ||
-            isNaN(schedule[i].from) ||
-            !Number.isInteger(schedule[i].from) ||
-            schedule[i].from < 8 ||
-            schedule[i].from > 20
-        )
-            return false;
-        if (
-            !schedule[i].hasOwnProperty('to') ||
-            isNaN(schedule[i].to) ||
-            !Number.isInteger(schedule[i].to) ||
-            schedule[i].to < 8 ||
-            schedule[i].to > 20
-        )
-            return false;
+        if (schedule[i].from !== -1 && schedule[i].to !== -1) {
+            if (
+                !schedule[i].hasOwnProperty('from') ||
+                isNaN(schedule[i].from) ||
+                !Number.isInteger(schedule[i].from) ||
+                schedule[i].from < 8 ||
+                schedule[i].from > 20
+            )
+                return false;
+            if (
+                !schedule[i].hasOwnProperty('to') ||
+                isNaN(schedule[i].to) ||
+                !Number.isInteger(schedule[i].to) ||
+                schedule[i].to < 8 ||
+                schedule[i].to > 20
+            )
+                return false;
 
-        if (schedule[i].from > schedule[i].to) return false;
+            if (schedule[i].from > schedule[i].to) return false;
+        }
     }
 
     if (JSON.stringify(dayNumbers) !== JSON.stringify([1, 2, 3, 4, 5, 6, 0])) return false;

@@ -15,7 +15,7 @@ interface ITransformedSchedule {
 
 class ChangeDoctorsScheduleAction extends CoreAction {
     private createArray = (leftSide: number, rightSide: number): Array<number> => {
-        if (leftSide === null || rightSide === null) return [];
+        if (leftSide === -1 || rightSide === -1) return [];
 
         return Array.from({ length: rightSide - leftSide + 1 }, (_, i) => i + leftSide);
     };
