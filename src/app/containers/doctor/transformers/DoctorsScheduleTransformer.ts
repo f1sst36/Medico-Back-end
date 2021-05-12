@@ -12,6 +12,8 @@ interface ITransformedResultItem {
 }
 
 class DoctorsScheduleTransformer extends CoreTransformer {
+    private endOfReceptionInHours: number = 20;
+
     public transform = (
         weeklySchedule: Array<IWeeklyScheduleItem>
     ): Array<ITransformedResultItem> => {
@@ -24,7 +26,7 @@ class DoctorsScheduleTransformer extends CoreTransformer {
                     ? -1
                     : weeklySchedule[i].workingHours[0],
                 to: !weeklySchedule[i].workingHours.length
-                    ? -1
+                    ? this.endOfReceptionInHours
                     : weeklySchedule[i].workingHours[weeklySchedule[i].workingHours.length - 1],
             });
         }
