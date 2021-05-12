@@ -19,11 +19,6 @@ export const checkSchedule = (schedule: Array<any>): boolean => {
 
     for (let i = 0; i < schedule.length; i++) {
         schedule[i].dayNumber = +schedule[i].dayNumber;
-        schedule[i].from = +schedule[i].from;
-        schedule[i].to = +schedule[i].to;
-
-        dayNumbers.push(schedule[i].dayNumber);
-
         if (
             !schedule[i].hasOwnProperty('dayNumber') ||
             isNaN(schedule[i].dayNumber) ||
@@ -32,6 +27,14 @@ export const checkSchedule = (schedule: Array<any>): boolean => {
             schedule[i].dayNumber > 6
         )
             return false;
+
+        dayNumbers.push(schedule[i].dayNumber);
+
+        if (schedule[i].from === null || schedule[i].to === null) return true;
+
+        schedule[i].from = +schedule[i].from;
+        schedule[i].to = +schedule[i].to;
+
         if (
             !schedule[i].hasOwnProperty('from') ||
             isNaN(schedule[i].from) ||

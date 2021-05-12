@@ -86,14 +86,14 @@ export class AppointmentController extends CoreController {
 
     public getFreeDoctorTime = async (req: Request, res: Response) => {
         if (this.validateRequest(req, res)) return;
-        
+
         let result;
         try {
             result = await getFreeDoctorTimeTask.run(+req.query.doctorId, String(req.query.date));
         } catch (e) {
             console.log(e);
             return res
-                .status(404)
+                .status(422)
                 .json(
                     coreTransformer.getErrorResponse(
                         'Ошбика выполнения метода для поиска свободного времени у врача'
@@ -102,7 +102,9 @@ export class AppointmentController extends CoreController {
         }
 
         if (result.error)
-            return res.status(404).json(coreTransformer.getErrorResponse(result.message));
+            return res
+                .status(result.error === 2 ? 400 : 404)
+                .json(coreTransformer.getErrorResponse(result.message));
 
         return res
             .status(200)

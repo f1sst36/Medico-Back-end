@@ -60,7 +60,7 @@ class GetFreeDoctorTimeTask extends CoreTask {
         ).workingHours;
 
         if (!workingHoursInThatDay.length)
-            return { error: 1, message: 'У врача нет приемов в этот день' };
+            return { error: 2, message: 'У врача нет приемов в этот день' };
 
         const workingTime: Array<IWorkingTime> = [];
 
