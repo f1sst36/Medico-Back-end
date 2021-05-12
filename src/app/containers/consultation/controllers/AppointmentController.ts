@@ -11,6 +11,7 @@ import { metaInfoForAppointmentTransformer } from '../transformers/MetaInfoForAp
 import { appointmentForConsultationAction } from '../actions/AppointmentForConsultationAction';
 import { getFreeDoctorTimeTask } from '../tasks/GetFreeDoctorTimeTask';
 import { format } from 'date-fns';
+import { freeDoctorTimeTransformer } from '../transformers/FreeDoctorTimeTransformer';
 
 export class AppointmentController extends CoreController {
     constructor() {
@@ -108,6 +109,11 @@ export class AppointmentController extends CoreController {
 
         return res
             .status(200)
-            .json(coreTransformer.getSimpleSuccessResponse(result.message, result.data));
+            .json(
+                coreTransformer.getSimpleSuccessResponse(
+                    result.message,
+                    freeDoctorTimeTransformer.transform(result.data)
+                )
+            );
     };
 }
