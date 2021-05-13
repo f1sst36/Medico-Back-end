@@ -109,7 +109,8 @@ export class ConsultationController extends CoreController {
 
         const result = await getPatientsAppointmentsByDateTask.run(
             req.user.id,
-            String(req.query.date)
+            String(req.query.date),
+            String(req.query.state)
         );
 
         if (result.error)

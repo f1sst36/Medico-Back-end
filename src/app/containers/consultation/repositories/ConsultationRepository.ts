@@ -151,7 +151,8 @@ class ConsultationRepository extends CoreRepository {
     public getConsultationsForDoctorByDate = (
         doctorId: number,
         startDate: Date,
-        endDate: Date
+        endDate: Date,
+        state: string
     ): Promise<Array<Consultation>> => {
         try {
             return this.model.findAll({
@@ -160,7 +161,7 @@ class ConsultationRepository extends CoreRepository {
                     receptionDate: {
                         [Op.between]: [startDate, endDate],
                     },
-                    state: 'waiting',
+                    state: state,
                 },
                 include: [
                     {

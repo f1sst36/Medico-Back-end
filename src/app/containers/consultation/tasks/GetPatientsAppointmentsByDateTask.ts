@@ -3,7 +3,7 @@ import { CoreTask, IResult } from '../../../ship/core/task/CoreTask';
 import { consultationRepository } from '../repositories/ConsultationRepository';
 
 class GetPatientsAppointmentsByDateTask extends CoreTask {
-    public run = async (doctorId: number, date: string): Promise<IResult> => {
+    public run = async (doctorId: number, date: string, state: string): Promise<IResult> => {
         let startDate: Date;
         let endDate: Date;
         try {
@@ -25,7 +25,8 @@ class GetPatientsAppointmentsByDateTask extends CoreTask {
         const consultations = await consultationRepository.getConsultationsForDoctorByDate(
             doctorId,
             startDate,
-            endDate
+            endDate,
+            state
         );
 
         if (!consultations || !consultations.length)

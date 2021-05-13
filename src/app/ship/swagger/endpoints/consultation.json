@@ -694,13 +694,13 @@
             }
         }
     },
-    "/consultation/patients-for-doctor?date={date}": {
+    "/consultation/patients-for-doctor?date={date}&state={waiting | done}": {
         "get": {
             "tags": ["Consultation"],
             "security": {
                 "bearerAuth": []
             },
-            "description": "Get doctor's patients (consultations) by day (Date) and with state === 'waiting'. receptionDate returned in +00 timezone! Use new Date() or something to set timezone",
+            "description": "Get doctor's patients (consultations) by day (Date) and with state 'waiting' or 'done'. receptionDate returned in +00 timezone! Use new Date() or something to set timezone",
             "responses": {
                 "200": {
                     "description": "Successfully getted consultations list",
@@ -719,6 +719,7 @@
                                         "receptionDate": "2021-05-05T08:00:00.000Z",
                                         "isFirstConsultation": true,
                                         "patient": {
+                                            "id": 1,
                                             "name": "Максим",
                                             "surname": "Иванов",
                                             "avatar": null
@@ -733,6 +734,7 @@
                                         "receptionDate": "2021-05-05T13:00:00.000Z",
                                         "isFirstConsultation": false,
                                         "patient": {
+                                            "id": 1,
                                             "name": "Максим",
                                             "surname": "Иванов",
                                             "avatar": null
@@ -825,6 +827,16 @@
                     "schema": {
                         "type": "string",
                         "example": "date=2021-05-05T00:00:00"
+                    }
+                },
+                {
+                    "name": "state",
+                    "in": "query",
+                    "description": "State of the consultation",
+                    "required": true,
+                    "schema": {
+                        "type": "string",
+                        "example": "state=waiting"
                     }
                 }
             ]

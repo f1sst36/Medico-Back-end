@@ -8,4 +8,8 @@ export const patientsAppointmentsByDateValidator = [
         .isISO8601()
         // .isAfter(format(new Date(), 'yyyy-MM-dd'))
         .withMessage('Неверный формат даты'),
+    Validator.query('state', 'Необходимо указать состояние')
+        .trim()
+        .isIn(['waiting', 'state'])
+        .withMessage("Состояние может быть только 'waiting' или 'done'"),
 ];
