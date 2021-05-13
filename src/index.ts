@@ -41,7 +41,7 @@ import { MediaFile, mediaFileSchema } from './app/containers/chat/models/MediaFi
 import { Feedback, feedbackSchema } from './app/containers/feedback/model/Feedback';
 import { FeedbackController } from './app/containers/feedback/controllers/FeedbackController';
 
-const app = new App({
+export const app = new App({
     port: +process.env.PORT || 8080,
     prefix: '/api/v1',
     controllers: [

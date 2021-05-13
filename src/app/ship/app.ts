@@ -140,16 +140,6 @@ export class App {
         linkModels();
     }
 
-    private initSocketConnection() {
-        const io: SocketIO.Server = require('socket.io')(this.server);
-
-        io.on('connection', (socket) => {
-            console.log('connected');
-
-            socket.emit('authorized', { message: 'Hello from backend', id: socket.id });
-        });
-    }
-
     private async initSchedules() {
         await checkConsultationState.run();
     }
