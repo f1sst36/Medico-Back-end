@@ -8,10 +8,10 @@ export const leaveReviewValidator = [
         .withMessage('id доктора должно быть числом больше нуля'),
     Validator.body('text', 'Необходимо написать текст отзыва')
         .isLength({
-            min: 10,
+            min: 5,
             max: 2000,
         })
-        .withMessage('Длина отзыва должна быть от 10 до 2000 символов'),
+        .withMessage('Длина отзыва должна быть от 5 до 2000 символов'),
     Validator.body('estimation', 'Необходимо указать оценку')
         .isInt({
             min: 1,
