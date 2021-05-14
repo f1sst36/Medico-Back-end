@@ -5,11 +5,12 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Document</title>
-        
     </head>
     <body>
         <h3>Чат</h3>
         <div id="messages"></div>
+        <input id="text-field" type="text" />
+        <button id="button">send</button>
 
         <script
             src="https://cdn.socket.io/3.1.3/socket.io.min.js"
@@ -19,11 +20,27 @@
         <script>
             const socket = io();
             const messages = document.getElementById('messages');
+            const textField = document.getElementById('text-field');
+            const button = document.getElementById('button');
+
+            button.addEventListener('click', () => {
+                socket.emit('sendMessage', {
+                    chatId: 1,
+                    authorId: 1,
+                    text: textField.value,
+                });
+            });
 
             socket.on('authorized', (data) => {
                 console.log(data);
                 const newNode = document.createElement('div');
                 newNode.innerHTML = data.message;
+                messages.append(newNode);
+            });
+            socket.on('connect_error', (err) => {
+                console.log(err, err.data);
+                const newNode = document.createElement('div');
+                newNode.innerHTML = err;
                 messages.append(newNode);
             });
         </script>

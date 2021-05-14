@@ -1,24 +1,35 @@
 import jwt from 'jsonwebtoken';
-import { io } from '.';
+import { Socket } from 'socket.io';
+import { CoreSocket } from './CoreSocket';
+import { socketChat } from './SocketChat';
 
-class SocketConnection {
+class SocketConnection extends CoreSocket {
     private authMiddleware = (socket: any, next: Function): void => {
-        if (!socket.handshake.query || !socket.handshake.query.token) next(new Error('Auth error'));
+        return next();
 
-        const verified = jwt.verify(socket.handshake.query.token, process.env.TOKEN_SECRET_KEY);
+        if (!socket.handshake.query || !socket.handshake.query.token)
+            return next(new Error('Auth error'));
+
+        let verified;
+        try {
+            verified = jwt.verify(socket.handshake.query.token, process.env.TOKEN_SECRET_KEY);
+        } catch (e) {
+            return next(new Error('Invalid token'));
+        }
 
         if (!verified._expired || new Date(verified._expired) < new Date())
             return next(new Error('Token is expired'));
 
         socket.user = verified._user;
-        next();
+        return next();
     };
 
-    public init = (): void => {
-        io.use(this.authMiddleware).on('connection', (socket: any) => {
-            console.log('connected');
+    public init = (io: SocketIO.Server): void => {
+        io.use(this.authMiddleware).on('connection', (socket: Socket) => {
+            // console.log('connected');
+            socket.emit('authorized', { message: 'You are authorized' });
 
-            socket.emit('authorized', { message: 'Hello from backend', id: socket.id });
+            socketChat.run(socket);
         });
     };
 }

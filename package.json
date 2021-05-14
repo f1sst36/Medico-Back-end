@@ -22,9 +22,12 @@
     "homepage": "https://github.com/f1sst36/Medico-Back-end#readme",
     "devDependencies": {},
     "dependencies": {
+        "@types/bull": "^3.15.1",
         "@types/express": "^4.17.9",
         "@types/socket.io": "^2.1.13",
         "bcryptjs": "^2.4.3",
+        "bull": "^3.22.5",
+        "bull-board": "^2.0.3",
         "date-fns": "^2.19.0",
         "dotenv": "^8.2.0",
         "express": "^4.17.1",

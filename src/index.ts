@@ -40,6 +40,7 @@ import { Message, messageSchema } from './app/containers/chat/models/Message';
 import { MediaFile, mediaFileSchema } from './app/containers/chat/models/MediaFile';
 import { Feedback, feedbackSchema } from './app/containers/feedback/model/Feedback';
 import { FeedbackController } from './app/containers/feedback/controllers/FeedbackController';
+import { messagesQueue } from './app/containers/chat/queues/MessagesQueue';
 
 export const app = new App({
     port: +process.env.PORT || 8080,
@@ -59,6 +60,7 @@ export const app = new App({
         new FeedbackController(),
     ],
     middlewares: [allowCrossDomain, verifyJWTToken, jsonErrorHandler, permissionByRole],
+    queues: [messagesQueue],
     models: [
         {
             model: User,

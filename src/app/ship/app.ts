@@ -13,20 +13,26 @@ import swaggerUi from 'swagger-ui-express';
 
 import fileUpload from 'express-fileupload';
 
+import { createBullBoard } from 'bull-board';
+import { BullAdapter } from 'bull-board/bullAdapter';
+
 import { Seeder } from './database/seeders';
 import { linkModels } from './database/relationships';
 import { checkConsultationState } from '../containers/consultation/schedules/CheckConsultationState';
+import { socketConnection } from './socket-io/SocketConnection';
 
 export class App {
     public app: Application;
     public port: number;
     public server: any;
     public sequelize: Sequelize;
+    public io: SocketIO.Server;
 
     constructor(appInit: {
         port: number;
         prefix: string;
         middlewares: any;
+        queues: Array<any>;
         controllers: any;
         models: any;
     }) {
@@ -41,6 +47,8 @@ export class App {
         this.initModels(appInit.models);
 
         this.initSchedules();
+
+        // this.initQueues(appInit.queues);
 
         this.server = require('http').createServer(this.app);
 
@@ -119,6 +127,8 @@ export class App {
             host: process.env.DB_HOST,
             dialect: 'postgres',
 
+            // logging: false,
+
             dialectOptions: {
                 ssl: {
                     require: true,
@@ -144,6 +154,23 @@ export class App {
         await checkConsultationState.run();
     }
 
+    private initSocket() {
+        this.io = require('socket.io')(this.server);
+        socketConnection.init(this.io);
+    }
+
+    private initQueues(queues: Array<any>) {
+        const bullAdapters: Array<any> = [];
+        for (let i = 0; i < queues.length; i++) {
+            const queue = queues[i].run();
+            bullAdapters.push(new BullAdapter(queue));
+        }
+
+        const { router } = createBullBoard(bullAdapters);
+
+        this.app.use('/admin/bull', router);
+    }
+
     private initSwagger() {
         this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerOptions));
     }
@@ -151,7 +178,7 @@ export class App {
     public listen() {
         this.server.listen(this.port, () => {
             console.log(`App is working on the port ${this.port}`);
-            // this.initSocketConnection();
+            // this.initSocket();
         });
     }
 }
