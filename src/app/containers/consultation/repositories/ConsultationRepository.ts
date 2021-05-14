@@ -38,7 +38,8 @@ class ConsultationRepository extends CoreRepository {
 
     public getConsultationsByStateAndPatientId = (
         consultationState: string,
-        patientId: number
+        patientId: number,
+        sortType: string
     ): Promise<Array<Consultation>> => {
         try {
             const result = this.model.findAll({
@@ -74,7 +75,7 @@ class ConsultationRepository extends CoreRepository {
                     },
                 ],
                 attributes: ['id', 'receptionDate'],
-                order: [['receptionDate', 'DESC']],
+                order: [['receptionDate', sortType]],
             });
             return result;
         } catch (error) {
