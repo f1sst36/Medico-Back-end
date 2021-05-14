@@ -10,6 +10,6 @@ export const patientsAppointmentsByDateValidator = [
         .withMessage('Неверный формат даты'),
     Validator.query('state', 'Необходимо указать состояние')
         .trim()
-        .isIn(['waiting', 'state'])
+        .isIn(['waiting', 'done'])
         .withMessage("Состояние может быть только 'waiting' или 'done'"),
 ];
