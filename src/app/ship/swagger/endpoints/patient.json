@@ -491,6 +491,10 @@
                                 "type": "object",
                                 "example": {
                                     "patient": {
+                                        "name": "Ivan",
+                                        "surname": "Ivanov",
+                                        "middleName": "Ivanovich",
+                                        "birthDate": "2001-04-25T07:34:57.000Z",
                                         "avatar": null,
                                         "height": 180,
                                         "weight": 80,

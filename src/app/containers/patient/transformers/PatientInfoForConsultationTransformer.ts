@@ -37,6 +37,10 @@ interface TransformedResult {
     currentConsultation: {
         id: number;
         symptoms: string;
+        communicationMethod: {
+            id: string;
+            method: string;
+        };
     };
     history: Array<{
         id: number;
@@ -57,6 +61,10 @@ class PatientInfoForConsultationTransformer extends CoreTransformer {
     public transform = (data: IParam): TransformedResult => {
         const result: TransformedResult = {
             patient: {
+                name: data.patient.user.getDataValue('name'),
+                surname: data.patient.user.getDataValue('surname'),
+                middleName: data.patient.user.getDataValue('middleName'),
+                birthDate: data.patient.user.getDataValue('birthDate'),
                 avatar: data.patient.getDataValue('avatar'),
                 height: data.patient.getDataValue('height'),
                 weight: data.patient.getDataValue('weight'),
@@ -68,15 +76,15 @@ class PatientInfoForConsultationTransformer extends CoreTransformer {
                 bloodTransfusion: data.patient.getDataValue('bloodTransfusion'),
                 chronicDiseases: data.patient.getDataValue('chronicDiseases'),
                 allergies: data.patient.getDataValue('allergies'),
-                name: data.patient.getDataValue('name'),
-                surname: data.patient.getDataValue('surname'),
-                middleName: data.patient.getDataValue('middleName'),
-                birthDate: data.patient.getDataValue('birthDate'),
                 analyzes: [],
             },
             currentConsultation: {
                 id: data.currentConsultation.getDataValue('id'),
                 symptoms: data.currentConsultation.getDataValue('symptoms'),
+                communicationMethod: {
+                    id: data.currentConsultation.communicationMethod.getDataValue('id'),
+                    method: data.currentConsultation.communicationMethod.getDataValue('method'),
+                },
             },
             history: [],
         };

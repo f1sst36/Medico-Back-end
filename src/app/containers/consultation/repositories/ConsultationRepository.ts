@@ -206,6 +206,13 @@ class ConsultationRepository extends CoreRepository {
                     doctorId: doctorId,
                     id: consultationId,
                 },
+                include: [
+                    {
+                        model: CommunicationMethod,
+                        as: 'communicationMethod',
+                        attributes: ['id', 'method'],
+                    },
+                ],
                 attributes: ['id', 'symptoms'],
             });
         } catch (e) {
