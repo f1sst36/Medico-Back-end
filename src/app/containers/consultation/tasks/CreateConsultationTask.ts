@@ -4,6 +4,7 @@ import { Consultation } from '../models/Consultation';
 interface IParams {
     doctorId: number;
     patientId: number;
+    chatId: number;
     doctorSpecialtyId: number;
     receptionDate: Date;
     communicationMethodId: number;

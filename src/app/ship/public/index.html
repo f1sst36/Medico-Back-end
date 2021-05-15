@@ -31,6 +31,12 @@
                 });
             });
 
+            socket.on('newMessage', (data) => {
+                const newNode = document.createElement('div');
+                newNode.innerHTML = data.id + '|' + data.text;
+                messages.append(newNode);
+            });
+
             socket.on('authorized', (data) => {
                 console.log(data);
                 const newNode = document.createElement('div');

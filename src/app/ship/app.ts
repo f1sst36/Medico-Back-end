@@ -48,7 +48,7 @@ export class App {
 
         this.initSchedules();
 
-        // this.initQueues(appInit.queues);
+        this.initQueues(appInit.queues);
 
         this.server = require('http').createServer(this.app);
 
@@ -178,7 +178,7 @@ export class App {
     public listen() {
         this.server.listen(this.port, () => {
             console.log(`App is working on the port ${this.port}`);
-            // this.initSocket();
+            this.initSocket();
         });
     }
 }

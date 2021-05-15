@@ -1,3 +1,4 @@
+import { createChatTask } from '../../../containers/chat/tasks/CreateChatTask';
 import { parseISO } from 'date-fns';
 import { doctorRepository } from '../../../containers/doctor/repositories/DoctorRepository';
 import { CoreAction, IResult } from '../../../ship/core/action/CoreAction';
@@ -62,14 +63,27 @@ class AppointmentForConsultationAction extends CoreAction {
             };
 
         // Кол-во консультаций между текущим пациентом и доктором
-        const countOfConsultations = await consultationRepository.getCountOfConsultationsWithPatientAndDoctor(
-            patientId,
-            doctorId
-        );
+        const countOfConsultations =
+            await consultationRepository.getCountOfConsultationsWithPatientAndDoctor(
+                patientId,
+                doctorId
+            );
+
+        const chat = await createChatTask.run({
+            patientId: patientId,
+            doctorId: doctorId,
+        });
+
+        if (!chat)
+            return {
+                error: 1,
+                message: 'Ошибка создания чата',
+            };
 
         const consultation = await createConsultationTask.run({
             doctorId: doctorId,
             patientId: patientId,
+            chatId: chat.getDataValue('id'),
             receptionDate: receptionDateAndTime,
             communicationMethodId: communicationMethodId,
             doctorSpecialtyId: doctorSpecialtyId,

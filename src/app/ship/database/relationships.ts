@@ -58,6 +58,11 @@ export const linkModels = () => {
         foreignKey: 'communicationMethodId',
         constraints: false,
     });
+    Consultation.hasOne(Chat, {
+        as: 'chat',
+        foreignKey: 'chatId',
+        constraints: false,
+    });
     Doctor.hasMany(Consultation, {
         as: 'consultations',
         foreignKey: 'doctorId',

@@ -48,6 +48,10 @@ export const consultationSchema = {
         allowNull: false,
         type: DataTypes.INTEGER,
     },
+    chatId: {
+        allowNull: false,
+        type: DataTypes.INTEGER,
+    },
     doctorSpecialtyId: {
         allowNull: false,
         type: DataTypes.INTEGER,
