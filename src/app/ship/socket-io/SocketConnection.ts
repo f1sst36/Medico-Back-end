@@ -26,10 +26,17 @@ class SocketConnection extends CoreSocket {
 
     public init = (io: SocketIO.Server): void => {
         io.use(this.authMiddleware).on('connection', (socket: Socket) => {
-            // console.log('connected');
+            console.log('connection', socket.id);
+            // Метод для записи данных в редис
+
             socket.emit('authorized', { message: 'You are authorized' });
 
             socketChat.run(socket);
+
+            socket.on('disconnect', () => {
+                // Метод для удаления данных из редиса
+                console.log('disconnect', socket.id);
+            });
         });
     };
 }

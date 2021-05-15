@@ -694,13 +694,13 @@
             }
         }
     },
-    "/consultation/patients-for-doctor?date={date}&state={waiting | done}": {
+    "/consultation/patients-for-doctor?date={date}&state={new | done}": {
         "get": {
             "tags": ["Consultation"],
             "security": {
                 "bearerAuth": []
             },
-            "description": "Get doctor's patients (consultations) by day (Date) and with state 'waiting' or 'done'. receptionDate returned in +00 timezone! Use new Date() or something to set timezone",
+            "description": "Get doctor's patients (consultations) by day (Date) and with state 'new' ('new' === 'active' and 'waiting') or 'done'. receptionDate returned in +00 timezone! Use new Date() or something to set timezone",
             "responses": {
                 "200": {
                     "description": "Successfully getted consultations list",
@@ -836,7 +836,7 @@
                     "required": true,
                     "schema": {
                         "type": "string",
-                        "example": "state=waiting"
+                        "example": "state=new"
                     }
                 }
             ]

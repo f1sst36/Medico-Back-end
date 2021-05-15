@@ -22,6 +22,7 @@ class GetPatientsAppointmentsByDateTask extends CoreTask {
                 message: 'Записи на консультации в переданную дату не найдены',
             };
 
+        // Если параметр state === 'new', то отдаются и waiting и active
         const consultations = await consultationRepository.getConsultationsForDoctorByDate(
             doctorId,
             startDate,

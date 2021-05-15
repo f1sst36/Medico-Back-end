@@ -162,7 +162,10 @@ class ConsultationRepository extends CoreRepository {
                     receptionDate: {
                         [Op.between]: [startDate, endDate],
                     },
-                    state: state,
+                    [Op.or]: [
+                        { state: state === 'new' ? 'waiting' : state },
+                        { state: state === 'new' ? 'active' : state },
+                    ],
                 },
                 include: [
                     {
