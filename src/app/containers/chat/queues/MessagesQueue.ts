@@ -13,15 +13,22 @@ class MessagesQueue {
         });
     };
 
-    public broadcastMessageToRoom = (message: Message) => {
+    private broadcastMessageToRoom = (message: Message) => {
         // Юзер не в комнате
+        // TODO - раскомменти строку как сделаешь механизм добаления юзера в комнаты
         // app.io.to(message.getDataValue('chatId')).emit('newMessage', {
+    
+        // Вынеси broadcastMessageToRoom и failedMessageSending в action или task
         app.io.emit('newMessage', {
             id: message.getDataValue('id'),
             authorId: message.getDataValue('authorId'),
             text: message.getDataValue('text'),
             createdAt: message.getDataValue('createdAt'),
         });
+    };
+
+    private failedMessageSending = (message: INewMessage, err: Error) => {
+        // Берем socket id из Redis (по authorId) и отправляем ему сообщение о том, что сообщение не было доставлено
     };
 
     public run = (): Queue => {
@@ -32,7 +39,6 @@ class MessagesQueue {
         this.messagesQueue.process('newMessageProcess', messageToDBJob.run);
 
         this.messagesQueue.on('completed', (job: Job, result: Message) => {
-            // console.log('complited', result);
             this.broadcastMessageToRoom(result);
             // Если job удалять, то он не будет оставлять мета инфу в редисе и в админке соответственно.
             // Еще так документация рекомендует
@@ -40,7 +46,7 @@ class MessagesQueue {
         });
 
         this.messagesQueue.on('failed', (job: Job, err: Error) => {
-            // console.log('failed', job, err);
+            this.failedMessageSending(job.data, err);
         });
 
         return this.messagesQueue;
