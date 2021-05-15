@@ -2,6 +2,7 @@ import { CoreTransformer } from '../../../ship/core/transformer/CoreTransformer'
 import { Consultation } from '../models/Consultation';
 
 interface ITransformedResult {
+    id: number;
     appointment: string;
     receptionDate: Date;
     doctor: {
@@ -20,6 +21,7 @@ class GetDoctorsAppointmentsTransformer extends CoreTransformer {
 
         for (let i = 0; i < consultations.length; i++) {
             result.push({
+                id: consultations[i].getDataValue('id'),
                 appointment: consultations[i].getDataValue('appointment'),
                 receptionDate: consultations[i].getDataValue('receptionDate'),
                 doctor: {

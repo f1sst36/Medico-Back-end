@@ -94,6 +94,7 @@ class PatientRepository extends CoreRepository {
                     'height',
                     'weight',
                     'bloodType',
+                    'RHFactor',
                     'isSmoker',
                     'isAlcoholic',
                     'operations',

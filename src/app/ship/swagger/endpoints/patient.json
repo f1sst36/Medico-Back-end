@@ -495,6 +495,7 @@
                                         "height": 180,
                                         "weight": 80,
                                         "bloodType": "II",
+                                        "RHFactor": "Rh+",
                                         "isSmoker": "Нет",
                                         "isAlcoholic": "1 раз в год",
                                         "operations": null,
@@ -524,11 +525,9 @@
                                                 "id": 18,
                                                 "name": "Николай",
                                                 "surname": "Кличенко",
-                                                "middleName": "Николаевич"
-                                            },
-                                            "doctorSpecialty": {
-                                                "id": 9,
-                                                "name": "Офтальмолог"
+                                                "middleName": "Николаевич",
+                                                "photo": "/storage/files/abc.jpg",
+                                                "specialty": "Офтальмолог"
                                             }
                                         },
                                         {
@@ -539,11 +538,9 @@
                                                 "id": 17,
                                                 "name": "Степан",
                                                 "surname": "Кличенко",
-                                                "middleName": "Николаевич"
-                                            },
-                                            "doctorSpecialty": {
-                                                "id": 13,
-                                                "name": "Педиатр"
+                                                "middleName": "Николаевич",
+                                                "photo": "/storage/files/abc.jpg",
+                                                "specialty": "Педиатр"
                                             }
                                         }
                                     ]

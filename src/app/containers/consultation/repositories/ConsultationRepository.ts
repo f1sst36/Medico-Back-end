@@ -126,7 +126,7 @@ class ConsultationRepository extends CoreRepository {
                         attributes: ['name'],
                     },
                 ],
-                attributes: ['appointment', 'receptionDate'],
+                attributes: ['id', 'appointment', 'receptionDate'],
             });
         } catch (e) {
             return null;
@@ -231,7 +231,7 @@ class ConsultationRepository extends CoreRepository {
                                 attributes: ['name', 'surname', 'middleName'],
                             },
                         ],
-                        attributes: ['id'],
+                        attributes: ['id', 'photo'],
                     },
                     {
                         model: Specialty,

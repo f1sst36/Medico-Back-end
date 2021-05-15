@@ -15,6 +15,7 @@ interface TransformedResult {
         height: number;
         weight: number;
         bloodType: string;
+        RHFactor: string;
         isSmoker: string;
         isAlcoholic: string;
         operations: string;
@@ -46,10 +47,8 @@ interface TransformedResult {
             name: string;
             surname: string;
             middleName: string;
-        };
-        doctorSpecialty: {
-            id: number;
-            name: string;
+            photo: string;
+            specialty: string;
         };
     }>;
 }
@@ -62,6 +61,7 @@ class PatientInfoForConsultationTransformer extends CoreTransformer {
                 height: data.patient.getDataValue('height'),
                 weight: data.patient.getDataValue('weight'),
                 bloodType: data.patient.getDataValue('bloodType'),
+                RHFactor: data.patient.getDataValue('RHFactor'),
                 isSmoker: data.patient.getDataValue('isSmoker'),
                 isAlcoholic: data.patient.getDataValue('isAlcoholic'),
                 operations: data.patient.getDataValue('operations'),
@@ -101,10 +101,8 @@ class PatientInfoForConsultationTransformer extends CoreTransformer {
                     name: data.history[i].doctor.user.getDataValue('name'),
                     surname: data.history[i].doctor.user.getDataValue('surname'),
                     middleName: data.history[i].doctor.user.getDataValue('middleName'),
-                },
-                doctorSpecialty: {
-                    id: data.history[i].doctorSpecialty.getDataValue('id'),
-                    name: data.history[i].doctorSpecialty.getDataValue('name'),
+                    photo: data.history[i].doctor.getDataValue('photo'),
+                    specialty: data.history[i].doctorSpecialty.getDataValue('name'),
                 },
             });
         }

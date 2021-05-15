@@ -637,6 +637,7 @@
                                 "type": "Object",
                                 "example": [
                                     {
+                                        "id": 1,
                                         "appointment": "Это текст назвачения врача ",
                                         "receptionDate": "2021-04-20T11:00:00.000Z",
                                         "doctor": {
@@ -649,6 +650,7 @@
                                         }
                                     },
                                     {
+                                        "id": 2,
                                         "appointment": "Это текст назвачения врача ",
                                         "receptionDate": "2021-04-28T09:00:00.000Z",
                                         "doctor": {
