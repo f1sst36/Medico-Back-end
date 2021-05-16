@@ -2,6 +2,7 @@ import Bull, { Job, Queue } from 'bull';
 import { app } from '../../../../index';
 import { INewMessage } from '../interfaces';
 import { Message } from '../models/Message';
+import { broadcastMessageToRoomTask } from '../tasks/BroadcastMessageToRoomTask';
 import { messageToDBJob } from './jobs/MessageToDBJob';
 
 class MessagesQueue {
@@ -10,20 +11,6 @@ class MessagesQueue {
     public addMessage = (newMessage: INewMessage): void => {
         this.messagesQueue.add('newMessageProcess', newMessage, {
             attempts: 1,
-        });
-    };
-
-    private broadcastMessageToRoom = (message: Message) => {
-        // Юзер не в комнате
-        // TODO - раскомменти строку как сделаешь механизм добаления юзера в комнаты
-        // app.io.to(message.getDataValue('chatId')).emit('newMessage', {
-    
-        // Вынеси broadcastMessageToRoom и failedMessageSending в action или task
-        app.io.emit('newMessage', {
-            id: message.getDataValue('id'),
-            authorId: message.getDataValue('authorId'),
-            text: message.getDataValue('text'),
-            createdAt: message.getDataValue('createdAt'),
         });
     };
 
@@ -38,8 +25,8 @@ class MessagesQueue {
 
         this.messagesQueue.process('newMessageProcess', messageToDBJob.run);
 
-        this.messagesQueue.on('completed', (job: Job, result: Message) => {
-            this.broadcastMessageToRoom(result);
+        this.messagesQueue.on('completed', async (job: Job, result: Message) => {
+            await broadcastMessageToRoomTask.run(result, app.io);
             // Если job удалять, то он не будет оставлять мета инфу в редисе и в админке соответственно.
             // Еще так документация рекомендует
             job.remove();

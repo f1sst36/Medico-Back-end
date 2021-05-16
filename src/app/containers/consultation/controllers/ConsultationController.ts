@@ -15,6 +15,7 @@ import { patientsAppointmentsByDateValidator } from '../validators/patientsAppoi
 import { getPatientsAppointmentsByDateTransformer } from '../transformers/GetPatientsAppointmentsByDateTransformer';
 import { addAppointmentForPatientValidator } from '../validators/addAppointmentForPatientValidator';
 import { addAppointmentForPatientAction } from '../actions/AddAppointmentForPatientAction';
+import { consultationRepository } from '../repositories/ConsultationRepository';
 
 export class ConsultationController extends CoreController {
     constructor() {
@@ -46,6 +47,7 @@ export class ConsultationController extends CoreController {
             addAppointmentForPatientValidator,
             this.addAppointmentForPatient
         );
+        this.router.get(this.prefix + '/all', this.getAllConsultations);
     }
 
     // Метод для пациента
@@ -145,5 +147,13 @@ export class ConsultationController extends CoreController {
                 .json(coreTransformer.getErrorResponse(result.message));
 
         return res.status(200).json(coreTransformer.getSimpleSuccessResponse('', result.data));
+    };
+
+    public getAllConsultations = async (req: any, res: Response): Promise<Response> => {
+        const result = await consultationRepository.getAllConsultations();
+
+        if (!result) return res.status(404).json({ a: 'Не найдено' });
+
+        return res.status(200).json(result);
     };
 }

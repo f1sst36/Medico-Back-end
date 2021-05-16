@@ -18,6 +18,7 @@ const exceptUrls: Array<string> = [
     prefix + '/doctor/most-experienced',
     prefix + '/doctor/review/list',
     prefix + '/feedback/leave',
+    prefix + '/consultation/all',
 ];
 
 export const verifyJWTToken = (req: any, res: Response, next: NextFunction) => {

@@ -316,6 +316,14 @@ class ConsultationRepository extends CoreRepository {
             return null;
         }
     };
+
+    public getAllConsultations = (): Promise<Array<Consultation>> => {
+        try {
+            return this.model.findAll();
+        } catch (e) {
+            return null;
+        }
+    };
 }
 
 export const consultationRepository = new ConsultationRepository();

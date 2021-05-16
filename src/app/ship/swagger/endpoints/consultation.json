@@ -953,5 +953,80 @@
                 }
             ]
         }
+    },
+    "/consultation/all": {
+        "get": {
+            "tags": ["Consultation"],
+            "description": "Debug method",
+            "responses": {
+                "200": {
+                    "description": "Successfully getted list",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                                "type": "integer",
+                                "example": 0
+                            },
+                            "data": {
+                                "type": "Array",
+                                "example": [
+                                    {
+                                        "id": 1,
+                                        "patientId": 2,
+                                        "doctorId": 4,
+                                        "chatId": 1,
+                                        "doctorSpecialtyId": 4,
+                                        "communicationMethodId": 3,
+                                        "receptionDate": "2021-05-09T16:00:00.000Z",
+                                        "symptoms": "Такие-то такие-то симптомы ....",
+                                        "appointment": "Это текст назвачения врача",
+                                        "paymentId": null,
+                                        "state": "done",
+                                        "isFirstConsultation": true,
+                                        "createdAt": "2021-05-15T08:07:13.998Z",
+                                        "updatedAt": "2021-05-15T08:07:13.998Z"
+                                    },
+                                    {
+                                        "id": 2,
+                                        "patientId": 2,
+                                        "doctorId": 4,
+                                        "chatId": 2,
+                                        "doctorSpecialtyId": 11,
+                                        "communicationMethodId": 2,
+                                        "receptionDate": "2021-05-13T15:00:00.000Z",
+                                        "symptoms": "Такие-то такие-то симптомы ....",
+                                        "appointment": "Это текст назвачения врача",
+                                        "paymentId": null,
+                                        "state": "done",
+                                        "isFirstConsultation": true,
+                                        "createdAt": "2021-05-15T08:07:13.998Z",
+                                        "updatedAt": "2021-05-15T08:07:13.998Z"
+                                    }
+                                ],
+                                "message": {
+                                    "type": "string",
+                                    "example": "",
+                                    "description": "Reply message"
+                                }
+                            }
+                        }
+                    }
+                },
+                "404": {
+                    "description": "Not found",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "a": {
+                                "type": "string",
+                                "example": "Не найдено",
+                                "description": "Reply message"
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }

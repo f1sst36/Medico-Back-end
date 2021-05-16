@@ -4,6 +4,7 @@ import { Socket } from 'socket.io';
 import { client } from '../redis';
 import { CoreSocket } from './CoreSocket';
 import { socketChat } from './SocketChat';
+import { app } from '../../../index';
 
 class SocketConnection extends CoreSocket {
     private SOCKET_CONNECTION_IDS_LIST: string = 'socketConnectionIds';
@@ -44,6 +45,13 @@ class SocketConnection extends CoreSocket {
     };
 
     public addSocketIdToRedis = async (userId: number, socketId: string): Promise<any> => {
+        const id = await util.promisify(client.hget).bind(client)(
+            this.SOCKET_CONNECTION_IDS_LIST,
+            userId
+        );
+        // Если такой id юзера уже есть в редисе, то разрываем соединение
+        if (id) return app.io.sockets.connected[socketId].disconnect();
+
         return await util.promisify(client.hset).bind(client)(
             this.SOCKET_CONNECTION_IDS_LIST,
             userId,

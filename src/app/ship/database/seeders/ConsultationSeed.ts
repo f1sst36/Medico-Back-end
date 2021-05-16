@@ -20,6 +20,8 @@ export class ConsultationSeed extends CoreSeed {
             doctorId: doctorId,
         });
 
+        // for(let i = 0; i < this.randomInt(10, ))
+
         await Consultation.create({
             patientId: patientId,
             doctorId: doctorId,
