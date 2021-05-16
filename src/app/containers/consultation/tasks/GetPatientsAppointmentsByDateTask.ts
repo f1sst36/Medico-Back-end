@@ -16,11 +16,11 @@ class GetPatientsAppointmentsByDateTask extends CoreTask {
             };
         }
 
-        if (startDate < new Date(format(new Date(), 'yyyy-MM-dd')))
-            return {
-                error: 1,
-                message: 'Записи на консультации в переданную дату не найдены',
-            };
+        // if (startDate < new Date(format(new Date(), 'yyyy-MM-dd')))
+        //     return {
+        //         error: 1,
+        //         message: 'Записи на консультации в переданную дату не найдены',
+        //     };
 
         // Если параметр state === 'new', то отдаются и waiting и active
         const consultations = await consultationRepository.getConsultationsForDoctorByDate(
