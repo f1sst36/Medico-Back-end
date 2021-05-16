@@ -6,6 +6,8 @@ import { consultationRepository } from '../repositories/ConsultationRepository';
 import { createConsultationTask } from '../tasks/CreateConsultationTask';
 import { getFreeDoctorTimeTask } from '../tasks/GetFreeDoctorTimeTask';
 import { writeConsultationsToRedisTask } from '../tasks/WriteConsultationsToRedisTask';
+import { chatRepository } from '../../../containers/chat/repositories/ChatRepository';
+import { Chat } from '../../../containers/chat/models/Chat';
 
 interface IWorkingTime {
     time: number;
@@ -69,16 +71,29 @@ class AppointmentForConsultationAction extends CoreAction {
                 doctorId
             );
 
-        const chat = await createChatTask.run({
-            patientId: patientId,
-            doctorId: doctorId,
-        });
-
-        if (!chat)
+        // Получение чата между врачем и пациентом.
+        let chat: Chat;
+        try {
+            chat = await chatRepository.getChatForAppointmentCreate(patientId, doctorId);
+        } catch (e) {
             return {
                 error: 1,
-                message: 'Ошибка создания чата',
+                message: 'Ошибка получения чата из БД',
             };
+        }
+        // Создание чата если его не существует
+        if (!chat) {
+            chat = await createChatTask.run({
+                patientId: patientId,
+                doctorId: doctorId,
+            });
+
+            if (!chat)
+                return {
+                    error: 1,
+                    message: 'Ошибка создания чата',
+                };
+        }
 
         const consultation = await createConsultationTask.run({
             doctorId: doctorId,

@@ -14,6 +14,7 @@ interface IUserParams {
     birthDate: string;
     phone: string;
     email: string;
+    avatar: string;
     isActivated: boolean;
     hashedPassword: string;
     confirmationToken: string;
@@ -47,6 +48,7 @@ export class DoctorsSeed extends CoreSeed {
             birthDate: userData.birthDate,
             phone: userData.phone,
             email: userData.email,
+            avatar: userData.avatar,
             isActivated: userData.isActivated,
             password: userData.hashedPassword,
             confirmationToken: userData.confirmationToken,
@@ -148,6 +150,7 @@ export class DoctorsSeed extends CoreSeed {
             'Мария',
         ];
 
+        let randomPhoto: string = this.arrayRandElement(doctorPhotos);
         await this.createDoctor(
             {
                 name: 'Максим',
@@ -157,6 +160,7 @@ export class DoctorsSeed extends CoreSeed {
                 birthDate: '2000-02-20',
                 phone: this.randomPhone(),
                 email: `qwe@mail.ru`,
+                avatar: randomPhoto,
                 isActivated: true,
                 hashedPassword: await bcrypt.hash('qwe123Q!', salt),
                 confirmationToken: await bcrypt.hash('qwe@mail.ru', salt),
@@ -173,7 +177,7 @@ export class DoctorsSeed extends CoreSeed {
                     ),
                     'yyyy-MM-dd'
                 ),
-                photo: this.arrayRandElement(doctorPhotos),
+                photo: randomPhoto,
                 summary: '/storage/files/summary.jpg',
                 diploma: '/storage/files/diploma.jpg',
                 about: 'Я врач - не мяч!',
@@ -191,7 +195,7 @@ export class DoctorsSeed extends CoreSeed {
                 }:00`,
             }
         );
-
+        randomPhoto = this.arrayRandElement(doctorPhotos);
         await this.createDoctor(
             {
                 name: 'Илья',
@@ -201,6 +205,7 @@ export class DoctorsSeed extends CoreSeed {
                 birthDate: '2000-06-16',
                 phone: this.randomPhone(),
                 email: `ilya@mail.ru`,
+                avatar: randomPhoto,
                 isActivated: true,
                 hashedPassword: await bcrypt.hash('Q1w2e3r4', salt),
                 confirmationToken: await bcrypt.hash('ilya@mail.ru', salt),
@@ -217,7 +222,7 @@ export class DoctorsSeed extends CoreSeed {
                     ),
                     'yyyy-MM-dd'
                 ),
-                photo: this.arrayRandElement(doctorPhotos),
+                photo: randomPhoto,
                 summary: '/storage/files/summary.jpg',
                 diploma: '/storage/files/diploma.jpg',
                 about: 'Я врач - не мяч!',
@@ -237,6 +242,8 @@ export class DoctorsSeed extends CoreSeed {
         );
 
         for (let i = 0; i < 30; i++) {
+            let randomPhoto: string = this.arrayRandElement(doctorPhotos);
+
             await this.createDoctor(
                 {
                     name: this.arrayRandElement(names),
@@ -246,6 +253,7 @@ export class DoctorsSeed extends CoreSeed {
                     birthDate: '2000-06-16',
                     phone: this.randomPhone(),
                     email: `${this.randomString(18)}@mail.ru`,
+                    avatar: randomPhoto,
                     isActivated: true,
                     hashedPassword: await bcrypt.hash('Q1w2e3r4', salt),
                     confirmationToken: await bcrypt.hash('1234567890', salt),
@@ -262,7 +270,7 @@ export class DoctorsSeed extends CoreSeed {
                         ),
                         'yyyy-MM-dd'
                     ),
-                    photo: this.arrayRandElement(doctorPhotos),
+                    photo: randomPhoto,
                     summary: '/storage/files/summary.jpg',
                     diploma: '/storage/files/diploma.jpg',
                     about: 'Я врач - супер головач!',

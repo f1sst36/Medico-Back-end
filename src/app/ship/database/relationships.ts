@@ -13,6 +13,22 @@ export const linkModels = () => {
     Patient.hasOne(User, { as: 'user', foreignKey: 'id', constraints: false });
     Doctor.hasOne(User, { as: 'user', foreignKey: 'id', constraints: false });
     //
+    // ???????????
+    User.belongsTo(Patient, { as: 'patient', foreignKey: 'id', constraints: false });
+    User.belongsTo(Doctor, { as: 'doctor', foreignKey: 'id', constraints: false });
+
+    // Message.belongsTo(Doctor, {
+    //     as: 'doctor',
+    //     foreignKey: 'authorId',
+    //     constraints: false,
+    // });
+    // Message.belongsTo(Patient, {
+    //     as: 'patient',
+    //     foreignKey: 'authorId',
+    //     constraints: false,
+    // });
+    // ???????????
+    //
     DoctorSpecialtiesLink.belongsTo(Doctor, {
         as: 'doctor',
         foreignKey: 'doctorId',
@@ -58,7 +74,7 @@ export const linkModels = () => {
         foreignKey: 'communicationMethodId',
         constraints: false,
     });
-    Consultation.hasOne(Chat, {
+    Consultation.belongsTo(Chat, {
         as: 'chat',
         foreignKey: 'chatId',
         constraints: false,
@@ -85,9 +101,24 @@ export const linkModels = () => {
         foreignKey: 'chatId',
         constraints: false,
     });
+    Chat.belongsTo(Patient, {
+        as: 'patient',
+        foreignKey: 'patientId',
+        constraints: false,
+    });
+    Chat.belongsTo(Doctor, {
+        as: 'doctor',
+        foreignKey: 'doctorId',
+        constraints: false,
+    });
     Message.hasMany(MediaFile, {
         as: 'files',
         foreignKey: 'messageId',
+        constraints: false,
+    });
+    Message.belongsTo(User, {
+        as: 'user',
+        foreignKey: 'authorId',
         constraints: false,
     });
 };

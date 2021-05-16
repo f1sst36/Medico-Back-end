@@ -4,21 +4,32 @@ import { CoreAction, IResult } from '../../../ship/core/action/CoreAction';
 import { doctorRepository } from '../../../containers/doctor/repositories/DoctorRepository';
 import { patientRepository } from '../../../containers/patient/repositories/PatientRepository';
 import { FileStorage } from '../../../ship/helper';
+import { userRepository } from '../repositories/UserRepository';
 
 class ChangeUserPhotoAction extends CoreAction {
     public run = async (userId: number, userType: string, file: any): Promise<IResult> => {
-        let user: Doctor | Patient;
-        // const uploadPath = 'src/app/ship/storage/files/' + file.name;
-        // const pathToFileImage = '/storage/files/' + file.name;
+        let patient: Patient;
+        let doctor: Doctor;
 
         let pathToFileImage: string;
         if (userType === 'patient') {
-            user = await patientRepository.getPatientForChangeAvatar(userId);
+            patient = await patientRepository.getPatientForChangeAvatar(userId);
+            let user = await userRepository.getUserForChangeAvatar(userId);
+
+            if (!patient || !user) {
+                return {
+                    error: 1,
+                    message: 'Ошибка загрузки фото',
+                };
+            }
 
             try {
                 pathToFileImage = await FileStorage.moveFile(file);
-                // await file.mv(uploadPath);
+
                 await user.update({
+                    avatar: pathToFileImage,
+                });
+                await patient.update({
                     avatar: pathToFileImage,
                 });
             } catch (e) {
@@ -28,12 +39,23 @@ class ChangeUserPhotoAction extends CoreAction {
                 };
             }
         } else if (userType === 'doctor') {
-            user = await doctorRepository.getDoctorForChangePhoto(userId);
+            doctor = await doctorRepository.getDoctorForChangePhoto(userId);
+            let user = await userRepository.getUserForChangeAvatar(userId);
+
+            if (!doctor) {
+                return {
+                    error: 1,
+                    message: 'Ошибка загрузки фото',
+                };
+            }
 
             try {
                 pathToFileImage = await FileStorage.moveFile(file);
-                // await file.mv(uploadPath);
+
                 await user.update({
+                    avatar: pathToFileImage,
+                });
+                await doctor.update({
                     photo: pathToFileImage,
                 });
             } catch (e) {

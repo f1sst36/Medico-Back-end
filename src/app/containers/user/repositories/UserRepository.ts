@@ -1,7 +1,7 @@
-import { Op } from "sequelize";
-import { CoreRepository } from "../../../ship/core/repository/CoreRepository";
+import { Op } from 'sequelize';
+import { CoreRepository } from '../../../ship/core/repository/CoreRepository';
 
-import { User } from "../models/User";
+import { User } from '../models/User';
 
 class UserRepository extends CoreRepository {
     constructor() {
@@ -40,6 +40,19 @@ class UserRepository extends CoreRepository {
             });
             return user;
         } catch (error) {
+            return null;
+        }
+    };
+
+    public getUserForChangeAvatar = (userId: number): Promise<User> => {
+        try {
+            return this.model.findOne({
+                where: {
+                    id: userId,
+                },
+                attributes: ['id', 'avatar'],
+            });
+        } catch (e) {
             return null;
         }
     };

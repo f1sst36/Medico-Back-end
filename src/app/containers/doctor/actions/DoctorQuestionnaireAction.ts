@@ -4,6 +4,7 @@ import { CoreAction, IResult } from '../../../ship/core/action/CoreAction';
 import { DoctorSpecialtiesLink } from '../models';
 import { doctorRepository } from '../repositories/DoctorRepository';
 import { specialtyRepository } from '../repositories/SpecialtyRepository';
+import { userRepository } from '../../user/repositories/UserRepository';
 
 interface IParams {
     doctorId: number;
@@ -12,7 +13,7 @@ interface IParams {
     experience: Date;
 }
 
-// Говнокод. Исправь
+//TODO Говнокод. Исправь
 class DoctorQuestionnaireAction extends CoreAction {
     public run = async (
         doctorId: number,
@@ -20,8 +21,9 @@ class DoctorQuestionnaireAction extends CoreAction {
         doctorFiles: any
     ): Promise<IResult> => {
         const doctor = await doctorRepository.getDoctorById(doctorId);
+        const user = await userRepository.getUserForChangeAvatar(doctorId);
 
-        if (!doctor)
+        if (!doctor || !user)
             return {
                 error: 1,
                 message: 'Доктор не найден',
@@ -51,6 +53,10 @@ class DoctorQuestionnaireAction extends CoreAction {
             const pathToPhotoImage = await FileStorage.moveFile(doctorFiles.photo);
             const pathToSummaryImage = await FileStorage.moveFile(doctorFiles.summary);
             const pathToDiplomaImage = await FileStorage.moveFile(doctorFiles.diploma);
+
+            await user.update({
+                avatar: pathToPhotoImage,
+            });
 
             await doctor.update({
                 photo: pathToPhotoImage,

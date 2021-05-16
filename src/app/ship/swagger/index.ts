@@ -7,6 +7,7 @@ const admin = readJson('./src/app/ship/swagger/endpoints/admin.json');
 const review = readJson('./src/app/ship/swagger/endpoints/review.json');
 const patient = readJson('./src/app/ship/swagger/endpoints/patient.json');
 const user = readJson('./src/app/ship/swagger/endpoints/user.json');
+const chat = readJson('./src/app/ship/swagger/endpoints/chat.json');
 const feedback = readJson('./src/app/ship/swagger/endpoints/feedback.json');
 const other = readJson('./src/app/ship/swagger/endpoints/other.json');
 const analysis = readJson('./src/app/ship/swagger/endpoints/analysis.json');
@@ -38,6 +39,7 @@ export const swaggerOptions = {
         ...patient,
         ...analysis,
         ...user,
+        ...chat,
         ...feedback,
         ...admin,
         ...other,
@@ -98,5 +100,6 @@ export const swaggerOptions = {
         'Feedback',
         'Other',
         'Analysis',
+        'Chat,'
     ],
 };

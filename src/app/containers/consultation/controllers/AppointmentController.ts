@@ -39,6 +39,7 @@ export class AppointmentController extends CoreController {
         );
     }
 
+    // Запись на консультацию
     public appointmentForConsultation = async (req: any, res: Response) => {
         if (this.validateRequest(req, res)) return;
 

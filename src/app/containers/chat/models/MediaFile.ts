@@ -23,4 +23,14 @@ export const mediaFileSchema = {
         allowNull: false,
         type: DataTypes.STRING,
     },
+    createdAt: {
+        allowNull: false,
+        type: DataTypes.DATE,
+        defaultValue: new Date(),
+    },
+    updatedAt: {
+        allowNull: false,
+        type: DataTypes.DATE,
+        defaultValue: new Date(),
+    },
 };

@@ -1,0 +1,88 @@
+{
+    "/chat/list": {
+        "get": {
+            "tags": ["Chat"],
+            "security": {
+                "bearerAuth": []
+            },
+            "description": "Get all chats for user. Method for patient and doctor",
+            "responses": {
+                "200": {
+                    "description": "Successfully getted chat list",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                                "type": "integer",
+                                "example": 0
+                            },
+                            "data": {
+                                "type": "Object",
+                                "example": [
+                                    {
+                                        "id": 1,
+                                        "isOpenedAccess": false,
+                                        "interlocutor": {
+                                            "id": 3,
+                                            "name": "Максим",
+                                            "surname": "Иванов",
+                                            "avatar": "/storage/files/doctor_2.jpg"
+                                        },
+                                        "messages": [
+                                            {
+                                                "id": 3,
+                                                "text": "qqqqqyyyy",
+                                                "createdAt": "2021-05-16T15:20:49.377Z",
+                                                "user": {
+                                                    "id": 2,
+                                                    "avatar": null
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "id": 2,
+                                        "isOpenedAccess": false,
+                                        "interlocutor": {
+                                            "id": 4,
+                                            "name": "Илья",
+                                            "surname": "Дожленко",
+                                            "avatar": "/storage/files/doctor_7.jpg"
+                                        },
+                                        "messages": []
+                                    }
+                                ]
+                            },
+                            "message": {
+                                "type": "string",
+                                "example": "",
+                                "description": "Reply message"
+                            }
+                        }
+                    }
+                },
+                "422": {
+                    "description": "DB Error",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "data": {
+                                "type": "object",
+                                "example": null
+                            },
+                            "message": {
+                                "type": "string",
+                                "example": "Ошибка при запросе к БД",
+                                "description": "Reply message"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

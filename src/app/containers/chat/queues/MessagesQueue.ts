@@ -3,6 +3,7 @@ import { app } from '../../../../index';
 import { INewMessage } from '../interfaces';
 import { Message } from '../models/Message';
 import { broadcastMessageToRoomTask } from '../tasks/BroadcastMessageToRoomTask';
+import { failedMessageSendingTask } from '../tasks/FailedMessageSendingTask';
 import { messageToDBJob } from './jobs/MessageToDBJob';
 
 class MessagesQueue {
@@ -12,10 +13,6 @@ class MessagesQueue {
         this.messagesQueue.add('newMessageProcess', newMessage, {
             attempts: 1,
         });
-    };
-
-    private failedMessageSending = (message: INewMessage, err: Error) => {
-        // Берем socket id из Redis (по authorId) и отправляем ему сообщение о том, что сообщение не было доставлено
     };
 
     public run = (): Queue => {
@@ -33,7 +30,7 @@ class MessagesQueue {
         });
 
         this.messagesQueue.on('failed', (job: Job, err: Error) => {
-            this.failedMessageSending(job.data, err);
+            failedMessageSendingTask.run(job.data, err, app.io);
         });
 
         return this.messagesQueue;

@@ -41,6 +41,7 @@ import { MediaFile, mediaFileSchema } from './app/containers/chat/models/MediaFi
 import { Feedback, feedbackSchema } from './app/containers/feedback/model/Feedback';
 import { FeedbackController } from './app/containers/feedback/controllers/FeedbackController';
 import { messagesQueue } from './app/containers/chat/queues/MessagesQueue';
+import { ChatController } from './app/containers/chat/controllers/ChatController';
 
 export const app = new App({
     port: +process.env.PORT || 8080,
@@ -58,6 +59,7 @@ export const app = new App({
         new AnalysisController(),
         new PatientController(),
         new FeedbackController(),
+        new ChatController()
     ],
     middlewares: [allowCrossDomain, verifyJWTToken, jsonErrorHandler, permissionByRole],
     queues: [messagesQueue],

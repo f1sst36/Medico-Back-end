@@ -67,6 +67,9 @@ export const userSchema = {
         allowNull: false,
         type: DataTypes.STRING,
     },
+    avatar: {
+        type: DataTypes.STRING,
+    },
     isActivated: {
         allowNull: false,
         type: DataTypes.BOOLEAN,

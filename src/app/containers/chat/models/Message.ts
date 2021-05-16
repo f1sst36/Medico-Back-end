@@ -1,12 +1,16 @@
+import { User } from '../../user/models/User';
 import { DataTypes } from 'sequelize';
 
 import { CoreModel } from '../../../ship/core/model/CoreModel';
 
 export class Message extends CoreModel {
     public readonly id: Number;
-    public patientId: number;
-    public doctorId: number;
-    public isOpenedAccess: boolean;
+    public chatId: number;
+    public authorId: number;
+    public text: string;
+    public deletedAt: Date;
+
+    public user: User;
 }
 
 export const messageSchema = {
@@ -31,5 +35,15 @@ export const messageSchema = {
     deletedAt: {
         type: DataTypes.DATE,
         defaultValue: null,
+    },
+    createdAt: {
+        allowNull: false,
+        type: DataTypes.DATE,
+        defaultValue: new Date(),
+    },
+    updatedAt: {
+        allowNull: false,
+        type: DataTypes.DATE,
+        defaultValue: new Date(),
     },
 };

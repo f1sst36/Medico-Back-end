@@ -13,6 +13,6 @@ export class Seeder {
         await new PatientsSeed().run();
         await new DoctorsSeed().run();
         await new CommunicationMethodSeed().run();
-        new ConsultationSeed().run();
+        // new ConsultationSeed().run();
     };
 }
