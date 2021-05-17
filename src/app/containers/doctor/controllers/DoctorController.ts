@@ -1,38 +1,38 @@
-import { coreTransformer } from "../../../ship/core/transformer/CoreTransformer";
-import express from "express";
-import { Request, Response } from "express";
+import { coreTransformer } from '../../../ship/core/transformer/CoreTransformer';
+import express from 'express';
+import { Request, Response } from 'express';
 
-import { CoreController } from "../../../ship/core/controller/CoreController";
-import { getDoctorsByPaginate } from "../tasks/GetDoctorsByPaginate";
-import { doctorsByPaginateTransformer } from "../transformers/DoctorsByPaginateTransformer";
-import { doctorsPaginateValidator } from "../validators/doctorsPaginateValidator";
-import { doctorByIdValidator } from "../validators/doctorByIdValidator";
-import { getDoctorByIdTask } from "../tasks/GetDoctorByIdTask";
-import { doctorByIdTransformer } from "../transformers/DoctorByIdTransformer";
-import { doctorRepository } from "../repositories/DoctorRepository";
-import { getMostExperiencedDoctorsTask } from "../tasks/GetMostExperiencedDoctorsTask";
-import { mostExperiencedDoctorsValidator } from "../validators/mostExperiencedDoctorsValidator";
-import { mostExperiencedDoctorsTransformer } from "../transformers/MostExperiencedDoctorsTransformer";
-import { reviewRepository } from "../repositories/ReviewRepository";
+import { CoreController } from '../../../ship/core/controller/CoreController';
+import { getDoctorsByPaginateTask } from '../tasks/GetDoctorsByPaginateTask';
+import { doctorsByPaginateTransformer } from '../transformers/DoctorsByPaginateTransformer';
+import { doctorsPaginateValidator } from '../validators/doctorsPaginateValidator';
+import { doctorByIdValidator } from '../validators/doctorByIdValidator';
+import { getDoctorByIdTask } from '../tasks/GetDoctorByIdTask';
+import { doctorByIdTransformer } from '../transformers/DoctorByIdTransformer';
+import { doctorRepository } from '../repositories/DoctorRepository';
+import { getMostExperiencedDoctorsTask } from '../tasks/GetMostExperiencedDoctorsTask';
+import { mostExperiencedDoctorsValidator } from '../validators/mostExperiencedDoctorsValidator';
+import { mostExperiencedDoctorsTransformer } from '../transformers/MostExperiencedDoctorsTransformer';
+import { reviewRepository } from '../repositories/ReviewRepository';
 
 export class DoctorController extends CoreController {
     constructor() {
         super();
-        this.prefix = "/doctor";
+        this.prefix = '/doctor';
         this.router = express.Router();
         this.initRoutes();
     }
 
     public initRoutes() {
         this.router.get(
-            this.prefix + "/paginate/",
+            this.prefix + '/paginate/',
             doctorsPaginateValidator,
             this.getDoctorsByPaginate
         );
-        this.router.get(this.prefix + "/info", doctorByIdValidator, this.getDoctorById);
-        this.router.get(this.prefix + "/unverified", this.getUnverifiedDoctors);
+        this.router.get(this.prefix + '/info', doctorByIdValidator, this.getDoctorById);
+        this.router.get(this.prefix + '/unverified', this.getUnverifiedDoctors);
         this.router.get(
-            this.prefix + "/most-experienced",
+            this.prefix + '/most-experienced',
             mostExperiencedDoctorsValidator,
             this.getMostExperiencedDoctors
         );
@@ -41,7 +41,7 @@ export class DoctorController extends CoreController {
     public getDoctorsByPaginate = async (req: Request, res: Response) => {
         if (this.validateRequest(req, res)) return;
 
-        const result = await getDoctorsByPaginate.run(
+        const result = await getDoctorsByPaginateTask.run(
             +req.query.page,
             +req.query.count,
             String(req.query.fio),
@@ -59,7 +59,7 @@ export class DoctorController extends CoreController {
         const transformedDoctors = doctorsByPaginateTransformer.transform(result.data.items);
 
         res.status(200).json(
-            coreTransformer.getSimpleSuccessResponse("", {
+            coreTransformer.getSimpleSuccessResponse('', {
                 items: transformedDoctors,
                 meta: result.data.meta,
             })
@@ -79,8 +79,8 @@ export class DoctorController extends CoreController {
             .status(200)
             .json(
                 coreTransformer.getSimpleSuccessResponse(
-                    "",
-                    doctorByIdTransformer.transform(result.data, countOfReviews)
+                    '',
+                    await doctorByIdTransformer.transform(result.data, countOfReviews)
                 )
             );
     };
@@ -89,7 +89,7 @@ export class DoctorController extends CoreController {
         const result = await doctorRepository.getUnverifiedDoctors();
 
         if (!result || !result.length)
-            return res.status(404).json(coreTransformer.getErrorResponse("Врачи не найдены"));
+            return res.status(404).json(coreTransformer.getErrorResponse('Врачи не найдены'));
 
         return res.status(200).json(result);
     };
@@ -100,13 +100,13 @@ export class DoctorController extends CoreController {
         const result = await getMostExperiencedDoctorsTask.run(+req.query.count);
 
         if (result.error || !result.data.length)
-            return res.status(404).json(coreTransformer.getErrorResponse("Врачи не найдены"));
+            return res.status(404).json(coreTransformer.getErrorResponse('Врачи не найдены'));
 
         return res
             .status(200)
             .json(
                 coreTransformer.getSimpleSuccessResponse(
-                    "",
+                    '',
                     mostExperiencedDoctorsTransformer.transform(result.data)
                 )
             );

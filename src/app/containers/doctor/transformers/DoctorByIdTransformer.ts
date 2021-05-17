@@ -30,7 +30,7 @@ interface IDoctorResult {
 }
 
 class DoctorByIdTransformer extends CoreTransformer {
-    public transform = (doctor: any, countOfReviews: number): IDoctorResult => {
+    public transform = async (doctor: any, countOfReviews: number): Promise<IDoctorResult> => {
         let result: IDoctorResult;
 
         result = {
@@ -43,9 +43,9 @@ class DoctorByIdTransformer extends CoreTransformer {
             experience: doctor.transformExperience(),
             reviews: [],
             countOfReviews: countOfReviews,
-            education: doctor.getDataValue("education"),
-            workplaces: doctor.getDataValue("workplaces"),
-            workTime: doctor.getDataValue("workTime"),
+            education: doctor.education,
+            workplaces: doctor.workplaces,
+            workTime: doctor.transformedWorkTime(),
             photo: doctor.getDataValue("photo"),
             costOfConsultation: doctor.getDataValue("costOfConsultation"),
             specialties: [],

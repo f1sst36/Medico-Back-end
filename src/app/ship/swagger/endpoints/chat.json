@@ -158,5 +158,139 @@
                 }
             }
         }
+    },
+    "/chat/message/list?chatId={chatId}&count={count}&lastMessageId={lastMessageId?}": {
+        "get": {
+            "tags": ["Chat"],
+            "security": {
+                "bearerAuth": []
+            },
+            "description": "Get messages from chat. Method for patient and doctor",
+            "responses": {
+                "200": {
+                    "description": "Successfully getted messages list",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                                "type": "integer",
+                                "example": 0
+                            },
+                            "data": {
+                                "type": "Object",
+                                "example": [
+                                    {
+                                        "id": 89,
+                                        "text": "Тестовое сообщение №89",
+                                        "createdAt": "2021-05-17T12:52:59.461Z",
+                                        "user": {
+                                            "id": 3,
+                                            "avatar": "/storage/files/doctor_10.jpg"
+                                        }
+                                    },
+                                    {
+                                        "id": 88,
+                                        "text": "Тестовое сообщение №88",
+                                        "createdAt": "2021-05-17T12:52:59.461Z",
+                                        "user": {
+                                            "id": 2,
+                                            "avatar": null
+                                        }
+                                    },
+                                    {
+                                        "id": 87,
+                                        "text": "Тестовое сообщение №87",
+                                        "createdAt": "2021-05-17T12:52:59.461Z",
+                                        "user": {
+                                            "id": 3,
+                                            "avatar": "/storage/files/doctor_10.jpg"
+                                        }
+                                    }
+                                ]
+                            },
+                            "message": {
+                                "type": "string",
+                                "example": "",
+                                "description": "Reply message"
+                            }
+                        }
+                    }
+                },
+                "403": {
+                    "description": "Forbidden",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "data": {
+                                "type": "object",
+                                "example": null
+                            },
+                            "message": {
+                                "type": "string",
+                                "example": "У вас нет доступа к данному чату",
+                                "description": "Reply message"
+                            }
+                        }
+                    }
+                },
+                "422": {
+                    "description": "DB Error",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "data": {
+                                "type": "object",
+                                "example": null
+                            },
+                            "message": {
+                                "type": "string",
+                                "example": "Ошибка получения данных из БД",
+                                "description": "Reply message"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "parameters": [
+            {
+                "name": "chatId",
+                "in": "query",
+                "description": "Chat id",
+                "required": true,
+                "schema": {
+                    "type": "integer",
+                    "example": "chatId=1"
+                }
+            },
+            {
+                "name": "count",
+                "in": "query",
+                "description": "Count of messages what you need in response",
+                "required": true,
+                "schema": {
+                    "type": "integer",
+                    "example": "count=20"
+                }
+            },
+            {
+                "name": "lastMessageId",
+                "in": "query",
+                "description": "Messages whose ID is less than this parameter will be returned",
+                "required": false,
+                "schema": {
+                    "type": "integer",
+                    "example": "lastMessageId=50"
+                }
+            }
+        ]
     }
 }

@@ -16,7 +16,7 @@ interface ITransformedUser {
     additionalData: any;
 }
 
-// Лютый говнокод. Исправь потом!
+//TODO Лютый говнокод. Исправь потом!
 class UserTransformer extends CoreTransformer {
     public transform = (user: any, countOfReviews: number = undefined): ITransformedUser => {
         let transformedUser: ITransformedUser;
@@ -40,6 +40,10 @@ class UserTransformer extends CoreTransformer {
             delete transformedUser.additionalData.id;
 
             if (transformedUser.userType === 'doctor') {
+                transformedUser.additionalData.workTime = user.transformedWorkTime();
+                transformedUser.additionalData.education = user.education;
+                transformedUser.additionalData.workplaces = user.workplaces;
+
                 transformedUser.additionalData.specialties = [];
                 for (
                     let i = 0;
@@ -59,8 +63,6 @@ class UserTransformer extends CoreTransformer {
 
                 const transformedReviews: Array<any> = [];
                 for (let i = 0; i < transformedUser.additionalData.reviews.length; i++) {
-                    console.log(transformedUser.additionalData.reviews[i].createdAt);
-                    
                     transformedReviews.push({
                         id: transformedUser.additionalData.reviews[i].id,
                         text: transformedUser.additionalData.reviews[i].text,

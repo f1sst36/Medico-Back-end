@@ -1,7 +1,7 @@
 import { CoreTask, IResult } from '../../../ship/core/task/CoreTask';
 import { doctorRepository } from '../repositories/DoctorRepository';
 
-class GetDoctorsByPaginate extends CoreTask {
+class GetDoctorsByPaginateTask extends CoreTask {
     public run = async (
         page: number,
         count: number,
@@ -51,4 +51,4 @@ class GetDoctorsByPaginate extends CoreTask {
     };
 }
 
-export const getDoctorsByPaginate = new GetDoctorsByPaginate();
+export const getDoctorsByPaginateTask = new GetDoctorsByPaginateTask();

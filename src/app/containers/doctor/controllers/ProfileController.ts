@@ -12,6 +12,8 @@ import { getDoctorsScheduleTask } from '../tasks/GetDoctorsScheduleTask';
 import { doctorsScheduleTransformer } from '../transformers/DoctorsScheduleTransformer';
 import { changeDoctorsScheduleAction } from '../actions/ChangeDoctorsScheduleAction';
 import { changeDoctorsScheduleValidator } from '../validators/changeDoctorsScheduleValidator';
+import { changeDoctorsInfoAction } from '../actions/ChangeDoctorsInfoAction';
+import { changeDoctorsInfoValidator } from '../validators/changeDoctorsInfoValidator';
 
 export class ProfileController extends CoreController {
     constructor() {
@@ -32,6 +34,11 @@ export class ProfileController extends CoreController {
             this.prefix + '/change-schedule',
             changeDoctorsScheduleValidator,
             this.changeDoctorsSchedule
+        );
+        this.router.post(
+            this.prefix + '/change-info',
+            changeDoctorsInfoValidator,
+            this.changeDoctorsInfo
         );
     }
 
@@ -80,12 +87,24 @@ export class ProfileController extends CoreController {
         const result = await changeDoctorsScheduleAction.run(req.user.id, req.body.schedule);
 
         if (result.error)
-            return res
-                .status(422)
-                .json(coreTransformer.getErrorResponse(result.message));
+            return res.status(422).json(coreTransformer.getErrorResponse(result.message));
 
         return res
             .status(200)
             .json(coreTransformer.getSimpleSuccessResponse(result.message, result.data));
+    };
+
+    // Метод для изменения информации о докторе. (Стоимость консультации, О себе, Места работы, Образование)
+    public changeDoctorsInfo = async (req: any, res: Response): Promise<Response> => {
+        if (this.validateRequest(req, res)) return;
+
+        const result = await changeDoctorsInfoAction.run(req.user.id, req.body);
+
+        if (result.error)
+            return res
+                .status(result.error === 1 ? 400 : 422)
+                .json(coreTransformer.getErrorResponse(result.message));
+
+        return res.status(200).json(coreTransformer.getSimpleSuccessResponse('', result.data));
     };
 }

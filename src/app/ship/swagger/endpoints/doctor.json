@@ -864,5 +864,158 @@
                 }
             }
         ]
+    },
+    "/doctor/profile/change-info": {
+        "post": {
+            "tags": ["Doctor"],
+            "security": {
+                "bearerAuth": []
+            },
+            "description": "Method only for doctor. Change doctor's info. (Cost of consultation, about, education, workplaces)",
+            "responses": {
+                "200": {
+                    "description": "Successfully updated info",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                                "type": "integer",
+                                "example": 0
+                            },
+                            "data": {
+                                "type": "object",
+                                "example": {
+                                    "costOfConsultation": 2500,
+                                    "education": [],
+                                    "workplaces": [],
+                                    "about": "fofofofovoavvbabrababrabrabra"
+                                }
+                            },
+                            "message": {
+                                "type": "string",
+                                "example": "",
+                                "description": "Reply message"
+                            }
+                        }
+                    }
+                },
+                "422": {
+                    "description": "Unprocessable Entity",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "data": {
+                                "type": "object",
+                                "example": null
+                            },
+                            "message": {
+                                "type": "string",
+                                "example": "Ошибка изменения данных врача",
+                                "description": "Reply message"
+                            }
+                        }
+                    }
+                },
+                "400": {
+                    "description": "Validation error",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "data": {
+                                "type": "object",
+                                "example": null
+                            },
+                            "message": {
+                                "type": "string",
+                                "example": "Поля education и workplaces должны быть массивами",
+                                "description": "Reply message"
+                            }
+                        }
+                    }
+                },
+                "400*": {
+                    "description": "Validation errors",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "data": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                },
+                                "example": ["Неверный тип расписания"]
+                            },
+                            "message": {
+                                "type": "string",
+                                "description": "Reply message",
+                                "example": "Ошибка валидации"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "parameters": [
+            {
+                "name": "costOfConsultation",
+                "in": "body",
+                "description": "Cost of doctor's consultation",
+                "required": false,
+                "schema": {
+                    "type": "integer",
+                    "example": {
+                        "costOfConsultation": 2500
+                    }
+                }
+            },
+            {
+                "name": "about",
+                "in": "body",
+                "description": "About doctor info",
+                "required": false,
+                "schema": {
+                    "type": "string",
+                    "example": {
+                        "about": "foobarbarbabrabarbarbar"
+                    }
+                }
+            },
+            {
+                "name": "education",
+                "in": "body",
+                "description": "Doctor's education. What you set in is what you get",
+                "required": false,
+                "schema": {
+                    "type": "array",
+                    "example": {
+                        "education": []
+                    }
+                }
+            },
+            {
+                "name": "workplaces",
+                "in": "body",
+                "description": "Doctor's workplaces. What you set in is what you get",
+                "required": false,
+                "schema": {
+                    "type": "array",
+                    "example": {
+                        "workplaces": []
+                    }
+                }
+            }
+        ]
     }
 }

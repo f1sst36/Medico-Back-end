@@ -13,15 +13,17 @@ export class ConsultationSeed extends CoreSeed {
             )}:00:00`
         );
 
-        const patientId = this.randomInt(1, 2);
-        const doctorId = this.randomInt(3, 4);
+        // const patientId = this.randomInt(1, 2);
+        // const doctorId = this.randomInt(3, 4);
+        const patientId = 2;
+        const doctorId = 3;
 
         const chat = await Chat.create({
             patientId: patientId,
             doctorId: doctorId,
         });
 
-        for (let i = 0; i < this.randomInt(20, 50); i++) {
+        for (let i = 0; i < this.randomInt(80, 100); i++) {
             Message.create({
                 chatId: chat.id,
                 authorId: this.randomInt(1, 2) === 1 ? doctorId : patientId,
@@ -43,7 +45,7 @@ export class ConsultationSeed extends CoreSeed {
     };
 
     public run = () => {
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 1; i++) {
             this.createConsultation();
         }
     };

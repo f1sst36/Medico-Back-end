@@ -76,6 +76,25 @@ export class Doctor extends CoreModel {
 
         return result;
     }
+
+    // TODO Время работы врача отправляется в строке, а значит не учитывает часовые пояса.
+    public transformedWorkTime = (): string => {
+        let currentDate, scheduleDay;
+        try {
+            currentDate = new Date();
+
+            scheduleDay = this.getDataValue('weeklySchedule').find(
+                (day) => day.dayNumber === currentDate.getDay()
+            );
+        } catch (e) {
+            console.log(e);
+            return null;
+        }
+
+        return `с ${scheduleDay.workingHours[0]}:00 до ${
+            scheduleDay.workingHours[scheduleDay.workingHours.length - 1]
+        }:00`;
+    };
 }
 
 const weeklyScheduleDefault = [
@@ -139,11 +158,39 @@ export const doctorSchema = {
     workplaces: {
         allowNull: false,
         type: DataTypes.ARRAY(DataTypes.STRING),
+        get() {
+            const workplaces: Array<string> = this.getDataValue('workplaces');
+            const transformedArray: Array<any> = [];
+
+            for (let i = 0; i < workplaces.length; i++) {
+                try {
+                    transformedArray.push(JSON.parse(workplaces[i]));
+                } catch (e) {
+                    transformedArray.push(workplaces[i]);
+                }
+            }
+
+            return transformedArray;
+        },
         defaultValue: [],
     },
     education: {
         allowNull: false,
         type: DataTypes.ARRAY(DataTypes.STRING),
+        get() {
+            const education: Array<string> = this.getDataValue('education');
+            const transformedArray: Array<any> = [];
+
+            for (let i = 0; i < education.length; i++) {
+                try {
+                    transformedArray.push(JSON.parse(education[i]));
+                } catch (e) {
+                    transformedArray.push(education[i]);
+                }
+            }
+
+            return transformedArray;
+        },
         defaultValue: [],
     },
     sent: {
@@ -163,9 +210,9 @@ export const doctorSchema = {
         defaultValue: 1000,
     },
     workTime: {
-        allowNull: false,
+        allowNull: true,
         type: DataTypes.STRING,
-        defaultValue: 'с 10:00 до 18:00',
+        // defaultValue: 'с 10:00 до 18:00',
     },
     weeklySchedule: {
         allowNull: false,

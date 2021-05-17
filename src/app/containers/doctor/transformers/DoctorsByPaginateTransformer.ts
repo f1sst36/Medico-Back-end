@@ -5,6 +5,8 @@ class DoctorsByPaginateTransformer extends CoreTransformer {
         for (let key in doctors) {
             doctors[key].dataValues.experience = doctors[key].transformExperience();
             doctors[key].dataValues.rating = doctors[key].getRating();
+            doctors[key].dataValues.workTime = doctors[key].transformedWorkTime();
+            
             doctors[key].dataValues.specialties = [];
 
             for (let k in doctors[key].dataValues.doctorSpecialtiesLink)
@@ -17,6 +19,7 @@ class DoctorsByPaginateTransformer extends CoreTransformer {
 
             delete doctors[key].dataValues.doctorSpecialtiesLink;
             delete doctors[key].dataValues.user;
+            delete doctors[key].dataValues.weeklySchedule;
         }
 
         return doctors;

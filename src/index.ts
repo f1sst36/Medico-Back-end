@@ -42,6 +42,7 @@ import { Feedback, feedbackSchema } from './app/containers/feedback/model/Feedba
 import { FeedbackController } from './app/containers/feedback/controllers/FeedbackController';
 import { messagesQueue } from './app/containers/chat/queues/MessagesQueue';
 import { ChatController } from './app/containers/chat/controllers/ChatController';
+import { MessageController } from './app/containers/chat/controllers/MessageController';
 
 export const app = new App({
     port: +process.env.PORT || 8080,
@@ -59,7 +60,8 @@ export const app = new App({
         new AnalysisController(),
         new PatientController(),
         new FeedbackController(),
-        new ChatController()
+        new ChatController(),
+        new MessageController()
     ],
     middlewares: [allowCrossDomain, verifyJWTToken, jsonErrorHandler, permissionByRole],
     queues: [messagesQueue],

@@ -66,7 +66,7 @@ class DoctorRepository extends CoreRepository {
                     },
                 ],
                 attributes: {
-                    exclude: ['createdAt', 'updatedAt', 'weeklySchedule'],
+                    exclude: ['createdAt', 'updatedAt'],
                 },
             });
             return result;
@@ -261,13 +261,16 @@ class DoctorRepository extends CoreRepository {
                     'experience',
                     'costOfConsultation',
                     'workTime',
+                    'weeklySchedule',
                     'photo',
                 ],
                 offset: (page - 1) * count,
                 limit: count,
             });
             return result;
-        } catch (_) {
+        } catch (e) {
+            console.log(e);
+
             return null;
         }
     };
@@ -415,7 +418,7 @@ class DoctorRepository extends CoreRepository {
         }
     };
 
-    // Этот метод используется в двух разных тасках/экшенах!
+    // Этот метод используется в трех разных тасках/экшенах/моделях!
     public getDoctorsWeeklySchedule = (doctorId: number): Promise<Doctor> => {
         try {
             const result = this.model.findOne({
@@ -526,6 +529,10 @@ class DoctorRepository extends CoreRepository {
         } catch (e) {
             return null;
         }
+    };
+
+    public updateDoctorsInfo = (doctorId: number, newFields: object): Promise<number> => {
+        return this.model.update(newFields, { returning: true, where: { id: doctorId } });
     };
 }
 

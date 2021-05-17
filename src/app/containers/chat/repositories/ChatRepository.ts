@@ -1,3 +1,5 @@
+import { Op } from 'sequelize';
+
 import { Doctor, DoctorSpecialtiesLink, Specialty } from '../../doctor/models';
 import { CoreRepository } from '../../../ship/core/repository/CoreRepository';
 import { Chat } from '../models/Chat';
@@ -71,7 +73,7 @@ class ChatRepository extends CoreRepository {
                 },
             ],
             attributes: ['id', 'isOpenedAccess'],
-            order: [['id', 'ASC']]
+            order: [['id', 'ASC']],
         });
     };
 
@@ -80,6 +82,16 @@ class ChatRepository extends CoreRepository {
             where: {
                 patientId: patientId,
                 doctorId: doctorId,
+            },
+            attributes: ['id'],
+        });
+    };
+
+    public isUserHasChat = (userId: number, chatId: number): Promise<Chat> => {
+        return this.model.findOne({
+            where: {
+                id: chatId,
+                [Op.or]: [{ patientId: userId }, { doctorId: userId }],
             },
             attributes: ['id'],
         });
