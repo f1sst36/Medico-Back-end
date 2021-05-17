@@ -5,10 +5,10 @@
             "security": {
                 "bearerAuth": []
             },
-            "description": "Get all chats for user. Method for patient and doctor",
+            "description": "Get all chats for user with last message. Method for patient and doctor",
             "responses": {
                 "200": {
-                    "description": "Successfully getted chat list",
+                    "description": "Successfully getted chat list for patient",
                     "schema": {
                         "type": "object",
                         "properties": {
@@ -26,7 +26,17 @@
                                             "id": 3,
                                             "name": "Максим",
                                             "surname": "Иванов",
-                                            "avatar": "/storage/files/doctor_2.jpg"
+                                            "avatar": "/storage/files/doctor_2.jpg",
+                                            "specialties": [
+                                                {
+                                                    "id": 9,
+                                                    "name": "Офтальмолог"
+                                                },
+                                                {
+                                                    "id": 10,
+                                                    "name": "Реабилитолог"
+                                                }
+                                            ]
                                         },
                                         "messages": [
                                             {
@@ -47,7 +57,71 @@
                                             "id": 4,
                                             "name": "Илья",
                                             "surname": "Дожленко",
-                                            "avatar": "/storage/files/doctor_7.jpg"
+                                            "avatar": "/storage/files/doctor_7.jpg",
+                                            "specialties": [
+                                                {
+                                                    "id": 3,
+                                                    "name": "Травматолог"
+                                                },
+                                                {
+                                                    "id": 12,
+                                                    "name": "Иммунолог"
+                                                }
+                                            ]
+                                        },
+                                        "messages": []
+                                    }
+                                ]
+                            },
+                            "message": {
+                                "type": "string",
+                                "example": "",
+                                "description": "Reply message"
+                            }
+                        }
+                    }
+                },
+                "200*": {
+                    "description": "Successfully getted chat list for doctor",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                                "type": "integer",
+                                "example": 0
+                            },
+                            "data": {
+                                "type": "Object",
+                                "example": [
+                                    {
+                                        "id": 1,
+                                        "isOpenedAccess": false,
+                                        "interlocutor": {
+                                            "id": 2,
+                                            "name": "Максим",
+                                            "surname": "Иванов",
+                                            "avatar": null
+                                        },
+                                        "messages": [
+                                            {
+                                                "id": 3,
+                                                "text": "qqqqqyyyy",
+                                                "createdAt": "2021-05-16T15:20:49.377Z",
+                                                "user": {
+                                                    "id": 2,
+                                                    "avatar": null
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "id": 3,
+                                        "isOpenedAccess": false,
+                                        "interlocutor": {
+                                            "id": 1,
+                                            "name": "Илья",
+                                            "surname": "Долженко",
+                                            "avatar": null
                                         },
                                         "messages": []
                                     }

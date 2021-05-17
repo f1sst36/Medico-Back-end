@@ -4,6 +4,7 @@ import { DataTypes } from 'sequelize';
 import { CoreModel } from '../../../ship/core/model/CoreModel';
 import { User } from '../../user/models/User';
 import { Review } from './Review';
+import { DoctorSpecialtiesLink } from '.';
 
 interface IWeeklyScheduleItem {
     dayNumber: number;
@@ -36,6 +37,7 @@ export class Doctor extends CoreModel {
 
     public user: User;
     public reviews: Array<Review>;
+    public doctorSpecialtiesLink: Array<DoctorSpecialtiesLink>;
 
     public getRating = (): number => {
         return Math.round(this.rating);

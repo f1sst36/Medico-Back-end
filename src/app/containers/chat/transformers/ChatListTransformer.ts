@@ -1,3 +1,5 @@
+import { Doctor } from '../../doctor/models';
+import { Patient } from '../../patient/models/Patient';
 import { CoreTransformer } from '../../../ship/core/transformer/CoreTransformer';
 import { Chat } from '../models/Chat';
 
@@ -9,6 +11,10 @@ interface ITransformedChat {
         name: string;
         surname: string;
         avatar: string;
+        specialties?: Array<{
+            id: number;
+            name: string;
+        }>;
     };
     messages: Array<{
         id: number;
@@ -24,8 +30,9 @@ interface ITransformedChat {
 class ChatListTransformer extends CoreTransformer {
     public transform = (chats: Array<Chat>): Array<ITransformedChat> => {
         const result: Array<ITransformedChat> = [];
+        
         for (let i = 0; i < chats.length; i++) {
-            const interlocutor = chats[i].hasOwnProperty('patient')
+            const interlocutor: Patient | Doctor = chats[i].hasOwnProperty('patient')
                 ? chats[i].patient
                 : chats[i].doctor;
 
@@ -40,6 +47,20 @@ class ChatListTransformer extends CoreTransformer {
                 },
                 messages: [],
             };
+
+            if (
+                interlocutor.hasOwnProperty('doctorSpecialtiesLink') &&
+                interlocutor instanceof Doctor
+            ) {
+                transformedChat.interlocutor.specialties = [];
+
+                for (let i = 0; i < interlocutor.doctorSpecialtiesLink.length; i++) {
+                    transformedChat.interlocutor.specialties.push({
+                        id: interlocutor.doctorSpecialtiesLink[i].specialty.getDataValue('id'),
+                        name: interlocutor.doctorSpecialtiesLink[i].specialty.getDataValue('name'),
+                    });
+                }
+            }
 
             if (chats[i].messages[0])
                 transformedChat.messages.push({

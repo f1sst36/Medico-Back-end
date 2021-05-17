@@ -1,4 +1,4 @@
-import { Doctor } from '../../doctor/models';
+import { Doctor, DoctorSpecialtiesLink, Specialty } from '../../doctor/models';
 import { CoreRepository } from '../../../ship/core/repository/CoreRepository';
 import { Chat } from '../models/Chat';
 import { User } from '../../user/models/User';
@@ -30,6 +30,19 @@ class ChatRepository extends CoreRepository {
             includeUserCondition.model = Doctor;
             includeUserCondition.as = 'doctor';
 
+            includeUserCondition.include.push({
+                model: DoctorSpecialtiesLink,
+                as: 'doctorSpecialtiesLink',
+                include: [
+                    {
+                        model: Specialty,
+                        as: 'specialty',
+                        attributes: ['id', 'name'],
+                    },
+                ],
+                attributes: ['id'],
+            });
+
             whereCondition.patientId = userId;
         } else if (userType === 'doctor') {
             includeUserCondition.model = Patient;
@@ -58,6 +71,7 @@ class ChatRepository extends CoreRepository {
                 },
             ],
             attributes: ['id', 'isOpenedAccess'],
+            order: [['id', 'ASC']]
         });
     };
 
