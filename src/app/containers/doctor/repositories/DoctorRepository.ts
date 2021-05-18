@@ -534,6 +534,18 @@ class DoctorRepository extends CoreRepository {
     public updateDoctorsInfo = (doctorId: number, newFields: object): Promise<number> => {
         return this.model.update(newFields, { returning: true, where: { id: doctorId } });
     };
+
+    public verifyDoctor = (doctorId: number): Promise<Doctor> => {
+        return this.model.update(
+            { isVerified: true },
+            {
+                returning: true,
+                where: {
+                    id: doctorId,
+                },
+            }
+        );
+    };
 }
 
 export const doctorRepository = new DoctorRepository();

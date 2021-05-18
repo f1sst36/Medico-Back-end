@@ -220,7 +220,6 @@
                 "in": "body",
                 "description": "Id of analysis",
                 "required": true,
-                "type": "string",
                 "schema": {
                     "type": "number",
                     "example": { "analysisId": 1 }

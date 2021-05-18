@@ -43,6 +43,7 @@ import { FeedbackController } from './app/containers/feedback/controllers/Feedba
 import { messagesQueue } from './app/containers/chat/queues/MessagesQueue';
 import { ChatController } from './app/containers/chat/controllers/ChatController';
 import { MessageController } from './app/containers/chat/controllers/MessageController';
+import { AdminController } from './app/containers/admin/controllers/AdminController';
 
 export const app = new App({
     port: +process.env.PORT || 8080,
@@ -61,7 +62,8 @@ export const app = new App({
         new PatientController(),
         new FeedbackController(),
         new ChatController(),
-        new MessageController()
+        new MessageController(),
+        new AdminController()
     ],
     middlewares: [allowCrossDomain, verifyJWTToken, jsonErrorHandler, permissionByRole],
     queues: [messagesQueue],

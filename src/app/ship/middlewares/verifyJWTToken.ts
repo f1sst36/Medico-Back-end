@@ -14,11 +14,14 @@ const exceptUrls: Array<string> = [
     prefix + '/doctor/specialty/all',
     prefix + '/doctor/paginate',
     prefix + '/doctor/info',
-    prefix + '/doctor/unverified',
     prefix + '/doctor/most-experienced',
     prefix + '/doctor/review/list',
     prefix + '/feedback/leave',
     prefix + '/consultation/all',
+
+    // Админские урлы
+    prefix + '/doctor/unverified',
+    prefix + '/admin/verify-doctor',
 ];
 
 export const verifyJWTToken = (req: any, res: Response, next: NextFunction) => {

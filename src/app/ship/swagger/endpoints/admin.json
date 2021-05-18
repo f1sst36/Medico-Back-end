@@ -79,5 +79,67 @@
                 }
             }
         }
+    },
+    "/doctor/verify-doctor": {
+        "post": {
+            "tags": ["Admin"],
+            "description": "Verify the doctor by id",
+            "responses": {
+                "200": {
+                    "description": "Successfully verified the doctor",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                                "type": "integer",
+                                "example": 0
+                            },
+                            "data": {
+                                "type": "Object",
+                                "example": null
+                            },
+                            "message": {
+                                "type": "string",
+                                "example": "Врач верифицирован | Врач не найден",
+                                "description": "Reply message"
+                            }
+                        }
+                    }
+                },
+                "422": {
+                    "description": "DB Error",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "data": {
+                                "type": "object",
+                                "example": null
+                            },
+                            "message": {
+                                "type": "string",
+                                "example": "Ошибка обновления пользователя",
+                                "description": "Reply message"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "parameters": [
+            {
+                "name": "doctorId",
+                "in": "body",
+                "description": "id of doctor",
+                "required": true,
+                "schema": {
+                    "type": "number",
+                    "example": { "doctorId": 1 }
+                }
+            }
+        ]
     }
 }
