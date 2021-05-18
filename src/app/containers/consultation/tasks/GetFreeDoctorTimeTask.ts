@@ -19,10 +19,14 @@ class GetFreeDoctorTimeTask extends CoreTask {
         const currentDate: Date = new Date();
         // let startDate: Date = new Date(format(parseISO(date), 'yyyy-MM-dd'));
         let startDate: Date = new Date(date);
+        
+        const offsetInMinutes = startDate.getTimezoneOffset();
+        startDate.setMinutes(startDate.getMinutes() + offsetInMinutes);
+        console.log('before startDate', startDate, startDate.getDate(), startDate.getHours());
         startDate.setHours(0, 0, 0, 0);
 
         console.log('date', date);
-        console.log('currentDate', currentDate);
+        console.log('currentDate', currentDate, currentDate.getDate(), currentDate.getHours());
         console.log('startDate', startDate, startDate.getDate(), startDate.getHours());
 
         let isEarly: Boolean = false;
