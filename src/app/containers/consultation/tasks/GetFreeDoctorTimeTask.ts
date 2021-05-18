@@ -2,6 +2,7 @@ import { addDays, format, parseISO } from 'date-fns';
 import { consultationRepository } from '../repositories/ConsultationRepository';
 import { doctorRepository } from '../../doctor/repositories/DoctorRepository';
 import { CoreTask, IResult } from '../../../ship/core/task/CoreTask';
+import { start } from 'pm2';
 
 interface IWorkingTime {
     time: string | number;
@@ -16,11 +17,13 @@ class GetFreeDoctorTimeTask extends CoreTask {
     ): Promise<IResult> => {
         // date: string это дата, которую хочет выбрать пациент для консультации
         const currentDate: Date = new Date();
-        let startDate: Date = new Date(format(parseISO(date), 'yyyy-MM-dd'));
+        // let startDate: Date = new Date(format(parseISO(date), 'yyyy-MM-dd'));
+        let startDate: Date = new Date(date);
+        startDate.setHours(0, 0, 0, 0);
 
         console.log('date', date);
         console.log('currentDate', currentDate);
-        console.log('startDate', startDate);
+        console.log('startDate', startDate, startDate.getDate(), startDate.getHours());
 
         let isEarly: Boolean = false;
         let isToday: Boolean = false;

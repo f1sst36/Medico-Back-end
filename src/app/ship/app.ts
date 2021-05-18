@@ -46,7 +46,7 @@ export class App {
         this.initDataBaseConnection();
         this.initModels(appInit.models);
 
-        this.initSchedules();
+        // this.initSchedules();
 
         this.initQueues(appInit.queues);
 
@@ -127,7 +127,7 @@ export class App {
             host: process.env.DB_HOST,
             dialect: 'postgres',
 
-            // logging: false,
+            logging: false,
 
             dialectOptions: {
                 ssl: {
@@ -136,7 +136,7 @@ export class App {
                 },
             },
 
-            timezone: '+03:00',
+            // timezone: '+03:00',
         });
     }
 
