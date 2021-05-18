@@ -21,6 +21,8 @@ class GetFreeDoctorTimeTask extends CoreTask {
         let startDate: Date = new Date(date);
 
         const offsetInMinutes = startDate.getTimezoneOffset();
+        console.log('offsetInMinutes', offsetInMinutes);
+
         startDate.setMinutes(startDate.getMinutes() + offsetInMinutes);
         console.log('before startDate', startDate, startDate.getDate(), startDate.getHours());
         startDate.setHours(0, 0, 0, 0);
