@@ -46,7 +46,7 @@ export class App {
         this.initDataBaseConnection();
         this.initModels(appInit.models);
 
-        // this.initSchedules();
+        this.initSchedules();
 
         this.initQueues(appInit.queues);
 
