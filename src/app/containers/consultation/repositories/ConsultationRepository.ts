@@ -213,7 +213,7 @@ class ConsultationRepository extends CoreRepository {
                         attributes: ['id', 'method'],
                     },
                 ],
-                attributes: ['id', 'symptoms'],
+                attributes: ['id', 'symptoms', 'chatId'],
             });
         } catch (e) {
             return null;

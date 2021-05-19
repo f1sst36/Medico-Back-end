@@ -37,6 +37,7 @@ interface TransformedResult {
     currentConsultation: {
         id: number;
         symptoms: string;
+        chatId: number;
         communicationMethod: {
             id: string;
             method: string;
@@ -81,6 +82,7 @@ class PatientInfoForConsultationTransformer extends CoreTransformer {
             currentConsultation: {
                 id: data.currentConsultation.getDataValue('id'),
                 symptoms: data.currentConsultation.getDataValue('symptoms'),
+                chatId: data.currentConsultation.getDataValue('chatId'),
                 communicationMethod: {
                     id: data.currentConsultation.communicationMethod.getDataValue('id'),
                     method: data.currentConsultation.communicationMethod.getDataValue('method'),

@@ -11,10 +11,9 @@ export const changeDoctorsInfoValidator = [
     Validator.body('about')
         .optional()
         .isLength({
-            min: 5,
             max: 30000,
         })
-        .withMessage('Информация о себе должна быть в диапозоне от 5 до 30 000 символов'),
+        .withMessage('Информация о себе должна быть до 30 000 символов'),
     Validator.body('education')
         .optional()
         .isLength({

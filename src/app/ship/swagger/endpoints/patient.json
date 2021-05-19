@@ -518,7 +518,8 @@
                                     },
                                     "currentConsultation": {
                                         "id": 81,
-                                        "symptoms": "gsehdjhfjutrfykjtyik"
+                                        "symptoms": "gsehdjhfjutrfykjtyik",
+                                        "chatId": 1
                                     },
                                     "history": [
                                         {
