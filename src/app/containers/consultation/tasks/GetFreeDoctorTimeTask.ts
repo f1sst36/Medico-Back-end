@@ -17,15 +17,15 @@ class GetFreeDoctorTimeTask extends CoreTask {
     ): Promise<IResult> => {
         // date: string это дата, которую хочет выбрать пациент для консультации
         const currentDate: Date = new Date();
-        // let startDate: Date = new Date(format(parseISO(date), 'yyyy-MM-dd'));
-        let startDate: Date = new Date(date);
+        let startDate: Date = new Date(format(parseISO(date), 'yyyy-MM-dd'));
+        // let startDate: Date = new Date(date);
 
-        const offsetInMinutes = startDate.getTimezoneOffset();
-        console.log('offsetInMinutes', offsetInMinutes);
+        // const offsetInMinutes = startDate.getTimezoneOffset();
+        // console.log('offsetInMinutes', offsetInMinutes);
 
-        startDate.setMinutes(startDate.getMinutes() + offsetInMinutes);
+        // startDate.setMinutes(startDate.getMinutes() + offsetInMinutes);
         console.log('before startDate', startDate, startDate.getDate(), startDate.getHours());
-        startDate.setHours(0, 0, 0, 0);
+        // startDate.setHours(0, 0, 0, 0);
 
         console.log('date from client', date);
         console.log('currentDate', currentDate, currentDate.getDate(), currentDate.getHours());
