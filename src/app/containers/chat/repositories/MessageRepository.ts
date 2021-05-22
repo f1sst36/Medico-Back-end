@@ -40,7 +40,7 @@ class MessageRepository extends CoreRepository {
                 {
                     model: User,
                     as: 'user',
-                    attributes: ['id', 'avatar'],
+                    attributes: ['id', 'avatar', 'name'],
                 },
             ],
             attributes: ['id', 'text', 'createdAt'],

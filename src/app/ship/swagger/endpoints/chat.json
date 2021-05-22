@@ -185,7 +185,8 @@
                                         "createdAt": "2021-05-17T12:52:59.461Z",
                                         "user": {
                                             "id": 3,
-                                            "avatar": "/storage/files/doctor_10.jpg"
+                                            "avatar": "/storage/files/doctor_10.jpg",
+                                            "name": "Ivan"
                                         }
                                     },
                                     {
@@ -194,7 +195,8 @@
                                         "createdAt": "2021-05-17T12:52:59.461Z",
                                         "user": {
                                             "id": 2,
-                                            "avatar": null
+                                            "avatar": null,
+                                            "name": "Ivan"
                                         }
                                     },
                                     {
@@ -203,7 +205,8 @@
                                         "createdAt": "2021-05-17T12:52:59.461Z",
                                         "user": {
                                             "id": 3,
-                                            "avatar": "/storage/files/doctor_10.jpg"
+                                            "avatar": "/storage/files/doctor_10.jpg",
+                                            "name": "Ivan"
                                         }
                                     }
                                 ]
