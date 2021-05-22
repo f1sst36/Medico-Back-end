@@ -2,11 +2,13 @@ import { appendMessageToQueueTask } from '../../containers/chat/tasks/AppendMess
 import { Socket } from 'socket.io';
 
 class SocketChat {
-    public NEW_MESSAGE_EVENT = 'newMessage';
+    // События, которые я отправляю
+    public NEW_MESSAGE_SUCCESS = 'newMessage-success';
+    public NEW_MESSAGE_ERROR = 'newMessage-error';
 
     public run = (socket: Socket) => {
         // Здесь список событий и методов, которые их обрабатывают
-        socket.on('sendMessage', appendMessageToQueueTask.run);
+        socket.on('newMessage', appendMessageToQueueTask.run);
     };
 }
 

@@ -24,14 +24,22 @@
             const button = document.getElementById('button');
 
             button.addEventListener('click', () => {
-                socket.emit('sendMessage', {
+                socket.emit('newMessage', {
                     chatId: 1,
                     authorId: 1,
                     text: textField.value,
                 });
             });
 
-            socket.on('newMessage', (data) => {
+            socket.on('newMessage-success', (data) => {
+                console.log(data);
+                const newNode = document.createElement('div');
+                newNode.innerHTML = data.id + '|' + data.text;
+                messages.append(newNode);
+            });
+
+            socket.on('newMessage-error', (data) => {
+                console.log('error', data);
                 const newNode = document.createElement('div');
                 newNode.innerHTML = data.id + '|' + data.text;
                 messages.append(newNode);

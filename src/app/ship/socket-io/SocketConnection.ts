@@ -10,7 +10,7 @@ class SocketConnection extends CoreSocket {
     private SOCKET_CONNECTION_IDS_LIST: string = 'socketConnectionIds';
 
     private authMiddleware = (socket: any, next: Function): void => {
-        return next();
+        // return next();
 
         if (!socket.handshake.query || !socket.handshake.query.token)
             return next(new Error('Auth error'));
@@ -75,8 +75,8 @@ class SocketConnection extends CoreSocket {
                 // console.log('connection', socket.user.id, socket.id);
                 // Метод для записи данных в редис
                 // TODO
-                // await this.addSocketIdToRedis(socket.user.id, socket.id);
-                await this.addSocketIdToRedis(1, socket.id);
+                await this.addSocketIdToRedis(socket.user.id, socket.id);
+                // await this.addSocketIdToRedis(1, socket.id);
             } catch (e) {
                 socket.disconnect();
                 return;
@@ -90,8 +90,8 @@ class SocketConnection extends CoreSocket {
                 console.log('disconnect', socket.id);
                 // Метод для удаления данных из редиса
                 // TODO
-                // await this.removeSocketIdFromRedis(socket.user.id);
-                await this.removeSocketIdFromRedis(1);
+                await this.removeSocketIdFromRedis(socket.user.id);
+                // await this.removeSocketIdFromRedis(1);
             });
         });
     };

@@ -56,6 +56,15 @@ class UserRepository extends CoreRepository {
             return null;
         }
     };
+
+    public getUserForMessage = (userId: number): Promise<User> => {
+        return this.model.findOne({
+            where: {
+                id: userId,
+            },
+            attributes: ['id', 'avatar', 'name'],
+        });
+    };
 }
 
 export const userRepository = new UserRepository();

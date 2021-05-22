@@ -1,3 +1,4 @@
+import { User } from '../../../containers/user/models/User';
 import Bull, { Job, Queue } from 'bull';
 import { app } from '../../../../index';
 import { INewMessage } from '../interfaces';
@@ -5,6 +6,11 @@ import { Message } from '../models/Message';
 import { broadcastMessageToRoomTask } from '../tasks/BroadcastMessageToRoomTask';
 import { failedMessageSendingTask } from '../tasks/FailedMessageSendingTask';
 import { messageToDBJob } from './jobs/MessageToDBJob';
+
+type messageWithUser = {
+    user: User;
+    message: Message;
+};
 
 class MessagesQueue {
     private messagesQueue: Queue;
@@ -22,7 +28,7 @@ class MessagesQueue {
 
         this.messagesQueue.process('newMessageProcess', messageToDBJob.run);
 
-        this.messagesQueue.on('completed', async (job: Job, result: Message) => {
+        this.messagesQueue.on('completed', async (job: Job, result: messageWithUser) => {
             await broadcastMessageToRoomTask.run(result, app.io);
             // Если job удалять, то он не будет оставлять мета инфу в редисе и в админке соответственно.
             // Еще так документация рекомендует
