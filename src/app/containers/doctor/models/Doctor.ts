@@ -91,9 +91,11 @@ export class Doctor extends CoreModel {
             return null;
         }
 
-        return `с ${scheduleDay.workingHours[0]}:00 до ${
-            scheduleDay.workingHours[scheduleDay.workingHours.length - 1]
-        }:00`;
+        return scheduleDay.workingHours.length === 0
+            ? 'выходной'
+            : `с ${scheduleDay.workingHours[0]}:00 до ${
+                  scheduleDay.workingHours[scheduleDay.workingHours.length - 1]
+              }:00`;
     };
 }
 
