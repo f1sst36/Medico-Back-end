@@ -15,6 +15,16 @@ class CheckConsultationState {
 
     private checkRedisJob: any;
 
+    // Метод вызывается когда консультация изменила свое состояние на 'active'
+    private consultationToActiveTrigger = (consultation: Consultation) => {
+        console.log('consultationToActiveTrigger', consultation);
+    };
+
+    // Метод вызывается когда консультация изменила свое состояние на 'done'
+    private consultationToDoneTrigger = (consultation: Consultation) => {
+        console.log('consultationToDoneTrigger', consultation);
+    };
+
     private getConsultationsByState = async (state: string): Promise<Array<Consultation>> => {
         const consultations = await consultationRepository.getAllConsultationsForRedisByState(
             state
@@ -30,7 +40,7 @@ class CheckConsultationState {
         consultations: Array<Consultation>,
         state: string = 'waiting'
     ) => {
-        console.log('consultations', consultations);
+        // console.log('consultations', consultations);
 
         if (!consultations || !consultations.length) return;
 
@@ -49,7 +59,7 @@ class CheckConsultationState {
             list.push(date);
         }
 
-        console.log('list', list);
+        // console.log('list', list);
 
         client.hmset(list, (err, _) => {
             if (err) throw err;
@@ -71,8 +81,8 @@ class CheckConsultationState {
             return;
         }
 
-        console.log(listName, reply);
-        console.log('currentDate', new Date());
+        // console.log(listName, reply);
+        // console.log('currentDate', new Date());
 
         // Если в редисе пусто
         if (!reply) return;
@@ -134,11 +144,17 @@ class CheckConsultationState {
                     consultation.getDataValue('id'),
                     addHours(consultation.getDataValue('receptionDate'), this.consultationDuration)
                 );
+
+                // Метод вызывается когда консультация изменила свое состояние на 'active'
+                this.consultationToActiveTrigger(consultation);
             } else if (nextState === 'done' || nextState === 'error') {
                 await util.promisify(client.hdel).bind(client)(
                     this.ACTIVE_LIST_NAME,
                     consultation.getDataValue('id')
                 );
+
+                // Метод вызывается когда консультация изменила свое состояние на 'done'
+                this.consultationToDoneTrigger(consultation);
             }
 
             // Необходимо удалить запись о 'waiting' консультации из редис списка и
