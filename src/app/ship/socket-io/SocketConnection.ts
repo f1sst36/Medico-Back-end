@@ -44,19 +44,24 @@ class SocketConnection extends CoreSocket {
             });
     };
 
-    public addSocketIdToRedis = async (userId: number, socketId: string): Promise<any> => {
+    public addSocketIdToRedis = async (userId: number, socketId: string): Promise<boolean> => {
         const id = await util.promisify(client.hget).bind(client)(
             this.SOCKET_CONNECTION_IDS_LIST,
             userId
         );
         // Если такой id юзера уже есть в редисе, то разрываем соединение
-        if (id) return app.io.sockets.connected[socketId].disconnect();
+        if (id) {
+            app.io.sockets.connected[socketId].disconnect();
+            return false;
+        }
 
-        return await util.promisify(client.hset).bind(client)(
+        await util.promisify(client.hset).bind(client)(
             this.SOCKET_CONNECTION_IDS_LIST,
             userId,
             socketId
         );
+
+        return true;
     };
 
     public removeSocketIdFromRedis = async (userId: number): Promise<any> => {
@@ -75,8 +80,18 @@ class SocketConnection extends CoreSocket {
                 // console.log('connection', socket.user.id, socket.id);
                 // Метод для записи данных в редис
                 // TODO
-                await this.addSocketIdToRedis(socket.user.id, socket.id);
+                const isAddedSocketId: boolean = await this.addSocketIdToRedis(
+                    socket.user.id,
+                    socket.id
+                );
                 // await this.addSocketIdToRedis(1, socket.id);
+
+                if (isAddedSocketId) {
+                    // TODO
+                    // При коннекте сделай проверку на существование у юзера активных консультаций
+                    // и если такие есть - шли ему сокетами уведомление, chatId, currentCommunicationMethodId, isOpenedAccess и может что-то еще
+                    // на каждую активную консультацию
+                }
             } catch (e) {
                 socket.disconnect();
                 return;
