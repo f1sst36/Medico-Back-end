@@ -97,7 +97,7 @@ class SocketConnection extends CoreSocket {
                 return;
             }
 
-            socket.emit('authorized', { message: 'You are authorized' });
+            // socket.emit('authorized', { message: 'You are authorized' });
 
             socketChat.run(socket);
 
