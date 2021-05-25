@@ -155,7 +155,10 @@ export class App {
     }
 
     private initSocket() {
-        this.io = require('socket.io')(this.server);
+        this.io = require('socket.io')(this.server, {
+            cors: true,
+            origins: [process.env.FRONT_APP_URL],
+        });
         socketConnection.init(this.io);
     }
 
