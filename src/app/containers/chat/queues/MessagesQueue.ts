@@ -10,6 +10,9 @@ import { messageToDBJob } from './jobs/MessageToDBJob';
 type messageWithUser = {
     user: User;
     message: Message;
+    passingData: {
+        uuid: string;
+    };
 };
 
 class MessagesQueue {

@@ -8,6 +8,9 @@ class BroadcastMessageToRoomTask extends CoreTask {
         data: {
             user: User;
             message: Message;
+            passingData: {
+                uuid: string;
+            };
         },
         io: SocketIO.Server
     ): Promise<void> => {
@@ -20,6 +23,7 @@ class BroadcastMessageToRoomTask extends CoreTask {
             chatId: data.message.getDataValue('chatId'),
             text: data.message.getDataValue('text'),
             createdAt: data.message.getDataValue('createdAt'),
+            uuid: data.passingData.uuid,
             user: {
                 id: data.user.getDataValue('id'),
                 avatar: data.user.getDataValue('avatar'),

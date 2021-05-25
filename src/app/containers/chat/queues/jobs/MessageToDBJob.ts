@@ -10,7 +10,12 @@ class MessageToDBJob {
     ): Promise<{
         user: User;
         message: Message;
+        passingData: {
+            uuid: string;
+        };
     }> => {
+        // passingData - скозные данные. Приходят от клиента и уходят ему же не влияя на бек никак.
+        
         // throw new Error('test error');
         const message = await messageRepository.appendMessage(job.data);
         const user = await userRepository.getUserForMessage(message.authorId);
@@ -18,6 +23,9 @@ class MessageToDBJob {
         return {
             user: user,
             message: message,
+            passingData: {
+                uuid: job.data.uuid,
+            },
         };
     };
 }
