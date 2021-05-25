@@ -16,6 +16,8 @@ class MessageRepository extends CoreRepository {
             chatId: message.chatId,
             authorId: message.authorId,
             text: message.text,
+            createdAt: new Date(),
+            updatedAt: new Date(),
         });
     };
 
