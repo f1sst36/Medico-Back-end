@@ -6,6 +6,7 @@ import { Chat } from '../models/Chat';
 import { User } from '../../user/models/User';
 import { Patient } from '../../patient/models/Patient';
 import { Message } from '../models/Message';
+import { MediaFile } from '../models/MediaFile';
 
 class ChatRepository extends CoreRepository {
     constructor() {
@@ -65,6 +66,11 @@ class ChatRepository extends CoreRepository {
                             model: User,
                             as: 'user',
                             attributes: ['id', 'avatar'],
+                        },
+                        {
+                            model: MediaFile,
+                            as: 'file',
+                            attributes: ['id', 'path', 'type'],
                         },
                     ],
                     attributes: ['id', 'authorId', 'text', 'createdAt'],
