@@ -23,6 +23,10 @@ export const mediaFileSchema = {
         allowNull: false,
         type: DataTypes.STRING,
     },
+    type: {
+        allowNull: false,
+        type: DataTypes.ENUM('image', 'audio')
+    },
     createdAt: {
         allowNull: false,
         type: DataTypes.DATE,

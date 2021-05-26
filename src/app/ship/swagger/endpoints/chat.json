@@ -251,7 +251,7 @@
                             },
                             "data": {
                                 "type": "object",
-                                "example": null
+                                "example": {}
                             },
                             "message": {
                                 "type": "string",
@@ -293,6 +293,98 @@
                     "type": "integer",
                     "example": "lastMessageId=50"
                 }
+            }
+        ]
+    },
+    "/chat/message/send-media": {
+        "post": {
+            "tags": ["Chat"],
+            "security": {
+                "bearerAuth": []
+            },
+            "description": "Send media file as message.",
+            "responses": {
+                "204": {
+                    "description": "Successfully sended media file",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                                "type": "integer",
+                                "example": 0
+                            },
+                            "data": {
+                                "type": "Object",
+                                "example": {}
+                            },
+                            "message": {
+                                "type": "string",
+                                "example": "",
+                                "description": "Reply message"
+                            }
+                        }
+                    }
+                },
+                "422": {
+                    "description": "DB Error",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "data": {
+                                "type": "object",
+                                "example": null
+                            },
+                            "message": {
+                                "type": "string",
+                                "example": "",
+                                "description": "Reply message"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "parameters": [
+            {
+                "name": "chatId",
+                "in": "formData",
+                "description": "Chat id",
+                "required": true,
+                "schema": {
+                    "type": "integer",
+                    "example": "chatId=1"
+                }
+            },
+            {
+                "name": "uuid",
+                "in": "formData",
+                "description": "uuid (only for front)",
+                "required": false,
+                "schema": {
+                    "type": "string",
+                    "example": "uuid=gdfhdtjdh"
+                }
+            },
+            {
+                "name": "type",
+                "in": "formData",
+                "description": "Type of media file. 'image' or 'audio'",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "example": "type=image"
+                }
+            },
+            {
+                "name": "file",
+                "in": "formData",
+                "description": "Media file",
+                "required": true,
+                "type": "file"
             }
         ]
     }

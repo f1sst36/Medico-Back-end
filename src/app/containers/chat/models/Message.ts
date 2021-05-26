@@ -2,16 +2,18 @@ import { User } from '../../user/models/User';
 import { DataTypes } from 'sequelize';
 
 import { CoreModel } from '../../../ship/core/model/CoreModel';
+import { MediaFile } from './MediaFile';
 
 export class Message extends CoreModel {
     public readonly id: Number;
     public chatId: number;
     public authorId: number;
     public text: string;
-    public file: string;
+    public mediaFileId: number;
     public deletedAt: Date;
 
     public user: User;
+    public file: MediaFile;
 }
 
 export const messageSchema = {
@@ -33,8 +35,8 @@ export const messageSchema = {
         type: DataTypes.STRING(2000),
         defaultValue: null,
     },
-    file: {
-        type: DataTypes.STRING,
+    mediaFileId: {
+        type: DataTypes.INTEGER,
         defaultValue: null,
     },
     deletedAt: {

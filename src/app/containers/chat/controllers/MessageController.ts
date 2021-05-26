@@ -5,9 +5,10 @@ import { CoreController } from '../../../ship/core/controller/CoreController';
 import { getOldMessagesValidator } from '../validators/getOldMessagesValidator';
 import { getMessagesForChatAction } from '../actions/GetMessagesForChatAction';
 import {
-    isValidVoiceMessageValidator,
-    loadVoiceMessageValidator,
-} from '../validators/loadVoiceMessageValidator';
+    isValidMediaMessageValidator,
+    loadMediaMessageValidator,
+} from '../validators/loadMediaMessageValidator';
+import { loadMediaMessageAction } from '../actions/LoadMediaMessageAction';
 
 export class MessageController extends CoreController {
     constructor() {
@@ -20,8 +21,8 @@ export class MessageController extends CoreController {
     public initRoutes() {
         this.router.get(this.prefix + '/list', getOldMessagesValidator, this.getOldMessages);
         this.router.post(
-            this.prefix + '/send-voice',
-            loadVoiceMessageValidator,
+            this.prefix + '/send-media',
+            loadMediaMessageValidator,
             this.loadVoiceMessage
         );
     }
@@ -48,10 +49,20 @@ export class MessageController extends CoreController {
     public loadVoiceMessage = async (req: any, res: Response): Promise<Response> => {
         if (
             this.validateRequest(req, res) ||
-            this.validateFormDataRequest(req, res, isValidVoiceMessageValidator)
+            this.validateFormDataRequest(req, res, isValidMediaMessageValidator)
         )
             return;
-        //
-        return;
+
+        const result = await loadMediaMessageAction.run({
+            chatId: req.body.chatId,
+            authorId: req.user.id,
+            file: req.files.file,
+            type: req.body.type,
+            uuid: req.body.uuid,
+        });
+
+        if (result.error) return res.status(422).json({});
+
+        return res.status(204).json({});
     };
 }

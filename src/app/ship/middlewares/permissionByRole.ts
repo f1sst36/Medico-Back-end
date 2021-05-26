@@ -21,6 +21,7 @@ const patientUrls = [
     prefix + '/patient/profile/change-medical-card',
     prefix + '/chat/list',
     prefix + '/chat/message/list',
+    prefix + '/chat/message/send-media',
 ];
 
 // Урлы доступные авторизованному пациенту без пройденной анкеты
@@ -45,6 +46,7 @@ const doctorUrls = [
     prefix + '/doctor/profile/change-info',
     prefix + '/chat/list',
     prefix + '/chat/message/list',
+    prefix + '/chat/message/send-media',
 ];
 
 // Урлы доступные авторизованому доктору без пройденной анкеты и верефицирования
