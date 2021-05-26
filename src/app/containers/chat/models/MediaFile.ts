@@ -25,7 +25,7 @@ export const mediaFileSchema = {
     },
     type: {
         allowNull: false,
-        type: DataTypes.ENUM('image', 'audio')
+        type: DataTypes.ENUM('image', 'audio', 'file')
     },
     createdAt: {
         allowNull: false,

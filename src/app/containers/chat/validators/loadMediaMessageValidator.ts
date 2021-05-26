@@ -9,7 +9,7 @@ export const loadMediaMessageValidator = [
         .isString()
         .withMessage('Неверный формат uuid'),
     Validator.body('type', 'Необходимо указать тип файла')
-        .isIn(['image', 'audio'])
+        .isIn(['image', 'audio', 'file'])
         .withMessage('Неверный тип файла'),
 ];
 
@@ -29,7 +29,10 @@ export const isValidMediaMessageValidator = (files: any): Array<String> | false 
         files.file.mimetype !== 'audio/wav' &&
         files.file.mimetype !== 'image/jpeg' &&
         files.file.mimetype !== 'image/png' &&
-        files.file.mimetype !== 'image/gif'
+        files.file.mimetype !== 'image/gif' &&
+        files.file.mimetype !== 'text/plain' &&
+        files.file.mimetype !== 'application/msword' &&
+        files.file.mimetype !== 'application/pdf'
     )
         errMessages.push('Неверный формат файла');
 

@@ -4,6 +4,7 @@ import { CoreRepository } from '../../../ship/core/repository/CoreRepository';
 import { INewMessage } from '../interfaces';
 
 import { Message } from '../models/Message';
+import { MediaFile } from '../models/MediaFile';
 
 class MessageRepository extends CoreRepository {
     constructor() {
@@ -43,6 +44,11 @@ class MessageRepository extends CoreRepository {
                     model: User,
                     as: 'user',
                     attributes: ['id', 'avatar', 'name'],
+                },
+                {
+                    model: MediaFile,
+                    as: 'file',
+                    attributes: ['id', 'path', 'type'],
                 },
             ],
             attributes: ['id', 'text', 'createdAt'],
