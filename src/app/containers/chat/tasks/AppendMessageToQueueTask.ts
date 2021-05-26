@@ -8,7 +8,7 @@ class AppendMessageToQueueTask extends CoreTask {
 
         messagesQueue.addMessage({
             chatId: newMessage.chatId,
-            authorId: newMessage.authorId,
+            authorId: authorId,
             text: newMessage.text,
             uuid: newMessage.uuid,
         });
