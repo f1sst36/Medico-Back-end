@@ -4,6 +4,10 @@ import { Response } from 'express';
 import { CoreController } from '../../../ship/core/controller/CoreController';
 import { getOldMessagesValidator } from '../validators/getOldMessagesValidator';
 import { getMessagesForChatAction } from '../actions/GetMessagesForChatAction';
+import {
+    isValidVoiceMessageValidator,
+    loadVoiceMessageValidator,
+} from '../validators/loadVoiceMessageValidator';
 
 export class MessageController extends CoreController {
     constructor() {
@@ -15,6 +19,11 @@ export class MessageController extends CoreController {
 
     public initRoutes() {
         this.router.get(this.prefix + '/list', getOldMessagesValidator, this.getOldMessages);
+        this.router.post(
+            this.prefix + '/send-voice',
+            loadVoiceMessageValidator,
+            this.loadVoiceMessage
+        );
     }
 
     // Получить сообщения, id которых меньше чем переданный. Если id не передан - отдай N самых новых сообщений
@@ -34,5 +43,15 @@ export class MessageController extends CoreController {
                 .json(coreTransformer.getErrorResponse(result.message));
 
         return res.status(200).json(coreTransformer.getSimpleSuccessResponse('', result.data));
+    };
+
+    public loadVoiceMessage = async (req: any, res: Response): Promise<Response> => {
+        if (
+            this.validateRequest(req, res) ||
+            this.validateFormDataRequest(req, res, isValidVoiceMessageValidator)
+        )
+            return;
+        //
+        return;
     };
 }

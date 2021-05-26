@@ -21,9 +21,10 @@ class BroadcastMessageToRoomTask extends CoreTask {
         io.emit(socketChat.NEW_MESSAGE_SUCCESS, {
             id: data.message.getDataValue('id'),
             chatId: data.message.getDataValue('chatId'),
-            text: data.message.getDataValue('text'),
+            text: data.message.getDataValue('text') || null,
             createdAt: data.message.getDataValue('createdAt'),
             uuid: data.passingData.uuid,
+            file: data.message.getDataValue('file'),
             user: {
                 id: data.user.getDataValue('id'),
                 avatar: data.user.getDataValue('avatar'),

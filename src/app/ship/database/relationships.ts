@@ -111,11 +111,11 @@ export const linkModels = () => {
         foreignKey: 'doctorId',
         constraints: false,
     });
-    Message.hasMany(MediaFile, {
-        as: 'files',
-        foreignKey: 'messageId',
-        constraints: false,
-    });
+    // Message.hasOne(MediaFile, {
+    //     as: 'file',
+    //     foreignKey: 'messageId',
+    //     constraints: false,
+    // });
     Message.belongsTo(User, {
         as: 'user',
         foreignKey: 'authorId',

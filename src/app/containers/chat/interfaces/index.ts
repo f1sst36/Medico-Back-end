@@ -4,3 +4,10 @@ export interface INewMessage {
     text: string;
     uuid: string;
 }
+
+export interface INewVoiceMessage {
+    chatId: number;
+    authorId: number;
+    file: Buffer | any;
+    uuid: string;
+}

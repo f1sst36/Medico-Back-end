@@ -8,6 +8,7 @@ export class Message extends CoreModel {
     public chatId: number;
     public authorId: number;
     public text: string;
+    public file: string;
     public deletedAt: Date;
 
     public user: User;
@@ -29,8 +30,12 @@ export const messageSchema = {
         type: DataTypes.INTEGER,
     },
     text: {
-        allowNull: false,
         type: DataTypes.STRING(2000),
+        defaultValue: null,
+    },
+    file: {
+        type: DataTypes.STRING,
+        defaultValue: null,
     },
     deletedAt: {
         type: DataTypes.DATE,
