@@ -24,13 +24,17 @@ interface ITransformedChat {
             id: number;
             avatar: string;
         };
+        file: {
+            path: string;
+            type: string;
+        };
     }>;
 }
 
 class ChatListTransformer extends CoreTransformer {
     public transform = (chats: Array<Chat>): Array<ITransformedChat> => {
         const result: Array<ITransformedChat> = [];
-        
+
         for (let i = 0; i < chats.length; i++) {
             const interlocutor: Patient | Doctor = chats[i].hasOwnProperty('patient')
                 ? chats[i].patient
@@ -71,6 +75,12 @@ class ChatListTransformer extends CoreTransformer {
                         id: chats[i].messages[0].user.getDataValue('id'),
                         avatar: chats[i].messages[0].user.getDataValue('avatar'),
                     },
+                    file: chats[i].messages[0].file
+                        ? {
+                              path: chats[i].messages[0].file.getDataValue('path'),
+                              type: chats[i].messages[0].file.getDataValue('type'),
+                          }
+                        : null,
                 });
 
             result.push(transformedChat);
