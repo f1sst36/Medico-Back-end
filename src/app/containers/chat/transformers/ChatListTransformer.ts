@@ -26,6 +26,8 @@ interface ITransformedChat {
         };
         file: {
             path: string;
+            name: string;
+            size: number;
             type: string;
         };
     }>;
@@ -78,6 +80,8 @@ class ChatListTransformer extends CoreTransformer {
                     file: chats[i].messages[0].file
                         ? {
                               path: chats[i].messages[0].file.getDataValue('path'),
+                              name: chats[i].messages[0].file.getDataValue('name'),
+                              size: chats[i].messages[0].file.getDataValue('size'),
                               type: chats[i].messages[0].file.getDataValue('type'),
                           }
                         : null,
