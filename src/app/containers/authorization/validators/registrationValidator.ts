@@ -15,6 +15,13 @@ export const registrationValidator = [
             max: 120,
         })
         .withMessage('Фамилия должна быть от 3 до 120 символов'),
+    Validator.body('middleName')
+        .optional()
+        .isLength({
+            min: 3,
+            max: 120,
+        })
+        .withMessage('Отчество должно быть от 3 до 120 символов'),
     Validator.body('password', 'Пароль не может быть пустым')
         .custom((password) => checkPassword(password))
         .withMessage('Неверный пароль'),
