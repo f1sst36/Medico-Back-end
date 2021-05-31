@@ -202,7 +202,9 @@
                                         "file": {
                                             "id": 2,
                                             "path": "/storage/files/14125f52e523f2c934bf849b549398bcff05bccd.png",
-                                            "type": "image"
+                                            "type": "image",
+                                            "name": "some_file_name",
+                                            "size": 5793420349
                                         }
                                     },
                                     {
