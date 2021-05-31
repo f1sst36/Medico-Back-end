@@ -6,6 +6,9 @@ export class MediaFile extends CoreModel {
     public readonly id: Number;
     public messageId: number;
     public path: string;
+    public name: string;
+    public size: number;
+    public type: string;
 }
 
 export const mediaFileSchema = {
@@ -23,9 +26,17 @@ export const mediaFileSchema = {
         allowNull: false,
         type: DataTypes.STRING,
     },
+    name: {
+        allowNull: false,
+        type: DataTypes.STRING,
+    },
+    size: {
+        allowNull: false,
+        type: DataTypes.INTEGER,
+    },
     type: {
         allowNull: false,
-        type: DataTypes.ENUM('image', 'audio', 'file')
+        type: DataTypes.ENUM('image', 'audio', 'file'),
     },
     createdAt: {
         allowNull: false,

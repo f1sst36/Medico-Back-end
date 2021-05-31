@@ -9,11 +9,15 @@ class MediaFileRepository extends CoreRepository {
 
     public appendMediaFile = (
         messageId: number,
+        name: string,
+        size: number,
         type: string,
         path: string
     ): Promise<MediaFile> => {
         return this.model.create({
             messageId: messageId,
+            name: name,
+            size: size,
             type: type,
             path: path,
         });

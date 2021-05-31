@@ -48,7 +48,7 @@ class MessageRepository extends CoreRepository {
                 {
                     model: MediaFile,
                     as: 'file',
-                    attributes: ['id', 'path', 'type'],
+                    attributes: ['id', 'name', 'size', 'path', 'type'],
                 },
             ],
             attributes: ['id', 'text', 'createdAt'],

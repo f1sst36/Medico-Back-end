@@ -22,6 +22,8 @@ class LoadMediaMessageAction extends CoreAction {
 
             newFile = await mediaFileRepository.appendMediaFile(
                 newMessage.getDataValue('id'),
+                voiceMessage.file.name,
+                voiceMessage.file.size,
                 voiceMessage.type,
                 pathToFile
             );
@@ -41,6 +43,8 @@ class LoadMediaMessageAction extends CoreAction {
             createdAt: newMessage.getDataValue('createdAt'),
             uuid: voiceMessage.uuid || null,
             file: {
+                name: newFile.getDataValue('name'),
+                size: newFile.getDataValue('size'),
                 path: newFile.getDataValue('path'),
                 type: newFile.getDataValue('type'),
             },

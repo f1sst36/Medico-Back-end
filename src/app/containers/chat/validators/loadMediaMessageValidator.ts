@@ -32,6 +32,8 @@ export const isValidMediaMessageValidator = (files: any): Array<String> | false 
         files.file.mimetype !== 'image/gif' &&
         files.file.mimetype !== 'text/plain' &&
         files.file.mimetype !== 'application/msword' &&
+        files.file.mimetype !==
+            'application/vnd.openxmlformats-officedocument.wordprocessingml.document' &&
         files.file.mimetype !== 'application/pdf'
     )
         errMessages.push('Неверный формат файла');

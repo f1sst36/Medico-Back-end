@@ -45,11 +45,11 @@ class SocketConnection extends CoreSocket {
     };
 
     public addSocketIdToRedis = async (userId: number, socketId: string): Promise<boolean> => {
+        // Если такой id юзера уже есть в редисе, то разрываем соединение
         const id = await util.promisify(client.hget).bind(client)(
             this.SOCKET_CONNECTION_IDS_LIST,
             userId
         );
-        // Если такой id юзера уже есть в редисе, то разрываем соединение
         if (id) {
             app.io.sockets.connected[socketId].disconnect();
             return false;
