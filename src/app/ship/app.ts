@@ -62,8 +62,8 @@ export class App {
             fileUpload({
                 useTempFiles: false,
                 tempFileDir: `${path.dirname(__filename)}/storage/tempFiles/`,
-                safeFileNames: true,
-                preserveExtension: false,
+                // safeFileNames: true,
+                // preserveExtension: false,
                 limits: { fileSize: 50 * 1024 * 1024 },
                 // debug: true,
             })
