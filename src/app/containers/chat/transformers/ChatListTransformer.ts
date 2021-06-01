@@ -22,6 +22,7 @@ interface ITransformedChat {
         createdAt: Date;
         user: {
             id: number;
+            name: string;
             avatar: string;
         };
         file: {
@@ -75,6 +76,7 @@ class ChatListTransformer extends CoreTransformer {
                     createdAt: chats[i].messages[0].getDataValue('createdAt'),
                     user: {
                         id: chats[i].messages[0].user.getDataValue('id'),
+                        name: chats[i].messages[0].user.getDataValue('name'),
                         avatar: chats[i].messages[0].user.getDataValue('avatar'),
                     },
                     file: chats[i].messages[0].file

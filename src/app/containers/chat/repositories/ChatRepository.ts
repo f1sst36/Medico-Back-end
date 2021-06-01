@@ -65,7 +65,7 @@ class ChatRepository extends CoreRepository {
                         {
                             model: User,
                             as: 'user',
-                            attributes: ['id', 'avatar'],
+                            attributes: ['id', 'name', 'avatar'],
                         },
                         {
                             model: MediaFile,
