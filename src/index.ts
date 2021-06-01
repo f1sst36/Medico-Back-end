@@ -45,6 +45,8 @@ import { ChatController } from './app/containers/chat/controllers/ChatController
 import { MessageController } from './app/containers/chat/controllers/MessageController';
 import { AdminController } from './app/containers/admin/controllers/AdminController';
 
+setInterval(() => console.log('ping'), 30_000);
+
 export const app = new App({
     port: +process.env.PORT || 8080,
     prefix: '/api/v1',
@@ -63,7 +65,7 @@ export const app = new App({
         new FeedbackController(),
         new ChatController(),
         new MessageController(),
-        new AdminController()
+        new AdminController(),
     ],
     middlewares: [allowCrossDomain, verifyJWTToken, jsonErrorHandler, permissionByRole],
     queues: [messagesQueue],
