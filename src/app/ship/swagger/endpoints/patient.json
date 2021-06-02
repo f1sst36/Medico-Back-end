@@ -491,6 +491,7 @@
                                 "type": "object",
                                 "example": {
                                     "patient": {
+                                        "id": 70,
                                         "name": "Ivan",
                                         "surname": "Ivanov",
                                         "middleName": "Ivanovich",

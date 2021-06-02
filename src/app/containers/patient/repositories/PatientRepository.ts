@@ -90,6 +90,7 @@ class PatientRepository extends CoreRepository {
                     },
                 ],
                 attributes: [
+                    'id',
                     'avatar',
                     'height',
                     'weight',

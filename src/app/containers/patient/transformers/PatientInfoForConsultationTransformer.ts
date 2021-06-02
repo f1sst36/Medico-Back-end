@@ -11,6 +11,7 @@ interface IParam {
 
 interface TransformedResult {
     patient: {
+        id: number;
         avatar: string;
         height: number;
         weight: number;
@@ -62,6 +63,7 @@ class PatientInfoForConsultationTransformer extends CoreTransformer {
     public transform = (data: IParam): TransformedResult => {
         const result: TransformedResult = {
             patient: {
+                id: data.patient.getDataValue('id'),
                 name: data.patient.user.getDataValue('name'),
                 surname: data.patient.user.getDataValue('surname'),
                 middleName: data.patient.user.getDataValue('middleName'),
