@@ -5,23 +5,23 @@ const Validator = require('express-validator');
 export const registrationValidator = [
     Validator.body('name', 'Имя не может быть пустым')
         .isLength({
-            min: 3,
+            min: 2,
             max: 120,
         })
-        .withMessage('Имя должно быть от 3 до 120 символов'),
+        .withMessage('Имя должно быть от 2 до 120 символов'),
     Validator.body('surname', 'Фамилия не может быть пустой')
         .isLength({
-            min: 3,
+            min: 2,
             max: 120,
         })
-        .withMessage('Фамилия должна быть от 3 до 120 символов'),
+        .withMessage('Фамилия должна быть от 2 до 120 символов'),
     Validator.body('middleName')
         .optional()
         .isLength({
-            min: 3,
+            min: 0,
             max: 120,
         })
-        .withMessage('Отчество должно быть от 3 до 120 символов'),
+        .withMessage('Отчество должно быть до 120 символов'),
     Validator.body('password', 'Пароль не может быть пустым')
         .custom((password) => checkPassword(password))
         .withMessage('Неверный пароль'),

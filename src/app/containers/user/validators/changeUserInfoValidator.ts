@@ -14,22 +14,23 @@ export const changeUserInfoValidator = [
         .optional()
         .isLength({
             min: 2,
-            max: 200,
+            max: 120,
         })
         .withMessage('Имя должно быть не меньше двух символов'),
     Validator.body('surname')
         .optional()
         .isLength({
             min: 2,
-            max: 200,
+            max: 120,
         })
         .withMessage('Фамилия должна быть не меньше двух символов'),
     Validator.body('middleName')
         .optional()
         .isLength({
-            max: 200,
+            min: 0,
+            max: 120,
         })
-        .withMessage('Отчество должно быть не меньше двух символов'),
+        .withMessage('Отчество должно быть до 120 символов'),
     Validator.body('birthDate').optional().isISO8601().withMessage('Неверный формат даты рождения'),
     Validator.body('sex').optional().isIn(['male', 'female']).withMessage('Неверный формат пола'),
     Validator.body('phone')
